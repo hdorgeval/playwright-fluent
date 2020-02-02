@@ -29,6 +29,11 @@
   ],
   "homepage": "https://github.com/hdorgeval/playwright-controller#readme",
   "devDependencies": {
+    "@types/jest": "25.1.1",
+    "@types/node": "13.7.0",
+    "jest": "25.1.0",
+    "ts-jest": "25.1.0",
+    "ts-node": "8.6.2",
     "typescript": "3.7.5"
   }
 }
