@@ -1,3 +1,6 @@
 {
-    "jest.autoEnable": false
+    "jest.autoEnable": false,
+    "typescript.implementationsCodeLens.enabled": true,
+    "typescript.referencesCodeLens.showOnAllFunctions": true,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }
