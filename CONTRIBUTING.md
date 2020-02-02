@@ -4,8 +4,31 @@ We'd love to accept your patches and contributions and help make this project ev
 
 As a contributor, here are the guidelines we would like you to follow:
 
+- [Getting Code](#Getting-Code)
 - [Commit Messages Guidelines](#Commit-Messages-Guidelines)
 - [Documentation Guidelines](#Documentation-Guidelines)
+- [Dependencies Guidelines](#Dependencies-Guidelines)
+
+## Getting Code
+
+1. Clone this repository
+
+```bash
+git clone https://github.com/hdorgeval/playwright-controller
+cd playwright-controller
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Run tests locally
+
+```bash
+npm test
+```
 
 ## Commit Messages Guidelines
 
@@ -60,3 +83,14 @@ To deliver to a different location, use "deliver" option:
 - Comments inside code should be generally avoided. If the code would not be understood without comments, consider re-writing the code to make it self-explanatory.
 
 - You should only comment public methods exposed by the API. Use JSDoc syntax and/or use the VSCode extension [Document This](https://marketplace.visualstudio.com/items?itemName=joelday.docthis)
+
+## Dependencies Guidelines
+
+For all dependencies (both installation and development):
+
+- **Do not add** a dependency if the desired functionality is easily implementable.
+- If adding a dependency, it should be well-maintained and trustworthy.
+
+A barrier for introducing new installation dependencies is especially high:
+
+- **Do not add** installation dependency unless it's critical to project success.
