@@ -21,25 +21,16 @@ module.exports = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: [
-    "src/**/*.ts",
-    "!src/**/index.ts"
-  ],
+  collectCoverageFrom: ['src/**/*.ts', '!src/**/index.ts'],
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: [
-    "/node_modules/",
-    "/test.ts/",
-    "/index.ts/"
-  ],
+  coveragePathIgnorePatterns: ['/node_modules/', '/test.ts/', '/index.ts/'],
 
   // A list of reporter names that Jest uses when writing coverage reports
-  coverageReporters: [
-    "lcov"
-  ],
+  coverageReporters: ['lcov'],
 
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
@@ -82,10 +73,7 @@ module.exports = {
   // ],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: [
-    "js",
-    "ts",
-  ],
+  moduleFileExtensions: ['js', 'ts'],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   // moduleNameMapper: {},
@@ -141,7 +129,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "node",
+  testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

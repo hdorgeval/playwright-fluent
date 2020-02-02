@@ -1,7 +1,6 @@
-
 # Contributing to playwright-controller
 
-We'd love to accept your patches and contributions and help make this project even better than it is today! 
+We'd love to accept your patches and contributions and help make this project even better than it is today!
 
 As a contributor, here are the guidelines we would like you to follow:
 
@@ -19,20 +18,21 @@ description
 footer
 ```
 
-1. *label* is one of the following:
-    - `chore` - build-related work, a change in the package.json file, a change in a configuration file or a change to a script file.
-    - `docs` - changes to docs, e.g. `docs(api.md): ..` to change documentation.
-    - `feat` - a new feature.
-    - `fix` - a bug fix.
-    - `refactor` - a code change that neither fixes a bug nor adds a feature
-    - `style` - a change in the code style: spaces/alignment/wrapping etc.
-    - `test` - adding missing tests or correcting existing tests.
-    
-2. *namespace* is put in parenthesis after label and is mandatory. Must be lowercase.
-3. *title* is a brief summary of changes.
-4. *description* is **optional**, new-line separated from title and is in present tense.
-5. *footer* is **optional**, new-line separated from *description* and contains "fixes" / "references" attribution to github issues.
-6. *footer* should also include "BREAKING CHANGE" if current API clients will break due to this change. It should explain what changed and how to get the old behavior.
+1. _label_ is one of the following:
+
+   - `chore` - build-related work, a change in the package.json file, a change in a configuration file or a change to a script file.
+   - `docs` - changes to docs, e.g. `docs(api.md): ..` to change documentation.
+   - `feat` - a new feature.
+   - `fix` - a bug fix.
+   - `refactor` - a code change that neither fixes a bug nor adds a feature
+   - `style` - a change in the code style: spaces/alignment/wrapping etc.
+   - `test` - adding missing tests or correcting existing tests.
+
+2. _namespace_ is put in parenthesis after label and is mandatory. Must be lowercase.
+3. _title_ is a brief summary of changes.
+4. _description_ is **optional**, new-line separated from title and is in present tense.
+5. _footer_ is **optional**, new-line separated from _description_ and contains "fixes" / "references" attribution to github issues.
+6. _footer_ should also include "BREAKING CHANGE" if current API clients will break due to this change. It should explain what changed and how to get the old behavior.
 
 Example:
 
