@@ -1,0 +1,32 @@
+{
+  "name": "playwright-controller",
+  "version": "1.0.0",
+  "description": "Fluent API around playwright",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hdorgeval/playwright-controller.git"
+  },
+  "engines": {
+    "node": ">=8.16.2"
+  },
+  "author": "Henri d'Orgeval",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hdorgeval/playwright-controller/issues"
+  },
+  "keywords": [
+    "playwright",
+    "fluent-api",
+    "e2e",
+    "test-automation",
+    "test-runner"
+  ],
+  "homepage": "https://github.com/hdorgeval/playwright-controller#readme",
+  "devDependencies": {
+    "typescript": "3.7.5"
+  }
+}
