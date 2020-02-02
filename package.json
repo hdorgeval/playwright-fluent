@@ -4,7 +4,10 @@
   "description": "Fluent API around playwright",
   "main": "index.js",
   "scripts": {
+    "check-format": "prettier --list-different \"src/**/*.ts\" ",
+    "format": "prettier --write \"src/**/*.ts\" ",
     "jest-init": "jest --init",
+    "lint": "eslint . --ext .js,.ts --format visualstudio --no-color --max-warnings 10 --report-unused-disable-directives",
     "test": "jest",
     "tsc-init": "tsc --init",
     "tsc": " tsc --listEmittedFiles"

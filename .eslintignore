@@ -1,2 +1,5 @@
-node_modules
 **/vendor/*.js
+coverage
+lib
+node_modules
+package
