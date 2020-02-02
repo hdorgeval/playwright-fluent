@@ -11,7 +11,7 @@
     "url": "git+https://github.com/hdorgeval/playwright-controller.git"
   },
   "engines": {
-    "node": ">=8.16.2"
+    "node": ">=10.15.0"
   },
   "author": "Henri d'Orgeval",
   "license": "MIT",
