@@ -1,0 +1,25 @@
+environment:
+  matrix:
+    - nodejs_version: '10'
+
+install:
+  - ps: >
+      if ($env:nodejs_version -eq "10") {
+        Install-Product node $env:nodejs_version x64
+      } else {
+        Install-Product node $env:nodejs_version
+      }
+  - set PATH=%APPDATA%\npm;%PATH%
+  - npm install
+matrix:
+  fast_finish: false
+build: off
+shallow_clone: true
+test_script:
+  - node --version
+  - npm --version
+  - npx --version
+  - npm run build
+  - npm test
+cache:
+  - '%APPDATA%\npm-cache'
