@@ -21,8 +21,6 @@ before_install:
   - npx --version
   # Launch XVFB
   - if [[ `uname` = "Linux" ]]; then export DISPLAY=:99.0; fi
-  # Info about firefox
-  - which firefox
 
 script:
   - node --version
