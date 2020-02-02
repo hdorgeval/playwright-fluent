@@ -4,6 +4,7 @@
   "description": "Fluent API around playwright",
   "main": "index.js",
   "scripts": {
+    "build": "rimraf lib && npm run format && npm run lint && tsc",
     "check-format": "prettier --list-different \"src/**/*.ts\" ",
     "format": "prettier --write \"src/**/*.ts\" ",
     "jest-init": "jest --init",

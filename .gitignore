@@ -1,3 +1,7 @@
+# built data
+build
+lib
+
 # Logs
 logs
 *.log
