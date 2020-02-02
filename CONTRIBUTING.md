@@ -5,6 +5,7 @@ We'd love to accept your patches and contributions and help make this project ev
 As a contributor, here are the guidelines we would like you to follow:
 
 - [Commit Messages Guidelines](#Commit-Messages-Guidelines)
+- [Documentation Guidelines](#Documentation-Guidelines)
 
 ## Commit Messages Guidelines
 
@@ -47,3 +48,15 @@ BREAKING CHANGE: page.pizza now delivers pizza at home by default.
 To deliver to a different location, use "deliver" option:
   `page.pizza({deliver: 'work'})`.
 ```
+
+## Documentation Guidelines
+
+### Markdown Guidelines
+
+- You should follow this [Github Guide on Markdown](https://guides.github.com/features/mastering-markdown/)
+
+### Code Comment
+
+- Comments inside code should be generally avoided. If the code would not be understood without comments, consider re-writing the code to make it self-explanatory.
+
+- You should only comment public methods exposed by the API. Use JSDoc syntax and/or use the VSCode extension [Document This](https://marketplace.visualstudio.com/items?itemName=joelday.docthis)
