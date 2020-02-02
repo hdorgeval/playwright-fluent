@@ -1,0 +1,36 @@
+addons:
+  apt:
+    packages:
+      - libnss3
+
+language: node_js
+sudo: false
+
+services:
+  - xvfb
+
+node_js:
+  - '10'
+  - '12'
+  - '13'
+
+before_install:
+  # Info about OS
+  - uname
+  - if [[ `node -v` = v6* ]]; then npm i -g npx; fi
+  - npx --version
+  # Launch XVFB
+  - if [[ `uname` = "Linux" ]]; then export DISPLAY=:99.0; fi
+  # Info about firefox
+  - which firefox
+
+script:
+  - node --version
+  - npm --version
+  - npx --version
+  - npm run build
+  - npm test
+
+os:
+  - linux
+  - osx
