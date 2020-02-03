@@ -30,7 +30,7 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "import/order": ["error", {
-      "groups": ["index", "sibling", "parent", "internal", "external", "builtin"]
+      "groups": ["builtin", "external", "parent", "sibling", "index"]
     }],
     "indent": ["error", 2, {
       "SwitchCase": 1
