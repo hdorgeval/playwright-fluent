@@ -1,4 +1,5 @@
 import { PlaywrightController } from '../../controller';
+import { sleep } from '../../../utils/sleep';
 import { chromium, firefox, webkit } from 'playwright';
 import * as path from 'path';
 
@@ -72,6 +73,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     // expect(pwc2.currentBrowser()).toBe(undefined);
     // expect(pwc2.currentPage()).toBe(undefined);
     expect(page).toBeDefined();
+    await sleep(5000);
     await browser.close();
   });
 
