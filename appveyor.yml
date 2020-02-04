@@ -13,7 +13,7 @@ install:
   - npm install
   - cd node_modules
   - cd playwright-core
-  - npm install --save rimraf@3.01
+  - npm install --save rimraf@3.0.1
   - cd ..
   - cd ..
 
