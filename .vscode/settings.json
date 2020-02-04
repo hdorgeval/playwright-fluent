@@ -1,7 +1,7 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": true
+    "source.organizeImports": false
   },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
