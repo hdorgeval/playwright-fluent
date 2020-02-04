@@ -18,6 +18,7 @@
       "autoFix": true
     }
   ],
+  "files.eol": "\r\n",
   "jest.autoEnable": false,
   "typescript.implementationsCodeLens.enabled": true,
   "typescript.referencesCodeLens.showOnAllFunctions": true,

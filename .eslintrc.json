@@ -29,12 +29,20 @@
   },
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "import/order": ["error", {
-      "groups": ["builtin", "external", "parent", "sibling", "index"]
-    }],
-    "indent": ["error", 2, {
-      "SwitchCase": 1
-    }],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "parent", "sibling", "index"]
+      }
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "linebreak-style": [2, "windows"],
     "no-console": ["error"],
     "no-debugger": ["error"],
     "no-multiple-empty-lines": [
@@ -47,11 +55,6 @@
     "semi": ["error", "always"]
   },
   "settings": {
-    "import/extensions": [
-      ".js",
-      ".ts",
-      ".json",
-      ".html"
-    ]
+    "import/extensions": [".js", ".ts", ".json", ".html"]
   }
 }
