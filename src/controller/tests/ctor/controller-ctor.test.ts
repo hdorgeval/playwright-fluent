@@ -1,5 +1,4 @@
 import { PlaywrightController } from '../../controller';
-import { sleep } from '../../../utils/sleep';
 import { chromium, firefox, webkit } from 'playwright';
 import * as path from 'path';
 
@@ -20,9 +19,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Then
     expect(pwc.currentBrowser()).toBe(browser);
     expect(pwc.currentPage()).toBe(page);
-    await sleep(5000);
     await browser.close();
-    await sleep(1000);
   });
 
   test('should take existing browser and page instance of firefox', async (): Promise<void> => {
@@ -38,9 +35,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Then
     expect(pwc.currentBrowser()).toBe(browser);
     expect(pwc.currentPage()).toBe(page);
-    await sleep(5000);
     await browser.close();
-    await sleep(1000);
   });
 
   test('should take existing browser and page instance of webkit', async (): Promise<void> => {
@@ -56,17 +51,15 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Then
     expect(pwc.currentBrowser()).toBe(browser);
     expect(pwc.currentPage()).toBe(page);
-    await sleep(5000);
     await browser.close();
-    await sleep(1000);
   });
 
   test('should be called with both a browser and a page instance', async (): Promise<void> => {
     // Given
-    const browser = await chromium.launch({ headless: true });
+    const browser = await firefox.launch({ headless: true });
     const context = await browser.newContext();
-    const url = `file:${path.join(__dirname, 'controller-ctor.test.html')}`;
-    const page = await context.newPage(url);
+    // const url = `file:${path.join(__dirname, 'controller-ctor.test.html')}`;
+    const page = await context.newPage('https://google.com');
 
     // When
     const pwc1 = new PlaywrightController(browser);
@@ -79,9 +72,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     expect(pwc2.currentBrowser()).toBe(undefined);
     expect(pwc2.currentPage()).toBe(undefined);
 
-    await sleep(5000);
     await browser.close();
-    await sleep(1000);
   });
 
   test.skip('should take existing browser and page instance of firefox', async (): Promise<
