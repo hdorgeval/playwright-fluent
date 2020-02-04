@@ -55,7 +55,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     await browser.close();
   });
 
-  test.only('should be called with both a browser and a page instance', async (): Promise<void> => {
+  test('should be called with both a browser and a page instance', async (): Promise<void> => {
     // Given
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
@@ -63,16 +63,16 @@ describe('Playwright Controller - ctor usage', (): void => {
     const page = await context.newPage(url);
 
     // When
-    // const pwc1 = new PlaywrightController(browser);
-    // const pwc2 = new PlaywrightController(undefined, page);
+    const pwc1 = new PlaywrightController(browser);
+    const pwc2 = new PlaywrightController(undefined, page);
 
-    // // Then
-    // expect(pwc1.currentBrowser()).toBe(undefined);
-    // expect(pwc1.currentPage()).toBe(undefined);
+    // Then
+    expect(pwc1.currentBrowser()).toBe(undefined);
+    expect(pwc1.currentPage()).toBe(undefined);
 
-    // expect(pwc2.currentBrowser()).toBe(undefined);
-    // expect(pwc2.currentPage()).toBe(undefined);
-    expect(page).toBeDefined();
+    expect(pwc2.currentBrowser()).toBe(undefined);
+    expect(pwc2.currentPage()).toBe(undefined);
+
     await sleep(5000);
     await browser.close();
   });
