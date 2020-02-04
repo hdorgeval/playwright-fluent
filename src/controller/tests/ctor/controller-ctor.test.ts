@@ -20,7 +20,9 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Then
     expect(pwc.currentBrowser()).toBe(browser);
     expect(pwc.currentPage()).toBe(page);
+    await sleep(5000);
     await browser.close();
+    await sleep(1000);
   });
 
   test('should take existing browser and page instance of firefox', async (): Promise<void> => {
@@ -36,7 +38,9 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Then
     expect(pwc.currentBrowser()).toBe(browser);
     expect(pwc.currentPage()).toBe(page);
+    await sleep(5000);
     await browser.close();
+    await sleep(1000);
   });
 
   test('should take existing browser and page instance of webkit', async (): Promise<void> => {
@@ -52,7 +56,9 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Then
     expect(pwc.currentBrowser()).toBe(browser);
     expect(pwc.currentPage()).toBe(page);
+    await sleep(5000);
     await browser.close();
+    await sleep(1000);
   });
 
   test('should be called with both a browser and a page instance', async (): Promise<void> => {
@@ -75,6 +81,7 @@ describe('Playwright Controller - ctor usage', (): void => {
 
     await sleep(5000);
     await browser.close();
+    await sleep(1000);
   });
 
   test.skip('should take existing browser and page instance of firefox', async (): Promise<
