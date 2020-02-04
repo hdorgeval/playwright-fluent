@@ -61,8 +61,6 @@ describe('Playwright Controller - ctor usage', (): void => {
     const url = `file:${path.join(__dirname, 'controller-ctor.test.html')}`;
     const page = await context.newPage(url);
 
-    // eslint-disable-next-line no-console
-    console.log(page);
     // When
     // const pwc1 = new PlaywrightController(browser);
     // const pwc2 = new PlaywrightController(undefined, page);
@@ -73,7 +71,7 @@ describe('Playwright Controller - ctor usage', (): void => {
 
     // expect(pwc2.currentBrowser()).toBe(undefined);
     // expect(pwc2.currentPage()).toBe(undefined);
-
+    expect(page).toBeDefined();
     await browser.close();
   });
 
