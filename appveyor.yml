@@ -11,6 +11,12 @@ install:
       }
   - set PATH=%APPDATA%\npm;%PATH%
   - npm install
+  - cd node_modules
+  - cd playwright-core
+  - npm install --save rimraf@3.01
+  - cd ..
+  - cd ..
+
 matrix:
   fast_finish: false
 build: off
