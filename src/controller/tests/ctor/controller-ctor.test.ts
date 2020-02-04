@@ -54,7 +54,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     await browser.close();
   });
 
-  test('should be called with both a browser and a page instance', async (): Promise<void> => {
+  test.only('should be called with both a browser and a page instance', async (): Promise<void> => {
     // Given
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
