@@ -1,6 +1,6 @@
-import * as path from 'path';
-import { chromium, firefox, webkit } from 'playwright';
 import { PlaywrightController } from '../../controller';
+import { chromium, firefox, webkit } from 'playwright';
+import * as path from 'path';
 
 describe('Playwright Controller - ctor usage', (): void => {
   beforeEach((): void => {
