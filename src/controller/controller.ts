@@ -1,13 +1,49 @@
+import * as action from '../actions';
+import { BrowserName } from '../actions';
 import { Browser, Page } from 'playwright';
+
+export { BrowserName } from '../actions';
+
 export class PlaywrightController implements PromiseLike<void> {
-  then<TResult1 = void, TResult2 = never>(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null | undefined,
-  ): PromiseLike<TResult1 | TResult2> {
-    throw new Error('Method not implemented.');
+  public async then<TResult1 = void, TResult2 = never>(
+    onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined,
+    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null | undefined,
+  ): Promise<TResult1 | TResult2> {
+    return await this.executeActions()
+      .then(onfulfilled)
+      .catch(onrejected);
   }
+
+  private _lastError?: Error;
+  public lastError(): Error | undefined {
+    return this._lastError;
+  }
+  private _isExecutingActions = false;
+  private async executeActions(): Promise<void> {
+    try {
+      this._isExecutingActions = true;
+      this._lastError = undefined;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        if (this.actions.length === 0) {
+          break;
+        }
+        const action = this.actions.shift();
+        action && (await action());
+      }
+    } catch (error) {
+      this._lastError = error;
+      this.actions = [];
+      this._isExecutingActions = false;
+      throw error;
+    } finally {
+      // eslint-disable-next-line no-console
+      console.log(this._isExecutingActions);
+      this.actions = [];
+      this._isExecutingActions = false;
+    }
+  }
+
   constructor(browser?: Browser, page?: Page) {
     if (browser && page) {
       this.browser = browser;
@@ -22,5 +58,17 @@ export class PlaywrightController implements PromiseLike<void> {
   private page: Page | undefined;
   public currentPage(): Page | undefined {
     return this.page;
+  }
+
+  private actions: (() => Promise<void>)[] = [];
+
+  private async launchBrowser(name: BrowserName): Promise<void> {
+    this.browser = await action.launchBrowser(name);
+  }
+
+  public withBrowser(name: BrowserName): PlaywrightController {
+    const action = (): Promise<void> => this.launchBrowser(name);
+    this.actions.push(action);
+    return this;
   }
 }
