@@ -1,4 +1,5 @@
 import { PlaywrightController } from '../../controller';
+import { BrowserName } from '../../../actions';
 declare const window: Window;
 describe('Playwright Controller - withBrowser', (): void => {
   beforeEach((): void => {
@@ -56,5 +57,25 @@ describe('Playwright Controller - withBrowser', (): void => {
     const userAgent = page && (await page.evaluate(() => window.navigator.userAgent));
     expect(userAgent).toContain('Safari');
     createdBrowser && (await createdBrowser.close());
+  });
+
+  test('should through an error on unknown browser', async (): Promise<void> => {
+    // Given
+    const browser = 'yo';
+    const pwc = new PlaywrightController();
+
+    // When
+    let result: Error | undefined = undefined;
+    try {
+      await pwc.withBrowser(browser as BrowserName);
+    } catch (error) {
+      result = error;
+    }
+
+    // Then
+    const expectedErrorMessage =
+      "Browser named 'yo' is unknown. It should be one of 'chromium', 'firefox', 'webkit'";
+    expect(result && result.message).toContain(expectedErrorMessage);
+    expect((pwc.lastError() || {}).message).toBe(expectedErrorMessage);
   });
 });
