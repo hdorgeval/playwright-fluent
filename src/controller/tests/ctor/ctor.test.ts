@@ -10,7 +10,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Given
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
-    const url = `file:${path.join(__dirname, 'controller-ctor.test.html')}`;
+    const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
     const page = await context.newPage(url);
 
     // When
@@ -26,7 +26,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Given
     const browser = await firefox.launch({ headless: true });
     const context = await browser.newContext();
-    // const url = `file:${path.join(__dirname, 'controller-ctor.test.html')}`;
+    // const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
     const page = await context.newPage('https://google.com');
 
     // When
@@ -42,7 +42,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Given
     const browser = await webkit.launch({ headless: true });
     const context = await browser.newContext();
-    const url = `file:${path.join(__dirname, 'controller-ctor.test.html')}`;
+    const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
     const page = await context.newPage(url);
 
     // When
@@ -58,7 +58,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Given
     const browser = await firefox.launch({ headless: true });
     const context = await browser.newContext();
-    // const url = `file:${path.join(__dirname, 'controller-ctor.test.html')}`;
+    // const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
     const page = await context.newPage('https://google.com');
 
     // When
@@ -81,7 +81,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     // Given
     const browser = await firefox.launch({ headless: true });
     const context = await browser.newContext();
-    const url = `file:${path.join(__dirname, 'controller-ctor.test.html')}`;
+    const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
     const page = await context.newPage(url);
 
     // When
