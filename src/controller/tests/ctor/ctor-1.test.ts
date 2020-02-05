@@ -54,27 +54,6 @@ describe('Playwright Controller - ctor usage', (): void => {
     await browser.close();
   });
 
-  test('should be called with both a browser and a page instance', async (): Promise<void> => {
-    // Given
-    const browser = await firefox.launch({ headless: true });
-    const context = await browser.newContext();
-    // const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
-    const page = await context.newPage('https://google.com');
-
-    // When
-    const pwc1 = new PlaywrightController(browser);
-    const pwc2 = new PlaywrightController(undefined, page);
-
-    // Then
-    expect(pwc1.currentBrowser()).toBe(undefined);
-    expect(pwc1.currentPage()).toBe(undefined);
-
-    expect(pwc2.currentBrowser()).toBe(undefined);
-    expect(pwc2.currentPage()).toBe(undefined);
-
-    await browser.close();
-  });
-
   test.skip('should take existing browser and page instance of firefox', async (): Promise<
     void
   > => {
