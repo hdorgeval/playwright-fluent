@@ -71,4 +71,13 @@ export class PlaywrightController implements PromiseLike<void> {
     this.actions.push(action);
     return this;
   }
+
+  private async closeBrowser(): Promise<void> {
+    await action.closeBrowser(this.currentBrowser());
+  }
+  public close(): PlaywrightController {
+    const action = (): Promise<void> => this.closeBrowser();
+    this.actions.push(action);
+    return this;
+  }
 }
