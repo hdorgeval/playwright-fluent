@@ -1,4 +1,5 @@
 import { PlaywrightController } from '../../controller';
+import { sleep } from '../../../utils/sleep';
 describe('Playwright Controller - close', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
@@ -56,7 +57,9 @@ describe('Playwright Controller - close', (): void => {
     const previousConnectedStatus = createdBrowser && createdBrowser.isConnected();
 
     // When
+    await sleep(1000);
     await pwc.close();
+    await sleep(1000);
 
     // Then
     createdBrowser = pwc.currentBrowser();
