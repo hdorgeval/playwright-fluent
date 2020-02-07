@@ -1,8 +1,8 @@
 import * as action from '../actions';
-import { BrowserName } from '../actions';
+import { BrowserName, NavigationOptions, defaultNavigationOptions } from '../actions';
 import { Browser, Page, BrowserContext } from 'playwright';
 
-export { BrowserName } from '../actions';
+export { BrowserName, NavigationOptions } from '../actions';
 
 export class PlaywrightController implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
@@ -82,5 +82,24 @@ export class PlaywrightController implements PromiseLike<void> {
     const action = (): Promise<void> => this.closeBrowser();
     this.actions.push(action);
     return this;
+  }
+
+  private async gotoUrl(url: string, options: NavigationOptions): Promise<void> {
+    await action.navigateTo(url, options, this.currentPage());
+  }
+  public navigateTo(
+    url: string,
+    options: Partial<NavigationOptions> = defaultNavigationOptions,
+  ): PlaywrightController {
+    const navigationOptions: NavigationOptions = {
+      ...defaultNavigationOptions,
+      ...options,
+    };
+    const action = (): Promise<void> => this.gotoUrl(url, navigationOptions);
+    this.actions.push(action);
+    return this;
+  }
+  public async getCurrentUrl(): Promise<string> {
+    return await action.getCurrentUrl(this.currentPage());
   }
 }
