@@ -1,6 +1,6 @@
 import * as action from '../actions';
 import { BrowserName } from '../actions';
-import { Browser, Page } from 'playwright';
+import { Browser, Page, BrowserContext } from 'playwright';
 
 export { BrowserName } from '../actions';
 
@@ -52,6 +52,7 @@ export class PlaywrightController implements PromiseLike<void> {
   }
 
   private browser: Browser | undefined;
+  private browserContext: BrowserContext | undefined;
   public currentBrowser(): Browser | undefined {
     return this.browser;
   }
@@ -64,6 +65,8 @@ export class PlaywrightController implements PromiseLike<void> {
 
   private async launchBrowser(name: BrowserName): Promise<void> {
     this.browser = await action.launchBrowser(name);
+    this.browserContext = await this.browser.newContext();
+    this.page = await this.browserContext.newPage();
   }
 
   public withBrowser(name: BrowserName): PlaywrightController {

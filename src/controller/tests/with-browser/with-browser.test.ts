@@ -14,13 +14,15 @@ describe('Playwright Controller - withBrowser', (): void => {
     await pwc.withBrowser(browser);
 
     // Then
-    const createdBrowser = pwc.currentBrowser();
-    expect(pwc.currentBrowser()).toBeDefined();
-    const context = createdBrowser && (await createdBrowser.newContext());
-    const page = context && (await context.newPage());
-    const userAgent = page && (await page.evaluate(() => window.navigator.userAgent));
+    const browserInstance = pwc.currentBrowser();
+    const pageInstance = pwc.currentPage();
+    expect(browserInstance).toBeDefined();
+    expect(pageInstance).toBeDefined();
+
+    const userAgent =
+      pageInstance && (await pageInstance.evaluate(() => window.navigator.userAgent));
     expect(userAgent).toContain('HeadlessChrome');
-    createdBrowser && (await createdBrowser.close());
+    browserInstance && (await browserInstance.close());
   });
 
   test('should target firefox', async (): Promise<void> => {
@@ -32,13 +34,15 @@ describe('Playwright Controller - withBrowser', (): void => {
     await pwc.withBrowser(browser);
 
     // Then
-    const createdBrowser = pwc.currentBrowser();
-    expect(pwc.currentBrowser()).toBeDefined();
-    const context = createdBrowser && (await createdBrowser.newContext());
-    const page = context && (await context.newPage());
-    const userAgent = page && (await page.evaluate(() => window.navigator.userAgent));
+    const browserInstance = pwc.currentBrowser();
+    const pageInstance = pwc.currentPage();
+    expect(browserInstance).toBeDefined();
+    expect(pageInstance).toBeDefined();
+
+    const userAgent =
+      pageInstance && (await pageInstance.evaluate(() => window.navigator.userAgent));
     expect(userAgent).toContain('Firefox');
-    createdBrowser && (await createdBrowser.close());
+    browserInstance && (await browserInstance.close());
   });
 
   test('should target webkit', async (): Promise<void> => {
@@ -50,13 +54,15 @@ describe('Playwright Controller - withBrowser', (): void => {
     await pwc.withBrowser(browser);
 
     // Then
-    const createdBrowser = pwc.currentBrowser();
-    expect(pwc.currentBrowser()).toBeDefined();
-    const context = createdBrowser && (await createdBrowser.newContext());
-    const page = context && (await context.newPage());
-    const userAgent = page && (await page.evaluate(() => window.navigator.userAgent));
+    const browserInstance = pwc.currentBrowser();
+    const pageInstance = pwc.currentPage();
+    expect(browserInstance).toBeDefined();
+    expect(pageInstance).toBeDefined();
+
+    const userAgent =
+      pageInstance && (await pageInstance.evaluate(() => window.navigator.userAgent));
     expect(userAgent).toContain('Safari');
-    createdBrowser && (await createdBrowser.close());
+    browserInstance && (await browserInstance.close());
   });
 
   test('should through an error on unknown browser', async (): Promise<void> => {
