@@ -1,8 +1,14 @@
 import * as action from '../actions';
-import { BrowserName, NavigationOptions, defaultNavigationOptions } from '../actions';
+import {
+  BrowserName,
+  defaultLaunchOptions,
+  defaultNavigationOptions,
+  LaunchOptions,
+  NavigationOptions,
+} from '../actions';
 import { Browser, Page, BrowserContext } from 'playwright';
 
-export { BrowserName, NavigationOptions } from '../actions';
+export { BrowserName, NavigationOptions, LaunchOptions } from '../actions';
 
 export class PlaywrightController implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
@@ -18,10 +24,8 @@ export class PlaywrightController implements PromiseLike<void> {
   public lastError(): Error | undefined {
     return this._lastError;
   }
-  private _isExecutingActions = false;
   private async executeActions(): Promise<void> {
     try {
-      this._isExecutingActions = true;
       this._lastError = undefined;
       // eslint-disable-next-line no-constant-condition
       while (true) {
@@ -34,13 +38,9 @@ export class PlaywrightController implements PromiseLike<void> {
     } catch (error) {
       this._lastError = error;
       this.actions = [];
-      this._isExecutingActions = false;
       throw error;
     } finally {
-      // eslint-disable-next-line no-console
-      console.log(this._isExecutingActions);
       this.actions = [];
-      this._isExecutingActions = false;
     }
   }
 
@@ -63,10 +63,20 @@ export class PlaywrightController implements PromiseLike<void> {
 
   private actions: (() => Promise<void>)[] = [];
 
+  private launchOptions: LaunchOptions = defaultLaunchOptions;
   private async launchBrowser(name: BrowserName): Promise<void> {
-    this.browser = await action.launchBrowser(name);
+    this.browser = await action.launchBrowser(name, this.launchOptions);
     this.browserContext = await this.browser.newContext();
     this.page = await this.browserContext.newPage();
+  }
+
+  public withOptions(options: Partial<LaunchOptions>): PlaywrightController {
+    const updatedOptions: LaunchOptions = {
+      ...this.launchOptions,
+      ...options,
+    };
+    this.launchOptions = updatedOptions;
+    return this;
   }
 
   public withBrowser(name: BrowserName): PlaywrightController {
@@ -78,6 +88,7 @@ export class PlaywrightController implements PromiseLike<void> {
   private async closeBrowser(): Promise<void> {
     await action.closeBrowser(this.currentBrowser());
   }
+
   public close(): PlaywrightController {
     const action = (): Promise<void> => this.closeBrowser();
     this.actions.push(action);
