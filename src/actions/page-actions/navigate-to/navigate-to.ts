@@ -1,5 +1,13 @@
 import { Page } from 'playwright';
 export interface NavigationOptions {
+  /**
+   * Maximum navigation time in milliseconds,
+   * defaults to 30 seconds,
+   * pass 0 to disable timeout
+   *
+   * @type {number}
+   * @memberof NavigationOptions
+   */
   timeout: number;
 }
 export const defaultNavigationOptions: NavigationOptions = {

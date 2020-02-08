@@ -5,6 +5,14 @@ Fluent API around playwright
 [![Build Status](https://travis-ci.org/hdorgeval/playwright-controller.svg?branch=master)](https://travis-ci.org/hdorgeval/playwright-controller)
 [![Build status](https://ci.appveyor.com/api/projects/status/dp3o8w5m8b6o0y1s?svg=true)](https://ci.appveyor.com/project/hdorgeval/playwright-controller)
 
+### Installation
+
+```
+npm i --save playwright-controller
+```
+
+This will also install Playwright along with its dependencies and the browser binaries. Browser binaries are about 50-100MB each, so expect the installation network traffic to be substantial.
+
 # Usage
 
 ```js
@@ -33,3 +41,11 @@ await pwc
 ```
 
 This API is still a draft and is in early development, but stay tuned!
+
+## Contributing
+
+Check out our [contributing guide](./CONTRIBUTING.md).
+
+## Resources
+
+- [Controller API documentation](/docs/controller.api.md)
