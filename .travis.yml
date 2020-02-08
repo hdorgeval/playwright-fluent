@@ -44,7 +44,7 @@ script:
   - npm --version
   - npx --version
   - npm run build
-  - 'xvfb-run --auto-servernum npm test'
+  - if [[ `uname` = "Linux" ]]; then xvfb-run --auto-servernum npm test; else npm test fi;
 
 os:
   - linux
