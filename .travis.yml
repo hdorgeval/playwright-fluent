@@ -9,10 +9,6 @@ addons:
       # this is needed for running headful tests
       - xvfb
 
-cache:
-  directories:
-    - node_modules
-
 language: node_js
 sudo: false
 
