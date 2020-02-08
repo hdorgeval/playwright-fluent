@@ -3,6 +3,7 @@
 - Chainable Methods
 
   - [withBrowser(browser)](#withBrowserbrowser)
+  - [withOptions(options)](#withOptionsoptions)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [close()](#close)
 
@@ -37,6 +38,44 @@ const page = pwc.currentPage();
 
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
+```
+
+### withOptions(options)
+
+- options : `LaunchOptions`
+
+```js
+interface LaunchOptions {
+  /**
+   * Whether to run browser in headless mode.
+   * Defaults to true
+   *
+   * @type {boolean}
+   * @memberof LaunchOptions
+   */
+  headless: boolean;
+  /**
+   * Additional arguments to pass to the browser instance.
+   * The list of Chromium flags can be found at
+   * https://peter.sh/experiments/chromium-command-line-switches/
+   *
+   * @type {string[]}
+   * @memberof LaunchOptions
+   */
+  args?: string[];
+}
+```
+
+Will set browser options to apply when launching the browser.
+
+Example:
+
+```js
+const browser = 'chromium';
+const pwc = new PlaywrightController();
+
+// start the browser in headfull mode
+await pwc.withBrowser(browser).withOptions({ headless: false });
 ```
 
 ---
