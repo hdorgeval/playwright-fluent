@@ -2,7 +2,13 @@
   "name": "playwright-controller",
   "version": "0.1.0",
   "description": "Fluent API around playwright",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "!*.test.js",
+    "!*.test.d.ts"
+  ],
   "scripts": {
     "build": "rimraf lib && npm run format && npm run lint && tsc",
     "check-format": "prettier --list-different \"src/**/*.ts\" ",
@@ -10,6 +16,7 @@
     "jest-init": "jest --init",
     "lint": "eslint . --ext .js,.ts --format visualstudio --no-color --max-warnings 10 --report-unused-disable-directives",
     "lint-fix": "npm run lint -- --fix",
+    "package": "rimraf package && rm -f playwright-controller*.tgz && npm pack",
     "test": "jest --config=jest.config.js --runInBand",
     "tsc-init": "tsc --init",
     "tsc": " tsc --listEmittedFiles"

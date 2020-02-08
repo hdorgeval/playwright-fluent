@@ -1,6 +1,7 @@
 # built data
 build
 lib
+package
 
 # Logs
 logs
