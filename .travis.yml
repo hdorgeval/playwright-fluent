@@ -23,6 +23,10 @@ addons:
       # this is needed for running headful tests
       - xvfb
 
+cache:
+  directories:
+    - node_modules
+
 language: node_js
 sudo: false
 
@@ -37,7 +41,9 @@ before_install:
   - if [[ `node -v` = v6* ]]; then npm i -g npx; fi
   - npx --version
   # Launch XVFB
+  - if [[ `uname` = "Linux" ]]; then sysctl kernel.unprivileged_userns_clone=1; fi
   - if [[ `uname` = "Linux" ]]; then export DISPLAY=:99.0; fi
+  - if [[ `uname` = "Linux" ]]; then sh -e /etc/init.d/xvfb start; fi
 
 script:
   - node --version
