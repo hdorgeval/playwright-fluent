@@ -1,4 +1,4 @@
-dist: bionic
+dist: trusty
 addons:
   apt:
     packages:
