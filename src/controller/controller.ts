@@ -5,10 +5,11 @@ import {
   defaultNavigationOptions,
   LaunchOptions,
   NavigationOptions,
+  WindowState,
 } from '../actions';
 import { Browser, Page, BrowserContext } from 'playwright';
 
-export { BrowserName, NavigationOptions, LaunchOptions } from '../actions';
+export { BrowserName, NavigationOptions, LaunchOptions, WindowState } from '../actions';
 
 export class PlaywrightController implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
@@ -112,5 +113,9 @@ export class PlaywrightController implements PromiseLike<void> {
   }
   public async getCurrentUrl(): Promise<string> {
     return await action.getCurrentUrl(this.currentPage());
+  }
+
+  public async getCurrentWindowState(): Promise<WindowState> {
+    return await action.getWindowState(this.currentPage());
   }
 }
