@@ -67,7 +67,7 @@ export class PlaywrightController implements PromiseLike<void> {
   private launchOptions: LaunchOptions = defaultLaunchOptions;
   private async launchBrowser(name: BrowserName): Promise<void> {
     this.browser = await action.launchBrowser(name, this.launchOptions);
-    this.browserContext = await this.browser.newContext();
+    this.browserContext = await this.browser.newContext({ viewport: null });
     this.page = await this.browserContext.newPage();
   }
 
