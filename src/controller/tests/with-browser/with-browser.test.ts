@@ -65,7 +65,7 @@ describe('Playwright Controller - withBrowser', (): void => {
     browserInstance && (await browserInstance.close());
   });
 
-  test('should through an error on unknown browser', async (): Promise<void> => {
+  test('should throw an error on unknown browser', async (): Promise<void> => {
     // Given
     const browser = 'yo';
     const pwc = new PlaywrightController();
