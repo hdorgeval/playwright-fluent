@@ -46,10 +46,9 @@ describe('Playwright Controller - withOptions', (): void => {
 
     // Then
     const windowState = await pwc.getCurrentWindowState();
-
-    expect(windowState.outerWidth).toBe(888);
-    // outerHeight depends on os platform,
+    // outerHeight/outerWidth depends on os platform,
     // it might include an additional scrollbar height
+    expect(Math.abs(windowState.outerWidth - 888)).toBeLessThanOrEqual(22);
     expect(Math.abs(windowState.outerHeight - 666)).toBeLessThanOrEqual(22);
   });
 
