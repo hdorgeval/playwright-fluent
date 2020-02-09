@@ -35,7 +35,7 @@ describe('Playwright Controller - withOptions', (): void => {
 
     // Then default viewport should have (almost) the same size as the browser window
     const viewport = { width: windowState.innerWidth, height: windowState.innerHeight };
-    expect(Math.abs(viewport.height - windowState.outerHeight)).toBeLessThanOrEqual(130);
+    expect(Math.abs(viewport.height - windowState.outerHeight)).toBeLessThanOrEqual(132);
     expect(Math.abs(viewport.width - windowState.outerWidth)).toBeLessThanOrEqual(20);
   });
 
