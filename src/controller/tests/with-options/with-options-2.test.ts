@@ -48,8 +48,8 @@ describe('Playwright Controller - withOptions', (): void => {
     const windowState = await pwc.getCurrentWindowState();
     // outerHeight/outerWidth depends on os platform,
     // it might include an additional scrollbar height
-    expect(Math.abs(windowState.outerWidth - 888)).toBeLessThanOrEqual(22);
-    expect(Math.abs(windowState.outerHeight - 666)).toBeLessThanOrEqual(22);
+    expect(Math.abs(windowState.outerWidth - 888)).toBeLessThanOrEqual(20);
+    expect(Math.abs(windowState.outerHeight - 666)).toBeLessThanOrEqual(40);
   });
 
   test.skip('should target webkit in headfull mode with custom window size', async (): Promise<
