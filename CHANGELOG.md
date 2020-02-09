@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Unreleased
 
+- feat(controller): disable internal playwright default viewport of 800x600
 - feat(controller): add withOptions() to the controller API
+- feat(controller): add helper method getCurrentWindowState() to the controller API
 
 ## [0.1.0] - 2020-02-08
 
