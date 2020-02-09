@@ -26,7 +26,7 @@ await pwc
   .withOptions({
     headless: false,
   })
-  .withMaxSizeWindow()
+  .emulateDevice('iPhone 5 landscape')
   .withCursor()
   .navigateTo('https://reactstrap.github.io/components/form/')
   .click('#exampleEmail')
