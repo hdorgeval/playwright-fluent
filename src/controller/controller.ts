@@ -1,3 +1,4 @@
+import { BrowserContextOptions } from './playwright-types';
 import * as action from '../actions';
 import {
   BrowserName,
@@ -7,10 +8,17 @@ import {
   NavigationOptions,
   WindowState,
 } from '../actions';
+import {
+  DeviceName,
+  getDevice,
+  allKnownDevices,
+  Device,
+  getBrowserArgsForDevice,
+} from '../devices';
 import { Browser, Page, BrowserContext } from 'playwright';
 
 export { BrowserName, NavigationOptions, LaunchOptions, WindowState } from '../actions';
-
+export { Device, DeviceName, allKnownDevices } from '../devices';
 export class PlaywrightController implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
     onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined,
@@ -65,9 +73,21 @@ export class PlaywrightController implements PromiseLike<void> {
   private actions: (() => Promise<void>)[] = [];
 
   private launchOptions: LaunchOptions = defaultLaunchOptions;
+  private emulatedDevice: Device | undefined = undefined;
+
   private async launchBrowser(name: BrowserName): Promise<void> {
+    const contextOptions: BrowserContextOptions = { viewport: null };
+    if (this.emulatedDevice) {
+      contextOptions.viewport = this.emulatedDevice.viewport;
+      contextOptions.userAgent = this.emulatedDevice.userAgent;
+      this.launchOptions.args = this.launchOptions.args || [];
+      this.launchOptions.args.push(
+        ...getBrowserArgsForDevice(this.emulatedDevice).andBrowser(name),
+      );
+    }
+
     this.browser = await action.launchBrowser(name, this.launchOptions);
-    this.browserContext = await this.browser.newContext({ viewport: null });
+    this.browserContext = await this.browser.newContext(contextOptions);
     this.page = await this.browserContext.newPage();
   }
 
@@ -111,6 +131,20 @@ export class PlaywrightController implements PromiseLike<void> {
     this.actions.push(action);
     return this;
   }
+
+  public emulateDevice(deviceName: DeviceName): PlaywrightController {
+    const device = getDevice(deviceName);
+    if (!device) {
+      throw new Error(
+        `device '${deviceName}' is unknown. It must be one of : [${allKnownDevices
+          .map((d) => d.name)
+          .join(';')}] `,
+      );
+    }
+    this.emulatedDevice = device;
+    return this;
+  }
+
   public async getCurrentUrl(): Promise<string> {
     return await action.getCurrentUrl(this.currentPage());
   }

@@ -1,5 +1,6 @@
 import { DeviceName } from './device-names';
 import { allKnownDevices, Device } from './device-descriptors';
+import { BrowserName } from '../actions';
 
 export function getDevice(deviceName: DeviceName): Device | undefined {
   const device = allKnownDevices.filter((d) => d.name === deviceName).shift();
@@ -17,3 +18,26 @@ export const defaultDevice: Device = {
     isMobile: true,
   },
 };
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export function getBrowserArgsForDevice(device: Device) {
+  return {
+    andBrowser: (browsername: BrowserName): string[] => {
+      switch (browsername) {
+        case 'chromium': {
+          const arg = `--window-size=${device.viewport.width},${device.viewport.height + 100}`;
+          return [arg];
+        }
+
+        case 'firefox': {
+          const arg1 = `-height=${device.viewport.height + 52}`;
+          const arg2 = `-width=${device.viewport.width}`;
+          return [arg1, arg2];
+        }
+
+        default:
+          return [];
+      }
+    },
+  };
+}
