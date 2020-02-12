@@ -5,10 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
-## [0.2.0] - 2020-02-15
+## [0.2.0] - 2020-02-12
 
-### Unreleased
+### Added
 
+- feat(controller): add emulateDevice() to the Controller API
 - feat(controller): disable internal playwright default viewport of 800x600
 - feat(controller): add withOptions() to the controller API
 - feat(controller): add helper method getCurrentWindowState() to the controller API
