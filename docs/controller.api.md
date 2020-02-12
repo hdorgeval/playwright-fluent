@@ -4,6 +4,7 @@
 
   - [withBrowser(browser)](#withBrowserbrowser)
   - [withOptions(options)](#withOptionsoptions)
+  - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [close()](#close)
 
@@ -41,6 +42,8 @@ const page = pwc.currentPage();
 // so now you are ready to go by using the playwright API
 ```
 
+---
+
 ### withOptions(options)
 
 - options : `LaunchOptions`
@@ -77,6 +80,31 @@ const pwc = new PlaywrightController();
 
 // start the browser in headfull mode
 await pwc.withBrowser(browser).withOptions({ headless: false });
+```
+
+---
+
+### emulateDevice(deviceName)
+
+- deviceName: `DeviceName`
+  - see the [list of supported devices](/src/devices/device-names.ts)
+
+Will emulate the selected device, and the browser window size and viewport will match the selected device.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const pwc = new PlaywrightController();
+
+// start the browser in headfull mode
+// and emulate an iPhone 6 in landscape mode
+await pwc
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .emulateDevice('iPhone 6 landscape')
+  .navigateTo(url);
 ```
 
 ---

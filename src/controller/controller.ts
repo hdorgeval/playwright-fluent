@@ -132,6 +132,13 @@ export class PlaywrightController implements PromiseLike<void> {
     return this;
   }
 
+  /**
+   * Emulate device
+   *
+   * @param {DeviceName} deviceName
+   * @returns {PlaywrightController}
+   * @memberof PlaywrightController
+   */
   public emulateDevice(deviceName: DeviceName): PlaywrightController {
     const device = getDevice(deviceName);
     if (!device) {
