@@ -44,8 +44,8 @@
   "homepage": "https://github.com/hdorgeval/playwright-controller#readme",
   "devDependencies": {
     "@types/debug": "4.1.5",
-    "@types/jest": "25.1.1",
-    "@types/node": "13.7.0",
+    "@types/jest": "25.1.2",
+    "@types/node": "13.7.1",
     "@typescript-eslint/eslint-plugin": "2.18.0",
     "@typescript-eslint/parser": "2.18.0",
     "eslint": "6.8.0",
