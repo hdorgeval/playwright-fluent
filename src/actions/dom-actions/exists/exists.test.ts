@@ -57,4 +57,23 @@ describe('exists', (): void => {
     // Then
     expect(result).toBe(false);
   });
+
+  test('should return false when playright API throws an internal error', async (): Promise<
+    void
+  > => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({ viewport: null });
+    const page = await context.newPage();
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    page.$ = () => {
+      throw new Error('internal error!');
+    };
+
+    // When
+    const result = await SUT.exists('body', page);
+
+    // Then
+    expect(result).toBe(false);
+  });
 });
