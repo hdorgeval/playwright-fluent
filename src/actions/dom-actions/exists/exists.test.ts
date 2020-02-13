@@ -1,10 +1,18 @@
 import * as SUT from '.';
-import { Page } from 'playwright';
+import { Page, Browser, chromium } from 'playwright';
 
 describe('exists', (): void => {
+  let browser: Browser | undefined = undefined;
   beforeEach((): void => {
     jest.setTimeout(30000);
   });
+  afterEach(
+    async (): Promise<void> => {
+      if (browser) {
+        await browser.close();
+      }
+    },
+  );
 
   test('should return an error when page has not been initalized', async (): Promise<void> => {
     // Given
@@ -18,5 +26,35 @@ describe('exists', (): void => {
     await SUT.exists('foobar', page).catch((error): void =>
       expect(error).toMatchObject(expectedError),
     );
+  });
+
+  test('should return true when selector exists on the page - chromium', async (): Promise<
+    void
+  > => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({ viewport: null });
+    const page = await context.newPage();
+
+    // When
+    const result = await SUT.exists('body', page);
+
+    // Then
+    expect(result).toBe(true);
+  });
+
+  test('should return false when selector does not exist on the page - chromium', async (): Promise<
+    void
+  > => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({ viewport: null });
+    const page = await context.newPage();
+
+    // When
+    const result = await SUT.exists('foobar', page);
+
+    // Then
+    expect(result).toBe(false);
   });
 });
