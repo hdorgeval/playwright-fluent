@@ -75,6 +75,7 @@ export class PlaywrightController implements PromiseLike<void> {
   private launchOptions: LaunchOptions = defaultLaunchOptions;
   private emulatedDevice: Device | undefined = undefined;
 
+  private showMousePosition = false;
   private async launchBrowser(name: BrowserName): Promise<void> {
     const contextOptions: BrowserContextOptions = { viewport: null };
     if (this.emulatedDevice) {
@@ -89,6 +90,9 @@ export class PlaywrightController implements PromiseLike<void> {
     this.browser = await action.launchBrowser(name, this.launchOptions);
     this.browserContext = await this.browser.newContext(contextOptions);
     this.page = await this.browserContext.newPage();
+    if (this.showMousePosition) {
+      await action.showMousePosition(this.page);
+    }
   }
 
   public withOptions(options: Partial<LaunchOptions>): PlaywrightController {
@@ -149,6 +153,17 @@ export class PlaywrightController implements PromiseLike<void> {
       );
     }
     this.emulatedDevice = device;
+    return this;
+  }
+
+  /**
+   * Show mouse position with a non intrusive cursor
+   *
+   * @returns {PlaywrightController}
+   * @memberof PlaywrightController
+   */
+  public withCursor(): PlaywrightController {
+    this.showMousePosition = true;
     return this;
   }
 
