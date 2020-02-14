@@ -13,7 +13,8 @@ describe('Playwright Controller - ctor usage', (): void => {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
     const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
-    const page = await context.newPage(url);
+    const page = await context.newPage();
+    await page.goto(url);
 
     // When
     const pwc1 = new PlaywrightController(browser);

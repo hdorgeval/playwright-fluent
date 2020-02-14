@@ -11,7 +11,8 @@ describe('Playwright Controller - ctor usage', (): void => {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
     const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
-    const page = await context.newPage(url);
+    const page = await context.newPage();
+    await page.goto(url);
 
     // When
     const pwc = new PlaywrightController(browser, page);
@@ -27,7 +28,8 @@ describe('Playwright Controller - ctor usage', (): void => {
     const browser = await firefox.launch({ headless: true });
     const context = await browser.newContext();
     // const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
-    const page = await context.newPage('https://google.com');
+    const page = await context.newPage();
+    await page.goto('https://google.com');
 
     // When
     const pwc = new PlaywrightController(browser, page);
@@ -43,7 +45,8 @@ describe('Playwright Controller - ctor usage', (): void => {
     const browser = await webkit.launch({ headless: true });
     const context = await browser.newContext();
     const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
-    const page = await context.newPage(url);
+    const page = await context.newPage();
+    await page.goto(url);
 
     // When
     const pwc = new PlaywrightController(browser, page);
@@ -61,7 +64,8 @@ describe('Playwright Controller - ctor usage', (): void => {
     const browser = await firefox.launch({ headless: true });
     const context = await browser.newContext();
     const url = `file:${path.join(__dirname, 'ctor.test.html')}`;
-    const page = await context.newPage(url);
+    const page = await context.newPage();
+    await page.goto(url);
 
     // When
     const pwc = new PlaywrightController(browser, page);
