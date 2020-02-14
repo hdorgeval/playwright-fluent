@@ -1,5 +1,6 @@
 import { PlaywrightController } from '../../controller';
 import { sleep } from '../../../utils/sleep';
+import { webkit } from 'playwright';
 describe('Playwright Controller - close', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
@@ -80,5 +81,25 @@ describe('Playwright Controller - close', (): void => {
 
     // Then
     // no error should occur
+  });
+
+  test('should close webkit - playwright issue v0.11.0', async (): Promise<void> => {
+    // Given
+    const browser = await webkit.launch({ headless: false });
+    const browserContext = await browser.newContext({ viewport: null });
+    const page = await browserContext.newPage();
+    await page.goto('https://google.com');
+
+    // When
+    await sleep(1000);
+    const previousConnectedStatus = browser.isConnected();
+    await browser.close();
+    await sleep(1000);
+    const afterCloseConnectedStatus = browser.isConnected();
+
+    // Then
+    expect(browser).toBeDefined();
+    expect(previousConnectedStatus).toBe(true);
+    expect(afterCloseConnectedStatus).toBe(false);
   });
 });
