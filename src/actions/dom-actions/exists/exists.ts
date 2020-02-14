@@ -15,7 +15,7 @@ export async function exists(selector: string, page: Page | undefined): Promise<
   } catch (error) {
     // eslint-disable-next-line no-console
     console.warn(
-      `An internal error has occured in Playwright API while checking if selector '${selector}'  exists`,
+      `An internal error has occured in Playwright API while checking if selector '${selector}' exists.`,
       error,
     );
     return false;
