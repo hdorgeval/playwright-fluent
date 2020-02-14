@@ -4,6 +4,7 @@
 
   - [withBrowser(browser)](#withBrowserbrowser)
   - [withOptions(options)](#withOptionsoptions)
+  - [withCursor()](#withCursor)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [close()](#close)
@@ -80,6 +81,26 @@ const pwc = new PlaywrightController();
 
 // start the browser in headfull mode
 await pwc.withBrowser(browser).withOptions({ headless: false });
+```
+
+---
+
+### withCursor()
+
+Will show the mouse position with a non intrusive cursor.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const pwc = new PlaywrightController();
+
+await pwc
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .navigateTo(url);
 ```
 
 ---
