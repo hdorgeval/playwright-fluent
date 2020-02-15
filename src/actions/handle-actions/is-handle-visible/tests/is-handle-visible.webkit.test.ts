@@ -1,4 +1,5 @@
 import * as SUT from '../index';
+import { getWindowState } from '../../../page-actions';
 import { Browser, webkit } from 'playwright';
 import * as path from 'path';
 
@@ -108,5 +109,31 @@ describe('handle is visible', (): void => {
     // Then
     expect(handle).toBeDefined();
     expect(result).toBe(false);
+  });
+
+  test('should return 1 when selector is in viewport - issue playwright', async (): Promise<
+    void
+  > => {
+    // Given
+    browser = await webkit.launch({ headless: true });
+    const browserContext = await browser.newContext({ viewport: null });
+    const page = await browserContext.newPage();
+    const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
+    await page.goto(url);
+    await page.waitFor(1000);
+
+    const handle = await page.$('#visible');
+
+    // When
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const visibleRatio = await handle!.visibleRatio();
+    // eslint-disable-next-line no-console
+    console.log(`visible ratio is ${visibleRatio}`);
+    const windowState = await getWindowState(page);
+    // eslint-disable-next-line no-console
+    console.log(`windowState:\n ${JSON.stringify(windowState, null, 2)}`);
+    // Then
+    expect(handle).toBeDefined();
+    expect(visibleRatio).toBe(1);
   });
 });
