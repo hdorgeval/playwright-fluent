@@ -7,6 +7,8 @@ import {
   LaunchOptions,
   NavigationOptions,
   WindowState,
+  HoverOptions,
+  defaultHoverOptions,
 } from '../actions';
 import {
   DeviceName,
@@ -15,9 +17,17 @@ import {
   Device,
   getBrowserArgsForDevice,
 } from '../devices';
+import { defaultWaitUntilOptions, WaitUntilOptions } from '../utils';
 import { Browser, Page, BrowserContext } from 'playwright';
 
-export { BrowserName, NavigationOptions, LaunchOptions, WindowState } from '../actions';
+export { WaitUntilOptions } from '../utils';
+export {
+  BrowserName,
+  HoverOptions,
+  LaunchOptions,
+  NavigationOptions,
+  WindowState,
+} from '../actions';
 export { Device, DeviceName, allKnownDevices } from '../devices';
 export class PlaywrightController implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
@@ -136,6 +146,22 @@ export class PlaywrightController implements PromiseLike<void> {
     return this;
   }
 
+  private async hoverOnSelector(selector: string, options: HoverOptions): Promise<void> {
+    await action.hoverOnSelector(selector, this.currentPage(), options);
+  }
+  public hover(
+    selector: string,
+    options: Partial<HoverOptions> = defaultHoverOptions,
+  ): PlaywrightController {
+    const hoverOptions: HoverOptions = {
+      ...defaultHoverOptions,
+      ...options,
+    };
+    const action = (): Promise<void> => this.hoverOnSelector(selector, hoverOptions);
+    this.actions.push(action);
+    return this;
+  }
+
   /**
    * Emulate device
    *
@@ -173,5 +199,17 @@ export class PlaywrightController implements PromiseLike<void> {
 
   public async getCurrentWindowState(): Promise<WindowState> {
     return await action.getWindowState(this.currentPage());
+  }
+
+  public async getValueOf(
+    selector: string,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<string | undefined | null> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...options,
+    };
+    const result = await action.getValueOfSelector(selector, this.currentPage(), waitOptions);
+    return result;
   }
 }
