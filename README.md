@@ -41,6 +41,18 @@ await pwc
   .close();
 ```
 
+This API will provide a Selector Fluent API that will enable to find and target a DOM element or a collection of DOM elements that is embedded in complex DOM Hierarchy:
+
+```js
+const selector = pwc
+  .selector('[role="row"]') // will get all dom elements, within the current page, with the attribute role="row"
+  .withText('foobar') // will filter only those that contain the text 'foobar'
+  .find('td') // from previous result(s), find all embedded <td> elements
+  .nth(2); // take only the second cell
+
+await pwc.expectThat(selector).hasText('foobar-2');
+```
+
 This API is still a draft and is in early development, but stay tuned!
 
 ## Contributing
@@ -50,3 +62,4 @@ Check out our [contributing guide](./CONTRIBUTING.md).
 ## Resources
 
 - [Controller API documentation](/docs/controller.api.md)
+- [Selector API documentation](/docs/selector.api.md)
