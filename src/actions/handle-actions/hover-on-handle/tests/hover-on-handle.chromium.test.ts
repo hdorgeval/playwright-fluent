@@ -5,7 +5,7 @@ import { defaultHoverOptions, HoverOptions } from '../hover-on-handle';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
-describe('scroll to handle', (): void => {
+describe('hover on handle', (): void => {
   let browser: Browser | undefined = undefined;
 
   beforeEach((): void => {
