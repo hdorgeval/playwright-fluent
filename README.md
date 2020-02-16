@@ -63,3 +63,53 @@ Check out our [contributing guide](./CONTRIBUTING.md).
 
 - [Controller API documentation](/docs/controller.api.md)
 - [Selector API documentation](/docs/selector.api.md)
+
+## FAQ
+
+### Q: How does playwright-controller relate to [Playwright](https://github.com/microsoft/playwright)?
+
+Playwright-controller is just a wrapper around the Playwright API. The purpose of Playwright-controller is to be able to write e2e tests as fast as possible in a way that makes tests readable and maintainable.
+
+### Q: Can I start using Playwright-controller in my existing code base?
+
+Yes you can.
+
+```js
+import { PlaywrightController } from 'playwright-controller';
+
+// just create a new instance with playwright's browser and page instances
+const pwc = new PlaywrightController(browser, page);
+
+// now you can use the fluent API
+```
+
+### Q: Can I use Playwright within the Playwright-controller?
+
+Yes you can. To use the Playwright API, just use the `currentBrowser()` and/or `currentPage()` methods exposed by the fluent API:
+
+```js
+const browser = 'chromium';
+const pwc = new PlaywrightController();
+await pwc
+  .withBrowser(browser)
+  .emulateDevice('iPhone 6 landscape')
+  .withCursor()
+  .navigateTo('https://reactstrap.github.io/components/form/')
+  ...;
+
+// now if you want to use the playwright API from this point:
+const browser = pwc.currentBrowser();
+const page = pwc.currentPage();
+
+// the browser and page objects are standard playwright objects
+// so now you are ready to go by using the playwright API
+```
+
+### Q: What can I do with the currently published npm package playwright-controller?
+
+The documentations:
+
+- [Controller API documentation](/docs/controller.api.md)
+- [Selector API documentation](/docs/selector.api.md)
+
+reflect the current status of the development and are inline with the published package.
