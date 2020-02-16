@@ -344,7 +344,9 @@ interface WaitUntilOptions {
 
 - returns: `Page | undefined`
 
-Get page instance of the controller in order to do stuff not covered by this API.
+Get Playwright's page instance of the controller in order to do stuff not covered by this API.
+
+Example:
 
 ```js
 const pwc = new PlaywrightController();
@@ -363,7 +365,9 @@ const page = pwc.currentPage();
 
 - returns: `Browser | undefined`
 
-Get browser instance of the controller in order to do stuff not covered by this API.
+Get Playwright's browser instance of the controller in order to do stuff not covered by this API.
+
+Example:
 
 ```js
 const pwc = new PlaywrightController();
