@@ -7,6 +7,7 @@
   - [withCursor()](#withCursor)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [navigateTo(url[, options])](#navigateTourl-options)
+  - [hover(selector[, options])](#hoverselector-options)
   - [close()](#close)
 
 - Helper Methods
@@ -15,6 +16,7 @@
   - [currentPage()](#currentPage)
   - [getCurrentUrl()](#getCurrentUrl)
   - [getCurrentWindowState()](#getCurrentWindowState)
+  - [getValueOf(selector[, options])](#getValueOfselector-options)
 
 ## Chainable Methods
 
@@ -173,6 +175,47 @@ const page = pwc.currentPage();
 
 ---
 
+### hover(selector[, options])
+
+- selector: `string`
+- options: `Partial<HoverOptions>`
+
+```js
+interface HoverOptions {
+  timeoutInMilliseconds: number;
+  stabilityInMilliseconds: number;
+  steps: number;
+  verbose: boolean;
+}
+```
+
+Will hover on the specified selector.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const selector '#exampleCustomRange';
+const pwc = new PlaywrightController();
+
+await pwc
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .navigateTo(url)
+  .hover(selector);
+
+// now if you want to use the playwright API from this point:
+const browser = pwc.currentBrowser();
+const page = pwc.currentPage();
+
+// the browser and page objects are standard playwright objects
+// so now you are ready to go by using the playwright API
+```
+
+---
+
 ### close()
 
 Will close the browser. This should be the last method called in the chain.
@@ -244,6 +287,54 @@ interface WindowState {
     availWidth: number,
     availHeight: number,
   };
+}
+```
+
+---
+
+### getValueOf(selector[, options])
+
+- selector: `string`
+- options: `Partial<WaitUntilOptions>`
+- returns: `Promise<string | undefined | null>`
+
+Get selector's value.
+
+> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+```js
+interface WaitUntilOptions {
+  /**
+   * Defaults to 30000 milliseconds.
+   *
+   * @type {number}
+   * @memberof WaitUntilOptions
+   */
+  timeoutInMilliseconds: number;
+  /**
+   * Time during which the callback must always return true.
+   * Defaults to 300 milliseconds.
+   * You must not setup a duration < 100 milliseconds.
+   * @type {number}
+   * @memberof AssertOptions
+   */
+  stabilityInMilliseconds: number;
+  /**
+   * Throw a timeout exception when the callback still returns false.
+   * Defaults to false.
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  throwOnTimeout: boolean;
+  /**
+   * Output to the console all steps of the waiting mechanism.
+   * Defaults to false.
+   * Use this option when the waitUntil() method does not wait as expected.
+   *
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  verbose: boolean;
 }
 ```
 
