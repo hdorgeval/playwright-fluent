@@ -1,4 +1,5 @@
 export * from './get-client-rectangle-of-handle';
+export * from './get-nth-handle';
 export * from './get-value-of-handle';
 export * from './hover-on-handle';
 export * from './is-handle-moving';
