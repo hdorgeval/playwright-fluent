@@ -2,6 +2,7 @@ export * from './get-client-rectangle-of-handle';
 export * from './get-handles-with-text';
 export * from './get-nth-handle';
 export * from './get-value-of-handle';
+export * from './has-handle-value';
 export * from './hover-on-handle';
 export * from './is-handle-moving';
 export * from './is-handle-visible';
