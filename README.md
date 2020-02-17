@@ -83,7 +83,7 @@ const pwc = new PlaywrightController(browser, page);
 // now you can use the fluent API
 ```
 
-### Q: Can I use Playwright within the Playwright-controller?
+### Q: Can I use Playwright together with the Playwright-controller?
 
 Yes you can. To use the Playwright API, just use the `currentBrowser()` and/or `currentPage()` methods exposed by the fluent API:
 
