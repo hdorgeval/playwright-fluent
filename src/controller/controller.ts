@@ -18,6 +18,7 @@ import {
   getBrowserArgsForDevice,
 } from '../devices';
 import { defaultWaitUntilOptions, WaitUntilOptions } from '../utils';
+import { SelectorController } from '../selector';
 import { Browser, Page, BrowserContext } from 'playwright';
 
 export { WaitUntilOptions } from '../utils';
@@ -211,5 +212,17 @@ export class PlaywrightController implements PromiseLike<void> {
     };
     const result = await action.getValueOfSelector(selector, this.currentPage(), waitOptions);
     return result;
+  }
+
+  /**
+   * Create a Selector object to be able to target a DOM element
+   * that is embedded in a complex dom hierarchy or dom array
+   *
+   * @param {string} selector
+   * @returns {SelectorController}
+   * @memberof PlaywrightController
+   */
+  public selector(selector: string): SelectorController {
+    return new SelectorController(selector, this);
   }
 }
