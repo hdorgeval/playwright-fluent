@@ -6,6 +6,8 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 [![Build status](https://ci.appveyor.com/api/projects/status/dp3o8w5m8b6o0y1s?svg=true)](https://ci.appveyor.com/project/hdorgeval/playwright-controller)
 [![npm version](https://img.shields.io/npm/v/playwright-controller.svg)](https://www.npmjs.com/package/playwright-controller)
 
+###### [Controller API](/docs/controller.api.md) | [Selector API](/docs/selector.api.md) | [FAQ](#faq)
+
 ### Installation
 
 ```
@@ -68,7 +70,7 @@ Check out our [contributing guide](./CONTRIBUTING.md).
 
 ### Q: How does playwright-controller relate to [Playwright](https://github.com/microsoft/playwright)?
 
-Playwright-controller is just a wrapper around the Playwright API. The purpose of Playwright-controller is to be able to write e2e tests as fast as possible in a way that makes tests readable and maintainable.
+Playwright-controller is just a wrapper around the Playwright API. The purpose of Playwright-controller is to be able to write e2e tests as fast as possible in a way that makes tests readable, reusable and maintainable.
 
 ### Q: Can I start using Playwright-controller in my existing code base?
 
