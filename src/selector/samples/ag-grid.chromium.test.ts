@@ -12,7 +12,7 @@ describe('Selector API - AG Grid samples', (): void => {
     },
   );
 
-  test.skip('should check', async (): Promise<void> => {
+  test.skip('should select a name in the grid', async (): Promise<void> => {
     // Given I open The AG Grid demo site
     const url = 'https://www.ag-grid.com/example.php';
     await pwc
@@ -38,5 +38,7 @@ describe('Selector API - AG Grid samples', (): void => {
 
     // Then
     expect(handle).not.toBeNull();
+    // eslint-disable-next-line no-console
+    console.log(checkbox.toString());
   });
 });
