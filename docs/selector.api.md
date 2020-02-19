@@ -15,6 +15,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [count()](#count)
   - [getFirstHandleOrNull()](#getFirstHandleOrNull)
   - [getAllHandles()](#getAllHandles)
+  - [toString()](#toString)
 
 ## Usage
 
@@ -118,5 +119,41 @@ The result may differ from one execution to another especially if targeted eleme
 Gets the number of found elements.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### toString()
+
+- returns: `string`
+
+Gets the full query used to build the selector.
+
+Example:
+
+```js
+const url = 'https://www.ag-grid.com/example.php';
+await pwc
+  .withBrowser('chromium')
+  .withCursor()
+  .withOptions({ headless: false })
+  .navigateTo(url);
+
+const agGridContainer = pwc.selector('div.ag-body-viewport');
+const checkbox = agGridContainer
+  .find('div[role="row"]')
+  .withText('Olivia Brennan')
+  .nth(1) // take the first row that contains 'Olivia Brennan'
+  .find('div[col-id="name"]') // take the cell in column name
+  .find('span.ag-selection-checkbox'); // take the checkbox in that cell
+
+console.log(checkbox.toString());
+// will produce:
+`selector(div.ag-body-viewport)
+  .find(div[role="row"])
+  .withText(Olivia Brennan)
+  .nth(1)
+  .find(div[col-id="name"])
+  .find(span.ag-selection-checkbox)`;
+```
 
 ---
