@@ -6,7 +6,7 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 [![Build status](https://ci.appveyor.com/api/projects/status/dp3o8w5m8b6o0y1s?svg=true)](https://ci.appveyor.com/project/hdorgeval/playwright-controller)
 [![npm version](https://img.shields.io/npm/v/playwright-controller.svg)](https://www.npmjs.com/package/playwright-controller)
 
-###### [Controller API](/docs/controller.api.md) | [Selector API](/docs/selector.api.md) | [FAQ](#faq)
+###### [Controller API](/docs/controller.api.md) | [Selector API](/docs/selector.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-controller-ts-jest-starter#playwright-controller-ts-jest-starter)
 
 ### Installation
 
@@ -115,3 +115,7 @@ The documentations:
 - [Selector API documentation](/docs/selector.api.md)
 
 reflect the current status of the development and are inline with the published package.
+
+### Q: Do you have some samples on how to use this library with jest?
+
+Yes, have a look to this [starter project](https://github.com/hdorgeval/playwright-controller-ts-jest-starter#playwright-controller-ts-jest-starter).
