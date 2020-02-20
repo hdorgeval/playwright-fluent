@@ -240,4 +240,22 @@ export class SelectorController {
 
     return this.createSelectorFrom('', actions, chainingHistory);
   }
+
+  /**
+   * Checks if selector exists.
+   * The result may differ from one execution to another
+   * especially if targeted element is rendered lately because its data is based on some backend response.
+   * So the disability status is the one known when executing this method.
+   *
+   * @returns {Promise<boolean>}
+   * @memberof SelectorController
+   */
+  public async exists(): Promise<boolean> {
+    const handle = await this.getFirstHandleOrNull();
+    if (handle === null) {
+      return false;
+    }
+
+    return true;
+  }
 }
