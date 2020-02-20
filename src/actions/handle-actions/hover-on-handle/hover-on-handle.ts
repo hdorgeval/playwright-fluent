@@ -37,7 +37,7 @@ export async function hoverOnHandle(
 
   report('waiting for the selector to be visible ...', options.verbose);
   await waitUntil(
-    () => isHandleVisible(selector),
+    () => isHandleVisible(selector, { verbose: options.verbose }),
     `Cannot hover on '${name}' because this selector is not visible`,
     {
       timeoutInMilliseconds: options.timeoutInMilliseconds,

@@ -1,17 +1,30 @@
+import { report } from '../../../utils';
 import { ElementHandle } from 'playwright';
 
 declare const window: Window;
+
+export interface VerboseOptions {
+  verbose: boolean;
+}
+
+export const defaultVerboseOptions: VerboseOptions = {
+  verbose: false,
+};
+
 export async function isHandleVisible(
   selector: ElementHandle<Element> | undefined | null,
+  options: VerboseOptions = defaultVerboseOptions,
 ): Promise<boolean> {
   if (selector === undefined || selector === null) {
     return false;
   }
 
   const visibleRatio = await selector.visibleRatio();
-  // eslint-disable-next-line no-console
-  console.log(`visible ratio is ${visibleRatio}`);
+
+  report(`visible ratio is ${visibleRatio}`, options.verbose);
+
   if (visibleRatio <= 0) {
+    report(`selector is not visible in the current viewport`, options.verbose);
     return false;
   }
 

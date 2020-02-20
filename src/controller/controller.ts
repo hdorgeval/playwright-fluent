@@ -17,7 +17,7 @@ import {
   Device,
   getBrowserArgsForDevice,
 } from '../devices';
-import { defaultWaitUntilOptions, WaitUntilOptions } from '../utils';
+import { defaultWaitUntilOptions, WaitUntilOptions, sleep } from '../utils';
 import { SelectorController } from '../selector';
 import { Browser, Page, BrowserContext } from 'playwright';
 
@@ -29,7 +29,9 @@ export {
   NavigationOptions,
   WindowState,
 } from '../actions';
+
 export { Device, DeviceName, allKnownDevices } from '../devices';
+
 export class PlaywrightController implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
     onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined,
@@ -150,17 +152,31 @@ export class PlaywrightController implements PromiseLike<void> {
   private async hoverOnSelector(selector: string, options: HoverOptions): Promise<void> {
     await action.hoverOnSelector(selector, this.currentPage(), options);
   }
+  private async hoverOnSelectorObject(
+    selector: SelectorController,
+    options: HoverOptions,
+  ): Promise<void> {
+    await action.hoverOnSelectorObject(selector, this.currentPage(), options);
+  }
   public hover(
-    selector: string,
+    selector: string | SelectorController,
     options: Partial<HoverOptions> = defaultHoverOptions,
   ): PlaywrightController {
     const hoverOptions: HoverOptions = {
       ...defaultHoverOptions,
       ...options,
     };
-    const action = (): Promise<void> => this.hoverOnSelector(selector, hoverOptions);
-    this.actions.push(action);
-    return this;
+    if (typeof selector === 'string') {
+      const action = (): Promise<void> => this.hoverOnSelector(selector, hoverOptions);
+      this.actions.push(action);
+      return this;
+    }
+
+    {
+      const action = (): Promise<void> => this.hoverOnSelectorObject(selector, hoverOptions);
+      this.actions.push(action);
+      return this;
+    }
   }
 
   /**
@@ -191,6 +207,11 @@ export class PlaywrightController implements PromiseLike<void> {
    */
   public withCursor(): PlaywrightController {
     this.showMousePosition = true;
+    return this;
+  }
+
+  public wait(durationInMilliseconds: number): PlaywrightController {
+    this.actions.push(async (): Promise<void> => await sleep(durationInMilliseconds));
     return this;
   }
 
