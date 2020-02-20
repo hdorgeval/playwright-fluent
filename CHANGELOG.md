@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [0.6.0] - 2020-02-20
+
+### Added
+
+- feat(controller): be able to hover on a Selector object created by the Selector API
+- feat(controller): add method wait(duration) in Controller API
+- feat(selector): add helper method getHandle() in Selector API
+- feat(selector): add helper method exists() in Selector API
+
+### Fixed
+
+- fix(controller): expose executablePath in LaunchOptions
+
 ## [0.5.0] - 2020-02-18
 
 ### Added
