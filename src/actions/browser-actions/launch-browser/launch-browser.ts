@@ -20,6 +20,13 @@ export interface LaunchOptions {
    * @memberof LaunchOptions
    */
   args?: string[];
+  /**
+   * Path to a browser executable to run instead of the bundled one.
+   *
+   * @type {string}
+   * @memberof LaunchOptions
+   */
+  executablePath?: string;
 }
 export const defaultLaunchOptions: LaunchOptions = {
   headless: true,
