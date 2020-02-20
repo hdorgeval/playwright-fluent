@@ -106,6 +106,22 @@ export class SelectorController {
   }
 
   /**
+   * Executes the search and returns the first found element.
+   * The result may differ from one execution to another
+   * especially if targeted element is rendered lately because its data is based on some backend response.
+   *
+   * @returns {Promise<ElementHandle<Element> | null>} will return null if no elements are found, will return first found element otherwise.
+   * @memberof SelectorController
+   */
+  public async getHandle(): Promise<ElementHandle<Element> | null> {
+    const handles = await this.executeActions();
+    if (handles.length === 0) {
+      return null;
+    }
+    return handles[0];
+  }
+
+  /**
    * Gets the number of found elements.
    * The result may differ from one execution to another
    * especially if targeted element is rendered lately because its data is based on some backend response.
