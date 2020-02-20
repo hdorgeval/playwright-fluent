@@ -8,6 +8,7 @@
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [hover(selector[, options])](#hoverselector-options)
+  - [wait(duration)](#waitduration)
   - [close()](#close)
 
 - Helper Methods
@@ -61,6 +62,7 @@ interface LaunchOptions {
    * @memberof LaunchOptions
    */
   headless: boolean;
+
   /**
    * Additional arguments to pass to the browser instance.
    * The list of Chromium flags can be found at
@@ -70,6 +72,14 @@ interface LaunchOptions {
    * @memberof LaunchOptions
    */
   args?: string[];
+
+  /**
+   * Path to a browser executable to run instead of the bundled one.
+   *
+   * @type {string}
+   * @memberof LaunchOptions
+   */
+  executablePath?: string;
 }
 ```
 
@@ -177,7 +187,7 @@ const page = pwc.currentPage();
 
 ### hover(selector[, options])
 
-- selector: `string`
+- selector: `string | SelectorController`
 - options: `Partial<HoverOptions>`
 
 ```js
@@ -189,14 +199,14 @@ interface HoverOptions {
 }
 ```
 
-Will hover on the specified selector.
+Will hover on the specified selector. The selector can be either a CSS selector or Selector Object created by the [Selector API](/docs/selector.api.md).
 
 Example:
 
 ```js
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
-const selector '#exampleCustomRange';
+const selector = '#exampleCustomRange';
 const pwc = new PlaywrightController();
 
 await pwc
@@ -213,6 +223,40 @@ const page = pwc.currentPage();
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
 ```
+
+Example with a Selector Object:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const pwc = new PlaywrightController();
+const selector = pwc
+  .selector('label')
+  .withText('Email')
+  .nth(3);
+
+await pwc
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .navigateTo(url)
+  .hover(selector);
+
+// now if you want to use the playwright API from this point:
+const browser = pwc.currentBrowser();
+const page = pwc.currentPage();
+
+// the browser and page objects are standard playwright objects
+// so now you are ready to go by using the playwright API
+```
+
+---
+
+### wait(duration)
+
+- duration: `number`
+
+  time to wait in milliseconds.
 
 ---
 

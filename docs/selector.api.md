@@ -13,8 +13,10 @@ The Selector API enables to find and target a DOM element or a collection of DOM
 - Helper Methods
 
   - [count()](#count)
-  - [getFirstHandleOrNull()](#getFirstHandleOrNull)
+  - [exists()](#exists)
   - [getAllHandles()](#getAllHandles)
+  - [getFirstHandleOrNull()](#getFirstHandleOrNull)
+  - [getHandle()](#getHandle)
   - [toString()](#toString)
 
 ## Usage
@@ -112,11 +114,33 @@ The result may differ from one execution to another especially if targeted eleme
 
 ---
 
+### getHandle()
+
+- returns: `Promise<ElementHandle<Element> | null>`
+
+Executes the search and returns the first found element. Will return null if no elements are found.
+
+It is the same method as `getFirstHandleOrNull()`. Choose the method whose name is more friendly to you.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
 ### count()
 
 - returns: `Promise<number>`
 
 Gets the number of found elements.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### exists()
+
+- returns: `Promise<boolean>`
+
+Checks if the selector exists.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 
