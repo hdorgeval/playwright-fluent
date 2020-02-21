@@ -27,6 +27,7 @@ module.exports = {
     '!src/**/get*.ts',
     '!src/**/index.ts',
     '!src/**/is-handle-visible.ts',
+    '!src/**/is-handle-enabled.ts',
     '!src/**/scroll-to-handle.ts',
     '!src/**/show*.ts',
   ],
