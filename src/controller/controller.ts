@@ -17,11 +17,17 @@ import {
   Device,
   getBrowserArgsForDevice,
 } from '../devices';
-import { defaultWaitUntilOptions, WaitUntilOptions, sleep } from '../utils';
+import {
+  defaultWaitUntilOptions,
+  noWaitNoThrowOptions,
+  sleep,
+  waitUntil,
+  WaitUntilOptions,
+} from '../utils';
 import { SelectorController } from '../selector';
 import { Browser, Page, BrowserContext } from 'playwright';
 
-export { WaitUntilOptions } from '../utils';
+export { WaitUntilOptions, noWaitNoThrowOptions } from '../utils';
 export {
   BrowserName,
   HoverOptions,
@@ -31,6 +37,35 @@ export {
 } from '../actions';
 
 export { Device, DeviceName, allKnownDevices } from '../devices';
+
+export interface AssertOptions {
+  /**
+   * Defaults to 30000 milliseconds.
+   *
+   * @type {number}
+   * @memberof AssertOptions
+   */
+  timeoutInMilliseconds: number;
+  /**
+   * time during which the Assert must give back the same result.
+   * Defaults to 300 milliseconds.
+   * You must not setup a duration < 100 milliseconds.
+   * @type {number}
+   * @memberof AssertOptions
+   */
+  stabilityInMilliseconds: number;
+  verbose: boolean;
+}
+
+export const defaultAssertOptions: AssertOptions = {
+  stabilityInMilliseconds: 300,
+  timeoutInMilliseconds: 30000,
+  verbose: false,
+};
+
+export interface ExpectAssertion {
+  hasFocus: (options?: Partial<AssertOptions>) => PlaywrightController;
+}
 
 export class PlaywrightController implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
@@ -245,5 +280,48 @@ export class PlaywrightController implements PromiseLike<void> {
    */
   public selector(selector: string): SelectorController {
     return new SelectorController(selector, this);
+  }
+  public async hasFocus(
+    selector: string,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<boolean> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...options,
+    };
+    const result = await action.hasSelectorFocus(selector, this.currentPage(), waitOptions);
+    return result;
+  }
+  private async expectThatSelectorHasFocus(
+    selector: string,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...defaultAssertOptions,
+      ...options,
+      throwOnTimeout: true,
+    };
+
+    await waitUntil(
+      () => this.hasFocus(selector, noWaitNoThrowOptions),
+      async (): Promise<string> => {
+        const exists = await action.exists(selector, this.currentPage());
+        if (!exists) {
+          return `Selector '${selector}' was not found in DOM.`;
+        }
+        return `Selector '${selector}' does not have the focus.`;
+      },
+      waitOptions,
+    );
+  }
+
+  public expectThat(selector: string): ExpectAssertion {
+    return {
+      hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightController => {
+        this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
+        return this;
+      },
+    };
   }
 }
