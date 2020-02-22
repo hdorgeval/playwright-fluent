@@ -27,11 +27,5 @@ export async function hoverOnSelectorObject(
   );
 
   const handle = await selector.getHandle();
-  if (handle === null) {
-    throw new Error(
-      `Cannot hover on '${selector.toString()}' because this selector was not found in DOM`,
-    );
-  }
-
   await hoverOnHandle(handle, selector.toString(), page, options);
 }
