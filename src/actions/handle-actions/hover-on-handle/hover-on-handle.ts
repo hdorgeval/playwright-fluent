@@ -29,7 +29,7 @@ export async function hoverOnHandle(
   }
 
   if (!selector) {
-    throw new Error(`Cannot hover on '${name}' because selector is null or undefined`);
+    throw new Error(`Cannot hover on '${name}' because selector was not found in DOM`);
   }
 
   report('scrolling to selector ...', options.verbose);

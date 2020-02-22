@@ -36,7 +36,7 @@ describe('scroll to handle', (): void => {
     // When
     // Then
     const expectedError = new Error(
-      "Cannot hover on 'foobar' because selector is null or undefined",
+      "Cannot hover on 'foobar' because selector was not found in DOM",
     );
 
     await SUT.hoverOnHandle(undefined, 'foobar', page, options).catch((error): void =>
@@ -61,7 +61,7 @@ describe('scroll to handle', (): void => {
     // When
     // Then
     const expectedError = new Error(
-      "Cannot hover on 'foobar' because selector is null or undefined",
+      "Cannot hover on 'foobar' because selector was not found in DOM",
     );
 
     await SUT.hoverOnHandle(null, 'foobar', page, options).catch((error): void =>
