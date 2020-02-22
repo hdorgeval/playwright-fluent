@@ -282,17 +282,34 @@ export class PlaywrightController implements PromiseLike<void> {
     return new SelectorController(selector, this);
   }
   public async hasFocus(
-    selector: string,
+    selector: string | SelectorController,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
     const waitOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
       ...options,
     };
-    const result = await action.hasSelectorFocus(selector, this.currentPage(), waitOptions);
-    return result;
+    if (typeof selector === 'string') {
+      const result = await action.hasSelectorFocus(selector, this.currentPage(), waitOptions);
+      return result;
+    }
+    {
+      const result = await action.hasSelectorObjectFocus(selector, this.currentPage(), waitOptions);
+      return result;
+    }
   }
   private async expectThatSelectorHasFocus(
+    selector: string | SelectorController,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    if (typeof selector === 'string') {
+      return await this.expectThatCssSelectorHasFocus(selector, options);
+    }
+
+    return await this.expectThatSelectorObjectHasFocus(selector, options);
+  }
+
+  private async expectThatCssSelectorHasFocus(
     selector: string,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
@@ -316,7 +333,31 @@ export class PlaywrightController implements PromiseLike<void> {
     );
   }
 
-  public expectThat(selector: string): ExpectAssertion {
+  private async expectThatSelectorObjectHasFocus(
+    selector: SelectorController,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...defaultAssertOptions,
+      ...options,
+      throwOnTimeout: true,
+    };
+
+    await waitUntil(
+      () => this.hasFocus(selector, noWaitNoThrowOptions),
+      async (): Promise<string> => {
+        const exists = await selector.exists();
+        if (!exists) {
+          return `Selector '${selector.toString()}' was not found in DOM.`;
+        }
+        return `Selector '${selector.toString()}' does not have the focus.`;
+      },
+      waitOptions,
+    );
+  }
+
+  public expectThat(selector: string | SelectorController): ExpectAssertion {
     return {
       hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightController => {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
