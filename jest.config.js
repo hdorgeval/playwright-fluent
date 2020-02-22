@@ -26,6 +26,7 @@ module.exports = {
     '!src/**/device-names-builder.ts',
     '!src/**/get*.ts',
     '!src/**/index.ts',
+    '!src/**/has-handle-focus.ts',
     '!src/**/is-handle-visible.ts',
     '!src/**/is-handle-enabled.ts',
     '!src/**/scroll-to-handle.ts',
