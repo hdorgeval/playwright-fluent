@@ -42,6 +42,13 @@ export const defaultWaitUntilOptions: WaitUntilOptions = {
   verbose: false,
 };
 
+export const noWaitNoThrowOptions: WaitUntilOptions = {
+  stabilityInMilliseconds: 0,
+  throwOnTimeout: false,
+  timeoutInMilliseconds: 0,
+  verbose: false,
+};
+
 /**
  * Wait until predicate becomes true,
  * and always return true during 300 ms.
@@ -62,8 +69,8 @@ export async function waitUntil(
   report(JSON.stringify(options, null, 2), options.verbose);
 
   const timeout = options.timeoutInMilliseconds;
-  const interval = options.stabilityInMilliseconds / 3;
-  const nbIntervals = timeout / interval;
+  const interval = options.stabilityInMilliseconds <= 0 ? 1 : options.stabilityInMilliseconds / 3;
+  const nbIntervals = timeout <= 0 ? 1 : timeout / interval;
   const stabilityCounterMaxValue = options.stabilityInMilliseconds / interval;
   let stabilityCounterCurrentValue = 0;
 
@@ -82,9 +89,11 @@ export async function waitUntil(
       stabilityCounterCurrentValue = 0;
     }
 
-    if (stabilityCounterCurrentValue >= stabilityCounterMaxValue) {
+    if (result && stabilityCounterCurrentValue >= stabilityCounterMaxValue) {
       report(
-        `predicate always returned ${result} during ${options.stabilityInMilliseconds} ms: no need to wait anymore.`,
+        `predicate always returned ${result} during ${
+          stabilityCounterCurrentValue > 0 ? stabilityCounterCurrentValue * interval : interval
+        } ms: no need to wait anymore.`,
         options.verbose,
       );
       return;

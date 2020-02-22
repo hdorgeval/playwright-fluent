@@ -1,5 +1,5 @@
 import * as SUT from './index';
-import { WaitUntilOptions, defaultWaitUntilOptions } from './wait-until';
+import { WaitUntilOptions, defaultWaitUntilOptions, noWaitNoThrowOptions } from './wait-until';
 
 describe('wait until', (): void => {
   test('should wait', async (): Promise<void> => {
@@ -40,6 +40,56 @@ describe('wait until', (): void => {
 
     // Then
     expect(result).toBe(false);
+  });
+
+  test('should not wait and not throw with predicate always false', async (): Promise<void> => {
+    // Given
+    const options: WaitUntilOptions = {
+      ...noWaitNoThrowOptions,
+      verbose: true,
+    };
+    const predicate = async (): Promise<boolean> => {
+      return false;
+    };
+
+    const startTime = new Date().getTime();
+
+    // When
+    await SUT.waitUntil(predicate, 'cannot wait any more!', options);
+    const result = await predicate();
+    const endTime = new Date().getTime();
+
+    // Then
+    const duration = endTime - startTime;
+    // eslint-disable-next-line no-console
+    console.log(`measured duration with noWaitNoThrowOptions = ${duration} ms`);
+    expect(duration).toBeLessThan(3000);
+    expect(result).toBe(false);
+  });
+
+  test('should not wait and not throw with predicate always true', async (): Promise<void> => {
+    // Given
+    const options: WaitUntilOptions = {
+      ...noWaitNoThrowOptions,
+      verbose: true,
+    };
+    const predicate = async (): Promise<boolean> => {
+      return true;
+    };
+
+    const startTime = new Date().getTime();
+
+    // When
+    await SUT.waitUntil(predicate, 'cannot wait any more!', options);
+    const result = await predicate();
+    const endTime = new Date().getTime();
+
+    // Then
+    const duration = endTime - startTime;
+    // eslint-disable-next-line no-console
+    console.log(`measured duration with noWaitNoThrowOptions = ${duration} ms`);
+    expect(duration).toBeLessThan(3000);
+    expect(result).toBe(true);
   });
 
   test('should throw when timeout is reached', async (): Promise<void> => {
