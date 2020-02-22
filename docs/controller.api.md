@@ -115,6 +115,8 @@ await pwc
   .navigateTo(url);
 ```
 
+![demo cursor](../images/demo-cursor.gif)
+
 ---
 
 ### emulateDevice(deviceName)
