@@ -1,3 +1,4 @@
+export * from './click-on-handle';
 export * from './get-client-rectangle-of-handle';
 export * from './get-handles-with-text';
 export * from './get-handles-with-value';
@@ -6,6 +7,7 @@ export * from './get-parent-of-handles';
 export * from './get-value-of-handle';
 export * from './has-handle-value';
 export * from './hover-on-handle';
+export * from './is-handle-enabled';
 export * from './is-handle-moving';
 export * from './is-handle-visible';
 export * from './query-selector-all-from-handles';
