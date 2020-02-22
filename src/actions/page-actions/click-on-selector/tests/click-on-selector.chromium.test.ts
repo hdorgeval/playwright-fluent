@@ -1,0 +1,53 @@
+import * as SUT from '../index';
+import { showMousePosition } from '../../../dom-actions';
+import { isHandleVisible, defaultClickOptions, ClickOptions } from '../../../handle-actions';
+import { hasHandleFocus } from '../../../handle-actions/has-handle-focus';
+import { Browser, chromium } from 'playwright';
+import * as path from 'path';
+
+describe('click on selector', (): void => {
+  let browser: Browser | undefined = undefined;
+
+  beforeEach((): void => {
+    jest.setTimeout(30000);
+  });
+
+  afterEach(
+    async (): Promise<void> => {
+      if (browser) {
+        await browser.close();
+      }
+    },
+  );
+
+  test('should wait for the selector to be enabled before clicking - chromium', async (): Promise<
+    void
+  > => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const browserContext = await browser.newContext({ viewport: null });
+    const page = await browserContext.newPage();
+    await showMousePosition(page);
+    const url = `file:${path.join(__dirname, 'click-on-selector.test.html')}`;
+    await page.goto(url);
+
+    const selector = '#dynamically-added-input';
+    let handle = await page.$(selector);
+    const isSelectorVisibleBeforeClick = await isHandleVisible(handle);
+
+    const options: ClickOptions = {
+      ...defaultClickOptions,
+      verbose: true,
+    };
+
+    // When
+    await SUT.clickOnSelector(selector, page, options);
+    handle = await page.$(selector);
+    const isSelectorVisibleAfterClick = await isHandleVisible(handle);
+
+    // Then
+    expect(isSelectorVisibleBeforeClick).toBe(false);
+    expect(isSelectorVisibleAfterClick).toBe(true);
+    expect(await hasHandleFocus(handle)).toBe(true);
+  });
+});
