@@ -1,4 +1,5 @@
 import * as SUT from '../index';
+import { defaultVerboseOptions } from '../is-handle-visible';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -27,7 +28,7 @@ describe('handle is visible', (): void => {
     const handle = await page.$('#hidden');
 
     // When
-    const result = await SUT.isHandleVisible(handle);
+    const result = await SUT.isHandleVisible(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();
@@ -46,7 +47,7 @@ describe('handle is visible', (): void => {
     const handle = await page.$('#visible');
 
     // When
-    const result = await SUT.isHandleVisible(handle);
+    const result = await SUT.isHandleVisible(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();
@@ -65,7 +66,7 @@ describe('handle is visible', (): void => {
     const handle = await page.$('#transparent');
 
     // When
-    const result = await SUT.isHandleVisible(handle);
+    const result = await SUT.isHandleVisible(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();
@@ -84,7 +85,7 @@ describe('handle is visible', (): void => {
     const handle = await page.$('#out-of-screen');
 
     // When
-    const result = await SUT.isHandleVisible(handle);
+    const result = await SUT.isHandleVisible(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();
@@ -103,7 +104,7 @@ describe('handle is visible', (): void => {
     const handle = await page.$('#out-of-viewport');
 
     // When
-    const result = await SUT.isHandleVisible(handle);
+    const result = await SUT.isHandleVisible(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();

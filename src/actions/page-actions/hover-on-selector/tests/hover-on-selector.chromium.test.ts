@@ -1,6 +1,11 @@
 import * as SUT from '../index';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
-import { isHandleVisible, defaultHoverOptions, HoverOptions } from '../../../handle-actions';
+import {
+  defaultHoverOptions,
+  defaultVerboseOptions,
+  HoverOptions,
+  isHandleVisible,
+} from '../../../handle-actions';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -32,7 +37,7 @@ describe('hover on selector', (): void => {
 
     const selector = '#dynamically-added';
     let handle = await page.$(selector);
-    const isSelectorVisibleBeforeScroll = await isHandleVisible(handle);
+    const isSelectorVisibleBeforeScroll = await isHandleVisible(handle, defaultVerboseOptions);
 
     const options: HoverOptions = {
       ...defaultHoverOptions,
@@ -42,7 +47,7 @@ describe('hover on selector', (): void => {
     // When
     await SUT.hoverOnSelector(selector, page, options);
     handle = await page.$(selector);
-    const isSelectorVisibleAfterScroll = await isHandleVisible(handle);
+    const isSelectorVisibleAfterScroll = await isHandleVisible(handle, defaultVerboseOptions);
 
     // Then
     expect(isSelectorVisibleBeforeScroll).toBe(false);

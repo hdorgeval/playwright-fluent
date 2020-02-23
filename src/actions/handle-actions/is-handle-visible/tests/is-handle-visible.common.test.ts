@@ -1,4 +1,5 @@
 import * as SUT from '../index';
+import { defaultVerboseOptions } from '../is-handle-visible';
 import { ElementHandle } from 'playwright';
 
 describe('handle is visible', (): void => {
@@ -11,7 +12,7 @@ describe('handle is visible', (): void => {
     const handle: ElementHandle<Element> | undefined = undefined;
 
     // When
-    const result = await SUT.isHandleVisible(handle);
+    const result = await SUT.isHandleVisible(handle, defaultVerboseOptions);
 
     // Then
     expect(result).toBe(false);
@@ -22,7 +23,7 @@ describe('handle is visible', (): void => {
     const handle: ElementHandle<Element> | null = null;
 
     // When
-    const result = await SUT.isHandleVisible(handle);
+    const result = await SUT.isHandleVisible(handle, defaultVerboseOptions);
 
     // Then
     expect(result).toBe(false);

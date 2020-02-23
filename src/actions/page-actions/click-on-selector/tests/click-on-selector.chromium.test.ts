@@ -1,6 +1,11 @@
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
-import { isHandleVisible, defaultClickOptions, ClickOptions } from '../../../handle-actions';
+import {
+  ClickOptions,
+  defaultClickOptions,
+  defaultVerboseOptions,
+  isHandleVisible,
+} from '../../../handle-actions';
 import { hasHandleFocus } from '../../../handle-actions/has-handle-focus';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
@@ -33,7 +38,7 @@ describe('click on selector', (): void => {
 
     const selector = '#dynamically-added-input';
     let handle = await page.$(selector);
-    const isSelectorVisibleBeforeClick = await isHandleVisible(handle);
+    const isSelectorVisibleBeforeClick = await isHandleVisible(handle, defaultVerboseOptions);
 
     const options: ClickOptions = {
       ...defaultClickOptions,
@@ -43,7 +48,7 @@ describe('click on selector', (): void => {
     // When
     await SUT.clickOnSelector(selector, page, options);
     handle = await page.$(selector);
-    const isSelectorVisibleAfterClick = await isHandleVisible(handle);
+    const isSelectorVisibleAfterClick = await isHandleVisible(handle, defaultVerboseOptions);
 
     // Then
     expect(isSelectorVisibleBeforeClick).toBe(false);

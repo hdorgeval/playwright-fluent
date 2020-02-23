@@ -13,7 +13,7 @@ export const defaultVerboseOptions: VerboseOptions = {
 
 export async function isHandleVisible(
   selector: ElementHandle<Element> | undefined | null,
-  options: VerboseOptions = defaultVerboseOptions,
+  options: VerboseOptions,
 ): Promise<boolean> {
   if (selector === undefined || selector === null) {
     return false;
