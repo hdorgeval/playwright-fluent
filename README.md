@@ -6,7 +6,7 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 [![Build status](https://ci.appveyor.com/api/projects/status/dp3o8w5m8b6o0y1s?svg=true)](https://ci.appveyor.com/project/hdorgeval/playwright-controller)
 [![npm version](https://img.shields.io/npm/v/playwright-controller.svg)](https://www.npmjs.com/package/playwright-controller)
 
-###### [Controller API](/docs/controller.api.md) | [Selector API](/docs/selector.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-controller-ts-jest-starter#playwright-controller-ts-jest-starter)
+###### [Controller API](/docs/controller.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-controller-ts-jest-starter#playwright-controller-ts-jest-starter)
 
 ### Installation
 
@@ -65,6 +65,7 @@ Check out our [contributing guide](./CONTRIBUTING.md).
 
 - [Controller API documentation](/docs/controller.api.md)
 - [Selector API documentation](/docs/selector.api.md)
+- [Assertion API documentation](/docs/assertion.api.md)
 
 ## FAQ
 
@@ -113,6 +114,7 @@ The documentations:
 
 - [Controller API documentation](/docs/controller.api.md)
 - [Selector API documentation](/docs/selector.api.md)
+- [Assertion API documentation](/docs/assertion.api.md)
 
 reflect the current status of the development and are inline with the published package.
 

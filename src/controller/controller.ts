@@ -54,6 +54,13 @@ export interface AssertOptions {
    * @memberof AssertOptions
    */
   stabilityInMilliseconds: number;
+  /**
+   * Will generate 'debug' logs,
+   * so that you can understand why the assertion does not give the expected result.
+   * Defaults to false
+   * @type {boolean}
+   * @memberof AssertOptions
+   */
   verbose: boolean;
 }
 
