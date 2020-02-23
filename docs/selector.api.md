@@ -21,7 +21,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
 
 ## Usage
 
-To use the Selector API, you must first get a selector object from the controller, then use the chainable methods to compose your query, and finally execute the query by calling `getFirstHandleOrNull()`:
+To use the Selector API, you must first get a selector object from the controller, then use the chainable methods to compose your query, and finally execute the query by calling `getHandle()` if your query targets only one element or by calling `getAllHandles()` if the query targets a collection of elements:
 
 ```js
 import { PlaywrightController } from 'playwright-controller';
@@ -45,7 +45,7 @@ const checkbox = agGridContainer
   .find('div[col-id="name"]') // in this row, take the cell of the 'Name' column
   .find('span.ag-selection-checkbox'); // in this cell, take the checkbox
 
-const handle = await checkbox.getFirstHandleOrNull(); // get the Playwright's element handle
+const handle = await checkbox.getHandle(); // get the Playwright's element handle
 await handle.click();
 ```
 
