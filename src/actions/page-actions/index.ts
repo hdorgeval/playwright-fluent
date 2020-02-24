@@ -5,6 +5,7 @@ export * from './get-viewport-rectangle-of';
 export * from './get-window-state';
 export * from './has-selector-focus';
 export * from './hover-on-selector';
+export * from './is-selector-enabled';
 export * from './is-selector-visible';
 export * from './navigate-to';
 export * from './query-selector-all-in-page';
