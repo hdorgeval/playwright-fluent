@@ -5,6 +5,7 @@ The Assertion API enables to chain assertions on a selector. The selector can be
 - Chainable Methods
 
   - [expectThat(selector).hasFocus([options])](#expectThatselectorhasFocusoptions)
+  - [expectThat(selector).isVisible([options])](#expectThatselectorisVisibleoptions)
 
 ## Usage
 
@@ -64,5 +65,15 @@ interface AssertOptions {
   verbose: boolean;
 }
 ```
+
+---
+
+### expectThat(selector).isVisible([options])
+
+- selector: `string | SelectorController`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightController`
+
+Will check if the selector is visible.
 
 ---
