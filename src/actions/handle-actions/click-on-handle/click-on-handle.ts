@@ -53,7 +53,7 @@ export async function clickOnHandle(
 
   report('waiting for the selector to be enabled ...', options.verbose);
   await waitUntil(
-    () => isHandleEnabled(selector),
+    () => isHandleEnabled(selector, { verbose: false }),
     `Cannot click on '${name}' because this selector is disabled`,
     {
       timeoutInMilliseconds: options.timeoutInMilliseconds,

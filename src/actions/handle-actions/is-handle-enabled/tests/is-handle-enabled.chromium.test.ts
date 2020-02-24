@@ -1,4 +1,5 @@
 import * as SUT from '../index';
+import { defaultVerboseOptions } from '../../is-handle-visible';
 import { Browser, ElementHandle, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -19,7 +20,7 @@ describe('handle is enabled', (): void => {
     const handle: ElementHandle<Element> | undefined = undefined;
 
     // When
-    const result = await SUT.isHandleEnabled(handle);
+    const result = await SUT.isHandleEnabled(handle, defaultVerboseOptions);
 
     // Then
     expect(result).toBe(false);
@@ -30,7 +31,7 @@ describe('handle is enabled', (): void => {
     const handle: ElementHandle<Element> | null = null;
 
     // When
-    const result = await SUT.isHandleEnabled(handle);
+    const result = await SUT.isHandleEnabled(handle, defaultVerboseOptions);
 
     // Then
     expect(result).toBe(false);
@@ -47,7 +48,7 @@ describe('handle is enabled', (): void => {
 
     // When
     const handle = await page.$('p');
-    const result = await SUT.isHandleEnabled(handle);
+    const result = await SUT.isHandleEnabled(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();
@@ -65,7 +66,7 @@ describe('handle is enabled', (): void => {
 
     // When
     const handle = await page.$('#enabledInput');
-    const result = await SUT.isHandleEnabled(handle);
+    const result = await SUT.isHandleEnabled(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();
@@ -83,7 +84,7 @@ describe('handle is enabled', (): void => {
 
     // When
     const handle = await page.$('#disabledInput');
-    const result = await SUT.isHandleEnabled(handle);
+    const result = await SUT.isHandleEnabled(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();
@@ -101,7 +102,7 @@ describe('handle is enabled', (): void => {
 
     // When
     const handle = await page.$('#disabledSelect');
-    const result = await SUT.isHandleEnabled(handle);
+    const result = await SUT.isHandleEnabled(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();
@@ -119,7 +120,7 @@ describe('handle is enabled', (): void => {
 
     // When
     const handle = await page.$('#enabledSelect');
-    const result = await SUT.isHandleEnabled(handle);
+    const result = await SUT.isHandleEnabled(handle, defaultVerboseOptions);
 
     // Then
     expect(handle).toBeDefined();
