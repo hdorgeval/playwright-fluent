@@ -8,6 +8,7 @@ export * from './get-value-of-handle';
 export * from './has-handle-focus';
 export * from './has-handle-value';
 export * from './hover-on-handle';
+export * from './is-handle-disabled';
 export * from './is-handle-enabled';
 export * from './is-handle-moving';
 export * from './is-handle-visible';
