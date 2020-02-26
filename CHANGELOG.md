@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - feat(assertion): add `expectThat(selector).isEnabled()` to the Assertion API
 - feat(controller): add `isEnabled(selector[, options])` to the Controller API
 - feat(controller): add `isDisabled(selector[, options])` to the Controller API
+- feat(controller): add `isVisible(selector[, options])` to the Controller API
 
 ## [0.8.0] - 2020-02-24
 
