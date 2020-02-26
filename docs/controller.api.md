@@ -18,6 +18,10 @@
   - [getCurrentUrl()](#getCurrentUrl)
   - [getCurrentWindowState()](#getCurrentWindowState)
   - [getValueOf(selector[, options])](#getValueOfselector-options)
+  - [hasFocus(selector[, options])](#hasFocusselector-options)
+  - [isDisabled(selector[, options])](#isDisabledselector-options)
+  - [isEnabled(selector[, options])](#isEnabledselector-options)
+  - [isVisible(selector[, options])](#isVisibleselector-options)
 
 ## Chainable Methods
 
@@ -383,6 +387,54 @@ interface WaitUntilOptions {
   verbose: boolean;
 }
 ```
+
+---
+
+### hasFocus(selector[, options])
+
+- selector: `string | SelectorController`
+- options: `Partial<WaitUntilOptions>`
+- returns: `Promise<boolean>`
+
+Checks if selector has the focus.
+
+> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+---
+
+### isDisabled(selector[, options])
+
+- selector: `string | SelectorController`
+- options: `Partial<WaitUntilOptions>`
+- returns: `Promise<boolean>`
+
+Checks if selector is disabled.
+
+> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+---
+
+### isEnabled(selector[, options])
+
+- selector: `string | SelectorController`
+- options: `Partial<WaitUntilOptions>`
+- returns: `Promise<boolean>`
+
+Checks if selector is enabled.
+
+> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+---
+
+### isVisible(selector[, options])
+
+- selector: `string | SelectorController`
+- options: `Partial<WaitUntilOptions>`
+- returns: `Promise<boolean>`
+
+Checks if selector is visible.
+
+> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
 
 ---
 
