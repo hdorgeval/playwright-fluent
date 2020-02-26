@@ -372,84 +372,14 @@ export class PlaywrightController implements PromiseLike<void> {
     selector: string | SelectorController,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
-    if (typeof selector === 'string') {
-      return await this.expectThatCssSelectorIsVisible(selector, options);
-    }
-
-    return await this.expectThatSelectorObjectIsVisible(selector, options);
+    await assertion.expectThatSelectorIsVisible(selector, this.currentPage(), options);
   }
 
   public async isVisible(
     selector: string | SelectorController,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
-    const waitOptions: WaitUntilOptions = {
-      ...defaultWaitUntilOptions,
-      ...options,
-    };
-    if (typeof selector === 'string') {
-      const result = await action.isSelectorVisible(selector, this.currentPage(), waitOptions);
-      return result;
-    }
-    {
-      const result = await action.isSelectorObjectVisible(
-        selector,
-        this.currentPage(),
-        waitOptions,
-      );
-      return result;
-    }
-  }
-  private async expectThatCssSelectorIsVisible(
-    selector: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
-  ): Promise<void> {
-    const waitOptions: WaitUntilOptions = {
-      ...defaultWaitUntilOptions,
-      ...defaultAssertOptions,
-      ...options,
-      throwOnTimeout: true,
-    };
-
-    await waitUntil(
-      () => this.isVisible(selector, noWaitNoThrowOptions),
-      async (): Promise<string> => {
-        const exists = await action.exists(selector, this.currentPage());
-        if (!exists) {
-          return `Selector '${selector}' was not found in DOM.`;
-        }
-        return `Selector '${selector}' is not visible.
-  Either this selector is hidden or is outside of the current viewport.
-  In that case you should hover over it before the assert.`;
-      },
-      waitOptions,
-    );
-  }
-
-  private async expectThatSelectorObjectIsVisible(
-    selector: SelectorController,
-    options: Partial<AssertOptions> = defaultAssertOptions,
-  ): Promise<void> {
-    const waitOptions: WaitUntilOptions = {
-      ...defaultWaitUntilOptions,
-      ...defaultAssertOptions,
-      ...options,
-      throwOnTimeout: true,
-    };
-
-    await waitUntil(
-      () => this.isVisible(selector, noWaitNoThrowOptions),
-      async (): Promise<string> => {
-        const exists = await selector.exists();
-        if (!exists) {
-          return `Selector '${selector.toString()}' was not found in DOM.`;
-        }
-        return `Selector '${selector.toString()}' is not visible.
-  Either this selector is hidden or is outside of the current viewport.
-  In that case you should hover over it before the assert.`;
-      },
-      waitOptions,
-    );
+    return await assertion.isVisible(selector, this.currentPage(), options);
   }
 
   private async expectThatSelectorIsEnabled(
