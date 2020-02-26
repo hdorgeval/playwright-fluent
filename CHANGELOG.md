@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [0.9.0] - 2020-02-26
+
+### Added
+
+- feat(assertion): add `expectThat(selector).isDisabled()` to the Assertion API
+- feat(assertion): add `expectThat(selector).isEnabled()` to the Assertion API
+- feat(controller): add `isEnabled(selector[, options])` to the Controller API
+- feat(controller): add `isDisabled(selector[, options])` to the Controller API
+
 ## [0.8.0] - 2020-02-24
 
 ### Added
