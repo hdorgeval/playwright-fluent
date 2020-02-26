@@ -18,13 +18,7 @@ import {
   Device,
   getBrowserArgsForDevice,
 } from '../devices';
-import {
-  defaultWaitUntilOptions,
-  noWaitNoThrowOptions,
-  sleep,
-  waitUntil,
-  WaitUntilOptions,
-} from '../utils';
+import { defaultWaitUntilOptions, sleep, WaitUntilOptions } from '../utils';
 import { SelectorController } from '../selector';
 import { Browser, Page, BrowserContext } from 'playwright';
 
@@ -296,76 +290,14 @@ export class PlaywrightController implements PromiseLike<void> {
     selector: string | SelectorController,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
-    const waitOptions: WaitUntilOptions = {
-      ...defaultWaitUntilOptions,
-      ...options,
-    };
-    if (typeof selector === 'string') {
-      const result = await action.hasSelectorFocus(selector, this.currentPage(), waitOptions);
-      return result;
-    }
-    {
-      const result = await action.hasSelectorObjectFocus(selector, this.currentPage(), waitOptions);
-      return result;
-    }
+    return await assertion.hasFocus(selector, this.currentPage(), options);
   }
+
   private async expectThatSelectorHasFocus(
     selector: string | SelectorController,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
-    if (typeof selector === 'string') {
-      return await this.expectThatCssSelectorHasFocus(selector, options);
-    }
-
-    return await this.expectThatSelectorObjectHasFocus(selector, options);
-  }
-
-  private async expectThatCssSelectorHasFocus(
-    selector: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
-  ): Promise<void> {
-    const waitOptions: WaitUntilOptions = {
-      ...defaultWaitUntilOptions,
-      ...defaultAssertOptions,
-      ...options,
-      throwOnTimeout: true,
-    };
-
-    await waitUntil(
-      () => this.hasFocus(selector, noWaitNoThrowOptions),
-      async (): Promise<string> => {
-        const exists = await action.exists(selector, this.currentPage());
-        if (!exists) {
-          return `Selector '${selector}' was not found in DOM.`;
-        }
-        return `Selector '${selector}' does not have the focus.`;
-      },
-      waitOptions,
-    );
-  }
-
-  private async expectThatSelectorObjectHasFocus(
-    selector: SelectorController,
-    options: Partial<AssertOptions> = defaultAssertOptions,
-  ): Promise<void> {
-    const waitOptions: WaitUntilOptions = {
-      ...defaultWaitUntilOptions,
-      ...defaultAssertOptions,
-      ...options,
-      throwOnTimeout: true,
-    };
-
-    await waitUntil(
-      () => this.hasFocus(selector, noWaitNoThrowOptions),
-      async (): Promise<string> => {
-        const exists = await selector.exists();
-        if (!exists) {
-          return `Selector '${selector.toString()}' was not found in DOM.`;
-        }
-        return `Selector '${selector.toString()}' does not have the focus.`;
-      },
-      waitOptions,
-    );
+    await assertion.expectThatSelectorHasFocus(selector, this.currentPage(), options);
   }
 
   private async expectThatSelectorIsVisible(
