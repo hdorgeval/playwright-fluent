@@ -1,4 +1,5 @@
 import { BrowserContextOptions } from './playwright-types';
+import * as assertion from '../assertions';
 import * as action from '../actions';
 import {
   BrowserName,
@@ -536,81 +537,14 @@ export class PlaywrightController implements PromiseLike<void> {
     selector: string | SelectorController,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
-    if (typeof selector === 'string') {
-      return await this.expectThatCssSelectorIsDisabled(selector, options);
-    }
-
-    return await this.expectThatSelectorObjectIsDisabled(selector, options);
-  }
-
-  private async expectThatCssSelectorIsDisabled(
-    selector: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
-  ): Promise<void> {
-    const waitOptions: WaitUntilOptions = {
-      ...defaultWaitUntilOptions,
-      ...defaultAssertOptions,
-      ...options,
-      throwOnTimeout: true,
-    };
-
-    await waitUntil(
-      () => this.isDisabled(selector, noWaitNoThrowOptions),
-      async (): Promise<string> => {
-        const exists = await action.exists(selector, this.currentPage());
-        if (!exists) {
-          return `Selector '${selector}' was not found in DOM.`;
-        }
-
-        return `Selector '${selector}' is enabled.`;
-      },
-      waitOptions,
-    );
-  }
-  private async expectThatSelectorObjectIsDisabled(
-    selector: SelectorController,
-    options: Partial<AssertOptions> = defaultAssertOptions,
-  ): Promise<void> {
-    const waitOptions: WaitUntilOptions = {
-      ...defaultWaitUntilOptions,
-      ...defaultAssertOptions,
-      ...options,
-      throwOnTimeout: true,
-    };
-
-    await waitUntil(
-      () => this.isDisabled(selector, noWaitNoThrowOptions),
-      async (): Promise<string> => {
-        const exists = await selector.exists();
-        if (!exists) {
-          return `Selector '${selector.toString()}' was not found in DOM.`;
-        }
-        return `Selector '${selector.toString()}' is enabled.`;
-      },
-      waitOptions,
-    );
+    await assertion.expectThatSelectorIsDisabled(selector, this.currentPage(), options);
   }
 
   public async isDisabled(
     selector: string | SelectorController,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
-    const waitOptions: WaitUntilOptions = {
-      ...defaultWaitUntilOptions,
-      ...options,
-    };
-    if (typeof selector === 'string') {
-      const result = await action.isSelectorDisabled(selector, this.currentPage(), waitOptions);
-      return result;
-    }
-    {
-      const result = await action.isSelectorObjectDisabled(
-        selector,
-        this.currentPage(),
-        waitOptions,
-      );
-      return result;
-    }
+    return assertion.isDisabled(selector, this.currentPage(), options);
   }
 
   public expectThat(selector: string | SelectorController): ExpectAssertion {
