@@ -9,7 +9,7 @@ export async function isHandleNotVisible(
   options: VerboseOptions,
 ): Promise<boolean> {
   if (selector === undefined || selector === null) {
-    return false;
+    return true;
   }
 
   const visibleRatio = await selector.visibleRatio();
