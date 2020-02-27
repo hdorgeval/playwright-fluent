@@ -11,6 +11,7 @@ export * from './hover-on-handle';
 export * from './is-handle-disabled';
 export * from './is-handle-enabled';
 export * from './is-handle-moving';
+export * from './is-handle-not-visible';
 export * from './is-handle-visible';
 export * from './query-selector-all-from-handles';
 export * from './scroll-to-handle';
