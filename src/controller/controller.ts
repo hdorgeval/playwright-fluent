@@ -70,6 +70,7 @@ export interface ExpectAssertion {
   isDisabled: (options?: Partial<AssertOptions>) => PlaywrightController;
   isEnabled: (options?: Partial<AssertOptions>) => PlaywrightController;
   isVisible: (options?: Partial<AssertOptions>) => PlaywrightController;
+  isNotVisible: (options?: Partial<AssertOptions>) => PlaywrightController;
 }
 
 export class PlaywrightController implements PromiseLike<void> {
@@ -307,6 +308,20 @@ export class PlaywrightController implements PromiseLike<void> {
     await assertion.expectThatSelectorIsVisible(selector, this.currentPage(), options);
   }
 
+  private async expectThatSelectorIsNotVisible(
+    selector: string | SelectorController,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatSelectorIsNotVisible(selector, this.currentPage(), options);
+  }
+
+  public async isNotVisible(
+    selector: string | SelectorController,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<boolean> {
+    return await assertion.isNotVisible(selector, this.currentPage(), options);
+  }
+
   public async isVisible(
     selector: string | SelectorController,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
@@ -348,7 +363,12 @@ export class PlaywrightController implements PromiseLike<void> {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
         return this;
       },
-
+      isDisabled: (
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightController => {
+        this.actions.push(() => this.expectThatSelectorIsDisabled(selector, options));
+        return this;
+      },
       isEnabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightController => {
         this.actions.push(() => this.expectThatSelectorIsEnabled(selector, options));
         return this;
@@ -357,10 +377,10 @@ export class PlaywrightController implements PromiseLike<void> {
         this.actions.push(() => this.expectThatSelectorIsVisible(selector, options));
         return this;
       },
-      isDisabled: (
+      isNotVisible: (
         options: Partial<AssertOptions> = defaultAssertOptions,
       ): PlaywrightController => {
-        this.actions.push(() => this.expectThatSelectorIsDisabled(selector, options));
+        this.actions.push(() => this.expectThatSelectorIsNotVisible(selector, options));
         return this;
       },
     };
