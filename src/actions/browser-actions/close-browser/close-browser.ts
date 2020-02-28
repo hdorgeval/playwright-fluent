@@ -7,14 +7,15 @@ export async function closeBrowser(browser: Browser | undefined): Promise<void> 
 
   const contexts = browser.contexts();
   if (Array.isArray(contexts) && contexts.length > 0) {
-    contexts.forEach((context) => {
+    for (let index = 0; index < contexts.length; index++) {
+      const context = contexts[index];
       try {
-        context.close();
+        await context.close();
       } catch (error) {
         // eslint-disable-next-line no-console
         console.warn('Error while closing the browser context', error);
       }
-    });
+    }
   }
 
   try {
