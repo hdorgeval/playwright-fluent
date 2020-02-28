@@ -1,5 +1,6 @@
 import * as action from '../actions';
 import { PlaywrightController } from '../controller';
+import { VerboseOptions, defaultVerboseOptions } from '../actions';
 import { ElementHandle } from 'playwright';
 type Action = (handles: ElementHandle<Element>[]) => Promise<ElementHandle<Element>[]>;
 
@@ -257,5 +258,49 @@ export class SelectorController {
     }
 
     return true;
+  }
+
+  /**
+   * Checks if the selector is visible.
+   * If the selector targets multiple DOM elements, this check is done only on the first one found.
+   * The result may differ from one execution to another
+   * especially if targeted element is rendered lately because its data is based on some backend response.
+   * So the visibilty status is the one known when executing this method.
+   * @param {Partial<VerboseOptions>} [options=defaultVerboseOptions]
+   * @returns {Promise<boolean>}
+   * @memberof SelectorController
+   */
+  public async isVisible(
+    options: Partial<VerboseOptions> = defaultVerboseOptions,
+  ): Promise<boolean> {
+    const verboseOptions = {
+      ...defaultVerboseOptions,
+      options,
+    };
+    const handle = await this.getHandle();
+    const isElementVisible = await action.isHandleVisible(handle, verboseOptions);
+    return isElementVisible;
+  }
+
+  /**
+   * Checks that the selector is not visible.
+   * If the selector targets multiple DOM elements, this check is done only on the first one found.
+   * The result may differ from one execution to another
+   * especially if targeted element is rendered lately because its data is based on some backend response.
+   * So the visibilty status is the one known when executing this method.
+   * @param {Partial<VerboseOptions>} [options=defaultVerboseOptions]
+   * @returns {Promise<boolean>}
+   * @memberof SelectorController
+   */
+  public async isNotVisible(
+    options: Partial<VerboseOptions> = defaultVerboseOptions,
+  ): Promise<boolean> {
+    const verboseOptions = {
+      ...defaultVerboseOptions,
+      options,
+    };
+    const handle = await this.getHandle();
+    const isElementNotVisible = await action.isHandleNotVisible(handle, verboseOptions);
+    return isElementNotVisible;
   }
 }
