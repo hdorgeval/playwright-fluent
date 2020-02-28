@@ -1,5 +1,5 @@
 import { getHandleOf } from '../get-handle-of';
-import { WaitUntilOptions } from '../../../utils';
+import { WaitUntilOptions, noWaitNoThrowOptions } from '../../../utils';
 import { isHandleNotVisible } from '../../handle-actions';
 import { Page } from 'playwright';
 
@@ -13,8 +13,11 @@ export async function isSelectorNotVisible(
       `Cannot get visibility status of '${selector}' because no browser has been launched`,
     );
   }
-
-  const handle = await getHandleOf(selector, page, options);
+  const waitOptions: WaitUntilOptions = {
+    ...options,
+    ...noWaitNoThrowOptions,
+  };
+  const handle = await getHandleOf(selector, page, waitOptions);
   const result = await isHandleNotVisible(handle, { verbose: options.verbose });
   return result;
 }
