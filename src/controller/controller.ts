@@ -25,7 +25,7 @@ import {
   getBrowserArgsForDevice,
   getDevice,
 } from '../devices';
-import { defaultWaitUntilOptions, sleep, WaitUntilOptions } from '../utils';
+import { defaultWaitUntilOptions, sleep, WaitUntilOptions, waitUntil } from '../utils';
 import { SelectorController } from '../selector';
 import { Browser, Page, BrowserContext } from 'playwright';
 
@@ -335,6 +335,34 @@ export class PlaywrightController implements PromiseLike<void> {
 
   public wait(durationInMilliseconds: number): PlaywrightController {
     this.actions.push(async (): Promise<void> => await sleep(durationInMilliseconds));
+    return this;
+  }
+
+  /**
+   * Wait until predicate becomes true,
+   * and always return true during 300 ms.
+   * The waiting mechanism can be modified by setting options
+   *
+   * @param {() => Promise<boolean>} predicate
+   * @param {Partial<WaitUntilOptions>} [options=defaultWaitUntilOptions]
+   * @returns {PlaywrightController}
+   * @memberof PlaywrightController
+   */
+  public waitUntil(
+    predicate: () => Promise<boolean>,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): PlaywrightController {
+    const waitUntilOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...options,
+    };
+
+    this.actions.push(
+      async (): Promise<void> => {
+        const defaultErrorMessage = `Predicate still resolved to false after ${waitUntilOptions.timeoutInMilliseconds} ms.`;
+        await waitUntil(predicate, defaultErrorMessage, waitUntilOptions);
+      },
+    );
     return this;
   }
 

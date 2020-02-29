@@ -129,7 +129,7 @@ describe('Selector API - isVisible', (): void => {
       .find('p'); //only the <p> ... </p> element is hidden first
 
     const initialVisibleStatus = await selector.isVisible();
-    await pwc.wait(5000);
+    await pwc.waitUntil(() => selector.isVisible(), { verbose: true });
     const finalVisibleStatus = await selector.isVisible();
 
     // Then
@@ -146,12 +146,11 @@ describe('Selector API - isVisible', (): void => {
       .withCursor()
       .navigateTo(url);
 
-    // When
     const selector = pwc.selector('p').withText('I am dynamically added');
-
     const initialVisibleStatus = await selector.isVisible();
-    // await pwc.waitUntil(() => selector.isVisible(), { verbose: true });
-    await pwc.wait(6000);
+
+    // When
+    await pwc.waitUntil(() => selector.isVisible());
     const finalVisibleStatus = await selector.isVisible();
 
     // Then
