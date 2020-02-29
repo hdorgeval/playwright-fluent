@@ -1,7 +1,14 @@
 import { Page } from 'playwright';
 
 export interface KeyboardPressOptions {
-  delay?: number;
+  /**
+   * Time to wait between keydown and keyup in milliseconds.
+   * Defaults to 50.
+   *
+   * @type {number}
+   * @memberof KeyboardPressOptions
+   */
+  delay: number;
 }
 
 export type KeyboardKey = 'Tab' | 'Backspace' | 'Enter';
