@@ -168,4 +168,21 @@ describe('Playwright Controller - click', (): void => {
   .withValue(I am disabled)' because this selector is disabled`;
     expect(result && result.message).toContain(errorMessage);
   });
+
+  test('should click - chromium', async (): Promise<void> => {
+    // Given
+    const url = 'https://reactstrap.github.io/components/form';
+    const checkMeOut = pwc.selector('label').withText('Check me out');
+
+    // When
+    await pwc
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .emulateDevice('iPhone 6 landscape')
+      .navigateTo(url)
+      .click(checkMeOut)
+      .expectThat(checkMeOut.find('input'))
+      .hasFocus();
+  });
 });
