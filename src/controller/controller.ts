@@ -3,22 +3,24 @@ import * as assertion from '../assertions';
 import * as action from '../actions';
 import {
   BrowserName,
-  defaultLaunchOptions,
-  defaultNavigationOptions,
-  LaunchOptions,
-  NavigationOptions,
-  WindowState,
-  HoverOptions,
-  defaultHoverOptions,
   ClickOptions,
   defaultClickOptions,
+  defaultHoverOptions,
+  defaultLaunchOptions,
+  defaultNavigationOptions,
+  defaultTypeTextOptions,
+  HoverOptions,
+  LaunchOptions,
+  NavigationOptions,
+  TypeTextOptions,
+  WindowState,
 } from '../actions';
 import {
-  DeviceName,
-  getDevice,
   allKnownDevices,
   Device,
+  DeviceName,
   getBrowserArgsForDevice,
+  getDevice,
 } from '../devices';
 import { defaultWaitUntilOptions, sleep, WaitUntilOptions } from '../utils';
 import { SelectorController } from '../selector';
@@ -31,6 +33,7 @@ export {
   HoverOptions,
   LaunchOptions,
   NavigationOptions,
+  TypeTextOptions,
   WindowState,
 } from '../actions';
 
@@ -280,6 +283,32 @@ export class PlaywrightController implements PromiseLike<void> {
    */
   public withCursor(): PlaywrightController {
     this.showMousePosition = true;
+    return this;
+  }
+
+  private async typeTextInFocusedElement(text: string, options: TypeTextOptions): Promise<void> {
+    await action.typeText(text, this.currentPage(), options);
+  }
+
+  /**
+   * Type text in the element that has current focus.
+   *
+   * @param {string} text
+   * @param {Partial<TypeTextOptions>} [options=defaultTypeTextOptions]
+   * @returns {PlaywrightController}
+   * @memberof PlaywrightController
+   */
+  public typeText(
+    text: string,
+    options: Partial<TypeTextOptions> = defaultTypeTextOptions,
+  ): PlaywrightController {
+    const typeTextOptions: TypeTextOptions = {
+      ...defaultTypeTextOptions,
+      ...options,
+    };
+
+    const action = (): Promise<void> => this.typeTextInFocusedElement(text, typeTextOptions);
+    this.actions.push(action);
     return this;
   }
 
