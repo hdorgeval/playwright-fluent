@@ -4,6 +4,13 @@ import { Page } from 'playwright';
 declare const window: Window;
 
 export interface TypeTextOptions {
+  /**
+   * Time to wait between key presses in milliseconds.
+   * Defaults to 50
+   *
+   * @type {number}
+   * @memberof TypeTextOptions
+   */
   delay: number;
 }
 
