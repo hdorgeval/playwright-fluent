@@ -10,6 +10,8 @@ import {
   WindowState,
   HoverOptions,
   defaultHoverOptions,
+  ClickOptions,
+  defaultClickOptions,
 } from '../actions';
 import {
   DeviceName,
@@ -25,6 +27,7 @@ import { Browser, Page, BrowserContext } from 'playwright';
 export { WaitUntilOptions, noWaitNoThrowOptions } from '../utils';
 export {
   BrowserName,
+  ClickOptions,
   HoverOptions,
   LaunchOptions,
   NavigationOptions,
@@ -215,6 +218,35 @@ export class PlaywrightController implements PromiseLike<void> {
 
     {
       const action = (): Promise<void> => this.hoverOnSelectorObject(selector, hoverOptions);
+      this.actions.push(action);
+      return this;
+    }
+  }
+  private async clickOnSelector(selector: string, options: ClickOptions): Promise<void> {
+    await action.clickOnSelector(selector, this.currentPage(), options);
+  }
+  private async clickOnSelectorObject(
+    selector: SelectorController,
+    options: ClickOptions,
+  ): Promise<void> {
+    await action.clickOnSelectorObject(selector, this.currentPage(), options);
+  }
+  public click(
+    selector: string | SelectorController,
+    options: Partial<ClickOptions> = defaultClickOptions,
+  ): PlaywrightController {
+    const clickOptions: ClickOptions = {
+      ...defaultClickOptions,
+      ...options,
+    };
+    if (typeof selector === 'string') {
+      const action = (): Promise<void> => this.clickOnSelector(selector, clickOptions);
+      this.actions.push(action);
+      return this;
+    }
+
+    {
+      const action = (): Promise<void> => this.clickOnSelectorObject(selector, clickOptions);
       this.actions.push(action);
       return this;
     }
