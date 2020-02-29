@@ -6,10 +6,13 @@ import {
   ClickOptions,
   defaultClickOptions,
   defaultHoverOptions,
+  defaultKeyboardPressOptions,
   defaultLaunchOptions,
   defaultNavigationOptions,
   defaultTypeTextOptions,
   HoverOptions,
+  KeyboardKey,
+  KeyboardPressOptions,
   LaunchOptions,
   NavigationOptions,
   TypeTextOptions,
@@ -31,6 +34,8 @@ export {
   BrowserName,
   ClickOptions,
   HoverOptions,
+  KeyboardKey,
+  KeyboardPressOptions,
   LaunchOptions,
   NavigationOptions,
   TypeTextOptions,
@@ -308,6 +313,22 @@ export class PlaywrightController implements PromiseLike<void> {
     };
 
     const action = (): Promise<void> => this.typeTextInFocusedElement(text, typeTextOptions);
+    this.actions.push(action);
+    return this;
+  }
+
+  private async pressOnKey(key: KeyboardKey, options: KeyboardPressOptions): Promise<void> {
+    await action.pressKey(key, this.currentPage(), options);
+  }
+  public pressKey(
+    key: KeyboardKey,
+    options: Partial<KeyboardPressOptions> = defaultKeyboardPressOptions,
+  ): PlaywrightController {
+    const pressKeyOptions: KeyboardPressOptions = {
+      ...defaultKeyboardPressOptions,
+      ...options,
+    };
+    const action = (): Promise<void> => this.pressOnKey(key, pressKeyOptions);
     this.actions.push(action);
     return this;
   }
