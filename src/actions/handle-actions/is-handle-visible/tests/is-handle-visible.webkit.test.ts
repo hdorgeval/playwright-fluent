@@ -4,7 +4,7 @@ import { defaultVerboseOptions } from '../is-handle-visible';
 import { Browser, webkit } from 'playwright';
 import * as path from 'path';
 
-describe('handle is visible', (): void => {
+describe.skip('handle is visible', (): void => {
   let browser: Browser | undefined = undefined;
   beforeEach((): void => {
     jest.setTimeout(30000);
