@@ -112,7 +112,7 @@ describe('handle is visible', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return 1 when selector is in viewport - issue playwright headless', async (): Promise<
+  test.skip('should return 1 when selector is in viewport - issue playwright headless', async (): Promise<
     void
   > => {
     // Given
@@ -138,7 +138,7 @@ describe('handle is visible', (): void => {
     expect(visibleRatio).toBe(1);
   });
 
-  test('should return 1 when selector is in viewport - issue playwright headfull', async (): Promise<
+  test.skip('should return 1 when selector is in viewport - issue playwright headfull', async (): Promise<
     void
   > => {
     // Given

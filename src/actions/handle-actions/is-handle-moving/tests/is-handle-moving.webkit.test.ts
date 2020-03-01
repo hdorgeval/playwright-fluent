@@ -3,7 +3,7 @@ import { showMousePosition } from '../../../dom-actions';
 import { Browser, webkit } from 'playwright';
 import * as path from 'path';
 
-describe('handle is moving', (): void => {
+describe.skip('handle is moving', (): void => {
   let browser: Browser | undefined = undefined;
   beforeEach((): void => {
     jest.setTimeout(30000);
