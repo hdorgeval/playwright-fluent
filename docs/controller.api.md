@@ -14,6 +14,7 @@
   - [wait(duration)](#waitduration)
   - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
   - [close()](#close)
+  - [chainable methods from Assertion API](./assertion.api.md)
 
 - Helper Methods
 
