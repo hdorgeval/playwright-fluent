@@ -8,6 +8,7 @@ The Assertion API enables to chain assertions on a selector. The selector can be
   - [expectThat(selector).isDisabled([options])](#expectThatselectorisDisabledoptions)
   - [expectThat(selector).isEnabled([options])](#expectThatselectorisEnabledoptions)
   - [expectThat(selector).isVisible([options])](#expectThatselectorisVisibleoptions)
+  - [expectThat(selector).isNotVisible([options])](#expectThatselectorisNotVisibleoptions)
 
 ## Usage
 
@@ -77,6 +78,16 @@ interface AssertOptions {
 - returns: `PlaywrightController`
 
 Will check if the selector is visible.
+
+---
+
+### expectThat(selector).isNotVisible([options])
+
+- selector: `string | SelectorController`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightController`
+
+Will check if the selector is not visible.
 
 ---
 

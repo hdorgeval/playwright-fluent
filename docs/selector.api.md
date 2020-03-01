@@ -17,6 +17,8 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [getAllHandles()](#getAllHandles)
   - [getFirstHandleOrNull()](#getFirstHandleOrNull)
   - [getHandle()](#getHandle)
+  - [isVisible()](#isVisible)
+  - [isNotVisible()](#isNotVisible)
   - [toString()](#toString)
 
 ## Usage
@@ -141,6 +143,26 @@ The result may differ from one execution to another especially if targeted eleme
 - returns: `Promise<boolean>`
 
 Checks if the selector exists.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### isVisible()
+
+- returns: `Promise<boolean>`
+
+Checks if the selector is visible in the current viewport.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### isNotVisible()
+
+- returns: `Promise<boolean>`
+
+Checks if the selector is not visible in the current viewport.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 

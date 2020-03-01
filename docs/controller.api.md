@@ -7,8 +7,12 @@
   - [withCursor()](#withCursor)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [navigateTo(url[, options])](#navigateTourl-options)
+  - [click(selector[, options])](#clickselector-options)
   - [hover(selector[, options])](#hoverselector-options)
+  - [pressKey(key[, options])](#pressKeykey-options)
+  - [typeText(text[, options])](#typeTexttext-options)
   - [wait(duration)](#waitduration)
+  - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
   - [close()](#close)
 
 - Helper Methods
@@ -30,10 +34,13 @@
 - browser : `BrowserName`
 
 ```js
-BrowserName = 'chromium' | 'firefox' | 'webkit';
+BrowserName = 'chrome' | 'chromium' | 'firefox' | 'webkit';
 ```
 
 Will launch a browser together with a new page by using all `playwright` default settings and options.
+
+If you choose 'chrome' you must have an already installed Chrome.
+BEWARE: Playwright is only guaranteed to work with the bundled Chromium, Firefox or WebKit, use at your own risk.
 
 Example:
 
@@ -258,11 +265,132 @@ const page = pwc.currentPage();
 
 ---
 
+### click(selector[, options])
+
+- selector: `string | SelectorController`
+- options: `Partial<ClickOptions>`
+
+```js
+interface ClickOptions {
+  button: 'left' | 'right' | 'middle';
+  clickCount: number;
+  delay: number;
+  modifiers?: Modifier[];
+  relativePoint?: Point;
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+
+type Modifier = 'Alt' | 'Control' | 'Meta' | 'Shift';
+type Point = {
+  x: number,
+  y: number,
+};
+```
+
+Will click on the specified selector. The selector can be either a CSS selector or Selector Object created by the [Selector API](/docs/selector.api.md).
+
+This method automatically waits for the selector to be visible, then hovers over it, then waits until it is enabled and finally click on it.
+
+Example:
+
+```js
+const url = 'https://reactstrap.github.io/components/form';
+const checkMeOut = pwc.selector('label').withText('Check me out');
+
+await pwc
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .emulateDevice('iPhone 6 landscape')
+  .navigateTo(url)
+  .click(checkMeOut)
+  .expectThat(checkMeOut.find('input'))
+  .hasFocus();
+
+// now if you want to use the playwright API from this point:
+const browser = pwc.currentBrowser();
+const page = pwc.currentPage();
+
+// the browser and page objects are standard playwright objects
+// so now you are ready to go by using the playwright API
+```
+
+![click demo](../images/demo-click.gif)
+
+---
+
+### pressKey(key[, options])
+
+- key: `'Tab' | 'Backspace' | 'Enter'`
+- options: `Partial<KeyboardPressOptions>`
+
+```js
+interface KeyboardPressOptions {
+  /**
+   * Time to wait between keydown and keyup in milliseconds.
+   * Defaults to 50.
+   *
+   * @type {number}
+   * @memberof KeyboardPressOptions
+   */
+  delay: number;
+}
+```
+
+Will press the specified key.
+
+---
+
+### typeText(text[, options])
+
+- text: `string`
+- options: `Partial<TypeTextOptions>`
+
+```js
+interface TypeTextOptions {
+  /**
+   * Time to wait between key presses in milliseconds.
+   * Defaults to 50
+   *
+   * @type {number}
+   * @memberof TypeTextOptions
+   */
+  delay: number;
+}
+```
+
+Will type text in the element that has current focus. This method will automtically empty any existing content before typing the specified text.
+
+---
+
 ### wait(duration)
 
 - duration: `number`
 
   time to wait in milliseconds.
+
+---
+
+### waitUntil(predicate[, waitOptions])
+
+- predicate: `() => Promise<boolean>`
+- waitOptions: `Partial<WaitUntilOptions>`
+
+Will wait until predicate becomes true.
+
+Usage example:
+
+```js
+const selector = pptc
+  .selector('[role="row"]')
+  .find('td')
+  .find('p');
+  .withText('foobar');
+
+await pptc.waitUntil(() => selector.isVisible());
+```
 
 ---
 

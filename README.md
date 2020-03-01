@@ -43,7 +43,7 @@ await pwc
   .close();
 ```
 
-This API will provide a Selector Fluent API that will enable to find and target a DOM element or a collection of DOM elements that is embedded in complex DOM Hierarchy:
+This API provides a Selector Fluent API that enables to find and target a DOM element or a collection of DOM elements that is embedded in complex DOM Hierarchy:
 
 ```js
 const selector = pwc
