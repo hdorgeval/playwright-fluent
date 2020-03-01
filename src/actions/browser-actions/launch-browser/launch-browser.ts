@@ -1,6 +1,7 @@
+import { getChromePath } from '../../../utils';
 import { chromium, Browser, firefox, webkit } from 'playwright';
 
-export type BrowserName = 'chromium' | 'firefox' | 'webkit';
+export type BrowserName = 'chromium' | 'chrome' | 'firefox' | 'webkit';
 
 export interface LaunchOptions {
   /**
@@ -33,6 +34,21 @@ export const defaultLaunchOptions: LaunchOptions = {
 };
 export async function launchBrowser(name: BrowserName, options: LaunchOptions): Promise<Browser> {
   switch (name) {
+    case 'chrome': {
+      if (options && options.executablePath !== undefined) {
+        const browser = await chromium.launch(options);
+        return browser;
+      }
+      {
+        const chromeOptions: LaunchOptions = {
+          ...options,
+          executablePath: getChromePath(),
+        };
+        const browser = await chromium.launch(chromeOptions);
+        return browser;
+      }
+    }
+
     case 'chromium': {
       const browser = await chromium.launch(options);
       return browser;
@@ -50,7 +66,7 @@ export async function launchBrowser(name: BrowserName, options: LaunchOptions): 
 
     default:
       throw new Error(
-        `Browser named '${name}' is unknown. It should be one of 'chromium', 'firefox', 'webkit'`,
+        `Browser named '${name}' is unknown. It should be one of 'chrome', 'chromium', 'firefox', 'webkit'`,
       );
   }
 }

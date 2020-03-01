@@ -5,6 +5,26 @@ describe('Playwright Controller - withBrowser', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });
+
+  test('should target chrome', async (): Promise<void> => {
+    // Given
+    const browser = 'chrome';
+    const pwc = new PlaywrightController();
+
+    // When
+    await pwc.withBrowser(browser);
+
+    // Then
+    const browserInstance = pwc.currentBrowser();
+    const pageInstance = pwc.currentPage();
+    expect(browserInstance).toBeDefined();
+    expect(pageInstance).toBeDefined();
+
+    const userAgent =
+      pageInstance && (await pageInstance.evaluate(() => window.navigator.userAgent));
+    expect(userAgent).toContain('HeadlessChrome');
+    browserInstance && (await browserInstance.close());
+  });
   test('should target chromium', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
@@ -80,7 +100,7 @@ describe('Playwright Controller - withBrowser', (): void => {
 
     // Then
     const expectedErrorMessage =
-      "Browser named 'yo' is unknown. It should be one of 'chromium', 'firefox', 'webkit'";
+      "Browser named 'yo' is unknown. It should be one of 'chrome', 'chromium', 'firefox', 'webkit'";
     expect(result && result.message).toContain(expectedErrorMessage);
     expect((pwc.lastError() || {}).message).toBe(expectedErrorMessage);
   });
