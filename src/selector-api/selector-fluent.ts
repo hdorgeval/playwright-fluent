@@ -83,7 +83,7 @@ export class SelectorFluent {
    * especially if targeted element is rendered lately because its data is based on some backend response.
    *
    * @returns {Promise<ElementHandle<Element>[]>} will return an empty array if no elements are found, will return all found elements otherwise.
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    */
   public async getAllHandles(): Promise<ElementHandle<Element>[]> {
     const handles = await this.executeActions();
@@ -96,7 +96,7 @@ export class SelectorFluent {
    * especially if targeted element is rendered lately because its data is based on some backend response.
    *
    * @returns {Promise<ElementHandle<Element> | null>} will return null if no elements are found, will return first found element otherwise.
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    */
   public async getFirstHandleOrNull(): Promise<ElementHandle<Element> | null> {
     const handles = await this.executeActions();
@@ -112,7 +112,7 @@ export class SelectorFluent {
    * especially if targeted element is rendered lately because its data is based on some backend response.
    *
    * @returns {Promise<ElementHandle<Element> | null>} will return null if no elements are found, will return first found element otherwise.
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    */
   public async getHandle(): Promise<ElementHandle<Element> | null> {
     const handles = await this.executeActions();
@@ -128,7 +128,7 @@ export class SelectorFluent {
    * especially if targeted element is rendered lately because its data is based on some backend response.
    *
    * @returns {Promise<number>} will return 0 if no elements are found.
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    */
   public async count(): Promise<number> {
     const handles = await this.executeActions();
@@ -183,7 +183,7 @@ export class SelectorFluent {
    *
    * @param {string} text
    * @returns {SelectorFluent}
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    */
   public withText(text: string): SelectorFluent {
     const actions = [...this.actionInfos];
@@ -200,7 +200,7 @@ export class SelectorFluent {
    *
    * @param {string} text
    * @returns {SelectorFluent}
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    */
   public withValue(text: string): SelectorFluent {
     const actions = [...this.actionInfos];
@@ -227,7 +227,7 @@ export class SelectorFluent {
    *
    * @param {number} index : 1-based index
    * @returns {SelectorFluent}
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    * @example
    * nth(1): take the first element found at previous step.
    * nth(-1): take the last element found at previous step.
@@ -249,7 +249,7 @@ export class SelectorFluent {
    * So the disability status is the one known when executing this method.
    *
    * @returns {Promise<boolean>}
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    */
   public async exists(): Promise<boolean> {
     const handle = await this.getFirstHandleOrNull();
@@ -268,7 +268,7 @@ export class SelectorFluent {
    * So the visibilty status is the one known when executing this method.
    * @param {Partial<VerboseOptions>} [options=defaultVerboseOptions]
    * @returns {Promise<boolean>}
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    */
   public async isVisible(
     options: Partial<VerboseOptions> = defaultVerboseOptions,
@@ -290,7 +290,7 @@ export class SelectorFluent {
    * So the visibilty status is the one known when executing this method.
    * @param {Partial<VerboseOptions>} [options=defaultVerboseOptions]
    * @returns {Promise<boolean>}
-   * @memberof SelectorController
+   * @memberof SelectorFluent
    */
   public async isNotVisible(
     options: Partial<VerboseOptions> = defaultVerboseOptions,
