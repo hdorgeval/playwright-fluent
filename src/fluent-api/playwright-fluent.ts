@@ -265,7 +265,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    *
    * @param {DeviceName} deviceName
    * @returns {PlaywrightFluent}
-   * @memberof PlaywrightController
+   * @memberof PlaywrightFluent
    */
   public emulateDevice(deviceName: DeviceName): PlaywrightFluent {
     const device = getDevice(deviceName);
@@ -284,7 +284,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * Show mouse position with a non intrusive cursor
    *
    * @returns {PlaywrightFluent}
-   * @memberof PlaywrightController
+   * @memberof PlaywrightFluent
    */
   public withCursor(): PlaywrightFluent {
     this.showMousePosition = true;
@@ -301,7 +301,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * @param {string} text
    * @param {Partial<TypeTextOptions>} [options=defaultTypeTextOptions]
    * @returns {PlaywrightFluent}
-   * @memberof PlaywrightController
+   * @memberof PlaywrightFluent
    */
   public typeText(
     text: string,
@@ -346,7 +346,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * @param {() => Promise<boolean>} predicate
    * @param {Partial<WaitUntilOptions>} [options=defaultWaitUntilOptions]
    * @returns {PlaywrightFluent}
-   * @memberof PlaywrightController
+   * @memberof PlaywrightFluent
    */
   public waitUntil(
     predicate: () => Promise<boolean>,
@@ -392,7 +392,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    *
    * @param {string} selector
    * @returns {SelectorFluent}
-   * @memberof PlaywrightController
+   * @memberof PlaywrightFluent
    */
   public selector(selector: string): SelectorFluent {
     return new SelectorFluent(selector, this);
