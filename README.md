@@ -6,7 +6,7 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 [![Build status](https://ci.appveyor.com/api/projects/status/dp3o8w5m8b6o0y1s?svg=true)](https://ci.appveyor.com/project/hdorgeval/playwright-fluent)
 [![npm version](https://img.shields.io/npm/v/playwright-fluent.svg)](https://www.npmjs.com/package/playwright-fluent)
 
-###### [Fluent API](/docs/controller.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter)
+###### [Fluent API](/docs/playwright-fluent.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter)
 
 ### Installation
 
@@ -63,7 +63,7 @@ Check out our [contributing guide](./CONTRIBUTING.md).
 
 ## Resources
 
-- [Controller API documentation](/docs/controller.api.md)
+- [Controller API documentation](/docs/playwright-fluent.api.md)
 - [Selector API documentation](/docs/selector.api.md)
 - [Assertion API documentation](/docs/assertion.api.md)
 
@@ -114,7 +114,7 @@ const page = pwc.currentPage();
 
 The documentations:
 
-- [Controller API documentation](/docs/controller.api.md)
+- [Controller API documentation](/docs/playwright-fluent.api.md)
 - [Selector API documentation](/docs/selector.api.md)
 - [Assertion API documentation](/docs/assertion.api.md)
 
