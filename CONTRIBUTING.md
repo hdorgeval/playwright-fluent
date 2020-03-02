@@ -1,4 +1,4 @@
-# Contributing to playwright-controller
+# Contributing to playwright-fluent
 
 We'd love to accept your patches and contributions and help make this project even better than it is today!
 
@@ -14,8 +14,8 @@ As a contributor, here are the guidelines we would like you to follow:
 1. Clone this repository
 
 ```bash
-git clone https://github.com/hdorgeval/playwright-controller
-cd playwright-controller
+git clone https://github.com/hdorgeval/playwright-fluent
+cd playwright-fluent
 ```
 
 2. Install dependencies

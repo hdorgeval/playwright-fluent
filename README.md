@@ -1,17 +1,17 @@
-# playwright-controller
+# playwright-fluent
 
 Fluent API around [Playwright](https://github.com/microsoft/playwright)
 
-[![Build Status](https://travis-ci.org/hdorgeval/playwright-controller.svg?branch=master)](https://travis-ci.org/hdorgeval/playwright-controller)
-[![Build status](https://ci.appveyor.com/api/projects/status/dp3o8w5m8b6o0y1s?svg=true)](https://ci.appveyor.com/project/hdorgeval/playwright-controller)
-[![npm version](https://img.shields.io/npm/v/playwright-controller.svg)](https://www.npmjs.com/package/playwright-controller)
+[![Build Status](https://travis-ci.org/hdorgeval/playwright-fluent.svg?branch=master)](https://travis-ci.org/hdorgeval/playwright-fluent)
+[![Build status](https://ci.appveyor.com/api/projects/status/dp3o8w5m8b6o0y1s?svg=true)](https://ci.appveyor.com/project/hdorgeval/playwright-fluent)
+[![npm version](https://img.shields.io/npm/v/playwright-fluent.svg)](https://www.npmjs.com/package/playwright-fluent)
 
-###### [Controller API](/docs/controller.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-controller-ts-jest-starter#playwright-controller-ts-jest-starter)
+###### [Fluent API](/docs/controller.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter)
 
 ### Installation
 
 ```
-npm i --save playwright-controller
+npm i --save playwright-fluent
 ```
 
 This will also install Playwright along with its dependencies and the browser binaries. Browser binaries are about 50-100MB each, so expect the installation network traffic to be substantial.
@@ -19,7 +19,7 @@ This will also install Playwright along with its dependencies and the browser bi
 # Usage
 
 ```js
-import { PlaywrightController } from 'playwright-controller';
+import { PlaywrightController } from 'playwright-fluent';
 
 const pwc = new PlaywrightController();
 
@@ -69,16 +69,18 @@ Check out our [contributing guide](./CONTRIBUTING.md).
 
 ## FAQ
 
-### Q: How does playwright-controller relate to [Playwright](https://github.com/microsoft/playwright)?
+### Q: How does playwright-fluent relate to [Playwright](https://github.com/microsoft/playwright)?
 
-Playwright-controller is just a wrapper around the Playwright API. The purpose of Playwright-controller is to be able to write e2e tests as fast as possible in a way that makes tests readable, reusable and maintainable.
+playwright-fluent is just a wrapper around the Playwright API.
+It leverages the power of Playwright by giving a Fluent API, that enables to consume the Playwright API with chainable actions and assertions.
+The purpose of playwright-fluent is to be able to write e2e tests in a way that makes tests more readable, reusable and maintainable.
 
-### Q: Can I start using Playwright-controller in my existing code base?
+### Q: Can I start using playwright-fluent in my existing code base?
 
 Yes you can.
 
 ```js
-import { PlaywrightController } from 'playwright-controller';
+import { PlaywrightController } from 'playwright-fluent';
 
 // just create a new instance with playwright's browser and page instances
 const pwc = new PlaywrightController(browser, page);
@@ -86,7 +88,7 @@ const pwc = new PlaywrightController(browser, page);
 // now you can use the fluent API
 ```
 
-### Q: Can I use Playwright together with the Playwright-controller?
+### Q: Can I use Playwright together with the playwright-fluent?
 
 Yes you can. To use the Playwright API, just use the `currentBrowser()` and/or `currentPage()` methods exposed by the fluent API:
 
@@ -108,7 +110,7 @@ const page = pwc.currentPage();
 // so now you are ready to go by using the playwright API
 ```
 
-### Q: What can I do with the currently published npm package playwright-controller?
+### Q: What can I do with the currently published npm package playwright-fluent?
 
 The documentations:
 
@@ -120,4 +122,4 @@ reflect the current status of the development and are inline with the published 
 
 ### Q: Do you have some samples on how to use this library with jest?
 
-Yes, have a look to this [starter project](https://github.com/hdorgeval/playwright-controller-ts-jest-starter#playwright-controller-ts-jest-starter).
+Yes, have a look to this [starter project](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter).

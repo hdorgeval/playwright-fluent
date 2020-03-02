@@ -26,7 +26,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
 To use the Selector API, you must first get a selector object from the controller, then use the chainable methods to compose your query, and finally execute the query by calling `getHandle()` if your query targets only one element or by calling `getAllHandles()` if the query targets a collection of elements:
 
 ```js
-import { PlaywrightController } from 'playwright-controller';
+import { PlaywrightController } from 'playwright-fluent';
 
 const pwc = new PuppeteerController();
 

@@ -15,7 +15,7 @@ The Assertion API enables to chain assertions on a selector. The selector can be
 Assertion API are chainable methods that can be called on a `PlayWrightController` instance.
 
 ```js
-import { PlaywrightController } from 'playwright-controller';
+import { PlaywrightController } from 'playwright-fluent';
 
 const pwc = new PuppeteerController();
 
