@@ -1,5 +1,5 @@
 {
-  "name": "playwright-controller",
+  "name": "playwright-fluent",
   "version": "0.10.0",
   "description": "Fluent API around playwright",
   "main": "lib/index.js",
