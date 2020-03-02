@@ -47,7 +47,7 @@ Example:
 
 ```js
 const browser = 'chromium';
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 await pwc.withBrowser(browser);
 
 // now if you want to use the playwright API from this point:
@@ -101,7 +101,7 @@ Example:
 
 ```js
 const browser = 'chromium';
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 
 // start the browser in headfull mode
 await pwc.withBrowser(browser).withOptions({ headless: false });
@@ -118,7 +118,7 @@ Example:
 ```js
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 
 await pwc
   .withBrowser(browser)
@@ -143,7 +143,7 @@ Example:
 ```js
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 
 // start the browser in headfull mode
 // and emulate an iPhone 6 in landscape mode
@@ -182,7 +182,7 @@ Example:
 ```js
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 
 // prettier-ignore
 await pwc
@@ -201,7 +201,7 @@ const page = pwc.currentPage();
 
 ### hover(selector[, options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<HoverOptions>`
 
 ```js
@@ -221,7 +221,7 @@ Example:
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
 const selector = '#exampleCustomRange';
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 
 await pwc
   .withBrowser(browser)
@@ -243,7 +243,7 @@ Example with a Selector Object:
 ```js
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 const selector = pwc
   .selector('label')
   .withText('Email')
@@ -268,7 +268,7 @@ const page = pwc.currentPage();
 
 ### click(selector[, options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<ClickOptions>`
 
 ```js
@@ -479,7 +479,7 @@ interface WindowState {
 
 Get selector's value.
 
-> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+> The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
 
 ```js
 interface WaitUntilOptions {
@@ -521,49 +521,49 @@ interface WaitUntilOptions {
 
 ### hasFocus(selector[, options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<WaitUntilOptions>`
 - returns: `Promise<boolean>`
 
 Checks if selector has the focus.
 
-> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+> The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
 
 ---
 
 ### isDisabled(selector[, options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<WaitUntilOptions>`
 - returns: `Promise<boolean>`
 
 Checks if selector is disabled.
 
-> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+> The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
 
 ---
 
 ### isEnabled(selector[, options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<WaitUntilOptions>`
 - returns: `Promise<boolean>`
 
 Checks if selector is enabled.
 
-> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+> The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
 
 ---
 
 ### isVisible(selector[, options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<WaitUntilOptions>`
 - returns: `Promise<boolean>`
 
 Checks if selector is visible.
 
-> The controller waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+> The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
 
 ---
 
@@ -571,14 +571,14 @@ Checks if selector is visible.
 
 - returns: `Page | undefined`
 
-Get Playwright's page instance of the controller in order to do stuff not covered by this API.
+Get Playwright's page instance of The Fluent API in order to do stuff not covered by this API.
 
 Example:
 
 ```js
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 
-// use the pwc controller API
+// use the Fluent API
 // ...
 
 const page = pwc.currentPage();
@@ -592,14 +592,14 @@ const page = pwc.currentPage();
 
 - returns: `Browser | undefined`
 
-Get Playwright's browser instance of the controller in order to do stuff not covered by this API.
+Get Playwright's browser instance of The Fluent API in order to do stuff not covered by this API.
 
 Example:
 
 ```js
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 
-// use the pwc controller API
+// use the Fluent API
 // ...
 
 const browser = pwc.currentBrowser();
