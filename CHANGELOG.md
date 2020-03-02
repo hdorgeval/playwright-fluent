@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [0.12.0] - 2020-03-02
+
+### BREAKING CHANGE
+
+- PlaywrightController class is renamed to PlaywrightFluent
+- SelectorController class is renamed to SelectorFluent
+
+Though a major version should have been published, and because this library has still little usage, I decided to postpone the major version until the Playwright team publishes a new major version.
+
 ## [0.11.0] - 2020-03-02
 
 ### BREAKING CHANGE
