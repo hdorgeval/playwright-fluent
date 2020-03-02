@@ -1,10 +1,10 @@
 import { waitUntil, report, WaitUntilOptions } from '../../../utils';
-import { SelectorController } from '../../../selector';
+import { SelectorFluent } from '../../../selector';
 import { isHandleVisible, isHandleNotVisible } from '../../handle-actions';
 import { Page } from 'playwright';
 
 export async function isSelectorObjectNotVisible(
-  selector: SelectorController,
+  selector: SelectorFluent,
   page: Page | undefined,
   options: WaitUntilOptions,
 ): Promise<boolean> {

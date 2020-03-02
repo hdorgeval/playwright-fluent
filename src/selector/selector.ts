@@ -31,7 +31,7 @@ interface SelectorState {
   chainingHistory: string;
 }
 
-export class SelectorController {
+export class SelectorFluent {
   private chainingHistory = '';
   private pwc: PlaywrightFluent;
 
@@ -160,15 +160,15 @@ export class SelectorController {
     selector: string,
     actions: ActionInfo[],
     chainingHistory: string,
-  ): SelectorController {
+  ): SelectorFluent {
     const state: SelectorState = {
       actions,
       chainingHistory,
     };
 
-    return new SelectorController(selector, this.pwc, JSON.stringify(state));
+    return new SelectorFluent(selector, this.pwc, JSON.stringify(state));
   }
-  public find(selector: string): SelectorController {
+  public find(selector: string): SelectorFluent {
     const actions = [...this.actionInfos];
     actions.push({ name: 'find', selector });
 
@@ -182,10 +182,10 @@ export class SelectorController {
    * Finds, from previous search, all elements whose innerText contains the specified text
    *
    * @param {string} text
-   * @returns {SelectorController}
+   * @returns {SelectorFluent}
    * @memberof SelectorController
    */
-  public withText(text: string): SelectorController {
+  public withText(text: string): SelectorFluent {
     const actions = [...this.actionInfos];
     actions.push({ name: 'withText', text });
 
@@ -199,10 +199,10 @@ export class SelectorController {
    * Finds, from previous search, all elements whose value contains the specified text
    *
    * @param {string} text
-   * @returns {SelectorController}
+   * @returns {SelectorFluent}
    * @memberof SelectorController
    */
-  public withValue(text: string): SelectorController {
+  public withValue(text: string): SelectorFluent {
     const actions = [...this.actionInfos];
     actions.push({ name: 'withValue', text });
 
@@ -212,7 +212,7 @@ export class SelectorController {
     return this.createSelectorFrom(text, actions, chainingHistory);
   }
 
-  public parent(): SelectorController {
+  public parent(): SelectorFluent {
     const actions = [...this.actionInfos];
     actions.push({ name: 'parent' });
 
@@ -226,13 +226,13 @@ export class SelectorController {
    * Takes the nth element found at the previous step
    *
    * @param {number} index : 1-based index
-   * @returns {SelectorController}
+   * @returns {SelectorFluent}
    * @memberof SelectorController
    * @example
    * nth(1): take the first element found at previous step.
    * nth(-1): take the last element found at previous step.
    */
-  public nth(index: number): SelectorController {
+  public nth(index: number): SelectorFluent {
     const actions = [...this.actionInfos];
     actions.push({ name: 'nth', index });
 

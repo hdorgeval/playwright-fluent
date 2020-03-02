@@ -1,10 +1,10 @@
 import { waitUntil, report } from '../../../utils';
-import { SelectorController } from '../../../selector';
+import { SelectorFluent } from '../../../selector';
 import { HoverOptions, hoverOnHandle } from '../../handle-actions';
 import { Page } from 'playwright';
 
 export async function hoverOnSelectorObject(
-  selector: SelectorController,
+  selector: SelectorFluent,
   page: Page | undefined,
   options: HoverOptions,
 ): Promise<void> {

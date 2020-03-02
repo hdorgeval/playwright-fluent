@@ -1,4 +1,4 @@
-import { SelectorController } from '../../selector';
+import { SelectorFluent } from '../../selector';
 import {
   WaitUntilOptions,
   defaultWaitUntilOptions,
@@ -10,7 +10,7 @@ import { AssertOptions, defaultAssertOptions } from '../../fluent-api/playwright
 import { Page } from 'playwright';
 
 export async function isDisabled(
-  selector: string | SelectorController,
+  selector: string | SelectorFluent,
   page: Page | undefined,
   options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
 ): Promise<boolean> {
@@ -53,7 +53,7 @@ async function expectThatCssSelectorIsDisabled(
   );
 }
 async function expectThatSelectorObjectIsDisabled(
-  selector: SelectorController,
+  selector: SelectorFluent,
   page: Page | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
@@ -78,7 +78,7 @@ async function expectThatSelectorObjectIsDisabled(
 }
 
 export async function expectThatSelectorIsDisabled(
-  selector: string | SelectorController,
+  selector: string | SelectorFluent,
   page: Page | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {

@@ -1,10 +1,10 @@
 import { waitUntil, report } from '../../../utils';
-import { SelectorController } from '../../../selector';
+import { SelectorFluent } from '../../../selector';
 import { clickOnHandle, ClickOptions } from '../../handle-actions';
 import { Page } from 'playwright';
 
 export async function clickOnSelectorObject(
-  selector: SelectorController,
+  selector: SelectorFluent,
   page: Page | undefined,
   options: ClickOptions,
 ): Promise<void> {

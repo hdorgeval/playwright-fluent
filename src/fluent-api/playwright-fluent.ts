@@ -26,7 +26,7 @@ import {
   getDevice,
 } from '../devices';
 import { defaultWaitUntilOptions, sleep, WaitUntilOptions, waitUntil } from '../utils';
-import { SelectorController } from '../selector';
+import { SelectorFluent } from '../selector';
 import { Browser, Page, BrowserContext } from 'playwright';
 
 export { WaitUntilOptions, noWaitNoThrowOptions } from '../utils';
@@ -205,13 +205,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
     await action.hoverOnSelector(selector, this.currentPage(), options);
   }
   private async hoverOnSelectorObject(
-    selector: SelectorController,
+    selector: SelectorFluent,
     options: HoverOptions,
   ): Promise<void> {
     await action.hoverOnSelectorObject(selector, this.currentPage(), options);
   }
   public hover(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<HoverOptions> = defaultHoverOptions,
   ): PlaywrightFluent {
     const hoverOptions: HoverOptions = {
@@ -234,13 +234,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
     await action.clickOnSelector(selector, this.currentPage(), options);
   }
   private async clickOnSelectorObject(
-    selector: SelectorController,
+    selector: SelectorFluent,
     options: ClickOptions,
   ): Promise<void> {
     await action.clickOnSelectorObject(selector, this.currentPage(), options);
   }
   public click(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<ClickOptions> = defaultClickOptions,
   ): PlaywrightFluent {
     const clickOptions: ClickOptions = {
@@ -391,83 +391,83 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * that is embedded in a complex dom hierarchy or dom array
    *
    * @param {string} selector
-   * @returns {SelectorController}
+   * @returns {SelectorFluent}
    * @memberof PlaywrightController
    */
-  public selector(selector: string): SelectorController {
-    return new SelectorController(selector, this);
+  public selector(selector: string): SelectorFluent {
+    return new SelectorFluent(selector, this);
   }
   public async hasFocus(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
     return await assertion.hasFocus(selector, this.currentPage(), options);
   }
 
   private async expectThatSelectorHasFocus(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
     await assertion.expectThatSelectorHasFocus(selector, this.currentPage(), options);
   }
 
   private async expectThatSelectorIsVisible(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
     await assertion.expectThatSelectorIsVisible(selector, this.currentPage(), options);
   }
 
   private async expectThatSelectorIsNotVisible(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
     await assertion.expectThatSelectorIsNotVisible(selector, this.currentPage(), options);
   }
 
   public async isNotVisible(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
     return await assertion.isNotVisible(selector, this.currentPage(), options);
   }
 
   public async isVisible(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
     return await assertion.isVisible(selector, this.currentPage(), options);
   }
 
   private async expectThatSelectorIsEnabled(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
     await assertion.expectThatSelectorIsEnabled(selector, this.currentPage(), options);
   }
 
   public async isEnabled(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
     return await assertion.isEnabled(selector, this.currentPage(), options);
   }
 
   private async expectThatSelectorIsDisabled(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
     await assertion.expectThatSelectorIsDisabled(selector, this.currentPage(), options);
   }
 
   public async isDisabled(
-    selector: string | SelectorController,
+    selector: string | SelectorFluent,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
     return await assertion.isDisabled(selector, this.currentPage(), options);
   }
 
-  public expectThat(selector: string | SelectorController): ExpectAssertion {
+  public expectThat(selector: string | SelectorFluent): ExpectAssertion {
     return {
       hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
