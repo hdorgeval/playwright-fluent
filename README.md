@@ -19,9 +19,9 @@ This will also install Playwright along with its dependencies and the browser bi
 # Usage
 
 ```js
-import { PlaywrightController } from 'playwright-fluent';
+import { PlaywrightFluent } from 'playwright-fluent';
 
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 
 await pwc
   .withBrowser('chromium')
@@ -63,7 +63,7 @@ Check out our [contributing guide](./CONTRIBUTING.md).
 
 ## Resources
 
-- [Controller API documentation](/docs/playwright-fluent.api.md)
+- [Playwright Fluent API documentation](/docs/playwright-fluent.api.md)
 - [Selector API documentation](/docs/selector.api.md)
 - [Assertion API documentation](/docs/assertion.api.md)
 
@@ -80,10 +80,10 @@ The purpose of playwright-fluent is to be able to write e2e tests in a way that 
 Yes you can.
 
 ```js
-import { PlaywrightController } from 'playwright-fluent';
+import { PlaywrightFluent } from 'playwright-fluent';
 
 // just create a new instance with playwright's browser and page instances
-const pwc = new PlaywrightController(browser, page);
+const pwc = new PlaywrightFluent(browser, page);
 
 // now you can use the fluent API
 ```
@@ -94,7 +94,7 @@ Yes you can. To use the Playwright API, just use the `currentBrowser()` and/or `
 
 ```js
 const browser = 'chromium';
-const pwc = new PlaywrightController();
+const pwc = new PlaywrightFluent();
 await pwc
   .withBrowser(browser)
   .emulateDevice('iPhone 6 landscape')
@@ -114,7 +114,7 @@ const page = pwc.currentPage();
 
 The documentations:
 
-- [Controller API documentation](/docs/playwright-fluent.api.md)
+- [Playwright Fluent API documentation](/docs/playwright-fluent.api.md)
 - [Selector API documentation](/docs/selector.api.md)
 - [Assertion API documentation](/docs/assertion.api.md)
 
