@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [0.11.0] - 2020-03-02
+
+### BREAKING CHANGE
+
+- project and package are renamed to `playwright-fluent`
+
+Though a major version should have been published, and because this library has still little usage, I decided to postpone the major version until the Playwright team publishes a new major version.
+
 ## [0.10.0] - 2020-03-01
 
 ### Added
