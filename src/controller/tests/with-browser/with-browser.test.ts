@@ -1,4 +1,4 @@
-import { PlaywrightController } from '../../controller';
+import { PlaywrightFluent } from '../../controller';
 import { BrowserName } from '../../../actions';
 declare const window: Window;
 describe('Playwright Controller - withBrowser', (): void => {
@@ -9,7 +9,7 @@ describe('Playwright Controller - withBrowser', (): void => {
   test('should target chrome', async (): Promise<void> => {
     // Given
     const browser = 'chrome';
-    const pwc = new PlaywrightController();
+    const pwc = new PlaywrightFluent();
 
     // When
     await pwc.withBrowser(browser);
@@ -28,7 +28,7 @@ describe('Playwright Controller - withBrowser', (): void => {
   test('should target chromium', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
-    const pwc = new PlaywrightController();
+    const pwc = new PlaywrightFluent();
 
     // When
     await pwc.withBrowser(browser);
@@ -48,7 +48,7 @@ describe('Playwright Controller - withBrowser', (): void => {
   test('should target firefox', async (): Promise<void> => {
     // Given
     const browser = 'firefox';
-    const pwc = new PlaywrightController();
+    const pwc = new PlaywrightFluent();
 
     // When
     await pwc.withBrowser(browser);
@@ -68,7 +68,7 @@ describe('Playwright Controller - withBrowser', (): void => {
   test('should target webkit', async (): Promise<void> => {
     // Given
     const browser = 'webkit';
-    const pwc = new PlaywrightController();
+    const pwc = new PlaywrightFluent();
 
     // When
     await pwc.withBrowser(browser);
@@ -88,7 +88,7 @@ describe('Playwright Controller - withBrowser', (): void => {
   test('should throw an error on unknown browser', async (): Promise<void> => {
     // Given
     const browser = 'yo';
-    const pwc = new PlaywrightController();
+    const pwc = new PlaywrightFluent();
 
     // When
     let result: Error | undefined = undefined;

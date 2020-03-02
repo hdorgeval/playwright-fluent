@@ -1,11 +1,11 @@
-import { PlaywrightController } from '../../../../controller';
+import { PlaywrightFluent } from '../../../../controller';
 import * as SUT from '../index';
 import { defaultClickOptions } from '../../../handle-actions';
 describe('click on selector object', (): void => {
-  let pwc: PlaywrightController;
+  let pwc: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightController();
+    pwc = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {

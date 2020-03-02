@@ -1,4 +1,4 @@
-import { PlaywrightController } from '../../controller';
+import { PlaywrightFluent } from '../../controller';
 describe('Playwright Controller - close', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
@@ -6,7 +6,7 @@ describe('Playwright Controller - close', (): void => {
   test('should close chromium', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
-    const pwc = new PlaywrightController();
+    const pwc = new PlaywrightFluent();
 
     // And
     await pwc.withBrowser(browser);

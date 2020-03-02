@@ -77,14 +77,14 @@ export const defaultAssertOptions: AssertOptions = {
 };
 
 export interface ExpectAssertion {
-  hasFocus: (options?: Partial<AssertOptions>) => PlaywrightController;
-  isDisabled: (options?: Partial<AssertOptions>) => PlaywrightController;
-  isEnabled: (options?: Partial<AssertOptions>) => PlaywrightController;
-  isVisible: (options?: Partial<AssertOptions>) => PlaywrightController;
-  isNotVisible: (options?: Partial<AssertOptions>) => PlaywrightController;
+  hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
+  isDisabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
+  isEnabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
+  isVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
+  isNotVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
 }
 
-export class PlaywrightController implements PromiseLike<void> {
+export class PlaywrightFluent implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
     onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined,
     onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null | undefined,
@@ -160,7 +160,7 @@ export class PlaywrightController implements PromiseLike<void> {
     }
   }
 
-  public withOptions(options: Partial<LaunchOptions>): PlaywrightController {
+  public withOptions(options: Partial<LaunchOptions>): PlaywrightFluent {
     const updatedOptions: LaunchOptions = {
       ...this.launchOptions,
       ...options,
@@ -169,7 +169,7 @@ export class PlaywrightController implements PromiseLike<void> {
     return this;
   }
 
-  public withBrowser(name: BrowserName): PlaywrightController {
+  public withBrowser(name: BrowserName): PlaywrightFluent {
     const action = (): Promise<void> => this.launchBrowser(name);
     this.actions.push(action);
     return this;
@@ -179,7 +179,7 @@ export class PlaywrightController implements PromiseLike<void> {
     await action.closeBrowser(this.currentBrowser());
   }
 
-  public close(): PlaywrightController {
+  public close(): PlaywrightFluent {
     const action = (): Promise<void> => this.closeBrowser();
     this.actions.push(action);
     return this;
@@ -191,7 +191,7 @@ export class PlaywrightController implements PromiseLike<void> {
   public navigateTo(
     url: string,
     options: Partial<NavigationOptions> = defaultNavigationOptions,
-  ): PlaywrightController {
+  ): PlaywrightFluent {
     const navigationOptions: NavigationOptions = {
       ...defaultNavigationOptions,
       ...options,
@@ -213,7 +213,7 @@ export class PlaywrightController implements PromiseLike<void> {
   public hover(
     selector: string | SelectorController,
     options: Partial<HoverOptions> = defaultHoverOptions,
-  ): PlaywrightController {
+  ): PlaywrightFluent {
     const hoverOptions: HoverOptions = {
       ...defaultHoverOptions,
       ...options,
@@ -242,7 +242,7 @@ export class PlaywrightController implements PromiseLike<void> {
   public click(
     selector: string | SelectorController,
     options: Partial<ClickOptions> = defaultClickOptions,
-  ): PlaywrightController {
+  ): PlaywrightFluent {
     const clickOptions: ClickOptions = {
       ...defaultClickOptions,
       ...options,
@@ -264,10 +264,10 @@ export class PlaywrightController implements PromiseLike<void> {
    * Emulate device
    *
    * @param {DeviceName} deviceName
-   * @returns {PlaywrightController}
+   * @returns {PlaywrightFluent}
    * @memberof PlaywrightController
    */
-  public emulateDevice(deviceName: DeviceName): PlaywrightController {
+  public emulateDevice(deviceName: DeviceName): PlaywrightFluent {
     const device = getDevice(deviceName);
     if (!device) {
       throw new Error(
@@ -283,10 +283,10 @@ export class PlaywrightController implements PromiseLike<void> {
   /**
    * Show mouse position with a non intrusive cursor
    *
-   * @returns {PlaywrightController}
+   * @returns {PlaywrightFluent}
    * @memberof PlaywrightController
    */
-  public withCursor(): PlaywrightController {
+  public withCursor(): PlaywrightFluent {
     this.showMousePosition = true;
     return this;
   }
@@ -300,13 +300,13 @@ export class PlaywrightController implements PromiseLike<void> {
    *
    * @param {string} text
    * @param {Partial<TypeTextOptions>} [options=defaultTypeTextOptions]
-   * @returns {PlaywrightController}
+   * @returns {PlaywrightFluent}
    * @memberof PlaywrightController
    */
   public typeText(
     text: string,
     options: Partial<TypeTextOptions> = defaultTypeTextOptions,
-  ): PlaywrightController {
+  ): PlaywrightFluent {
     const typeTextOptions: TypeTextOptions = {
       ...defaultTypeTextOptions,
       ...options,
@@ -323,7 +323,7 @@ export class PlaywrightController implements PromiseLike<void> {
   public pressKey(
     key: KeyboardKey,
     options: Partial<KeyboardPressOptions> = defaultKeyboardPressOptions,
-  ): PlaywrightController {
+  ): PlaywrightFluent {
     const pressKeyOptions: KeyboardPressOptions = {
       ...defaultKeyboardPressOptions,
       ...options,
@@ -333,7 +333,7 @@ export class PlaywrightController implements PromiseLike<void> {
     return this;
   }
 
-  public wait(durationInMilliseconds: number): PlaywrightController {
+  public wait(durationInMilliseconds: number): PlaywrightFluent {
     this.actions.push(async (): Promise<void> => await sleep(durationInMilliseconds));
     return this;
   }
@@ -345,13 +345,13 @@ export class PlaywrightController implements PromiseLike<void> {
    *
    * @param {() => Promise<boolean>} predicate
    * @param {Partial<WaitUntilOptions>} [options=defaultWaitUntilOptions]
-   * @returns {PlaywrightController}
+   * @returns {PlaywrightFluent}
    * @memberof PlaywrightController
    */
   public waitUntil(
     predicate: () => Promise<boolean>,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
-  ): PlaywrightController {
+  ): PlaywrightFluent {
     const waitUntilOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
       ...options,
@@ -469,27 +469,23 @@ export class PlaywrightController implements PromiseLike<void> {
 
   public expectThat(selector: string | SelectorController): ExpectAssertion {
     return {
-      hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightController => {
+      hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
         return this;
       },
-      isDisabled: (
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightController => {
+      isDisabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsDisabled(selector, options));
         return this;
       },
-      isEnabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightController => {
+      isEnabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsEnabled(selector, options));
         return this;
       },
-      isVisible: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightController => {
+      isVisible: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsVisible(selector, options));
         return this;
       },
-      isNotVisible: (
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightController => {
+      isNotVisible: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsNotVisible(selector, options));
         return this;
       },

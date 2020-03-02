@@ -1,10 +1,10 @@
-import { PlaywrightController } from '../../controller';
+import { PlaywrightFluent } from '../../controller';
 
 describe('Selector API - AG Grid samples', (): void => {
-  let pwc: PlaywrightController;
+  let pwc: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new PlaywrightController();
+    pwc = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {

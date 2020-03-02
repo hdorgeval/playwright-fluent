@@ -1,4 +1,4 @@
-import { PlaywrightController } from '../../controller';
+import { PlaywrightFluent } from '../../controller';
 import { chromium, firefox, webkit } from 'playwright';
 import * as path from 'path';
 
@@ -15,7 +15,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     await page.goto(url);
 
     // When
-    const pwc = new PlaywrightController(browser, page);
+    const pwc = new PlaywrightFluent(browser, page);
 
     // Then
     expect(pwc.currentBrowser()).toBe(browser);
@@ -32,7 +32,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     await page.goto('https://google.com');
 
     // When
-    const pwc = new PlaywrightController(browser, page);
+    const pwc = new PlaywrightFluent(browser, page);
 
     // Then
     expect(pwc.currentBrowser()).toBe(browser);
@@ -49,7 +49,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     await page.goto(url);
 
     // When
-    const pwc = new PlaywrightController(browser, page);
+    const pwc = new PlaywrightFluent(browser, page);
 
     // Then
     expect(pwc.currentBrowser()).toBe(browser);
@@ -68,7 +68,7 @@ describe('Playwright Controller - ctor usage', (): void => {
     await page.goto(url);
 
     // When
-    const pwc = new PlaywrightController(browser, page);
+    const pwc = new PlaywrightFluent(browser, page);
 
     // Then
     expect(pwc.currentBrowser()).toBe(browser);

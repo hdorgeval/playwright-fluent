@@ -2,10 +2,10 @@ import * as SUT from '../../../controller';
 import * as path from 'path';
 
 describe('Selector API - isNotVisible', (): void => {
-  let pwc: SUT.PlaywrightController;
+  let pwc: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new SUT.PlaywrightController();
+    pwc = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {

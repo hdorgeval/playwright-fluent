@@ -1,4 +1,4 @@
-import { PlaywrightController } from '../../controller';
+import { PlaywrightFluent } from '../../controller';
 import { sleep } from '../../../utils/sleep';
 describe('Playwright Controller - close', (): void => {
   beforeEach((): void => {
@@ -7,7 +7,7 @@ describe('Playwright Controller - close', (): void => {
   test('should close firefox', async (): Promise<void> => {
     // Given
     const browser = 'firefox';
-    const pwc = new PlaywrightController();
+    const pwc = new PlaywrightFluent();
 
     // And
     await pwc.withBrowser(browser);

@@ -1,4 +1,4 @@
-import { PlaywrightController } from '../../controller';
+import { PlaywrightFluent } from '../../controller';
 import { chromium } from 'playwright';
 import * as path from 'path';
 
@@ -17,8 +17,8 @@ describe('Playwright Controller - ctor usage', (): void => {
     await page.goto(url);
 
     // When
-    const pwc1 = new PlaywrightController(browser);
-    const pwc2 = new PlaywrightController(undefined, page);
+    const pwc1 = new PlaywrightFluent(browser);
+    const pwc2 = new PlaywrightFluent(undefined, page);
 
     // Then
     expect(pwc1.currentBrowser()).toBe(undefined);

@@ -1,5 +1,5 @@
 import * as action from '../actions';
-import { PlaywrightController } from '../controller';
+import { PlaywrightFluent } from '../controller';
 import { VerboseOptions, defaultVerboseOptions } from '../actions';
 import { ElementHandle } from 'playwright';
 type Action = (handles: ElementHandle<Element>[]) => Promise<ElementHandle<Element>[]>;
@@ -33,7 +33,7 @@ interface SelectorState {
 
 export class SelectorController {
   private chainingHistory = '';
-  private pwc: PlaywrightController;
+  private pwc: PlaywrightFluent;
 
   private actionInfos: ActionInfo[] = [];
 
@@ -138,7 +138,7 @@ export class SelectorController {
   /**
    *
    */
-  constructor(selector: string, pptc: PlaywrightController, stringifiedState?: string) {
+  constructor(selector: string, pptc: PlaywrightFluent, stringifiedState?: string) {
     this.pwc = pptc;
 
     if (stringifiedState) {

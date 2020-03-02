@@ -2,10 +2,10 @@ import * as SUT from '../../controller';
 import { noWaitNoThrowOptions } from '../../../utils';
 import * as path from 'path';
 describe('Playwright Controller - expectThat isEnabled', (): void => {
-  let pwc: SUT.PlaywrightController;
+  let pwc: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new SUT.PlaywrightController();
+    pwc = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {

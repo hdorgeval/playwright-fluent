@@ -1,11 +1,11 @@
-import { PlaywrightController } from '../../../controller';
+import { PlaywrightFluent } from '../../../controller';
 import * as path from 'path';
 
 describe('Selector API - find', (): void => {
-  let pwc: PlaywrightController;
+  let pwc: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightController();
+    pwc = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
