@@ -28,18 +28,18 @@ To use the Selector API, you must first get a selector object from the fluent AP
 ```js
 import { PlaywrightFluent } from 'playwright-fluent';
 
-const pwc = new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
 // Given I open The AG Grid demo site
 const url = 'https://www.ag-grid.com/example.php';
-await pwc
+await p
   .withBrowser('chromium')
   .withCursor()
   .withOptions({ headless: false })
   .navigateTo(url);
 
 // When I select Olivia Brenan's name
-const agGridContainer = pwc.selector('div.ag-body-viewport');
+const agGridContainer = p.selector('div.ag-body-viewport');
 const checkbox = agGridContainer
   .find('div[role="row"]')
   .withText('Olivia Brennan')
@@ -178,13 +178,13 @@ Example:
 
 ```js
 const url = 'https://www.ag-grid.com/example.php';
-await pwc
+await p
   .withBrowser('chromium')
   .withCursor()
   .withOptions({ headless: false })
   .navigateTo(url);
 
-const agGridContainer = pwc.selector('div.ag-body-viewport');
+const agGridContainer = p.selector('div.ag-body-viewport');
 const checkbox = agGridContainer
   .find('div[role="row"]')
   .withText('Olivia Brennan')

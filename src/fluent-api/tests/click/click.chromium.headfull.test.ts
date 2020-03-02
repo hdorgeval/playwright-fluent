@@ -1,14 +1,14 @@
 import * as SUT from '../../playwright-fluent';
 import * as path from 'path';
 describe('Playwright Fluent - click', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
   test('should wait until selector is enabled - chromium', async (): Promise<void> => {
@@ -17,7 +17,7 @@ describe('Playwright Fluent - click', (): void => {
     const selector = '#dynamically-added-input';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -25,19 +25,19 @@ describe('Playwright Fluent - click', (): void => {
       .click(selector);
 
     // Then
-    const value = await pwc.getValueOf(selector);
+    const value = await p.getValueOf(selector);
     expect(value).toBe('dynamically added input');
-    const hasFocus = await pwc.hasFocus(selector);
+    const hasFocus = await p.hasFocus(selector);
     expect(hasFocus).toBe(true);
   });
 
   test('should wait until selector object is enabled - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'click.test.html')}`;
-    const selector = pwc.selector('input').withValue('dynamically added');
+    const selector = p.selector('input').withValue('dynamically added');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -45,9 +45,9 @@ describe('Playwright Fluent - click', (): void => {
       .click(selector);
 
     // Then
-    const finalValue = await pwc.getValueOf('#dynamically-added-input');
+    const finalValue = await p.getValueOf('#dynamically-added-input');
     expect(finalValue).toBe('dynamically added input');
-    const hasFocus = await pwc.hasFocus(selector);
+    const hasFocus = await p.hasFocus(selector);
     expect(hasFocus).toBe(true);
   });
   test('should not click on a non existing selector - chromium', async (): Promise<void> => {
@@ -58,7 +58,7 @@ describe('Playwright Fluent - click', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -77,12 +77,12 @@ describe('Playwright Fluent - click', (): void => {
   test('should not click on a non existing selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'click.test.html')}`;
-    const selector = pwc.selector('foobar');
+    const selector = p.selector('foobar');
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -105,7 +105,7 @@ describe('Playwright Fluent - click', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -129,7 +129,7 @@ describe('Playwright Fluent - click', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -148,12 +148,12 @@ describe('Playwright Fluent - click', (): void => {
   test('should not click on a disabled selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'click.test.html')}`;
-    const selector = pwc.selector('input').withValue('I am disabled');
+    const selector = p.selector('input').withValue('I am disabled');
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -172,10 +172,10 @@ describe('Playwright Fluent - click', (): void => {
   test('should click - chromium', async (): Promise<void> => {
     // Given
     const url = 'https://reactstrap.github.io/components/form';
-    const checkMeOut = pwc.selector('label').withText('Check me out');
+    const checkMeOut = p.selector('label').withText('Check me out');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()

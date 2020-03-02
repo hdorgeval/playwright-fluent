@@ -2,27 +2,27 @@ import { PlaywrightFluent } from '../../../fluent-api';
 import * as path from 'path';
 
 describe('Selector API - find', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
   test('should get no handle on wrong selector', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'find.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc.selector('[role="row"]').find('foobar');
+    const selector = p.selector('[role="row"]').find('foobar');
     const handles = await selector.getAllHandles();
     const firstHandle = await selector.getFirstHandleOrNull();
 
@@ -35,13 +35,13 @@ describe('Selector API - find', (): void => {
   test('should get handles', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'find.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('td')
       .find('select[data-test-id="my-select"]');
@@ -65,13 +65,13 @@ describe('Selector API - find', (): void => {
     void
   > => {
     // Given
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('td')
       .find('select[data-test-id="my-select"]');
 
     const url = `file:${path.join(__dirname, 'find.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);

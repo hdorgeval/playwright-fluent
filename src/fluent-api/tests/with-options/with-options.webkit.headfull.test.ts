@@ -1,14 +1,14 @@
 import { PlaywrightFluent, LaunchOptions } from '../../playwright-fluent';
 declare const window: Window;
 describe('Playwright Fluent - withOptions', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -17,11 +17,11 @@ describe('Playwright Fluent - withOptions', (): void => {
     const browser = 'webkit';
 
     // When
-    await pwc.withBrowser(browser).withOptions({ headless: false });
+    await p.withBrowser(browser).withOptions({ headless: false });
 
     // Then
-    const browserInstance = pwc.currentBrowser();
-    const pageInstance = pwc.currentPage();
+    const browserInstance = p.currentBrowser();
+    const pageInstance = p.currentPage();
     expect(browserInstance).toBeDefined();
     expect(pageInstance).toBeDefined();
 
@@ -41,10 +41,10 @@ describe('Playwright Fluent - withOptions', (): void => {
     };
 
     // When
-    await pwc.withBrowser(browser).withOptions(options);
+    await p.withBrowser(browser).withOptions(options);
 
     // Then
-    const windowState = await pwc.getCurrentWindowState();
+    const windowState = await p.getCurrentWindowState();
 
     expect(windowState.outerWidth).toBe(888);
     expect(windowState.outerHeight).toBe(666);

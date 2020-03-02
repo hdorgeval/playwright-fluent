@@ -1,14 +1,14 @@
 import { PlaywrightFluent, LaunchOptions } from '../../playwright-fluent';
 declare const window: Window;
 describe('Playwright Fluent - withOptions', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -17,11 +17,11 @@ describe('Playwright Fluent - withOptions', (): void => {
     const browser = 'firefox';
 
     // When
-    await pwc.withBrowser(browser).withOptions({ headless: false });
+    await p.withBrowser(browser).withOptions({ headless: false });
 
     // Then
-    const browserInstance = pwc.currentBrowser();
-    const pageInstance = pwc.currentPage();
+    const browserInstance = p.currentBrowser();
+    const pageInstance = p.currentPage();
     expect(browserInstance).toBeDefined();
     expect(pageInstance).toBeDefined();
 
@@ -42,13 +42,13 @@ describe('Playwright Fluent - withOptions', (): void => {
     const url = 'https://reactstrap.github.io/components/form';
 
     // When
-    await pwc
+    await p
       .withBrowser(browser)
       .withOptions(options)
       .navigateTo(url);
 
     // Then
-    const windowState = await pwc.getCurrentWindowState();
+    const windowState = await p.getCurrentWindowState();
     // outerHeight/outerWidth depends on os platform,
     // it might include an additional scrollbar height
     expect(Math.abs(windowState.outerWidth - 999)).toBeLessThanOrEqual(20);

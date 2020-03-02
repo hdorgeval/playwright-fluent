@@ -2,14 +2,14 @@ import * as SUT from '../../playwright-fluent';
 import { noWaitNoThrowOptions } from '../../../utils';
 import * as path from 'path';
 describe('Playwright Fluent - expectThat isEnabled', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -20,7 +20,7 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -40,12 +40,12 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-enabled.test.html')}`;
-    const selector = pwc.selector('foobar');
+    const selector = p.selector('foobar');
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -65,7 +65,7 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
     const selector = '#dynamically-added-input';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -74,7 +74,7 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
       .isEnabled();
 
     // Then
-    const isEnabled = await pwc.isEnabled(selector, noWaitNoThrowOptions);
+    const isEnabled = await p.isEnabled(selector, noWaitNoThrowOptions);
     expect(isEnabled).toBe(true);
   });
   test('should wait until selector exists and is enabled (verbose mode) - chromium', async (): Promise<
@@ -85,7 +85,7 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
     const selector = '#dynamically-added-input';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -94,7 +94,7 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
       .isEnabled({ verbose: true });
 
     // Then
-    const isEnabled = await pwc.isEnabled(selector, noWaitNoThrowOptions);
+    const isEnabled = await p.isEnabled(selector, noWaitNoThrowOptions);
     expect(isEnabled).toBe(true);
   });
   test('should wait until selector object exists and is enabled - chromium', async (): Promise<
@@ -102,10 +102,10 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-enabled.test.html')}`;
-    const selector = pwc.selector('input').withValue('dynamically added');
+    const selector = p.selector('input').withValue('dynamically added');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -114,7 +114,7 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
       .isEnabled();
 
     // Then
-    const isEnabled = await pwc.isEnabled(selector, noWaitNoThrowOptions);
+    const isEnabled = await p.isEnabled(selector, noWaitNoThrowOptions);
     expect(isEnabled).toBe(true);
   });
 
@@ -123,10 +123,10 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-enabled.test.html')}`;
-    const selector = pwc.selector('input').withValue('dynamically added');
+    const selector = p.selector('input').withValue('dynamically added');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -135,7 +135,7 @@ describe('Playwright Fluent - expectThat isEnabled', (): void => {
       .isEnabled({ verbose: true });
 
     // Then
-    const isEnabled = await pwc.isEnabled(selector, noWaitNoThrowOptions);
+    const isEnabled = await p.isEnabled(selector, noWaitNoThrowOptions);
     expect(isEnabled).toBe(true);
   });
 });

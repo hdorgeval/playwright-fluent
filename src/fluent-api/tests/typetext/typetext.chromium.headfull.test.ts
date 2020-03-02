@@ -1,14 +1,14 @@
 import * as SUT from '../../playwright-fluent';
 import * as path from 'path';
 describe('Playwright Fluent - typeText', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -20,7 +20,7 @@ describe('Playwright Fluent - typeText', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -44,7 +44,7 @@ describe('Playwright Fluent - typeText', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -67,7 +67,7 @@ describe('Playwright Fluent - typeText', (): void => {
     const selector = '#in-view-port';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -76,17 +76,17 @@ describe('Playwright Fluent - typeText', (): void => {
       .typeText('foobar');
 
     // Then
-    const currentValue = await pwc.getValueOf(selector);
+    const currentValue = await p.getValueOf(selector);
     expect(currentValue).toBe('foobar');
   });
 
   test('should type text in an input selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'typetext.test.html')}`;
-    const selector = pwc.selector('input').withValue('I am in viewport');
+    const selector = p.selector('input').withValue('I am in viewport');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -95,7 +95,7 @@ describe('Playwright Fluent - typeText', (): void => {
       .typeText('foobar');
 
     // Then
-    const currentValue = await pwc.getValueOf('#in-view-port');
+    const currentValue = await p.getValueOf('#in-view-port');
     expect(currentValue).toBe('foobar');
   });
 });

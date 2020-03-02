@@ -9,14 +9,14 @@ describe('Playwright Fluent - withBrowser', (): void => {
   test('should target chrome', async (): Promise<void> => {
     // Given
     const browser = 'chrome';
-    const pwc = new PlaywrightFluent();
+    const p = new PlaywrightFluent();
 
     // When
-    await pwc.withBrowser(browser);
+    await p.withBrowser(browser);
 
     // Then
-    const browserInstance = pwc.currentBrowser();
-    const pageInstance = pwc.currentPage();
+    const browserInstance = p.currentBrowser();
+    const pageInstance = p.currentPage();
     expect(browserInstance).toBeDefined();
     expect(pageInstance).toBeDefined();
 
@@ -28,14 +28,14 @@ describe('Playwright Fluent - withBrowser', (): void => {
   test('should target chromium', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
-    const pwc = new PlaywrightFluent();
+    const p = new PlaywrightFluent();
 
     // When
-    await pwc.withBrowser(browser);
+    await p.withBrowser(browser);
 
     // Then
-    const browserInstance = pwc.currentBrowser();
-    const pageInstance = pwc.currentPage();
+    const browserInstance = p.currentBrowser();
+    const pageInstance = p.currentPage();
     expect(browserInstance).toBeDefined();
     expect(pageInstance).toBeDefined();
 
@@ -48,14 +48,14 @@ describe('Playwright Fluent - withBrowser', (): void => {
   test('should target firefox', async (): Promise<void> => {
     // Given
     const browser = 'firefox';
-    const pwc = new PlaywrightFluent();
+    const p = new PlaywrightFluent();
 
     // When
-    await pwc.withBrowser(browser);
+    await p.withBrowser(browser);
 
     // Then
-    const browserInstance = pwc.currentBrowser();
-    const pageInstance = pwc.currentPage();
+    const browserInstance = p.currentBrowser();
+    const pageInstance = p.currentPage();
     expect(browserInstance).toBeDefined();
     expect(pageInstance).toBeDefined();
 
@@ -68,14 +68,14 @@ describe('Playwright Fluent - withBrowser', (): void => {
   test('should target webkit', async (): Promise<void> => {
     // Given
     const browser = 'webkit';
-    const pwc = new PlaywrightFluent();
+    const p = new PlaywrightFluent();
 
     // When
-    await pwc.withBrowser(browser);
+    await p.withBrowser(browser);
 
     // Then
-    const browserInstance = pwc.currentBrowser();
-    const pageInstance = pwc.currentPage();
+    const browserInstance = p.currentBrowser();
+    const pageInstance = p.currentPage();
     expect(browserInstance).toBeDefined();
     expect(pageInstance).toBeDefined();
 
@@ -88,12 +88,12 @@ describe('Playwright Fluent - withBrowser', (): void => {
   test('should throw an error on unknown browser', async (): Promise<void> => {
     // Given
     const browser = 'yo';
-    const pwc = new PlaywrightFluent();
+    const p = new PlaywrightFluent();
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc.withBrowser(browser as BrowserName);
+      await p.withBrowser(browser as BrowserName);
     } catch (error) {
       result = error;
     }
@@ -102,6 +102,6 @@ describe('Playwright Fluent - withBrowser', (): void => {
     const expectedErrorMessage =
       "Browser named 'yo' is unknown. It should be one of 'chrome', 'chromium', 'firefox', 'webkit'";
     expect(result && result.message).toContain(expectedErrorMessage);
-    expect((pwc.lastError() || {}).message).toBe(expectedErrorMessage);
+    expect((p.lastError() || {}).message).toBe(expectedErrorMessage);
   });
 });

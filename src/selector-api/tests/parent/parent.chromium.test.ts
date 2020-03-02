@@ -2,28 +2,28 @@ import { PlaywrightFluent } from '../../../fluent-api';
 import * as path from 'path';
 
 describe('Selector API - parent', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
   test('should get no handle on wrong selector', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'parent.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .withText('foobar')
       .parent();
@@ -37,14 +37,14 @@ describe('Selector API - parent', (): void => {
   test('should get parent handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'parent.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('td')
       .withText('row2')
@@ -66,14 +66,14 @@ describe('Selector API - parent', (): void => {
     void
   > => {
     // Given
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('td')
       .withText('row2')
       .parent();
 
     const url = `file:${path.join(__dirname, 'parent.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()

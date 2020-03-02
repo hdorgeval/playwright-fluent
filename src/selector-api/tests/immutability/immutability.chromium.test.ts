@@ -2,26 +2,26 @@ import { PlaywrightFluent } from '../../../fluent-api';
 import * as path from 'path';
 
 describe('Selector API - immutability', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
   test('should be immutable', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'immutability.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
-    const container = pwc.selector('[role="row"]').find('td');
+    const container = p.selector('[role="row"]').find('td');
     const cell1 = container.withText('row1');
     const cell2 = container.withText('row2');
     const cell3 = container.withText('row3');

@@ -2,14 +2,14 @@ import * as SUT from '../../playwright-fluent';
 import { noWaitNoThrowOptions } from '../../../utils';
 import * as path from 'path';
 describe('Playwright Fluent - expectThat isDisabled', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -20,7 +20,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -40,12 +40,12 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-disabled.test.html')}`;
-    const selector = pwc.selector('foobar');
+    const selector = p.selector('foobar');
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -65,7 +65,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
     const selector = '#dynamically-added-input';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -74,7 +74,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
       .isDisabled();
 
     // Then
-    const isDisabled = await pwc.isDisabled(selector, noWaitNoThrowOptions);
+    const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
     expect(isDisabled).toBe(true);
   });
   test('should wait until selector exists and is disabled (verbose mode) - chromium', async (): Promise<
@@ -85,7 +85,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
     const selector = '#dynamically-added-input';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -94,7 +94,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
       .isDisabled({ verbose: true });
 
     // Then
-    const isDisabled = await pwc.isDisabled(selector, noWaitNoThrowOptions);
+    const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
     expect(isDisabled).toBe(true);
   });
   test('should wait until selector object exists and is disabled - chromium', async (): Promise<
@@ -102,10 +102,10 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-disabled.test.html')}`;
-    const selector = pwc.selector('input').withValue('dynamically added');
+    const selector = p.selector('input').withValue('dynamically added');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -114,7 +114,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
       .isDisabled();
 
     // Then
-    const isDisabled = await pwc.isDisabled(selector, noWaitNoThrowOptions);
+    const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
     expect(isDisabled).toBe(true);
   });
 
@@ -123,10 +123,10 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-disabled.test.html')}`;
-    const selector = pwc.selector('input').withValue('dynamically added');
+    const selector = p.selector('input').withValue('dynamically added');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -135,7 +135,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
       .isDisabled({ verbose: true });
 
     // Then
-    const isDisabled = await pwc.isDisabled(selector, noWaitNoThrowOptions);
+    const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
     expect(isDisabled).toBe(true);
   });
 });

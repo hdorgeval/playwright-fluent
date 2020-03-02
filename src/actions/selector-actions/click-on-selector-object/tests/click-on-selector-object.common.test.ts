@@ -2,14 +2,14 @@ import { PlaywrightFluent } from '../../../../fluent-api';
 import * as SUT from '../index';
 import { defaultClickOptions } from '../../../handle-actions';
 describe('click on selector object', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -19,8 +19,8 @@ describe('click on selector object', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      const selector = pwc.selector('foobar');
-      await SUT.clickOnSelectorObject(selector, pwc.currentPage(), defaultClickOptions);
+      const selector = p.selector('foobar');
+      await SUT.clickOnSelectorObject(selector, p.currentPage(), defaultClickOptions);
     } catch (error) {
       result = error;
     }

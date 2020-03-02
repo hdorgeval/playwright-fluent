@@ -17,10 +17,10 @@ Assertion API are chainable methods that can be called on a `PlaywrightFluent` i
 ```js
 import { PlaywrightFluent } from 'playwright-fluent';
 
-const pwc = new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
 const url = 'https://reactstrap.github.io/components/form';
-await pwc
+await p
   .withBrowser('chromium')
   .withCursor()
   .withOptions({ headless: false })

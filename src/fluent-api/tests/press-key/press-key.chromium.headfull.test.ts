@@ -1,14 +1,14 @@
 import * as SUT from '../../playwright-fluent';
 import * as path from 'path';
 describe('Playwright Fluent - pressKey', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
   test('should press key Tab - chromium', async (): Promise<void> => {
@@ -16,7 +16,7 @@ describe('Playwright Fluent - pressKey', (): void => {
     const url = `file:${path.join(__dirname, 'press-key.test.html')}`;
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()

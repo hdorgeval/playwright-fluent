@@ -1,14 +1,14 @@
 import * as SUT from '../../playwright-fluent';
 
 describe('Playwright Fluent - expect is visible', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -20,7 +20,7 @@ describe('Playwright Fluent - expect is visible', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc.expectThat('foobar').isVisible();
+      await p.expectThat('foobar').isVisible();
     } catch (error) {
       result = error;
     }

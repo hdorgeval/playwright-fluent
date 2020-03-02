@@ -2,27 +2,27 @@ import { PlaywrightFluent } from '../../../fluent-api';
 import * as path from 'path';
 
 describe('Selector API - nth', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
   test('should throw an error when index is 0', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc.selector('[role="row"]').nth(0);
+    const selector = p.selector('[role="row"]').nth(0);
     let result: Error | undefined = undefined;
     try {
       await selector.getFirstHandleOrNull();
@@ -37,13 +37,13 @@ describe('Selector API - nth', (): void => {
   test('should get no handle on too big index', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc.selector('[role="row"]').nth(100);
+    const selector = p.selector('[role="row"]').nth(100);
     const handles = await selector.getAllHandles();
 
     // Then
@@ -54,13 +54,13 @@ describe('Selector API - nth', (): void => {
   test('should get first handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
       .nth(1);
@@ -78,13 +78,13 @@ describe('Selector API - nth', (): void => {
   test('should get last handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
       .nth(-1);
@@ -102,13 +102,13 @@ describe('Selector API - nth', (): void => {
   test('should get the before the last handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
       .nth(-2);
@@ -126,13 +126,13 @@ describe('Selector API - nth', (): void => {
   test('should get the third handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
       .nth(3);
@@ -151,13 +151,13 @@ describe('Selector API - nth', (): void => {
     void
   > => {
     // Given
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
       .nth(3);
 
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);

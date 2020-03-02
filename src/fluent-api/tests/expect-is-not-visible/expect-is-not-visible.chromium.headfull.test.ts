@@ -2,14 +2,14 @@ import * as SUT from '../../playwright-fluent';
 import { noWaitNoThrowOptions } from '../../../utils';
 import * as path from 'path';
 describe('Playwright Fluent - expectThat isNotVisible', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -20,7 +20,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -38,7 +38,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
   test('should give back an error when selector object is visible', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
-    const selector = pwc
+    const selector = p
       .selector('p')
       .withText('I am visible')
       .nth(1);
@@ -46,7 +46,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -69,7 +69,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
     const selector = '#visible-then-hidden';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -78,7 +78,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .isNotVisible();
 
     // Then
-    const isNotVisible = await pwc.isNotVisible(selector, noWaitNoThrowOptions);
+    const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
     expect(isNotVisible).toBe(true);
   });
   test('should wait until selector is hidden (verbose mode) - chromium', async (): Promise<
@@ -89,7 +89,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
     const selector = '#visible-then-hidden';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -98,16 +98,16 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .isNotVisible({ verbose: true });
 
     // Then
-    const isNotVisible = await pwc.isNotVisible(selector, noWaitNoThrowOptions);
+    const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
     expect(isNotVisible).toBe(true);
   });
   test('should wait until selector object is hidden - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
-    const selector = pwc.selector('p').withText('I am visible then hidden');
+    const selector = p.selector('p').withText('I am visible then hidden');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -116,7 +116,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .isNotVisible();
 
     // Then
-    const isNotVisible = await pwc.isNotVisible(selector, noWaitNoThrowOptions);
+    const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
     expect(isNotVisible).toBe(true);
   });
 
@@ -125,10 +125,10 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
-    const selector = pwc.selector('p').withText('I am visible then hidden');
+    const selector = p.selector('p').withText('I am visible then hidden');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -137,7 +137,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .isNotVisible({ verbose: true });
 
     // Then
-    const isNotVisible = await pwc.isNotVisible(selector, noWaitNoThrowOptions);
+    const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
     expect(isNotVisible).toBe(true);
   });
 
@@ -149,7 +149,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
     const selector = '#visible-then-removed';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -158,7 +158,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .isNotVisible({ verbose: true });
 
     // Then
-    const isNotVisible = await pwc.isNotVisible(selector, noWaitNoThrowOptions);
+    const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
     expect(isNotVisible).toBe(true);
   });
 
@@ -167,10 +167,10 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
-    const selector = pwc.selector('p').withText('I am visible then removed from DOM');
+    const selector = p.selector('p').withText('I am visible then removed from DOM');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -179,7 +179,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .isNotVisible({ verbose: true });
 
     // Then
-    const isNotVisible = await pwc.isNotVisible(selector, noWaitNoThrowOptions);
+    const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
     expect(isNotVisible).toBe(true);
   });
 
@@ -188,10 +188,10 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
-    const selector = pwc.selector('p').withText('I am out of viewport');
+    const selector = p.selector('p').withText('I am out of viewport');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -200,7 +200,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .isNotVisible({ verbose: true });
 
     // Then
-    const isNotVisible = await pwc.isNotVisible(selector, noWaitNoThrowOptions);
+    const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
     expect(isNotVisible).toBe(true);
   });
 });

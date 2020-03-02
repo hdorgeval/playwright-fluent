@@ -6,10 +6,10 @@ describe('Playwright Fluent - close', (): void => {
 
   test('should do nothing when browser has not been launched', async (): Promise<void> => {
     // Given
-    const pwc = new PlaywrightFluent();
+    const p = new PlaywrightFluent();
 
     // When
-    await pwc.close();
+    await p.close();
 
     // Then
     // no error should occur

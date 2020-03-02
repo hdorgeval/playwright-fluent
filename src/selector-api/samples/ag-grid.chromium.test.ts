@@ -1,28 +1,28 @@
 import { PlaywrightFluent } from '../../fluent-api';
 
 describe('Selector API - AG Grid samples', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
   test.skip('should select a name in the grid', async (): Promise<void> => {
     // Given I open The AG Grid demo site
     const url = 'https://www.ag-grid.com/example.php';
-    await pwc
+    await p
       .withBrowser('chromium')
       .withCursor()
       .withOptions({ headless: false })
       .navigateTo(url);
 
     // When I select Olivia Brenan's name
-    const agGridContainer = pwc.selector('div.ag-body-viewport');
+    const agGridContainer = p.selector('div.ag-body-viewport');
     const checkbox = agGridContainer
       .find('div[role="row"]')
       .withText('Olivia Brennan')

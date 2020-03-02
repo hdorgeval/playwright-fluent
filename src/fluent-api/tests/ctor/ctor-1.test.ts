@@ -15,11 +15,11 @@ describe('Playwright Fluent - ctor usage', (): void => {
     await page.goto(url);
 
     // When
-    const pwc = new PlaywrightFluent(browser, page);
+    const p = new PlaywrightFluent(browser, page);
 
     // Then
-    expect(pwc.currentBrowser()).toBe(browser);
-    expect(pwc.currentPage()).toBe(page);
+    expect(p.currentBrowser()).toBe(browser);
+    expect(p.currentPage()).toBe(page);
     await browser.close();
   });
 
@@ -32,11 +32,11 @@ describe('Playwright Fluent - ctor usage', (): void => {
     await page.goto('https://google.com');
 
     // When
-    const pwc = new PlaywrightFluent(browser, page);
+    const p = new PlaywrightFluent(browser, page);
 
     // Then
-    expect(pwc.currentBrowser()).toBe(browser);
-    expect(pwc.currentPage()).toBe(page);
+    expect(p.currentBrowser()).toBe(browser);
+    expect(p.currentPage()).toBe(page);
     await browser.close();
   });
 
@@ -49,11 +49,11 @@ describe('Playwright Fluent - ctor usage', (): void => {
     await page.goto(url);
 
     // When
-    const pwc = new PlaywrightFluent(browser, page);
+    const p = new PlaywrightFluent(browser, page);
 
     // Then
-    expect(pwc.currentBrowser()).toBe(browser);
-    expect(pwc.currentPage()).toBe(page);
+    expect(p.currentBrowser()).toBe(browser);
+    expect(p.currentPage()).toBe(page);
     await browser.close();
   });
 
@@ -68,11 +68,11 @@ describe('Playwright Fluent - ctor usage', (): void => {
     await page.goto(url);
 
     // When
-    const pwc = new PlaywrightFluent(browser, page);
+    const p = new PlaywrightFluent(browser, page);
 
     // Then
-    expect(pwc.currentBrowser()).toBe(browser);
-    expect(pwc.currentPage()).toBe(page);
+    expect(p.currentBrowser()).toBe(browser);
+    expect(p.currentPage()).toBe(page);
     await browser.close();
   });
 });

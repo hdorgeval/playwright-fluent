@@ -2,14 +2,14 @@ import * as SUT from '../../playwright-fluent';
 import { noWaitNoThrowOptions } from '../../../utils';
 import * as path from 'path';
 describe('Playwright Fluent - expectThat hasFocus', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -20,7 +20,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -40,12 +40,12 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-focus.test.html')}`;
-    const selector = pwc.selector('foobar');
+    const selector = p.selector('foobar');
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -65,7 +65,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
     const selector = '#dynamically-added-input';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -74,7 +74,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
       .hasFocus();
 
     // Then
-    const hasFocus = await pwc.hasFocus(selector, noWaitNoThrowOptions);
+    const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);
     expect(hasFocus).toBe(true);
   });
   test('should wait until selector exists and has focus (verbose mode) - chromium', async (): Promise<
@@ -85,7 +85,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
     const selector = '#dynamically-added-input';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -94,7 +94,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
       .hasFocus({ verbose: true });
 
     // Then
-    const hasFocus = await pwc.hasFocus(selector, noWaitNoThrowOptions);
+    const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);
     expect(hasFocus).toBe(true);
   });
   test('should wait until selector object exists and has focus - chromium', async (): Promise<
@@ -102,10 +102,10 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-focus.test.html')}`;
-    const selector = pwc.selector('input').withValue('dynamically added');
+    const selector = p.selector('input').withValue('dynamically added');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -114,7 +114,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
       .hasFocus();
 
     // Then
-    const hasFocus = await pwc.hasFocus(selector, noWaitNoThrowOptions);
+    const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);
     expect(hasFocus).toBe(true);
   });
 
@@ -123,10 +123,10 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-focus.test.html')}`;
-    const selector = pwc.selector('input').withValue('dynamically added');
+    const selector = p.selector('input').withValue('dynamically added');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -135,7 +135,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
       .hasFocus({ verbose: true });
 
     // Then
-    const hasFocus = await pwc.hasFocus(selector, noWaitNoThrowOptions);
+    const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);
     expect(hasFocus).toBe(true);
   });
   test('should give back an error when selector does not have focus - chromium', async (): Promise<
@@ -148,7 +148,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -160,7 +160,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
     }
 
     // Then
-    const hasFocus = await pwc.hasFocus(selector, noWaitNoThrowOptions);
+    const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);
     expect(hasFocus).toBe(false);
     expect(result && result.message).toContain("Selector '#input1' does not have the focus.");
   });
@@ -170,12 +170,12 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-focus.test.html')}`;
-    const selector = pwc.selector('input').withValue('1');
+    const selector = p.selector('input').withValue('1');
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -187,7 +187,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
     }
 
     // Then
-    const hasFocus = await pwc.hasFocus(selector, noWaitNoThrowOptions);
+    const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);
     expect(hasFocus).toBe(false);
     const expectedMessage = `selector(input)
   .withValue(1)' does not have the focus.`;

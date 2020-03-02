@@ -1,14 +1,14 @@
 import * as SUT from '../../playwright-fluent';
 
 describe('Playwright Fluent - navigateTo', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -20,7 +20,7 @@ describe('Playwright Fluent - navigateTo', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc.navigateTo('https://www.google.fr');
+      await p.navigateTo('https://www.google.fr');
     } catch (error) {
       result = error;
     }
@@ -37,13 +37,13 @@ describe('Playwright Fluent - navigateTo', (): void => {
 
     // When
     // prettier-ignore
-    await pwc
+    await p
       .withBrowser('chromium')
       .navigateTo(url);
 
     // Then
-    expect(await pwc.getCurrentUrl()).toBe(`${url}/`);
-    expect(pwc.lastError()).toBe(undefined);
+    expect(await p.getCurrentUrl()).toBe(`${url}/`);
+    expect(p.lastError()).toBe(undefined);
   });
 
   test('should navigate to url with firefox', async (): Promise<void> => {
@@ -52,13 +52,13 @@ describe('Playwright Fluent - navigateTo', (): void => {
 
     // When
     // prettier-ignore
-    await pwc
+    await p
       .withBrowser('firefox')
       .navigateTo(url);
 
     // Then
-    expect(await pwc.getCurrentUrl()).toBe(`${url}/`);
-    expect(pwc.lastError()).toBe(undefined);
+    expect(await p.getCurrentUrl()).toBe(`${url}/`);
+    expect(p.lastError()).toBe(undefined);
   });
 
   test('should navigate to url with webkit', async (): Promise<void> => {
@@ -67,12 +67,12 @@ describe('Playwright Fluent - navigateTo', (): void => {
 
     // When
     // prettier-ignore
-    await pwc
+    await p
       .withBrowser('webkit')
       .navigateTo(url);
 
     // Then
-    expect(await pwc.getCurrentUrl()).toBe(`${url}/`);
-    expect(pwc.lastError()).toBe(undefined);
+    expect(await p.getCurrentUrl()).toBe(`${url}/`);
+    expect(p.lastError()).toBe(undefined);
   });
 });

@@ -2,14 +2,14 @@ import * as SUT from '../../playwright-fluent';
 import { noWaitNoThrowOptions } from '../../../utils';
 import * as path from 'path';
 describe('Playwright Fluent - expectThat isVisible', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -20,7 +20,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -40,12 +40,12 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
-    const selector = pwc.selector('foobar');
+    const selector = p.selector('foobar');
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -65,7 +65,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     const selector = '#dynamically-added-paragraph';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -74,7 +74,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
       .isVisible();
 
     // Then
-    const isVisible = await pwc.isVisible(selector, noWaitNoThrowOptions);
+    const isVisible = await p.isVisible(selector, noWaitNoThrowOptions);
     expect(isVisible).toBe(true);
   });
   test('should wait until selector exists and is visible (verbose mode) - chromium', async (): Promise<
@@ -85,7 +85,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     const selector = '#dynamically-added-paragraph';
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -94,7 +94,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
       .isVisible({ verbose: true });
 
     // Then
-    const isVisible = await pwc.isVisible(selector, noWaitNoThrowOptions);
+    const isVisible = await p.isVisible(selector, noWaitNoThrowOptions);
     expect(isVisible).toBe(true);
   });
   test('should wait until selector object exists and is visible - chromium', async (): Promise<
@@ -102,10 +102,10 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
-    const selector = pwc.selector('p').withText('dynamically added');
+    const selector = p.selector('p').withText('dynamically added');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -114,7 +114,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
       .isVisible();
 
     // Then
-    const isVisible = await pwc.isVisible(selector, noWaitNoThrowOptions);
+    const isVisible = await p.isVisible(selector, noWaitNoThrowOptions);
     expect(isVisible).toBe(true);
   });
 
@@ -123,10 +123,10 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
-    const selector = pwc.selector('p').withText('dynamically added');
+    const selector = p.selector('p').withText('dynamically added');
 
     // When
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
       .withCursor()
@@ -135,7 +135,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
       .isVisible({ verbose: true });
 
     // Then
-    const isVisible = await pwc.isVisible(selector, noWaitNoThrowOptions);
+    const isVisible = await p.isVisible(selector, noWaitNoThrowOptions);
     expect(isVisible).toBe(true);
   });
   test('should give back an error when selector is hidden - chromium', async (): Promise<void> => {
@@ -146,7 +146,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -158,7 +158,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     }
 
     // Then
-    const isVisible = await pwc.isVisible(selector, noWaitNoThrowOptions);
+    const isVisible = await p.isVisible(selector, noWaitNoThrowOptions);
     expect(isVisible).toBe(false);
     expect(result && result.message).toContain("Selector '#hidden' is not visible.");
   });
@@ -168,12 +168,12 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
-    const selector = pwc.selector('p').withText('I am hidden');
+    const selector = p.selector('p').withText('I am hidden');
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc
+      await p
         .withBrowser('chromium')
         .withOptions({ headless: false })
         .withCursor()
@@ -185,7 +185,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     }
 
     // Then
-    const isVisible = await pwc.isVisible(selector, noWaitNoThrowOptions);
+    const isVisible = await p.isVisible(selector, noWaitNoThrowOptions);
     expect(isVisible).toBe(false);
     const expectedMessage = `selector(p)
   .withText(I am hidden)' is not visible.`;

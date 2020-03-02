@@ -47,12 +47,12 @@ Example:
 
 ```js
 const browser = 'chromium';
-const pwc = new PlaywrightFluent();
-await pwc.withBrowser(browser);
+const p = new PlaywrightFluent();
+await p.withBrowser(browser);
 
 // now if you want to use the playwright API from this point:
-const browser = pwc.currentBrowser();
-const page = pwc.currentPage();
+const browser = p.currentBrowser();
+const page = p.currentPage();
 
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
@@ -101,10 +101,10 @@ Example:
 
 ```js
 const browser = 'chromium';
-const pwc = new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
 // start the browser in headfull mode
-await pwc.withBrowser(browser).withOptions({ headless: false });
+await p.withBrowser(browser).withOptions({ headless: false });
 ```
 
 ---
@@ -118,9 +118,9 @@ Example:
 ```js
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
-const pwc = new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
-await pwc
+await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .withCursor()
@@ -143,11 +143,11 @@ Example:
 ```js
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
-const pwc = new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
 // start the browser in headfull mode
 // and emulate an iPhone 6 in landscape mode
-await pwc
+await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .emulateDevice('iPhone 6 landscape')
@@ -182,16 +182,16 @@ Example:
 ```js
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
-const pwc = new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
 // prettier-ignore
-await pwc
+await p
   .withBrowser(browser)
   .navigateTo(url);
 
 // now if you want to use the playwright API from this point:
-const browser = pwc.currentBrowser();
-const page = pwc.currentPage();
+const browser = p.currentBrowser();
+const page = p.currentPage();
 
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
@@ -221,9 +221,9 @@ Example:
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
 const selector = '#exampleCustomRange';
-const pwc = new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
-await pwc
+await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .withCursor()
@@ -231,8 +231,8 @@ await pwc
   .hover(selector);
 
 // now if you want to use the playwright API from this point:
-const browser = pwc.currentBrowser();
-const page = pwc.currentPage();
+const browser = p.currentBrowser();
+const page = p.currentPage();
 
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
@@ -243,13 +243,13 @@ Example with a Selector Object:
 ```js
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
-const pwc = new PlaywrightFluent();
-const selector = pwc
+const p = new PlaywrightFluent();
+const selector = p
   .selector('label')
   .withText('Email')
   .nth(3);
 
-await pwc
+await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .withCursor()
@@ -257,8 +257,8 @@ await pwc
   .hover(selector);
 
 // now if you want to use the playwright API from this point:
-const browser = pwc.currentBrowser();
-const page = pwc.currentPage();
+const browser = p.currentBrowser();
+const page = p.currentPage();
 
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
@@ -298,9 +298,9 @@ Example:
 
 ```js
 const url = 'https://reactstrap.github.io/components/form';
-const checkMeOut = pwc.selector('label').withText('Check me out');
+const checkMeOut = p.selector('label').withText('Check me out');
 
-await pwc
+await p
   .withBrowser('chromium')
   .withOptions({ headless: false })
   .withCursor()
@@ -311,8 +311,8 @@ await pwc
   .hasFocus();
 
 // now if you want to use the playwright API from this point:
-const browser = pwc.currentBrowser();
-const page = pwc.currentPage();
+const browser = p.currentBrowser();
+const page = p.currentPage();
 
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
@@ -576,12 +576,12 @@ Get Playwright's page instance of The Fluent API in order to do stuff not covere
 Example:
 
 ```js
-const pwc = new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
 // use the Fluent API
 // ...
 
-const page = pwc.currentPage();
+const page = p.currentPage();
 
 // now use this page instance through the playwright API
 ```
@@ -597,12 +597,12 @@ Get Playwright's browser instance of The Fluent API in order to do stuff not cov
 Example:
 
 ```js
-const pwc = new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
 // use the Fluent API
 // ...
 
-const browser = pwc.currentBrowser();
+const browser = p.currentBrowser();
 
 // now use this browser instance through the playwright API
 ```

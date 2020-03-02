@@ -6,18 +6,18 @@ describe('Playwright Fluent - close', (): void => {
   test('should close chromium', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
-    const pwc = new PlaywrightFluent();
+    const p = new PlaywrightFluent();
 
     // And
-    await pwc.withBrowser(browser);
-    let createdBrowser = pwc.currentBrowser();
+    await p.withBrowser(browser);
+    let createdBrowser = p.currentBrowser();
     const previousConnectedStatus = createdBrowser && createdBrowser.isConnected();
 
     // When
-    await pwc.close();
+    await p.close();
 
     // Then
-    createdBrowser = pwc.currentBrowser();
+    createdBrowser = p.currentBrowser();
     const currentConnectedStatus = createdBrowser && createdBrowser.isConnected();
     expect(createdBrowser).toBeDefined();
     expect(previousConnectedStatus).toBe(true);

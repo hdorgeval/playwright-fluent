@@ -2,28 +2,28 @@ import * as SUT from '../../../fluent-api';
 import * as path from 'path';
 
 describe('Selector API - isNotVisible', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
   test('should return true on wrong selector', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-not-visible.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .navigateTo(url);
 
     // When
-    const selector = pwc.selector('foo').withText('bar');
+    const selector = p.selector('foo').withText('bar');
     const result = await selector.isNotVisible();
 
     // Then
@@ -33,14 +33,14 @@ describe('Selector API - isNotVisible', (): void => {
   test('should return false when selector is visible', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-not-visible.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('p')
       .withText('I am visible');
@@ -54,14 +54,14 @@ describe('Selector API - isNotVisible', (): void => {
   test('should return true when selector is hidden', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-not-visible.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('p')
       .withText('I am hidden');
@@ -74,14 +74,14 @@ describe('Selector API - isNotVisible', (): void => {
   test('should return true when selector is transparent', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-not-visible.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('p')
       .withText('I am transparent');
@@ -95,14 +95,14 @@ describe('Selector API - isNotVisible', (): void => {
   test('should return true when selector is out of screen', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-not-visible.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('p')
       .withText('I am out of screen');
@@ -115,21 +115,21 @@ describe('Selector API - isNotVisible', (): void => {
   test('should return false when selector is first hidden', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-not-visible.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .navigateTo(url);
 
     // When
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('td')
       .withText('hidden, then visible')
       .find('p'); //only the <p> ... </p> element is hidden first
 
     const initialVisibleStatus = await selector.isNotVisible();
-    await pwc.wait(5000);
+    await p.wait(5000);
     const finalVisibleStatus = await selector.isNotVisible();
 
     // Then
@@ -140,18 +140,18 @@ describe('Selector API - isNotVisible', (): void => {
   test('should wait for selector to be visible', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-not-visible.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .navigateTo(url);
 
     // When
-    const selector = pwc.selector('p').withText('I am dynamically added');
+    const selector = p.selector('p').withText('I am dynamically added');
 
     const initialVisibleStatus = await selector.isNotVisible();
-    // await pwc.waitUntil(() => selector.isNotVisible(), { verbose: true });
-    await pwc.wait(6000);
+    // await p.waitUntil(() => selector.isNotVisible(), { verbose: true });
+    await p.wait(6000);
     const finalVisibleStatus = await selector.isNotVisible();
 
     // Then
@@ -163,13 +163,13 @@ describe('Selector API - isNotVisible', (): void => {
     void
   > => {
     // Given
-    const selector = pwc
+    const selector = p
       .selector('[role="row"]')
       .find('p')
       .withText('I am visible');
 
     const url = `file:${path.join(__dirname, 'is-not-visible.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()

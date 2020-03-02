@@ -2,14 +2,14 @@ import { PlaywrightFluent } from '../../playwright-fluent';
 import { LaunchOptions } from '../../../actions';
 import { getDevice, defaultDevice } from '../../../devices';
 describe('Playwright Fluent - emulateDevice', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
   test('should target chromium in headfull with simulated device', async (): Promise<void> => {
@@ -22,14 +22,14 @@ describe('Playwright Fluent - emulateDevice', (): void => {
     const device = getDevice('iPhone 6 landscape') || defaultDevice;
 
     // When
-    await pwc
+    await p
       .withBrowser(browser)
       .withOptions(options)
       .emulateDevice('iPhone 6 landscape')
       .navigateTo(url);
 
     // Then
-    const windowState = await pwc.getCurrentWindowState();
+    const windowState = await p.getCurrentWindowState();
     expect(Math.abs(windowState.innerWidth - device.viewport.width)).toBeLessThanOrEqual(10);
     expect(Math.abs(windowState.innerHeight - device.viewport.height)).toBeLessThanOrEqual(10);
 

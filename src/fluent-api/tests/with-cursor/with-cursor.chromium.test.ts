@@ -2,14 +2,14 @@ import * as SUT from '../../playwright-fluent';
 import * as action from '../../../actions';
 
 describe('Playwright Fluent - withCursor', (): void => {
-  let pwc: SUT.PlaywrightFluent;
+  let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new SUT.PlaywrightFluent();
+    p = new SUT.PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -19,7 +19,7 @@ describe('Playwright Fluent - withCursor', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await pwc.withCursor();
+      await p.withCursor();
     } catch (error) {
       result = error;
     }
@@ -34,14 +34,14 @@ describe('Playwright Fluent - withCursor', (): void => {
 
     // When
     // prettier-ignore
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({headless: true})
       .withCursor()
       .navigateTo(url);
 
     // Then
-    const cursorExists = await action.exists('playwright-mouse-pointer', pwc.currentPage());
+    const cursorExists = await action.exists('playwright-mouse-pointer', p.currentPage());
     expect(cursorExists).toBe(true);
   });
 });

@@ -33,7 +33,7 @@ interface SelectorState {
 
 export class SelectorFluent {
   private chainingHistory = '';
-  private pwc: PlaywrightFluent;
+  private pwf: PlaywrightFluent;
 
   private actionInfos: ActionInfo[] = [];
 
@@ -41,7 +41,7 @@ export class SelectorFluent {
     switch (actionInfo.name) {
       case 'querySelectorAllInPage':
         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        return () => action.querySelectorAllInPage(actionInfo.selector, this.pwc.currentPage());
+        return () => action.querySelectorAllInPage(actionInfo.selector, this.pwf.currentPage());
 
       case 'find':
         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -138,8 +138,8 @@ export class SelectorFluent {
   /**
    *
    */
-  constructor(selector: string, pptc: PlaywrightFluent, stringifiedState?: string) {
-    this.pwc = pptc;
+  constructor(selector: string, pwf: PlaywrightFluent, stringifiedState?: string) {
+    this.pwf = pwf;
 
     if (stringifiedState) {
       const state = JSON.parse(stringifiedState) as SelectorState;
@@ -166,7 +166,7 @@ export class SelectorFluent {
       chainingHistory,
     };
 
-    return new SelectorFluent(selector, this.pwc, JSON.stringify(state));
+    return new SelectorFluent(selector, this.pwf, JSON.stringify(state));
   }
   public find(selector: string): SelectorFluent {
     const actions = [...this.actionInfos];

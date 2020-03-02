@@ -21,9 +21,9 @@ This will also install Playwright along with its dependencies and the browser bi
 ```js
 import { PlaywrightFluent } from 'playwright-fluent';
 
-const pwc = new PlaywrightFluent();
+const p =  new PlaywrightFluent();
 
-await pwc
+await p
   .withBrowser('chromium')
   .withOptions({
     headless: false,
@@ -46,13 +46,13 @@ await pwc
 This API provides a Selector Fluent API that enables to find and target a DOM element or a collection of DOM elements that is embedded in complex DOM Hierarchy:
 
 ```js
-const selector = pwc
+const selector = p
   .selector('[role="row"]') // will get all dom elements, within the current page, with the attribute role="row"
   .withText('foobar') // will filter only those that contain the text 'foobar'
   .find('td') // from previous result(s), find all embedded <td> elements
   .nth(2); // take only the second cell
 
-await pwc.expectThat(selector).hasText('foobar-2');
+await p.expectThat(selector).hasText('foobar-2');
 ```
 
 This API is still a draft and is in early development, but stay tuned!
@@ -83,7 +83,7 @@ Yes you can.
 import { PlaywrightFluent } from 'playwright-fluent';
 
 // just create a new instance with playwright's browser and page instances
-const pwc = new PlaywrightFluent(browser, page);
+const p = new PlaywrightFluent(browser, page);
 
 // now you can use the fluent API
 ```
@@ -94,8 +94,8 @@ Yes you can. To use the Playwright API, just use the `currentBrowser()` and/or `
 
 ```js
 const browser = 'chromium';
-const pwc = new PlaywrightFluent();
-await pwc
+const p =  new PlaywrightFluent();
+await p
   .withBrowser(browser)
   .emulateDevice('iPhone 6 landscape')
   .withCursor()
@@ -103,8 +103,8 @@ await pwc
   ...;
 
 // now if you want to use the playwright API from this point:
-const browser = pwc.currentBrowser();
-const page = pwc.currentPage();
+const browser = p.currentBrowser();
+const page = p.currentPage();
 
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API

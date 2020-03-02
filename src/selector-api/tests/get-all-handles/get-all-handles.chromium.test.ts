@@ -2,14 +2,14 @@ import { PlaywrightFluent } from '../../../fluent-api';
 import * as path from 'path';
 
 describe('Selector API - getAllHandles', (): void => {
-  let pwc: PlaywrightFluent;
+  let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
-    pwc = new PlaywrightFluent();
+    p = new PlaywrightFluent();
   });
   afterEach(
     async (): Promise<void> => {
-      await pwc.close();
+      await p.close();
     },
   );
 
@@ -19,7 +19,7 @@ describe('Selector API - getAllHandles', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      const selector = pwc.selector('foobar');
+      const selector = p.selector('foobar');
       await selector.getAllHandles();
     } catch (error) {
       result = error;
@@ -34,13 +34,13 @@ describe('Selector API - getAllHandles', (): void => {
   test('should get no handle on wrong selector', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'get-all-handles.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc.selector('foobar');
+    const selector = p.selector('foobar');
     const handles = await selector.getAllHandles();
 
     // Then
@@ -51,13 +51,13 @@ describe('Selector API - getAllHandles', (): void => {
   test('should get handles', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'get-all-handles.test.html')}`;
-    await pwc
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
-    const selector = pwc.selector('[role="row"]');
+    const selector = p.selector('[role="row"]');
     const handles = await selector.getAllHandles();
 
     // Then
@@ -75,8 +75,8 @@ describe('Selector API - getAllHandles', (): void => {
   > => {
     // Given
     const url = `file:${path.join(__dirname, 'get-all-handles.test.html')}`;
-    const selector = pwc.selector('[role="row"]');
-    await pwc
+    const selector = p.selector('[role="row"]');
+    await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
