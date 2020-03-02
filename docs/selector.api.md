@@ -23,12 +23,12 @@ The Selector API enables to find and target a DOM element or a collection of DOM
 
 ## Usage
 
-To use the Selector API, you must first get a selector object from the controller, then use the chainable methods to compose your query, and finally execute the query by calling `getHandle()` if your query targets only one element or by calling `getAllHandles()` if the query targets a collection of elements:
+To use the Selector API, you must first get a selector object from the fluent API, then use the chainable methods to compose your query, and finally execute the query by calling `getHandle()` if your query targets only one element or by calling `getAllHandles()` if the query targets a collection of elements:
 
 ```js
-import { PlaywrightController } from 'playwright-fluent';
+import { PlaywrightFluent } from 'playwright-fluent';
 
-const pwc = new PuppeteerController();
+const pwc = new PlaywrightFluent();
 
 // Given I open The AG Grid demo site
 const url = 'https://www.ag-grid.com/example.php';

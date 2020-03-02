@@ -12,12 +12,12 @@ The Assertion API enables to chain assertions on a selector. The selector can be
 
 ## Usage
 
-Assertion API are chainable methods that can be called on a `PlayWrightController` instance.
+Assertion API are chainable methods that can be called on a `PlaywrightFluent` instance.
 
 ```js
-import { PlaywrightController } from 'playwright-fluent';
+import { PlaywrightFluent } from 'playwright-fluent';
 
-const pwc = new PuppeteerController();
+const pwc = new PlaywrightFluent();
 
 const url = 'https://reactstrap.github.io/components/form';
 await pwc
@@ -33,9 +33,9 @@ await pwc
 
 ### expectThat(selector).hasFocus([options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
-- returns: `PlaywrightController`
+- returns: `PlaywrightFluent`
 
 Will check if the selector has the focus.
 
@@ -73,9 +73,9 @@ interface AssertOptions {
 
 ### expectThat(selector).isVisible([options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
-- returns: `PlaywrightController`
+- returns: `PlaywrightFluent`
 
 Will check if the selector is visible.
 
@@ -83,9 +83,9 @@ Will check if the selector is visible.
 
 ### expectThat(selector).isNotVisible([options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
-- returns: `PlaywrightController`
+- returns: `PlaywrightFluent`
 
 Will check if the selector is not visible.
 
@@ -93,9 +93,9 @@ Will check if the selector is not visible.
 
 ### expectThat(selector).isEnabled([options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
-- returns: `PlaywrightController`
+- returns: `PlaywrightFluent`
 
 Will check if the selector is enabled.
 
@@ -103,9 +103,9 @@ Will check if the selector is enabled.
 
 ### expectThat(selector).isDisabled([options])
 
-- selector: `string | SelectorController`
+- selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
-- returns: `PlaywrightController`
+- returns: `PlaywrightFluent`
 
 Will check if the selector is disabled.
 
