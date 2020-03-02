@@ -1,4 +1,4 @@
-import * as SUT from '../../../controller';
+import * as SUT from '../../../fluent-api';
 import * as path from 'path';
 
 describe('Selector API - exists', (): void => {

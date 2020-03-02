@@ -1,4 +1,4 @@
-import { PlaywrightFluent } from '../../../../controller';
+import { PlaywrightFluent } from '../../../../fluent-api';
 import * as SUT from '../index';
 import { defaultHoverOptions } from '../../../handle-actions';
 describe('hover on selector object', (): void => {

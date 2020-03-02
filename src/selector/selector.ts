@@ -1,5 +1,5 @@
 import * as action from '../actions';
-import { PlaywrightFluent } from '../controller';
+import { PlaywrightFluent } from '../fluent-api';
 import { VerboseOptions, defaultVerboseOptions } from '../actions';
 import { ElementHandle } from 'playwright';
 type Action = (handles: ElementHandle<Element>[]) => Promise<ElementHandle<Element>[]>;

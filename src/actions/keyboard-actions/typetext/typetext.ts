@@ -1,4 +1,4 @@
-import { ClickOptions } from '../../../controller';
+import { ClickOptions } from '../../../fluent-api';
 import { defaultWaitUntilOptions } from '../../../utils';
 import { Page } from 'playwright';
 declare const window: Window;

@@ -6,7 +6,7 @@ import {
   noWaitNoThrowOptions,
 } from '../../utils';
 import * as action from '../../actions';
-import { AssertOptions, defaultAssertOptions } from '../../controller/controller';
+import { AssertOptions, defaultAssertOptions } from '../../fluent-api/playwright-fluent';
 import { Page } from 'playwright';
 
 export async function isDisabled(

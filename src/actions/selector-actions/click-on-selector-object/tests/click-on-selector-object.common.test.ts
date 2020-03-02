@@ -1,4 +1,4 @@
-import { PlaywrightFluent } from '../../../../controller';
+import { PlaywrightFluent } from '../../../../fluent-api';
 import * as SUT from '../index';
 import { defaultClickOptions } from '../../../handle-actions';
 describe('click on selector object', (): void => {

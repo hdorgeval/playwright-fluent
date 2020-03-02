@@ -1,4 +1,4 @@
-import { PlaywrightFluent } from '../../../controller';
+import { PlaywrightFluent } from '../../../fluent-api';
 import * as path from 'path';
 
 describe('Selector API - find', (): void => {

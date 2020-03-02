@@ -1,4 +1,4 @@
-import { PlaywrightFluent } from '../../controller';
+import { PlaywrightFluent } from '../../fluent-api';
 
 describe('Selector API - AG Grid samples', (): void => {
   let pwc: PlaywrightFluent;
