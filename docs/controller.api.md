@@ -1,4 +1,4 @@
-# Playwright Controller API
+# Playwright Fluent API
 
 - Chainable Methods
 

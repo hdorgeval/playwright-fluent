@@ -1,7 +1,7 @@
 import * as SUT from '../../playwright-fluent';
 import * as action from '../../../actions';
 
-describe('Playwright Controller - withCursor', (): void => {
+describe('Playwright Fluent - withCursor', (): void => {
   let pwc: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);

@@ -1,6 +1,6 @@
 import { PlaywrightFluent, LaunchOptions } from '../../playwright-fluent';
 declare const window: Window;
-describe('Playwright Controller - withOptions', (): void => {
+describe('Playwright Fluent - withOptions', (): void => {
   let pwc: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);

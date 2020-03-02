@@ -2,7 +2,7 @@ import { PlaywrightFluent } from '../../playwright-fluent';
 import { chromium, firefox, webkit } from 'playwright';
 import * as path from 'path';
 
-describe('Playwright Controller - ctor usage', (): void => {
+describe('Playwright Fluent - ctor usage', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });

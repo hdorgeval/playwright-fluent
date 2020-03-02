@@ -1,7 +1,7 @@
 import * as SUT from '../../playwright-fluent';
 import { noWaitNoThrowOptions } from '../../../utils';
 import * as path from 'path';
-describe('Playwright Controller - expectThat isNotVisible', (): void => {
+describe('Playwright Fluent - expectThat isNotVisible', (): void => {
   let pwc: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);

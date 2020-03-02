@@ -1,6 +1,6 @@
 import * as SUT from '../../playwright-fluent';
 
-describe('Playwright Controller - expect is visible', (): void => {
+describe('Playwright Fluent - expect is visible', (): void => {
   let pwc: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);

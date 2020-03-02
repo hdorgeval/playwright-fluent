@@ -1,5 +1,5 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
-describe('Playwright Controller - close', (): void => {
+describe('Playwright Fluent - close', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });

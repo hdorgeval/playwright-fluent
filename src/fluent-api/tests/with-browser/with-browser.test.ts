@@ -1,7 +1,7 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { BrowserName } from '../../../actions';
 declare const window: Window;
-describe('Playwright Controller - withBrowser', (): void => {
+describe('Playwright Fluent - withBrowser', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });
