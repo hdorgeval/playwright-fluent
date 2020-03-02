@@ -21,7 +21,7 @@ This will also install Playwright along with its dependencies and the browser bi
 ```js
 import { PlaywrightFluent } from 'playwright-fluent';
 
-const p =  new PlaywrightFluent();
+const p = new PlaywrightFluent();
 
 await p
   .withBrowser('chromium')
@@ -94,7 +94,7 @@ Yes you can. To use the Playwright API, just use the `currentBrowser()` and/or `
 
 ```js
 const browser = 'chromium';
-const p =  new PlaywrightFluent();
+const p = new PlaywrightFluent();
 await p
   .withBrowser(browser)
   .emulateDevice('iPhone 6 landscape')
