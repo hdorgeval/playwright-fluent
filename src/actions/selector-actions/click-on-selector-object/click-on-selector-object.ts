@@ -1,5 +1,5 @@
 import { waitUntil, report } from '../../../utils';
-import { SelectorFluent } from '../../../selector';
+import { SelectorFluent } from '../../../selector-api';
 import { clickOnHandle, ClickOptions } from '../../handle-actions';
 import { Page } from 'playwright';
 

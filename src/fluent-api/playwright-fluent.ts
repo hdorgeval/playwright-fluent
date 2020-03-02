@@ -26,7 +26,7 @@ import {
   getDevice,
 } from '../devices';
 import { defaultWaitUntilOptions, sleep, WaitUntilOptions, waitUntil } from '../utils';
-import { SelectorFluent } from '../selector';
+import { SelectorFluent } from '../selector-api';
 import { Browser, Page, BrowserContext } from 'playwright';
 
 export { WaitUntilOptions, noWaitNoThrowOptions } from '../utils';

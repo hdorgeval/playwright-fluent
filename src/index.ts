@@ -1,3 +1,3 @@
 export * from './fluent-api';
-export * from './selector';
+export * from './selector-api';
 export { getChromePath } from './utils';

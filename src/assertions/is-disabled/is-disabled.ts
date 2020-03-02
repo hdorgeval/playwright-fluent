@@ -1,4 +1,4 @@
-import { SelectorFluent } from '../../selector';
+import { SelectorFluent } from '../../selector-api';
 import {
   WaitUntilOptions,
   defaultWaitUntilOptions,
