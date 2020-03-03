@@ -1,4 +1,5 @@
 export * from './click-on-handle';
+export * from './get-all-options-of-handle';
 export * from './get-client-rectangle-of-handle';
 export * from './get-handles-with-text';
 export * from './get-handles-with-value';
@@ -13,5 +14,6 @@ export * from './is-handle-enabled';
 export * from './is-handle-moving';
 export * from './is-handle-not-visible';
 export * from './is-handle-visible';
+export * from './is-option-available-in-handle';
 export * from './query-selector-all-from-handles';
 export * from './scroll-to-handle';
