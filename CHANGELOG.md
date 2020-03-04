@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [0.13.0] - 2020-03-05
+
+### Added
+
+- feat(fluent-api): add `waitForStabilityOf(func)` to the Fluent API
+- feat(fluent-api): add `recordRequestsTo(url)` to the Fluent API
+- feat(fluent-api): add helper method `getRecordedRequestsTo(url)` to the Selector API
+- feat(fluent-api): add helper method `getLastRecordedRequestTo(url)` to the Selector API
+- feat(fluent-api): add helper method `clearRecordedRequestsTo(url)` to the Selector API
+
 ## [0.12.0] - 2020-03-02
 
 ### BREAKING CHANGE
