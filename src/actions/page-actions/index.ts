@@ -11,3 +11,4 @@ export * from './is-selector-not-visible';
 export * from './is-selector-visible';
 export * from './navigate-to';
 export * from './query-selector-all-in-page';
+export * from './record-requests-to';
