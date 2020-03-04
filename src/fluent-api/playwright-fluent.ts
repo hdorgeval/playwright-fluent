@@ -38,6 +38,8 @@ export {
   KeyboardPressOptions,
   LaunchOptions,
   NavigationOptions,
+  Request,
+  Response,
   TypeTextOptions,
   WindowState,
 } from '../actions';
@@ -181,6 +183,28 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public close(): PlaywrightFluent {
     const action = (): Promise<void> => this.closeBrowser();
+    this.actions.push(action);
+    return this;
+  }
+
+  private sentRequests: action.Request[] = [];
+  public getRequestsTo(url: string): action.Request[] {
+    return [...this.sentRequests.filter((req) => req.url().includes(url))];
+  }
+  public getLastRequestTo(url: string): action.Request | undefined {
+    return this.sentRequests.filter((req) => req.url().includes(url)).pop();
+  }
+
+  public clearRequestsTo(url: string): void {
+    this.sentRequests = [...this.sentRequests.filter((req) => !req.url().includes(url))];
+  }
+  private async recordRequestToUrl(partialUrl: string): Promise<void> {
+    await action.recordRequestsTo(partialUrl, this.currentPage(), (request) =>
+      this.sentRequests.push(request),
+    );
+  }
+  public recordRequestsTo(partialUrl: string): PlaywrightFluent {
+    const action = (): Promise<void> => this.recordRequestToUrl(partialUrl);
     this.actions.push(action);
     return this;
   }
