@@ -13,8 +13,9 @@ export interface RequestInfo {
 
 export interface ResponseInfo {
   headers: { [key: string]: string };
-  status: number;
   payload: string | unknown | undefined;
+  status: number;
+  statusText: string;
 }
 
 function toJsonOrDefault(data: string | undefined): string | undefined | unknown {
@@ -60,9 +61,10 @@ export async function stringifyRequest(request: Request): Promise<string> {
   }
 
   const responseInfo: ResponseInfo = {
-    status: response.status(),
     headers: response.headers(),
     payload: responseBody,
+    status: response.status(),
+    statusText: response.statusText(),
   };
 
   requestInfo.response = responseInfo;

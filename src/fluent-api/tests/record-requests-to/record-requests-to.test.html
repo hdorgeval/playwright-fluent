@@ -16,8 +16,13 @@
     }, 500);
 
     window.setTimeout(() => {
-      fetch('http://localhost:1234/yo?foo=bar');
+      fetch('http://localhost:1234/yo?foo=baz1');
     }, 1000);
+
+    window.setTimeout(() => {
+      fetch('http://localhost:1234/yo?foo=baz2');
+    }, 2000);
+
   </script>
 </body>
 

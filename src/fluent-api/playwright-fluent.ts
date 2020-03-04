@@ -25,11 +25,17 @@ import {
   getBrowserArgsForDevice,
   getDevice,
 } from '../devices';
-import { defaultWaitUntilOptions, sleep, WaitUntilOptions, waitUntil } from '../utils';
+import {
+  defaultWaitUntilOptions,
+  sleep,
+  waitForStabilityOf,
+  waitUntil,
+  WaitUntilOptions,
+} from '../utils';
 import { SelectorFluent } from '../selector-api';
 import { Browser, Page, BrowserContext } from 'playwright';
 
-export { WaitUntilOptions, noWaitNoThrowOptions } from '../utils';
+export { WaitUntilOptions, noWaitNoThrowOptions, defaultWaitUntilOptions } from '../utils';
 export {
   BrowserName,
   ClickOptions,
@@ -188,23 +194,23 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private sentRequests: action.Request[] = [];
-  public getRequestsTo(url: string): action.Request[] {
+  public getRecordedRequestsTo(url: string): action.Request[] {
     return [...this.sentRequests.filter((req) => req.url().includes(url))];
   }
-  public getLastRequestTo(url: string): action.Request | undefined {
+  public getLastRecordedRequestTo(url: string): action.Request | undefined {
     return this.sentRequests.filter((req) => req.url().includes(url)).pop();
   }
 
-  public clearRequestsTo(url: string): void {
+  public clearRecordedRequestsTo(url: string): void {
     this.sentRequests = [...this.sentRequests.filter((req) => !req.url().includes(url))];
   }
-  private async recordRequestToUrl(partialUrl: string): Promise<void> {
+  private async recordRequestsToUrl(partialUrl: string): Promise<void> {
     await action.recordRequestsTo(partialUrl, this.currentPage(), (request) =>
       this.sentRequests.push(request),
     );
   }
   public recordRequestsTo(partialUrl: string): PlaywrightFluent {
-    const action = (): Promise<void> => this.recordRequestToUrl(partialUrl);
+    const action = (): Promise<void> => this.recordRequestsToUrl(partialUrl);
     this.actions.push(action);
     return this;
   }
@@ -385,6 +391,33 @@ export class PlaywrightFluent implements PromiseLike<void> {
       async (): Promise<void> => {
         const defaultErrorMessage = `Predicate still resolved to false after ${waitUntilOptions.timeoutInMilliseconds} ms.`;
         await waitUntil(predicate, defaultErrorMessage, waitUntilOptions);
+      },
+    );
+    return this;
+  }
+
+  /**
+   * Waits until the function getValue() returns the same result during 300 ms.
+   * The waiting mechanism can be modified by setting options
+   *
+   * @param {(() => Promise<string | boolean | number | null | undefined>)} getValue
+   * @param {Partial<WaitUntilOptions>} [options=defaultWaitUntilOptions]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public waitForStabilityOf(
+    getValue: () => Promise<string | boolean | number | null | undefined>,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): PlaywrightFluent {
+    const waitUntilOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...options,
+    };
+
+    this.actions.push(
+      async (): Promise<void> => {
+        const defaultErrorMessage = `Value function could not have a stable result after ${waitUntilOptions.timeoutInMilliseconds} ms. Use verbose option to get more details.`;
+        await waitForStabilityOf(getValue, defaultErrorMessage, waitUntilOptions);
       },
     );
     return this;
