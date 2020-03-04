@@ -6,6 +6,7 @@
   - [withOptions(options)](#withOptionsoptions)
   - [withCursor()](#withCursor)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
+  - [recordRequestsTo(url)](#recordRequestsTourl)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [click(selector[, options])](#clickselector-options)
   - [hover(selector[, options])](#hoverselector-options)
@@ -13,6 +14,7 @@
   - [typeText(text[, options])](#typeTexttext-options)
   - [wait(duration)](#waitduration)
   - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
+  - [waitForStabilityOf(func[, waitOptions])](#waitForStabilityOffunc-waitOptions)
   - [close()](#close)
   - [chainable methods from Assertion API](./assertion.api.md)
 
@@ -152,6 +154,43 @@ await p
   .withOptions({ headless: false })
   .emulateDevice('iPhone 6 landscape')
   .navigateTo(url);
+```
+
+---
+
+### recordRequestsTo(url)
+
+- url: `string`
+
+track and record requests whose url contains the input url. This parameter should be seen as a partial url. (it is not a regex and not a glob pattern)
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+// start the browser in headfull mode
+// and emulate an iPhone 6 in landscape mode
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .emulateDevice('iPhone 6 landscape')
+  .recordRequestsTo('/foobar') // will record any requests whose url includes '/foobar'
+  .navigateTo(url);
+```
+
+- use `getRecordedRequestsTo(url)` helper method on the fluent API to access all requests that have occurred with this `url`.
+
+- use `getLastRecordedRequestTo(url)` helper method on the fluent API to access the last request that has occurred with this `url`.
+
+- use `clearRecordedRequestsTo(url)` helper method on the fluent API to clear all past requests with this `url`.
+
+- use `stringifyRequest()` method exposed by the package to either log the recorded requests or convert them to json objects:
+
+```js
+JSON.parse(stringifyRequest(request)) as RequestInfo;
 ```
 
 ---
@@ -384,13 +423,30 @@ Will wait until predicate becomes true.
 Usage example:
 
 ```js
-const selector = pptc
+const selector = p
   .selector('[role="row"]')
   .find('td')
   .find('p');
   .withText('foobar');
 
 await pptc.waitUntil(() => selector.isVisible());
+```
+
+---
+
+### waitForStabilityOf(func[, waitOptions])
+
+- func: `() => Promise<string | boolean | number | null | undefined>`
+- waitOptions: `Partial<WaitUntilOptions>`
+
+Waits until the function `func()` returns the same result during a specified period of time that defaults to 300 ms.
+
+Usage example:
+
+```js
+const selector = p.selector('[role="row"]'); // will select all rows in a grid
+
+await p.waitForStabilityOf(() => selector.count()); // waits until the number of rows is stable
 ```
 
 ---
