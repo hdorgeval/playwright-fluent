@@ -162,7 +162,11 @@ await p
 
 - url: `string`
 
-track and record requests whose url contains the input url. This parameter should be seen as a partial url. (it is not a regex and not a glob pattern)
+Will track and record requests whose url contains the input url. This parameter should be seen as a partial url (it is not a regex and not a glob pattern).
+
+Usefull when you need to check what the front sends to the back and/or what the back sends back to the front. Each recorded request is a standard `playwright` request object that contains both the request and the response.
+
+The `playwright-fluent` package exposes the helper function `stringifyRequest(request)` that you can use to convert the `playwright` request object to a JSON object (see the example below).
 
 Example:
 
