@@ -181,7 +181,8 @@ await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .emulateDevice('iPhone 6 landscape')
-  .recordRequestsTo('/foobar') // will record any requests whose url includes '/foobar'
+  .recordRequestsTo('/foo') // will record any requests whose url includes '/foo'
+  .recordRequestsTo('/bar') // will also record any requests whose url includes '/bar'
   .navigateTo(url);
 ```
 
