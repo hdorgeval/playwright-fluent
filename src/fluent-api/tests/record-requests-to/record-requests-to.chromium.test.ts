@@ -117,7 +117,7 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
 
     // Then
     await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/500').length, {
-      stabilityInMilliseconds: 1000,
+      stabilityInMilliseconds: 2000,
       verbose: true,
     });
     const requests = p.getRecordedRequestsTo('/500');
