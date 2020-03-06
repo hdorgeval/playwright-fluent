@@ -151,7 +151,6 @@ describe('are options already selected in handle', (): void => {
     const optionsAfter = await getAllOptionsOfHandle(handle, selector);
     const selectedOptionsBefore = optionsBefore.filter((o) => o.selected).map((o) => o.label);
     const selectedOptionsAfter = optionsAfter.filter((o) => o.selected).map((o) => o.label);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(`${selectedOptionsBefore}`).toBe('label 2,label 3');
     expect(`${selectedOptionsAfter}`).toBe('label 1,label 2');
   });
