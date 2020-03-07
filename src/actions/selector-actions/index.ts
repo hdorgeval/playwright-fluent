@@ -1,5 +1,6 @@
 export * from './click-on-selector-object';
 export * from './has-selector-object-focus';
+export * from './has-selector-object-text';
 export * from './hover-on-selector-object';
 export * from './is-selector-object-disabled';
 export * from './is-selector-object-enabled';
