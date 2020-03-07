@@ -214,6 +214,22 @@ export class PlaywrightFluent implements PromiseLike<void> {
     this.actions.push(action);
     return this;
   }
+  private pageErrors: Error[] = [];
+  public getPageErrors(): Error[] {
+    return [...this.pageErrors];
+  }
+  public clearPageErrors(): void {
+    this.pageErrors = [];
+  }
+  private async recordUncaughtExceptions(): Promise<void> {
+    await action.recordPageErrors(this.currentPage(), (err) => this.pageErrors.push(err));
+  }
+
+  public recordPageErrors(): PlaywrightFluent {
+    const action = (): Promise<void> => this.recordUncaughtExceptions();
+    this.actions.push(action);
+    return this;
+  }
 
   private async gotoUrl(url: string, options: NavigationOptions): Promise<void> {
     await action.navigateTo(url, options, this.currentPage());
