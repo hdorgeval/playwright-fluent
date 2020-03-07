@@ -9,12 +9,14 @@ import {
   defaultKeyboardPressOptions,
   defaultLaunchOptions,
   defaultNavigationOptions,
+  defaultSelectOptions,
   defaultTypeTextOptions,
   HoverOptions,
   KeyboardKey,
   KeyboardPressOptions,
   LaunchOptions,
   NavigationOptions,
+  SelectOptions,
   TypeTextOptions,
   WindowState,
 } from '../actions';
@@ -46,6 +48,7 @@ export {
   NavigationOptions,
   Request,
   Response,
+  SelectOptions,
   TypeTextOptions,
   WindowState,
 } from '../actions';
@@ -304,6 +307,52 @@ export class PlaywrightFluent implements PromiseLike<void> {
       this.actions.push(action);
       return this;
     }
+  }
+
+  private async selectOptionsInSelector(
+    selector: string,
+    labels: string[],
+    options: SelectOptions,
+  ): Promise<void> {
+    await action.selectOptionsInSelector(selector, labels, this.currentPage(), options);
+  }
+  private async selectOptionsInSelectorObject(
+    selector: SelectorFluent,
+    labels: string[],
+    options: SelectOptions,
+  ): Promise<void> {
+    await action.selectOptionsInSelectorObject(selector, labels, this.currentPage(), options);
+  }
+  public select(
+    ...labels: string[]
+  ): {
+    in: (selector: string | SelectorFluent, options?: Partial<SelectOptions>) => PlaywrightFluent;
+  } {
+    return {
+      in: (
+        selector: string | SelectorFluent,
+        options: Partial<SelectOptions> = defaultSelectOptions,
+      ): PlaywrightFluent => {
+        const selectOptions: SelectOptions = {
+          ...defaultSelectOptions,
+          ...options,
+        };
+
+        if (typeof selector === 'string') {
+          const action = (): Promise<void> =>
+            this.selectOptionsInSelector(selector, labels, selectOptions);
+          this.actions.push(action);
+          return this;
+        }
+
+        {
+          const action = (): Promise<void> =>
+            this.selectOptionsInSelectorObject(selector, labels, selectOptions);
+          this.actions.push(action);
+          return this;
+        }
+      },
+    };
   }
 
   /**
