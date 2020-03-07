@@ -4,6 +4,7 @@ export * from './get-value-of-selector';
 export * from './get-viewport-rectangle-of';
 export * from './get-window-state';
 export * from './has-selector-focus';
+export * from './has-selector-text';
 export * from './hover-on-selector';
 export * from './is-selector-disabled';
 export * from './is-selector-enabled';
