@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [0.14.0] - 2020-03-08
+
+### Added
+
+- feat(assertion): add `expectThat(selector).hasText(text)` to the Assertion API
+- feat(fluent-api): add `recordPageErrors()` to the Fluent API
+- feat(fluent-api): add `select(option).in(selector)` to the Fluent API
+- feat(fluent-api): add helper method `getInnerTextOf(selector)` to the Fluent API
+- feat(fluent-api): add helper method `getPageErrors()` to the Fluent API
+- feat(fluent-api): add helper method `clearPageErrors()` to the Fluent API
+- feat(selector): add helper method `innerText()` to the Selector API
+
 ## [0.13.0] - 2020-03-05
 
 ### Added
