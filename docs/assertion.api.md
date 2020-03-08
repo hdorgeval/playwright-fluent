@@ -5,6 +5,7 @@ The Assertion API enables to chain assertions on a selector. The selector can be
 - Chainable Methods
 
   - [expectThat(selector).hasFocus([options])](#expectThatselectorhasFocusoptions)
+  - [expectThat(selector).hasText(text,[options])](#expectThatselectorhastexttextoptions)
   - [expectThat(selector).isDisabled([options])](#expectThatselectorisDisabledoptions)
   - [expectThat(selector).isEnabled([options])](#expectThatselectorisEnabledoptions)
   - [expectThat(selector).isVisible([options])](#expectThatselectorisVisibleoptions)
@@ -68,6 +69,16 @@ interface AssertOptions {
   verbose: boolean;
 }
 ```
+
+---
+
+### expectThat(selector).hasText(text,[options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector's inner text contains the specified `text`.
 
 ---
 

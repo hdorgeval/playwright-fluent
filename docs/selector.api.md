@@ -15,8 +15,8 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [count()](#count)
   - [exists()](#exists)
   - [getAllHandles()](#getAllHandles)
-  - [getFirstHandleOrNull()](#getFirstHandleOrNull)
   - [getHandle()](#getHandle)
+  - [innerText()](#innerText)
   - [isVisible()](#isVisible)
   - [isNotVisible()](#isNotVisible)
   - [toString()](#toString)
@@ -106,23 +106,11 @@ The result may differ from one execution to another especially if targeted eleme
 
 ---
 
-### getFirstHandleOrNull()
-
-- returns: `Promise<ElementHandle<Element> | null>`
-
-Executes the search and returns the first found element. Will return null if no elements are found.
-
-The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
-
----
-
 ### getHandle()
 
 - returns: `Promise<ElementHandle<Element> | null>`
 
 Executes the search and returns the first found element. Will return null if no elements are found.
-
-It is the same method as `getFirstHandleOrNull()`. Choose the method whose name is more friendly to you.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 
@@ -153,6 +141,16 @@ The result may differ from one execution to another especially if targeted eleme
 - returns: `Promise<boolean>`
 
 Checks if the selector is visible in the current viewport.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### innerText()
+
+- returns: `Promise<tring | undefined | null>`
+
+Returns the innerText of the selector.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 

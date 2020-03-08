@@ -6,11 +6,13 @@
   - [withOptions(options)](#withOptionsoptions)
   - [withCursor()](#withCursor)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
+  - [recordPageErrors()](#recordPageErrors)
   - [recordRequestsTo(url)](#recordRequestsTourl)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [click(selector[, options])](#clickselector-options)
   - [hover(selector[, options])](#hoverselector-options)
   - [pressKey(key[, options])](#pressKeykey-options)
+  - [select(labels).in(selector[, options])](#selectlabelsinselector-options)
   - [typeText(text[, options])](#typeTexttext-options)
   - [wait(duration)](#waitduration)
   - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
@@ -20,10 +22,12 @@
 
 - Helper Methods
 
+  - [clearPageErrors()](#clearPageErrors)
   - [currentBrowser()](#currentBrowser)
   - [currentPage()](#currentPage)
   - [getCurrentUrl()](#getCurrentUrl)
   - [getCurrentWindowState()](#getCurrentWindowState)
+  - [getPageErrors()](#getPageErrors)
   - [getValueOf(selector[, options])](#getValueOfselector-options)
   - [hasFocus(selector[, options])](#hasFocusselector-options)
   - [isDisabled(selector[, options])](#isDisabledselector-options)
@@ -158,13 +162,41 @@ await p
 
 ---
 
+### recordPageErrors()
+
+Will track and record page errors (uncaught exceptions).
+
+- use `getPageErrors()` helper method on the fluent API to access errors that have occurred.
+- use `clearPageErrors()` helper method on the fluent API to clear all past errors.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+// start the browser in headfull mode
+// and emulate an iPhone 6 in landscape mode
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .emulateDevice('iPhone 6 landscape')
+  .recordPageErrors()
+  .navigateTo(url)
+  ...;
+
+```
+
+---
+
 ### recordRequestsTo(url)
 
 - url: `string`
 
 Will track and record requests whose url contains the input url. This parameter should be seen as a partial url (it is not a regex and not a glob pattern).
 
-Usefull when you need to check what the front sends to the back and/or what the back sends back to the front. Each recorded request is a standard `playwright` request object that contains both the request and the response.
+Usefull when you need to check what the front sends to the back and/or what the back sends to the front. Each recorded request is a standard `playwright` request object that contains both the request and the response.
 
 The `playwright-fluent` package exposes the helper function `stringifyRequest(request)` that you can use to convert the `playwright` request object to a JSON object (see the example below).
 
@@ -388,6 +420,37 @@ Will press the specified key.
 
 ---
 
+### select(labels).in(selector[, options])
+
+- labels : `...string[]`
+- selector: `string | SelectorFluent`
+- options: `Partial<SelectOptions>`
+
+```js
+interface SelectOptions {
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+```
+
+Will select label(s) in the specified selector.
+
+```html
+<select id="select">
+  <option value="value 1" selected>label 1</option>
+  <option value="value 2">label 2</option>
+  <option value="value 3">label 3</option>
+</select>
+```
+
+```js
+const selector = '#select';
+await p.select('label 2').in(selector);
+```
+
+---
+
 ### typeText(text[, options])
 
 - text: `string`
@@ -529,6 +592,33 @@ interface WindowState {
   };
 }
 ```
+
+---
+
+### getPageErrors()
+
+Get page errors (uncaught exceptions) that occurred while executing the test.
+
+```js
+await p
+.withBrowser('chromium')
+.withOptions({ headless: false })
+.withCursor()
+.emulateDevice('iPhone 6 landscape')
+.recordPageErrors()
+.navigateTo(url)
+...
+
+const errors: Error[] = p.getPageErrors();
+// analyse errors by iterating on the returned array
+// an empty array means that no error has occurred or that you forgot to call the recordPageErrors() method
+```
+
+---
+
+### clearPageErrors()
+
+Clear page errors that occurred. Usefull if you want to track page errors only after a specific context has been setup on the page.
 
 ---
 
