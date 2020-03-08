@@ -1,5 +1,6 @@
 export * from './click-on-selector';
 export * from './get-current-url';
+export * from './get-inner-text-of-selector';
 export * from './get-value-of-selector';
 export * from './get-viewport-rectangle-of';
 export * from './get-window-state';

@@ -303,4 +303,9 @@ export class SelectorFluent {
     const isElementNotVisible = await action.isHandleNotVisible(handle, verboseOptions);
     return isElementNotVisible;
   }
+  public async innerText(): Promise<string | undefined | null> {
+    const handle = await this.getHandle();
+    const innerText = await action.getInnerTextOfHandle(handle);
+    return innerText;
+  }
 }

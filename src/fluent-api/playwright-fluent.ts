@@ -89,10 +89,11 @@ export const defaultAssertOptions: AssertOptions = {
 
 export interface ExpectAssertion {
   hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
+  hasText: (text: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   isDisabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isEnabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
-  isVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isNotVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
+  isVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
 }
 
 export class PlaywrightFluent implements PromiseLike<void> {
@@ -495,6 +496,17 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public async getCurrentWindowState(): Promise<WindowState> {
     return await action.getWindowState(this.currentPage());
   }
+  public async getInnerTextOf(
+    selector: string,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<string | null | undefined> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...options,
+    };
+    const result = await action.getInnerTextOfSelector(selector, this.currentPage(), waitOptions);
+    return result;
+  }
 
   public async getValueOf(
     selector: string,
@@ -531,6 +543,21 @@ export class PlaywrightFluent implements PromiseLike<void> {
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
     await assertion.expectThatSelectorHasFocus(selector, this.currentPage(), options);
+  }
+  public async hasText(
+    selector: string | SelectorFluent,
+    text: string,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<boolean> {
+    return await assertion.hasText(selector, text, this.currentPage(), options);
+  }
+
+  private async expectThatSelectorHasText(
+    selector: string | SelectorFluent,
+    text: string,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatSelectorHasText(selector, text, this.currentPage(), options);
   }
 
   private async expectThatSelectorIsVisible(
@@ -593,6 +620,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return {
       hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
+        return this;
+      },
+      hasText: (
+        text: string,
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorHasText(selector, text, options));
         return this;
       },
       isDisabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
