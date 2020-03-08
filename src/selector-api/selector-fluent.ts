@@ -91,6 +91,7 @@ export class SelectorFluent {
   }
 
   /**
+   * Obsolete: please use the getHandle() method
    * Executes the search and returns the first found element.
    * The result may differ from one execution to another
    * especially if targeted element is rendered lately because its data is based on some backend response.
