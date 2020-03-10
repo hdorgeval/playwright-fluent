@@ -2,6 +2,14 @@ import { Page } from 'playwright';
 
 export interface ScreenshotOptions {
   fullPage: boolean;
+  /**
+   * Hides default white background and allows capturing screenshots with transparency.
+   * Not applicable to jpeg images.
+   * Defaults to false.
+   *
+   * @type {boolean}
+   * @memberof ScreenshotOptions
+   */
   omitBackground: boolean;
 }
 

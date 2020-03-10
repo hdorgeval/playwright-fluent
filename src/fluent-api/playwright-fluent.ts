@@ -5,6 +5,7 @@ import {
   BrowserName,
   ClickOptions,
   defaultClickOptions,
+  defaultFullPageScreenshotOptions,
   defaultHoverOptions,
   defaultKeyboardPressOptions,
   defaultLaunchOptions,
@@ -16,6 +17,7 @@ import {
   KeyboardPressOptions,
   LaunchOptions,
   NavigationOptions,
+  ScreenshotOptions,
   SelectOptions,
   TypeTextOptions,
   WindowState,
@@ -48,6 +50,7 @@ export {
   NavigationOptions,
   Request,
   Response,
+  ScreenshotOptions,
   SelectOptions,
   TypeTextOptions,
   WindowState,
@@ -432,6 +435,19 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public wait(durationInMilliseconds: number): PlaywrightFluent {
     this.actions.push(async (): Promise<void> => await sleep(durationInMilliseconds));
     return this;
+  }
+  public async takeFullPageScreenshotAsBase64(
+    options: Partial<ScreenshotOptions> = defaultFullPageScreenshotOptions,
+  ): Promise<string> {
+    const screenshotOptions: ScreenshotOptions = {
+      ...defaultFullPageScreenshotOptions,
+      ...options,
+    };
+    const result = await action.takeFullPageScreenshotAsBase64(
+      this.currentPage(),
+      screenshotOptions,
+    );
+    return result;
   }
 
   /**
