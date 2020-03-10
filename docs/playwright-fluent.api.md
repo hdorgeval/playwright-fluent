@@ -33,6 +33,7 @@
   - [isDisabled(selector[, options])](#isDisabledselector-options)
   - [isEnabled(selector[, options])](#isEnabledselector-options)
   - [isVisible(selector[, options])](#isVisibleselector-options)
+  - [takeFullPageScreenshotAsBase64([options])](#takeFullPageScreenshotAsBase64options)
 
 ## Chainable Methods
 
@@ -715,6 +716,34 @@ Checks if selector is enabled.
 Checks if selector is visible.
 
 > The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+---
+
+### takeFullPageScreenshotAsBase64([options])
+
+- options: `Partial<ScreenshotOptions>`
+- returns: `Promise<string>`
+
+Will take a full page screenshot.
+
+```js
+interface ScreenshotOptions {
+  fullPage: boolean;
+  /**
+   * Hides default white background and allows capturing screenshots with transparency.
+   * Not applicable to jpeg images.
+   * Defaults to false.
+   *
+   * @type {boolean}
+   * @memberof ScreenshotOptions
+   */
+  omitBackground: boolean;
+}
+```
+
+```js
+const screenshot = await p.takeFullPageScreenshotAsBase64();
+```
 
 ---
 
