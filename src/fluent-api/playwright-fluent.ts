@@ -221,6 +221,25 @@ export class PlaywrightFluent implements PromiseLike<void> {
     this.actions.push(action);
     return this;
   }
+
+  private failedRequests: action.Request[] = [];
+  public getFailedRequests(): action.Request[] {
+    return [...this.failedRequests];
+  }
+  public clearFailedRequests(): void {
+    this.failedRequests = [];
+  }
+  private async recordAllFailedRequests(): Promise<void> {
+    await action.recordFailedRequests(this.currentPage(), (request) =>
+      this.failedRequests.push(request),
+    );
+  }
+  public recordFailedRequests(): PlaywrightFluent {
+    const action = (): Promise<void> => this.recordAllFailedRequests();
+    this.actions.push(action);
+    return this;
+  }
+
   private pageErrors: Error[] = [];
   public getPageErrors(): Error[] {
     return [...this.pageErrors];

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>page with failed request</title>
+  </head>
+
+  <body>
+    <h1>Yo!</h1>
+
+    <script>
+      window.setTimeout(() => {
+        fetch('http://localhost:1234/500');
+      }, 1000);
+    </script>
+  </body>
+</html>
