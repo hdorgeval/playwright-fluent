@@ -309,4 +309,10 @@ export class SelectorFluent {
     const innerText = await action.getInnerTextOfHandle(handle);
     return innerText;
   }
+
+  public async value(): Promise<string | undefined | null> {
+    const handle = await this.getHandle();
+    const value = await action.getValueOfHandle(handle);
+    return value;
+  }
 }

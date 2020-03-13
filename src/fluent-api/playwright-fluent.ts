@@ -93,6 +93,7 @@ export const defaultAssertOptions: AssertOptions = {
 export interface ExpectAssertion {
   hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasText: (text: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
+  hasValue: (value: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   isDisabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isEnabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isNotVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
@@ -587,6 +588,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return await assertion.hasText(selector, text, this.currentPage(), options);
   }
 
+  public async hasValue(
+    selector: string | SelectorFluent,
+    value: string,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<boolean> {
+    return await assertion.hasValue(selector, value, this.currentPage(), options);
+  }
+
   private async expectThatSelectorHasText(
     selector: string | SelectorFluent,
     text: string,
@@ -595,6 +604,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
     await assertion.expectThatSelectorHasText(selector, text, this.currentPage(), options);
   }
 
+  private async expectThatSelectorHasValue(
+    selector: string | SelectorFluent,
+    value: string,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatSelectorHasValue(selector, value, this.currentPage(), options);
+  }
   private async expectThatSelectorIsVisible(
     selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
@@ -664,6 +680,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
         this.actions.push(() => this.expectThatSelectorHasText(selector, text, options));
         return this;
       },
+
+      hasValue: (
+        value: string,
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorHasValue(selector, value, options));
+        return this;
+      },
+
       isDisabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsDisabled(selector, options));
         return this;
