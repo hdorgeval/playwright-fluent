@@ -31,7 +31,7 @@ describe('wait until', (): void => {
       stabilityInMilliseconds: 300,
       throwOnTimeout: false,
       timeoutInMilliseconds: 3000,
-      verbose: true,
+      verbose: false,
     };
     const predicate = async (): Promise<boolean> => {
       return false;
@@ -49,7 +49,6 @@ describe('wait until', (): void => {
     // Given
     const options: WaitUntilOptions = {
       ...noWaitNoThrowOptions,
-      verbose: true,
     };
     const predicate = async (): Promise<boolean> => {
       return false;
@@ -74,7 +73,6 @@ describe('wait until', (): void => {
     // Given
     const options: WaitUntilOptions = {
       ...noWaitNoThrowOptions,
-      verbose: true,
     };
     const predicate = async (): Promise<boolean> => {
       return true;
@@ -101,7 +99,7 @@ describe('wait until', (): void => {
       stabilityInMilliseconds: 300,
       throwOnTimeout: true,
       timeoutInMilliseconds: 2000,
-      verbose: true,
+      verbose: false,
     };
     const predicate = async (): Promise<boolean> => {
       return false;
@@ -124,7 +122,7 @@ describe('wait until', (): void => {
       stabilityInMilliseconds: 300,
       throwOnTimeout: true,
       timeoutInMilliseconds: 2000,
-      verbose: true,
+      verbose: false,
     };
     const predicate = async (): Promise<boolean> => {
       return false;

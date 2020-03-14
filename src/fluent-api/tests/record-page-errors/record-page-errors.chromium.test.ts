@@ -27,7 +27,6 @@ describe('Playwright Fluent - recordPageErrors', (): void => {
 
     await p.waitForStabilityOf(async () => p.getPageErrors().length, {
       stabilityInMilliseconds: 1000,
-      verbose: true,
     });
 
     // Then

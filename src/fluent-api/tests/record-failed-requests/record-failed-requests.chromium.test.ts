@@ -47,7 +47,6 @@ describe('Playwright Fluent - recordFailedRequests(url)', (): void => {
     // Then
     await p.waitForStabilityOf(async () => p.getFailedRequests().length, {
       stabilityInMilliseconds: 2000,
-      verbose: true,
     });
     const requests = p.getFailedRequests();
     expect(Array.isArray(requests)).toBe(true);
@@ -99,7 +98,6 @@ describe('Playwright Fluent - recordFailedRequests(url)', (): void => {
     // Then
     await p.waitForStabilityOf(async () => p.getFailedRequests().length, {
       stabilityInMilliseconds: 2000,
-      verbose: true,
     });
     const requests = p.getFailedRequests();
     expect(Array.isArray(requests)).toBe(true);

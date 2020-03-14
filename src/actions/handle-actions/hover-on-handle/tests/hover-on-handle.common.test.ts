@@ -30,7 +30,6 @@ describe('scroll to handle', (): void => {
 
     const options: HoverOptions = {
       ...defaultHoverOptions,
-      verbose: true,
       timeoutInMilliseconds: 1000,
     };
     // When
@@ -55,7 +54,6 @@ describe('scroll to handle', (): void => {
 
     const options: HoverOptions = {
       ...defaultHoverOptions,
-      verbose: true,
       timeoutInMilliseconds: 1000,
     };
     // When
@@ -75,7 +73,6 @@ describe('scroll to handle', (): void => {
 
     const options: HoverOptions = {
       ...defaultHoverOptions,
-      verbose: true,
       timeoutInMilliseconds: 1000,
     };
     // When

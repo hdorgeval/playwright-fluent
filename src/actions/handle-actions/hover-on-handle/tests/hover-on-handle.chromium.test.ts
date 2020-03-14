@@ -35,7 +35,6 @@ describe('hover on handle', (): void => {
 
     const options: HoverOptions = {
       ...defaultHoverOptions,
-      verbose: true,
     };
 
     // When
@@ -67,7 +66,6 @@ describe('hover on handle', (): void => {
     const handle = await page.$(selector);
     const options: HoverOptions = {
       ...defaultHoverOptions,
-      verbose: true,
       timeoutInMilliseconds: 1000,
     };
     // When
@@ -95,7 +93,6 @@ describe('hover on handle', (): void => {
 
     const options: HoverOptions = {
       ...defaultHoverOptions,
-      verbose: true,
       timeoutInMilliseconds: 500,
     };
 

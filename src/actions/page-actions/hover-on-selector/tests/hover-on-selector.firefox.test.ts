@@ -42,7 +42,6 @@ describe.skip('hover on selector', (): void => {
 
     const options: HoverOptions = {
       ...defaultHoverOptions,
-      verbose: true,
     };
 
     // When

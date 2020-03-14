@@ -93,7 +93,6 @@ describe('click on handle', (): void => {
     const handle = await page.$('#disabled-then-enabled');
     const options: ClickOptions = {
       ...defaultClickOptions,
-      verbose: true,
     };
     await SUT.clickOnHandle(handle, selector, page, options);
 

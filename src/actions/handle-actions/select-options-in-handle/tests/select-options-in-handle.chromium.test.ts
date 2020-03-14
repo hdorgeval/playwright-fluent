@@ -63,7 +63,6 @@ describe('are options already selected in handle', (): void => {
     await SUT.selectOptionsInHandle(handle, selector, ['label 1'], page, {
       ...defaultSelectOptions,
       timeoutInMilliseconds: 2000,
-      verbose: true,
     }).catch((error): void => expect(error).toMatchObject(expectedError));
   });
 
@@ -87,7 +86,6 @@ describe('are options already selected in handle', (): void => {
     await SUT.selectOptionsInHandle(handle, selector, ['foobar'], page, {
       ...defaultSelectOptions,
       timeoutInMilliseconds: 2000,
-      verbose: true,
     }).catch((error): void => expect(error).toMatchObject(expectedError));
   });
 

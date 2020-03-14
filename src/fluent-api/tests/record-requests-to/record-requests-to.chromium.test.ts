@@ -63,7 +63,6 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     // Then requests to /foobar can be analyzed
     await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
       stabilityInMilliseconds: 1000,
-      verbose: true,
     });
     const foobarRequests = p.getRecordedRequestsTo('/foobar');
     expect(Array.isArray(foobarRequests)).toBe(true);
@@ -118,7 +117,6 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     // Then
     await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/500').length, {
       stabilityInMilliseconds: 2000,
-      verbose: true,
     });
     const requests = p.getRecordedRequestsTo('/500');
     expect(Array.isArray(requests)).toBe(true);

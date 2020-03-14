@@ -63,7 +63,7 @@ describe('Playwright Fluent - click', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .click(selector, { verbose: true, timeoutInMilliseconds: 2000 });
+        .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -87,7 +87,7 @@ describe('Playwright Fluent - click', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .click(selector, { verbose: true, timeoutInMilliseconds: 2000 });
+        .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -110,7 +110,7 @@ describe('Playwright Fluent - click', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .click(selector, { verbose: true, timeoutInMilliseconds: 2000 });
+        .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -134,7 +134,7 @@ describe('Playwright Fluent - click', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .click(selector, { verbose: true, timeoutInMilliseconds: 2000 });
+        .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -158,7 +158,7 @@ describe('Playwright Fluent - click', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .click(selector, { verbose: true, timeoutInMilliseconds: 2000 });
+        .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }

@@ -63,7 +63,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .hasText('yo', { verbose: true, timeoutInMilliseconds: 2000 });
+        .hasText('yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -86,7 +86,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .hasText('yo', { verbose: true, timeoutInMilliseconds: 2000 });
+        .hasText('yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -109,7 +109,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .hasText('yo', { verbose: true, timeoutInMilliseconds: 4000 });
+        .hasText('yo', { timeoutInMilliseconds: 4000 });
     } catch (error) {
       result = error;
     }

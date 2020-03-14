@@ -42,7 +42,6 @@ describe('click on selector', (): void => {
 
     const options: ClickOptions = {
       ...defaultClickOptions,
-      verbose: true,
     };
 
     // When
