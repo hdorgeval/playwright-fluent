@@ -29,6 +29,6 @@ describe('Playwright Fluent - takeFullPageScreenshotAsBase64', (): void => {
     // Then
     expect(typeof screenshot).toBe('string');
     expect(screenshot.startsWith('iVBOR')).toBe(true);
-    expect(screenshot.endsWith('==')).toBe(true);
+    expect(screenshot.endsWith('==') || screenshot.endsWith('CYII=')).toBe(true);
   });
 });

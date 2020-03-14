@@ -30,8 +30,6 @@ describe('full page screenshot', (): void => {
     const result = await takeFullPageScreenshotAsBase64(page, defaultFullPageScreenshotOptions);
 
     // Then
-    // eslint-disable-next-line no-console
-    console.log('screenshot:', result);
     expect(typeof result).toBe('string');
     expect(result.startsWith('iVBOR')).toBe(true);
     expect(result.endsWith('==') || result.endsWith('CYII=')).toBe(true);
