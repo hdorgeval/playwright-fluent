@@ -1,4 +1,5 @@
 export * from './has-focus';
+export * from './has-result';
 export * from './has-text';
 export * from './has-value';
 export * from './is-disabled';
