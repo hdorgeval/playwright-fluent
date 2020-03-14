@@ -708,3 +708,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
   }
 }
+/**
+ * cast input object as a PlaywrightFluent instance
+ * usefull when such instance is store in an untyped context
+ * @param p : an untyped PlaywrightFluent instance
+ */
+export const cast = (p: unknown): PlaywrightFluent => {
+  return p as PlaywrightFluent;
+};
