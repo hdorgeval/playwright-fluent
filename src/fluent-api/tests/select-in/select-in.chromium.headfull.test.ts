@@ -66,7 +66,7 @@ describe('Playwright Fluent - select(label).in(selector)', (): void => {
       .withCursor()
       .navigateTo(url)
       .select('label bar')
-      .in(selector, { verbose: true });
+      .in(selector);
 
     // Then
     const value = await p.getValueOf(selector);

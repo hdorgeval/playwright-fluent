@@ -26,7 +26,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .isDisabled({ timeoutInMilliseconds: 2000, verbose: true });
+        .isDisabled({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -51,7 +51,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .isDisabled({ timeoutInMilliseconds: 2000, verbose: true });
+        .isDisabled({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -77,26 +77,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
     const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
     expect(isDisabled).toBe(true);
   });
-  test('should wait until selector exists and is disabled (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
-    // Given
-    const url = `file:${path.join(__dirname, 'expect-is-disabled.test.html')}`;
-    const selector = '#dynamically-added-input';
 
-    // When
-    await p
-      .withBrowser('chromium')
-      .withOptions({ headless: false })
-      .withCursor()
-      .navigateTo(url)
-      .expectThatSelector(selector)
-      .isDisabled({ verbose: true });
-
-    // Then
-    const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
-    expect(isDisabled).toBe(true);
-  });
   test('should wait until selector object exists and is disabled - chromium', async (): Promise<
     void
   > => {
@@ -112,27 +93,6 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
       .navigateTo(url)
       .expectThatSelector(selector)
       .isDisabled();
-
-    // Then
-    const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
-    expect(isDisabled).toBe(true);
-  });
-
-  test('should wait until selector object exists and is disabled (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
-    // Given
-    const url = `file:${path.join(__dirname, 'expect-is-disabled.test.html')}`;
-    const selector = p.selector('input').withValue('dynamically added');
-
-    // When
-    await p
-      .withBrowser('chromium')
-      .withOptions({ headless: false })
-      .withCursor()
-      .navigateTo(url)
-      .expectThatSelector(selector)
-      .isDisabled({ verbose: true });
 
     // Then
     const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);

@@ -26,7 +26,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .hasFocus({ timeoutInMilliseconds: 2000, verbose: true });
+        .hasFocus({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -51,7 +51,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .hasFocus({ timeoutInMilliseconds: 2000, verbose: true });
+        .hasFocus({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -77,26 +77,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
     const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);
     expect(hasFocus).toBe(true);
   });
-  test('should wait until selector exists and has focus (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
-    // Given
-    const url = `file:${path.join(__dirname, 'expect-has-focus.test.html')}`;
-    const selector = '#dynamically-added-input';
 
-    // When
-    await p
-      .withBrowser('chromium')
-      .withOptions({ headless: false })
-      .withCursor()
-      .navigateTo(url)
-      .expectThatSelector(selector)
-      .hasFocus({ verbose: true });
-
-    // Then
-    const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);
-    expect(hasFocus).toBe(true);
-  });
   test('should wait until selector object exists and has focus - chromium', async (): Promise<
     void
   > => {
@@ -112,27 +93,6 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
       .navigateTo(url)
       .expectThatSelector(selector)
       .hasFocus();
-
-    // Then
-    const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);
-    expect(hasFocus).toBe(true);
-  });
-
-  test('should wait until selector object exists and has focus (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
-    // Given
-    const url = `file:${path.join(__dirname, 'expect-has-focus.test.html')}`;
-    const selector = p.selector('input').withValue('dynamically added');
-
-    // When
-    await p
-      .withBrowser('chromium')
-      .withOptions({ headless: false })
-      .withCursor()
-      .navigateTo(url)
-      .expectThatSelector(selector)
-      .hasFocus({ verbose: true });
 
     // Then
     const hasFocus = await p.hasFocus(selector, noWaitNoThrowOptions);

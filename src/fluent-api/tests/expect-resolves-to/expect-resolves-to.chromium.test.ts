@@ -45,7 +45,7 @@ describe('Playwright Fluent - expect func resolves to', (): void => {
       .navigateTo(url);
 
     // Then
-    await p.expectThatAsyncFunc(() => selector.count()).resolvesTo(6, { verbose: true });
+    await p.expectThatAsyncFunc(() => selector.count()).resolvesTo(6);
   });
 
   test('should give back an error when selector does not resolve to expected value', async (): Promise<
@@ -64,7 +64,7 @@ describe('Playwright Fluent - expect func resolves to', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatAsyncFunc(() => selector.count())
-        .resolvesTo(1, { timeoutInMilliseconds: 1000, verbose: true });
+        .resolvesTo(1, { timeoutInMilliseconds: 1000 });
     } catch (error) {
       result = error;
     }

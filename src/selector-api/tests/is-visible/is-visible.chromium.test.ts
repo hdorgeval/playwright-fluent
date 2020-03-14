@@ -129,7 +129,7 @@ describe('Selector API - isVisible', (): void => {
       .find('p'); //only the <p> ... </p> element is hidden first
 
     const initialVisibleStatus = await selector.isVisible();
-    await p.waitUntil(() => selector.isVisible(), { verbose: true });
+    await p.waitUntil(() => selector.isVisible());
     const finalVisibleStatus = await selector.isVisible();
 
     // Then

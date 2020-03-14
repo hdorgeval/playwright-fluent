@@ -26,7 +26,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .isNotVisible({ timeoutInMilliseconds: 2000, verbose: true });
+        .isNotVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -52,7 +52,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .isNotVisible({ timeoutInMilliseconds: 2000, verbose: true });
+        .isNotVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -81,26 +81,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
     const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
     expect(isNotVisible).toBe(true);
   });
-  test('should wait until selector is hidden (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
-    // Given
-    const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
-    const selector = '#visible-then-hidden';
 
-    // When
-    await p
-      .withBrowser('chromium')
-      .withOptions({ headless: false })
-      .withCursor()
-      .navigateTo(url)
-      .expectThatSelector(selector)
-      .isNotVisible({ verbose: true });
-
-    // Then
-    const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
-    expect(isNotVisible).toBe(true);
-  });
   test('should wait until selector object is hidden - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
@@ -120,30 +101,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
     expect(isNotVisible).toBe(true);
   });
 
-  test('should wait until selector object is hidden (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
-    // Given
-    const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
-    const selector = p.selector('p').withText('I am visible then hidden');
-
-    // When
-    await p
-      .withBrowser('chromium')
-      .withOptions({ headless: false })
-      .withCursor()
-      .navigateTo(url)
-      .expectThatSelector(selector)
-      .isNotVisible({ verbose: true });
-
-    // Then
-    const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
-    expect(isNotVisible).toBe(true);
-  });
-
-  test('should wait until selector is removed (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector is removed - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
     const selector = '#visible-then-removed';
@@ -155,16 +113,14 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .withCursor()
       .navigateTo(url)
       .expectThatSelector(selector)
-      .isNotVisible({ verbose: true });
+      .isNotVisible();
 
     // Then
     const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
     expect(isNotVisible).toBe(true);
   });
 
-  test('should wait until selector object is removed (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector object is removed - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
     const selector = p.selector('p').withText('I am visible then removed from DOM');
@@ -176,7 +132,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .withCursor()
       .navigateTo(url)
       .expectThatSelector(selector)
-      .isNotVisible({ verbose: true });
+      .isNotVisible();
 
     // Then
     const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);
@@ -197,7 +153,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
       .withCursor()
       .navigateTo(url)
       .expectThatSelector(selector)
-      .isNotVisible({ verbose: true });
+      .isNotVisible();
 
     // Then
     const isNotVisible = await p.isNotVisible(selector, noWaitNoThrowOptions);

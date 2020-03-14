@@ -26,7 +26,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .isVisible({ timeoutInMilliseconds: 2000, verbose: true });
+        .isVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -51,7 +51,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .withCursor()
         .navigateTo(url)
         .expectThatSelector(selector)
-        .isVisible({ timeoutInMilliseconds: 2000, verbose: true });
+        .isVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
     }
@@ -77,26 +77,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     const isVisible = await p.isVisible(selector, noWaitNoThrowOptions);
     expect(isVisible).toBe(true);
   });
-  test('should wait until selector exists and is visible (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
-    // Given
-    const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
-    const selector = '#dynamically-added-paragraph';
 
-    // When
-    await p
-      .withBrowser('chromium')
-      .withOptions({ headless: false })
-      .withCursor()
-      .navigateTo(url)
-      .expectThatSelector(selector)
-      .isVisible({ verbose: true });
-
-    // Then
-    const isVisible = await p.isVisible(selector, noWaitNoThrowOptions);
-    expect(isVisible).toBe(true);
-  });
   test('should wait until selector object exists and is visible - chromium', async (): Promise<
     void
   > => {
@@ -118,26 +99,6 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     expect(isVisible).toBe(true);
   });
 
-  test('should wait until selector object exists and is visible (verbose mode) - chromium', async (): Promise<
-    void
-  > => {
-    // Given
-    const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
-    const selector = p.selector('p').withText('dynamically added');
-
-    // When
-    await p
-      .withBrowser('chromium')
-      .withOptions({ headless: false })
-      .withCursor()
-      .navigateTo(url)
-      .expectThatSelector(selector)
-      .isVisible({ verbose: true });
-
-    // Then
-    const isVisible = await p.isVisible(selector, noWaitNoThrowOptions);
-    expect(isVisible).toBe(true);
-  });
   test('should give back an error when selector is hidden - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
