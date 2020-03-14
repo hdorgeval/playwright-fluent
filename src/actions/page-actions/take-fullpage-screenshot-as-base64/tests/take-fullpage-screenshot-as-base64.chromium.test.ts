@@ -34,6 +34,6 @@ describe('full page screenshot', (): void => {
     console.log('screenshot:', result);
     expect(typeof result).toBe('string');
     expect(result.startsWith('iVBOR')).toBe(true);
-    expect(result.endsWith('==')).toBe(true);
+    expect(result.endsWith('==') || result.endsWith('CYII=')).toBe(true);
   });
 });
