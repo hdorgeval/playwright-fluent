@@ -22,13 +22,13 @@ describe('Playwright Fluent - pressKey', (): void => {
       .withCursor()
       .navigateTo(url)
       .click('#field1')
-      .expectThat('#field1')
+      .expectThatSelector('#field1')
       .hasFocus()
       .pressKey('Tab')
-      .expectThat('#field2')
+      .expectThatSelector('#field2')
       .hasFocus()
       .pressKey('Tab')
-      .expectThat('#field3')
+      .expectThatSelector('#field3')
       .hasFocus();
   });
 });

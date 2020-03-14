@@ -20,7 +20,7 @@ describe('Playwright Fluent - expect has focus', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await p.expectThat('foobar').hasFocus();
+      await p.expectThatSelector('foobar').hasFocus();
     } catch (error) {
       result = error;
     }

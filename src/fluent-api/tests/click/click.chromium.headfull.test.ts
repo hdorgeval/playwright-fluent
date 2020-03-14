@@ -182,7 +182,7 @@ describe('Playwright Fluent - click', (): void => {
       .emulateDevice('iPhone 6 landscape')
       .navigateTo(url)
       .click(checkMeOut)
-      .expectThat(checkMeOut.find('input'))
+      .expectThatSelector(checkMeOut.find('input'))
       .hasFocus();
   });
 });

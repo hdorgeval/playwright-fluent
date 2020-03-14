@@ -22,7 +22,7 @@ describe('Playwright Fluent - expect has text', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .hasText('I am dynamically added in DOM');
 
     // Then
@@ -41,7 +41,7 @@ describe('Playwright Fluent - expect has text', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .hasText('I am dynamically added in DOM');
 
     // Then
@@ -62,7 +62,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .hasText('yo', { verbose: true, timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
@@ -85,7 +85,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .hasText('yo', { verbose: true, timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
@@ -108,7 +108,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .hasText('yo', { verbose: true, timeoutInMilliseconds: 4000 });
     } catch (error) {
       result = error;
@@ -135,7 +135,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .hasText('yo', { timeoutInMilliseconds: 4000 });
     } catch (error) {
       result = error;

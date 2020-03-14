@@ -25,7 +25,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .isVisible({ timeoutInMilliseconds: 2000, verbose: true });
     } catch (error) {
       result = error;
@@ -50,7 +50,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .isVisible({ timeoutInMilliseconds: 2000, verbose: true });
     } catch (error) {
       result = error;
@@ -70,7 +70,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .isVisible();
 
     // Then
@@ -90,7 +90,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .isVisible({ verbose: true });
 
     // Then
@@ -110,7 +110,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .isVisible();
 
     // Then
@@ -131,7 +131,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .isVisible({ verbose: true });
 
     // Then
@@ -151,7 +151,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .isVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
@@ -178,7 +178,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .isVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;

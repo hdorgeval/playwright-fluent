@@ -20,7 +20,7 @@ describe('Playwright Fluent - expect is disabled', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await p.expectThat('foobar').isDisabled();
+      await p.expectThatSelector('foobar').isDisabled();
     } catch (error) {
       result = error;
     }

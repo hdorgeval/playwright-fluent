@@ -25,7 +25,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .hasFocus({ timeoutInMilliseconds: 2000, verbose: true });
     } catch (error) {
       result = error;
@@ -50,7 +50,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .hasFocus({ timeoutInMilliseconds: 2000, verbose: true });
     } catch (error) {
       result = error;
@@ -70,7 +70,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .hasFocus();
 
     // Then
@@ -90,7 +90,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .hasFocus({ verbose: true });
 
     // Then
@@ -110,7 +110,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .hasFocus();
 
     // Then
@@ -131,7 +131,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .hasFocus({ verbose: true });
 
     // Then
@@ -153,7 +153,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .hasFocus({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;
@@ -180,7 +180,7 @@ describe('Playwright Fluent - expectThat hasFocus', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .hasFocus({ timeoutInMilliseconds: 2000 });
     } catch (error) {
       result = error;

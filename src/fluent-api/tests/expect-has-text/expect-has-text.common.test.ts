@@ -20,7 +20,7 @@ describe('Playwright Fluent - expect has text', (): void => {
     // When
     let result: Error | undefined = undefined;
     try {
-      await p.expectThat('foo').hasText('bar');
+      await p.expectThatSelector('foo').hasText('bar');
     } catch (error) {
       result = error;
     }

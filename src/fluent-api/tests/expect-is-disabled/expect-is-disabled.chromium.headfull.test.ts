@@ -25,7 +25,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .isDisabled({ timeoutInMilliseconds: 2000, verbose: true });
     } catch (error) {
       result = error;
@@ -50,7 +50,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
         .withOptions({ headless: false })
         .withCursor()
         .navigateTo(url)
-        .expectThat(selector)
+        .expectThatSelector(selector)
         .isDisabled({ timeoutInMilliseconds: 2000, verbose: true });
     } catch (error) {
       result = error;
@@ -70,7 +70,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .isDisabled();
 
     // Then
@@ -90,7 +90,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .isDisabled({ verbose: true });
 
     // Then
@@ -110,7 +110,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .isDisabled();
 
     // Then
@@ -131,7 +131,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .expectThat(selector)
+      .expectThatSelector(selector)
       .isDisabled({ verbose: true });
 
     // Then

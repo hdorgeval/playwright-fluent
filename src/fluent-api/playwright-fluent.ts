@@ -90,6 +90,14 @@ export const defaultAssertOptions: AssertOptions = {
   verbose: false,
 };
 
+export type AsyncFunc = () => Promise<string | number | boolean | undefined | null>;
+export interface AsyncFuncExpectAssertion {
+  resolvesTo: (
+    value: string | number | boolean | undefined | null,
+    options?: Partial<AssertOptions>,
+  ) => PlaywrightFluent;
+}
+
 export interface ExpectAssertion {
   hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasText: (text: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
@@ -667,7 +675,26 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return await assertion.isDisabled(selector, this.currentPage(), options);
   }
 
-  public expectThat(selector: string | SelectorFluent): ExpectAssertion {
+  private async expectThatAsyncFuncHasResult(
+    func: AsyncFunc,
+    value: string | number | boolean | undefined | null,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatAsyncFuncHasResult(func, value, options);
+  }
+  public expectThatAsyncFunc(func: AsyncFunc): AsyncFuncExpectAssertion {
+    return {
+      resolvesTo: (
+        value: string | number | boolean | undefined | null,
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatAsyncFuncHasResult(func, value, options));
+        return this;
+      },
+    };
+  }
+
+  public expectThatSelector(selector: string | SelectorFluent): ExpectAssertion {
     return {
       hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
