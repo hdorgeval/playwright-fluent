@@ -17,7 +17,6 @@ describe('wait for stability of', (): void => {
     // When
     await SUT.waitForStabilityOf(valueFunction, 'cannot wait any more!', {
       stabilityInMilliseconds: 1000,
-      verbose: true,
     });
     const result = await valueFunction();
 
@@ -40,7 +39,7 @@ describe('wait for stability of', (): void => {
     // When
     await SUT.waitForStabilityOf(valueFunction, 'cannot wait any more!', {
       stabilityInMilliseconds: 1000,
-      verbose: true,
+      verbose: false,
     });
     const result = await valueFunction();
 
@@ -62,7 +61,6 @@ describe('wait for stability of', (): void => {
     // When
     await SUT.waitForStabilityOf(valueFunction, 'cannot wait any more!', {
       stabilityInMilliseconds: 1000,
-      verbose: true,
     });
     const result = await valueFunction();
 
@@ -85,7 +83,6 @@ describe('wait for stability of', (): void => {
     // When
     await SUT.waitForStabilityOf(valueFunction, 'cannot wait any more!', {
       stabilityInMilliseconds: 1000,
-      verbose: true,
     });
     const result = await valueFunction();
 
@@ -108,7 +105,6 @@ describe('wait for stability of', (): void => {
     // When
     await SUT.waitForStabilityOf(valueFunction, 'cannot wait any more!', {
       stabilityInMilliseconds: 1000,
-      verbose: true,
     });
     const result = await valueFunction();
 
@@ -131,7 +127,7 @@ describe('wait for stability of', (): void => {
     const options: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
       timeoutInMilliseconds: 200,
-      verbose: true,
+      verbose: false,
     };
 
     // When
@@ -146,7 +142,6 @@ describe('wait for stability of', (): void => {
     // Given
     const options: WaitUntilOptions = {
       ...noWaitNoThrowOptions,
-      verbose: true,
     };
     const predicate = async (): Promise<boolean> => {
       return false;
@@ -173,7 +168,7 @@ describe('wait for stability of', (): void => {
       stabilityInMilliseconds: 300,
       throwOnTimeout: true,
       timeoutInMilliseconds: 200,
-      verbose: true,
+      verbose: false,
     };
     const predicate = async (): Promise<boolean> => {
       return false;
@@ -193,7 +188,7 @@ describe('wait for stability of', (): void => {
       stabilityInMilliseconds: 300,
       throwOnTimeout: true,
       timeoutInMilliseconds: 200,
-      verbose: true,
+      verbose: false,
     };
     const predicate = async (): Promise<boolean> => {
       return false;
