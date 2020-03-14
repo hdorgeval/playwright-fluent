@@ -1,5 +1,11 @@
 import { AssertOptions, defaultAssertOptions } from '../../fluent-api';
-import { waitUntil, WaitUntilOptions, defaultWaitUntilOptions, safeToString } from '../../utils';
+import {
+  waitUntil,
+  WaitUntilOptions,
+  defaultWaitUntilOptions,
+  safeToString,
+  report,
+} from '../../utils';
 
 export async function expectThatAsyncFuncHasResult(
   func: () => Promise<string | number | boolean | null | undefined>,
@@ -17,11 +23,20 @@ export async function expectThatAsyncFuncHasResult(
     throwOnTimeout: true,
   };
 
+  report(
+    `Checking that async function resolves to '${safeToString(expectedResult)}' ...`,
+    waitOptions.verbose,
+  );
+
   await waitUntil(
-    async () => (await func()) === expectedResult,
+    async () => {
+      const result = await func();
+      report(`Async function returned '${safeToString(result)}'`, waitOptions.verbose);
+      return result === expectedResult;
+    },
     async (): Promise<string> => {
       const currentValue = await func();
-      return `'${func.name}' did not have expected result '${safeToString(
+      return `Async function did not have expected result '${safeToString(
         expectedResult,
       )}', but instead it resolved to '${safeToString(currentValue)}'`;
     },
