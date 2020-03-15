@@ -33,13 +33,16 @@ await p
   .navigateTo('https://reactstrap.github.io/components/form/')
   .click('#exampleEmail')
   .typeText('foo.bar@baz.com')
-  .pressKey('Tab');
-  .expectThat('#examplePassword').hasFocus()
+  .pressKey('Tab')
+  .expectThatSelector('#examplePassword')
+  .hasFocus()
   .typeText("don't tell!")
-  .pressKey('Tab');
-  .expectThat(passwordInputSelector).hasClass('is-valid')
+  .pressKey('Tab')
+  .expectThatSelector(passwordInputSelector)
+  .hasClass('is-valid')
   .hover('#exampleCustomSelect')
-  .select('Value 3').in('#exampleCustomSelect')
+  .select('Value 3')
+  .in('#exampleCustomSelect')
   .close();
 ```
 
@@ -52,7 +55,7 @@ const selector = p
   .find('td') // from previous result(s), find all embedded <td> elements
   .nth(2); // take only the second cell
 
-await p.expectThat(selector).hasText('foobar-2');
+await p.expectThatSelector(selector).hasText('foobar-2');
 ```
 
 This API is still a draft and is in early development, but stay tuned!
@@ -90,7 +93,7 @@ const p = new PlaywrightFluent(browser, page);
 
 ### Q: Can I use Playwright together with the playwright-fluent?
 
-Yes you can. To use the Playwright API, just use the `currentBrowser()` and/or `currentPage()` methods exposed by the fluent API:
+Yes you can. To use the Playwright API, call the `currentBrowser()` and/or `currentPage()` methods exposed by the fluent API:
 
 ```js
 const browser = 'chromium';

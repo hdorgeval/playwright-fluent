@@ -6,6 +6,7 @@
   - [withOptions(options)](#withOptionsoptions)
   - [withCursor()](#withCursor)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
+  - [recordFailedRequests()](#recordFailedRequests)
   - [recordPageErrors()](#recordPageErrors)
   - [recordRequestsTo(url)](#recordRequestsTourl)
   - [navigateTo(url[, options])](#navigateTourl-options)
@@ -22,6 +23,7 @@
 
 - Helper Methods
 
+  - [cast(unknown)](#castunknown)
   - [clearPageErrors()](#clearPageErrors)
   - [currentBrowser()](#currentBrowser)
   - [currentPage()](#currentPage)
@@ -187,6 +189,45 @@ await p
   .navigateTo(url)
   ...;
 
+```
+
+---
+
+### recordFailedRequests()
+
+Will track and record failed requests.
+
+- use `getFailedRequests()` helper method on the fluent API to access errors that have occurred.
+- use `clearFailedRequests()` helper method on the fluent API to clear all past errors.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+// start the browser in headfull mode
+// and emulate an iPhone 6 in landscape mode
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .emulateDevice('iPhone 6 landscape')
+  .recordFailedRequests()
+  .navigateTo(url);
+```
+
+The `playwright-fluent` package exposes the helper function `stringifyRequest(request)` that you can use to convert the `playwright` request object to a JSON object (see the example below).
+
+```js
+import { stringifyRequest } from 'playwright-fluent';
+
+const failedRequests = p.getFailedRequests();
+for (let index = 0; index < failedRequests.length; index++) {
+  const failedRequest = failedRequests[index];
+  const stringifiedRequest = await stringifyRequest(failedRequest);
+  console.log(stringifiedRequest);
+}
 ```
 
 ---
@@ -498,7 +539,7 @@ const selector = p
   .find('p');
   .withText('foobar');
 
-await pptc.waitUntil(() => selector.isVisible());
+await p.waitUntil(() => selector.isVisible());
 ```
 
 ---
@@ -613,6 +654,22 @@ await p
 const errors: Error[] = p.getPageErrors();
 // analyse errors by iterating on the returned array
 // an empty array means that no error has occurred or that you forgot to call the recordPageErrors() method
+```
+
+---
+
+### cast(unknown)
+
+- cast input object as a `PlaywrightFluent` instance; usefull when a `PlaywrightFluent` instance is stored in an untyped context like in cucumberJS.
+
+```js
+import { cast } from 'playwright-fluent';
+
+// this.context.p has type unknown when the context object is untyped
+const p = cast(this.context.p);
+
+// now you have full intellisense on the `p` instance
+// ...
 ```
 
 ---

@@ -1,15 +1,19 @@
 # Playwright Assertion API
 
-The Assertion API enables to chain assertions on a selector. The selector can be either a CSS selector or a selector created with the [Selector API](./selector.api.md)
+The Assertion API enables to chain assertions on a selector and on async functions.
+
+The selector can be either a CSS selector or a selector created with the [Selector API](./selector.api.md)
 
 - Chainable Methods
 
-  - [expectThat(selector).hasFocus([options])](#expectThatselectorhasFocusoptions)
-  - [expectThat(selector).hasText(text,[options])](#expectThatselectorhastexttextoptions)
-  - [expectThat(selector).isDisabled([options])](#expectThatselectorisDisabledoptions)
-  - [expectThat(selector).isEnabled([options])](#expectThatselectorisEnabledoptions)
-  - [expectThat(selector).isVisible([options])](#expectThatselectorisVisibleoptions)
-  - [expectThat(selector).isNotVisible([options])](#expectThatselectorisNotVisibleoptions)
+  - [expectThatAsyncFunc(func).resolvesTo(value,[options])](#expectThatAsyncFuncfuncresolvesTovalueoptions)
+  - [expectThatSelector(selector).hasFocus([options])](#expectThatSelectorselectorhasFocusoptions)
+  - [expectThatSelector(selector).hasText(text,[options])](#expectThatSelectorselectorhastexttextoptions)
+  - [expectThatSelector(selector).hasValue(value,[options])](#expectThatSelectorselectorhasvaluevalueoptions)
+  - [expectThatSelector(selector).isDisabled([options])](#expectThatSelectorselectorisDisabledoptions)
+  - [expectThatSelector(selector).isEnabled([options])](#expectThatSelectorselectorisEnabledoptions)
+  - [expectThatSelector(selector).isVisible([options])](#expectThatSelectorselectorisVisibleoptions)
+  - [expectThatSelector(selector).isNotVisible([options])](#expectThatSelectorselectorisNotVisibleoptions)
 
 ## Usage
 
@@ -26,13 +30,13 @@ await p
   .withCursor()
   .withOptions({ headless: false })
   .navigateTo(url)
-  .expectThat('body')
+  .expectThatSelector('body')
   .hasFocus();
 ```
 
 ## Chainable Methods
 
-### expectThat(selector).hasFocus([options])
+### expectThatSelector(selector).hasFocus([options])
 
 - selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
@@ -72,7 +76,7 @@ interface AssertOptions {
 
 ---
 
-### expectThat(selector).hasText(text,[options])
+### expectThatSelector(selector).hasText(text,[options])
 
 - selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
@@ -82,7 +86,42 @@ Will check if the selector's inner text contains the specified `text`.
 
 ---
 
-### expectThat(selector).isVisible([options])
+### expectThatSelector(selector).hasValue(value,[options])
+
+- selector: `string | SelectorFluent`
+- value: `string`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector's value contains the specified `value`.
+
+---
+
+### expectThatAsyncFunc(func).resolvesTo(value,[options])
+
+- func: `() => Promise<string | number | boolean | null | undefined>`
+- value: `string | number | boolean | null | undefined`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the async function `func` resolves to the specified `value`.
+
+Example:
+
+```js
+const rows = p.selector('[role="row"]');
+await p
+  .withBrowser('chromium')
+  .withCursor()
+  .withOptions({ headless: false })
+  .navigateTo(url)
+  .expectThatAsyncFunc(() => rows.count())
+  .resolvesTo(1);
+```
+
+---
+
+### expectThatSelector(selector).isVisible([options])
 
 - selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
@@ -92,7 +131,7 @@ Will check if the selector is visible.
 
 ---
 
-### expectThat(selector).isNotVisible([options])
+### expectThatSelector(selector).isNotVisible([options])
 
 - selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
@@ -102,7 +141,7 @@ Will check if the selector is not visible.
 
 ---
 
-### expectThat(selector).isEnabled([options])
+### expectThatSelector(selector).isEnabled([options])
 
 - selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`
@@ -112,7 +151,7 @@ Will check if the selector is enabled.
 
 ---
 
-### expectThat(selector).isDisabled([options])
+### expectThatSelector(selector).isDisabled([options])
 
 - selector: `string | SelectorFluent`
 - options: `Partial<AssertOptions>`

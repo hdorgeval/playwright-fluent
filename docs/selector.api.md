@@ -20,6 +20,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [isVisible()](#isVisible)
   - [isNotVisible()](#isNotVisible)
   - [toString()](#toString)
+  - [value()](#value)
 
 ## Usage
 
@@ -144,6 +145,20 @@ Checks if the selector is visible in the current viewport.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 
+In order to call this method in an unflaky way, you should do the following:
+
+```js
+const selector = p
+  .selector('[role="row"]')
+  .find('td')
+  .find('p');
+  .withText('foobar');
+
+await p.waitUntil(() => selector.isVisible());
+// now we are sure that the selector is visible
+
+```
+
 ---
 
 ### innerText()
@@ -151,6 +166,16 @@ The result may differ from one execution to another especially if targeted eleme
 - returns: `Promise<tring | undefined | null>`
 
 Returns the innerText of the selector.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### value()
+
+- returns: `Promise<tring | undefined | null>`
+
+Returns the value of the selector.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 
