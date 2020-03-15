@@ -31,6 +31,7 @@ module.exports = {
     '!src/**/is-handle-enabled.ts',
     '!src/**/is-handle-not-visible.ts',
     '!src/**/is-handle-visible.ts',
+    '!src/**/paste-text.ts',
     '!src/**/scroll-to-handle.ts',
     '!src/**/show*.ts',
     '!src/**/type-text.ts',
