@@ -17,7 +17,7 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     }
   });
   beforeEach((): void => {
-    jest.setTimeout(30000);
+    jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(

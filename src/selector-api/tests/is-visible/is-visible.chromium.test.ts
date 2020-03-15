@@ -4,7 +4,7 @@ import * as path from 'path';
 describe('Selector API - isVisible', (): void => {
   let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(30000);
+    jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(
