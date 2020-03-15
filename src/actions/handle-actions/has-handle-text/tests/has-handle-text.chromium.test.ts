@@ -5,7 +5,7 @@ import * as path from 'path';
 describe('handle has text', (): void => {
   let browser: Browser | undefined = undefined;
   beforeEach((): void => {
-    jest.setTimeout(30000);
+    jest.setTimeout(60000);
   });
   afterEach(
     async (): Promise<void> => {
