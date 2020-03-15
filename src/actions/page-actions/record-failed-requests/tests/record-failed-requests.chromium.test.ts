@@ -19,7 +19,7 @@ describe('record failed requests', (): void => {
     }
   });
   beforeEach((): void => {
-    jest.setTimeout(30000);
+    jest.setTimeout(60000);
   });
   afterEach(
     async (): Promise<void> => {

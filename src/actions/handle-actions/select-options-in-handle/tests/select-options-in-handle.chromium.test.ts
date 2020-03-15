@@ -8,7 +8,7 @@ describe('are options already selected in handle', (): void => {
   let browser: Browser | undefined = undefined;
 
   beforeEach((): void => {
-    jest.setTimeout(30000);
+    jest.setTimeout(60000);
   });
 
   afterEach(
