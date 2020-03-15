@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [0.16.0] - 2020-03-15
+
+### BREAKING CHANGE
+
+- `expectThat` method is renamed to `expectThatSelector` on the Fluent API
+
+Though a major version should have been published, and because this library has still little usage, I decided to postpone the major version until the Playwright team publishes a new major version.
+
+### Added
+
+- refactor(fluent-api): rename `expectThat` method to `expectThatSelector`
+- feat(fluent-api): add `recordFailedRequests()` to the Fluent API
+- feat(assertion): add `expectThatSelector(selector).hasValue(value)` to the Assertion API
+- feat(assertion): add `expectThatAsyncFunc(func).resolvesTo(value)` to the Assertion API
+- feat(selector): add helper method `value()` to the Selector API
+- feat(fluent-api): add helper method `cast()` to the Fluent API
+
 ## [0.15.0] - 2020-03-10
 
 ### Added
