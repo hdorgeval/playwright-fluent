@@ -1,5 +1,5 @@
 import * as SUT from '../index';
-import { defaultTypeTextOptions } from '../../typetext';
+import { defaultTypeTextOptions } from '../../type-text';
 import { Page } from 'playwright';
 
 describe('clear text', (): void => {

@@ -33,7 +33,7 @@ module.exports = {
     '!src/**/is-handle-visible.ts',
     '!src/**/scroll-to-handle.ts',
     '!src/**/show*.ts',
-    '!src/**/typetext.ts',
+    '!src/**/type-text.ts',
   ],
 
   // The directory where Jest should output its coverage files
