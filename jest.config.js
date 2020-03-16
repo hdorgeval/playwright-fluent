@@ -23,6 +23,7 @@ module.exports = {
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
     'src/**/*.ts',
+    '!src/**/clear-text.ts',
     '!src/**/device-names-builder.ts',
     '!src/**/get*.ts',
     '!src/**/has-handle-focus.ts',

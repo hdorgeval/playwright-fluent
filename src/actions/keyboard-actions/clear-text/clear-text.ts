@@ -1,9 +1,23 @@
-import { ClickOptions, TypeTextOptions } from '../../../fluent-api';
+import { ClickOptions } from '../../../fluent-api';
 import { defaultWaitUntilOptions } from '../../../utils';
 import { Page } from 'playwright';
 declare const window: Window;
+export interface ClearTextOptions {
+  /**
+   * Time to wait between key presses in milliseconds.
+   * Defaults to 50
+   *
+   * @type {number}
+   * @memberof TypeTextOptions
+   */
+  delay: number;
+}
 
-export async function clearText(page: Page | undefined, options: TypeTextOptions): Promise<void> {
+export const defaultClearTextOptions: ClearTextOptions = {
+  delay: 50,
+};
+
+export async function clearText(page: Page | undefined, options: ClearTextOptions): Promise<void> {
   if (!page) {
     throw new Error(`Cannot clear text because no browser has been launched`);
   }
@@ -28,6 +42,10 @@ export async function clearText(page: Page | undefined, options: TypeTextOptions
   }
 
   if (currentTagName === 'P' && !isContentEditable) {
+    throw new Error(`You must first click on an editable element before clearing text.`);
+  }
+
+  if (currentTagName === 'DIV' && !isContentEditable) {
     throw new Error(`You must first click on an editable element before clearing text.`);
   }
 

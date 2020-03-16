@@ -3,7 +3,9 @@ import * as assertion from '../assertions';
 import * as action from '../actions';
 import {
   BrowserName,
+  ClearTextOptions,
   ClickOptions,
+  defaultClearTextOptions,
   defaultClickOptions,
   defaultFullPageScreenshotOptions,
   defaultHoverOptions,
@@ -42,6 +44,7 @@ import { Browser, Page, BrowserContext } from 'playwright';
 export { WaitUntilOptions, noWaitNoThrowOptions, defaultWaitUntilOptions } from '../utils';
 export {
   BrowserName,
+  ClearTextOptions,
   ClickOptions,
   HoverOptions,
   KeyboardKey,
@@ -440,6 +443,27 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
 
     const action = (): Promise<void> => this.typeTextInFocusedElement(text, typeTextOptions);
+    this.actions.push(action);
+    return this;
+  }
+
+  private async clearTextInFocusedElement(options: ClearTextOptions): Promise<void> {
+    await action.clearText(this.currentPage(), options);
+  }
+  /**
+   * Clear text in the element that has current focus.
+   *
+   * @param {Partial<ClearTextOptions>} [options=defaultClearTextOptions]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public clearText(options: Partial<ClearTextOptions> = defaultClearTextOptions): PlaywrightFluent {
+    const clearTextOptions: ClearTextOptions = {
+      ...defaultClearTextOptions,
+      ...options,
+    };
+
+    const action = (): Promise<void> => this.clearTextInFocusedElement(clearTextOptions);
     this.actions.push(action);
     return this;
   }
