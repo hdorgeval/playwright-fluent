@@ -1,5 +1,6 @@
 export * from './get-chrome-path';
 export * from './get-distance-between-client-rectangles';
+export * from './get-edge-path';
 export * from './report';
 export * from './safe-to-string';
 export * from './sleep';
