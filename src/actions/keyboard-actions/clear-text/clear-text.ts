@@ -8,7 +8,7 @@ export interface ClearTextOptions {
    * Defaults to 50
    *
    * @type {number}
-   * @memberof TypeTextOptions
+   * @memberof ClearTextOptions
    */
   delay: number;
 }

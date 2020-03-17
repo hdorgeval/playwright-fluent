@@ -15,6 +15,7 @@
   - [pressKey(key[, options])](#pressKeykey-options)
   - [select(labels).in(selector[, options])](#selectlabelsinselector-options)
   - [typeText(text[, options])](#typeTexttext-options)
+  - [clearText([options])](#clearTextoptions)
   - [wait(duration)](#waitduration)
   - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
   - [waitForStabilityOf(func[, waitOptions])](#waitForStabilityOffunc-waitOptions)
@@ -512,6 +513,39 @@ interface TypeTextOptions {
 ```
 
 Will type text in the element that has current focus. This method will automtically empty any existing content before typing the specified text.
+
+---
+
+### clearText([options])
+
+- options: `Partial<ClearTextOptions>`
+
+```js
+interface ClearTextOptions {
+  /**
+   * Time to wait between key presses in milliseconds.
+   * Defaults to 50
+   *
+   * @type {number}
+   * @memberof ClearTextOptions
+   */
+  delay: number;
+}
+```
+
+Will clear text in the element that has current focus.
+
+example:
+
+```js
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .navigateTo(url)
+  .click(selector)
+  .clearText();
+```
 
 ---
 
