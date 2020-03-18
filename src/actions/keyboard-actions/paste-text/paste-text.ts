@@ -12,6 +12,14 @@ export interface PasteTextOptions {
    * @memberof TypeTextOptions
    */
   delay: number;
+  /**
+   * Should be set to true when the underlying selector does not explicitely handle the paste event.
+   * When sets to true, playwright-fluent automatically attaches a paste event handler on the focused selector.
+   * Defaults to false.
+   *
+   * @type {boolean}
+   * @memberof PasteTextOptions
+   */
   handlePasteEvent: boolean;
 }
 
@@ -26,7 +34,7 @@ export async function pasteText(
   options: PasteTextOptions,
 ): Promise<void> {
   if (!page) {
-    throw new Error(`Cannot paste text because no browser has been launched`);
+    throw new Error(`Cannot paste text '${text}' because no browser has been launched`);
   }
   const focusedElement = await page.evaluateHandle(() => window.document.activeElement);
 
@@ -50,6 +58,10 @@ export async function pasteText(
 
   if (currentTagName === 'P' && !isContentEditable) {
     throw new Error(`You must first click on an editable element before pasting text.`);
+  }
+
+  if (currentTagName === 'DIV' && !isContentEditable) {
+    throw new Error(`You must first click on an editable element before clearing text.`);
   }
 
   const tripleClickOptions: ClickOptions = {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>paste text</title>
+</head>
+
+<body>
+  <input id="emptyInput"></input>
+  <input id="targetInput" value="paste your text"></input>
+  <p id="target" contenteditable="true">paste your text</p>
+  <p id="not-editable-content">I am a non editable content</p>
+
+  <script>
+    window.setTimeout(() => {
+      const input = document.querySelector('#emptyInput');
+      input.addEventListener('paste', event => {
+        const content = (event.clipboardData || window.clipboardData).getData('text');
+        event.target.value = content.toUpperCase();
+        event.preventDefault();
+      })
+    }, 0);
+
+  </script>
+
+</body>
+
+</html>

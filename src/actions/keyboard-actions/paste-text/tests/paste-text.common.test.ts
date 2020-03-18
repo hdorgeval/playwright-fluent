@@ -8,7 +8,9 @@ describe('paste text', (): void => {
 
     // When
     // Then
-    const expectedError = new Error('Cannot paste text because no browser has been launched');
+    const expectedError = new Error(
+      "Cannot paste text 'foobar' because no browser has been launched",
+    );
     await SUT.pasteText('foobar', page, SUT.defaultPasteTextOptions).catch((error): void =>
       expect(error).toMatchObject(expectedError),
     );

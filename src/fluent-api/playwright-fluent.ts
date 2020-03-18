@@ -23,6 +23,8 @@ import {
   SelectOptions,
   TypeTextOptions,
   WindowState,
+  PasteTextOptions,
+  defaultPasteTextOptions,
 } from '../actions';
 import {
   allKnownDevices,
@@ -51,6 +53,7 @@ export {
   KeyboardPressOptions,
   LaunchOptions,
   NavigationOptions,
+  PasteTextOptions,
   Request,
   Response,
   ScreenshotOptions,
@@ -464,6 +467,32 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
 
     const action = (): Promise<void> => this.clearTextInFocusedElement(clearTextOptions);
+    this.actions.push(action);
+    return this;
+  }
+
+  private async pasteTextInFocusedElement(text: string, options: PasteTextOptions): Promise<void> {
+    await action.pasteText(text, this.currentPage(), options);
+  }
+
+  /**
+   * Paste text in the element that has current focus.
+   *
+   * @param {string} text
+   * @param {Partial<PasteTextOptions>} [options=defaultPasteTextOptions]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public pasteText(
+    text: string,
+    options: Partial<PasteTextOptions> = defaultPasteTextOptions,
+  ): PlaywrightFluent {
+    const pasteTextOptions: PasteTextOptions = {
+      ...defaultPasteTextOptions,
+      ...options,
+    };
+
+    const action = (): Promise<void> => this.pasteTextInFocusedElement(text, pasteTextOptions);
     this.actions.push(action);
     return this;
   }
