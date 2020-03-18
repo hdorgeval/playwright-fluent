@@ -15,6 +15,7 @@
   - [pressKey(key[, options])](#pressKeykey-options)
   - [select(labels).in(selector[, options])](#selectlabelsinselector-options)
   - [typeText(text[, options])](#typeTexttext-options)
+  - [pasteText(text[, options])](#pasteTexttext-options)
   - [clearText([options])](#clearTextoptions)
   - [wait(duration)](#waitduration)
   - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
@@ -513,6 +514,38 @@ interface TypeTextOptions {
 ```
 
 Will type text in the element that has current focus. This method will automtically empty any existing content before typing the specified text.
+
+---
+
+### pasteText(text[, options])
+
+- text: `string`
+- options: `Partial<PasteTextOptions>`
+
+```js
+interface PasteTextOptions {
+  /**
+   * Time to wait between key presses in milliseconds.
+   * Defaults to 50
+   *
+   * @type {number}
+   * @memberof TypeTextOptions
+   */
+  delay: number;
+
+  /**
+   * Should be set to true when the underlying selector does not explicitely handle the paste event.
+   * When sets to true, playwright-fluent automatically attaches a paste event handler on the focused selector.
+   * Defaults to false.
+   *
+   * @type {boolean}
+   * @memberof PasteTextOptions
+   */
+  handlePasteEvent: boolean;
+}
+```
+
+Will paste text in the element that has current focus. This method will automtically empty any existing content before pasting the specified text.
 
 ---
 
