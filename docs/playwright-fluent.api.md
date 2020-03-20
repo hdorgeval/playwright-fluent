@@ -17,6 +17,7 @@
   - [typeText(text[, options])](#typeTexttext-options)
   - [pasteText(text[, options])](#pasteTexttext-options)
   - [clearText([options])](#clearTextoptions)
+  - [runStory(story)](#runStorystory)
   - [wait(duration)](#waitduration)
   - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
   - [waitForStabilityOf(func[, waitOptions])](#waitForStabilityOffunc-waitOptions)
@@ -624,6 +625,137 @@ Usage example:
 const selector = p.selector('[role="row"]'); // will select all rows in a grid
 
 await p.waitForStabilityOf(() => selector.count()); // waits until the number of rows is stable
+```
+
+---
+
+### runStory(story)
+
+- story: `Story | StoryWithProps<T>`
+
+```js
+type Story = (p: PlaywrightFluent) => Promise<void>;
+type StoryWithProps<T> = (p: PlaywrightFluent, props: T) => Promise<void>;
+```
+
+A `Story` is an async method you write that will receive, at runtime, the current instance of the `PlaywrightFluent`.
+
+A `StoryWithProps<T>` is an async method you write, that will receive, at runtime, the current instance of the `PlaywrightFluent`, and a parameter of type `T` supplied by you in the `runStory` method.
+
+Example:
+
+```js
+import { PlaywrightFluent } from 'playwright-fluent';
+import { startApp } from '../stories/start-app';
+import { selectLabel } from '../stories/select-label';
+
+const url = `some valid url`;
+const p = new PlaywrightFluent();
+
+await p
+  .runStory(startApp, { browser: 'chromium', isHeadless: false, url })
+  .runStory(selectLabel, 'label 2');
+```
+
+../stories/start-app.js
+
+```js
+import {StoryWithProps} from 'playwright-fluent'
+
+export interface StartAppProps {
+  browser: BrowserName;
+  isHeadless: boolean;
+  url: string;
+
+export const startApp: StoryWithProps<StartAppProps> = async (p, props) => {
+  await p
+    .withBrowser(props.browser)
+    .withOptions({ headless: props.isHeadless })
+    .withCursor()
+    .navigateTo(props.url);
+}
+```
+
+../stories/select-label.js
+
+```js
+import { StoryWithProps } from 'playwright-fluent';
+
+export const selectLabel: StoryWithProps<string> = async (p, label) => {
+  const selector = 'some valid css selector';
+  await p.select(label).in(selector);
+};
+```
+
+As shown in the above example, the goal of a `story` is to write a test as a composition of functional components (like in React).
+
+**Warning**: the internal implementation of the `runStory` only handle simple use cases.
+
+If you call `runStory` inside another `runStory` inside another `runStory` it might not work.
+
+Two levels of imbrication should work, but three levels might not.
+
+As a simple rule, if you observe that a story is not executed or is executed too late, you should break the chained `runStory` like this:
+
+```js
+// prettier-ignore
+await p
+  .runStory(storyA)
+  .runStory(storyB);
+
+// simply break the chained calls to make things work:
+await p.runStory(storyA);
+await p.runStory(storyB);
+```
+
+Example of code that do not work:
+
+```js
+const p = new PlaywrightFluent();
+await p.runStory(mainStory);
+
+const mainStory: Story = async (p) => {
+  // prettier-ignore
+  await p
+    .runStory(storyA)
+    .runStory(storyB);
+};
+
+const storyA: Story = async (p) => {
+  // prettier-ignore
+  await p
+    .runStory(storyA1)
+    .runStory(storyA2);
+};
+
+const storyB: Story = async (p) => {
+  // prettier-ignore
+  await p
+    .runStory(storyB1)
+    .runStory(storyB2);
+};
+```
+
+In the above example `StoryB` will execute before `StoryA`.
+
+To make things work:
+
+```js
+const mainStory: Story = async (p) => {
+  // prettier-ignore
+  await p
+    .runStory(storyA)
+    .runStory(storyB);
+};
+```
+
+Should be rewritten to:
+
+```js
+const mainStory: Story = async (p) => {
+  await p.runStory(storyA);
+  await p.runStory(storyB);
+};
 ```
 
 ---
