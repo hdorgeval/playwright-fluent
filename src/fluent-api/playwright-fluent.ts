@@ -95,6 +95,8 @@ export const defaultAssertOptions: AssertOptions = {
   timeoutInMilliseconds: 30000,
   verbose: false,
 };
+export type Story = (p: PlaywrightFluent) => Promise<void>;
+export type StoryWithProps<T> = (p: PlaywrightFluent, props: T) => Promise<void>;
 
 export type AsyncFunc = () => Promise<string | number | boolean | undefined | null>;
 export interface AsyncFuncExpectAssertion {
@@ -529,6 +531,20 @@ export class PlaywrightFluent implements PromiseLike<void> {
       screenshotOptions,
     );
     return result;
+  }
+
+  public runStory<T>(story: Story | StoryWithProps<T>, param?: T): PlaywrightFluent {
+    if (typeof story !== 'function') {
+      throw new Error('Story should be a function');
+    }
+
+    if (param === undefined) {
+      this.actions.push(async (): Promise<void> => await (story as Story)(this));
+      return this;
+    }
+
+    this.actions.push(async (): Promise<void> => await story(this, param));
+    return this;
   }
 
   /**
