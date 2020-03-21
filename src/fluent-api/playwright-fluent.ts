@@ -12,19 +12,20 @@ import {
   defaultKeyboardPressOptions,
   defaultLaunchOptions,
   defaultNavigationOptions,
+  defaultPasteTextOptions,
   defaultSelectOptions,
   defaultTypeTextOptions,
   HoverOptions,
+  KeyboardHoldKey,
   KeyboardKey,
   KeyboardPressOptions,
   LaunchOptions,
   NavigationOptions,
+  PasteTextOptions,
   ScreenshotOptions,
   SelectOptions,
   TypeTextOptions,
   WindowState,
-  PasteTextOptions,
-  defaultPasteTextOptions,
 } from '../actions';
 import {
   allKnownDevices,
@@ -49,6 +50,7 @@ export {
   ClearTextOptions,
   ClickOptions,
   HoverOptions,
+  KeyboardHoldKey,
   KeyboardKey,
   KeyboardPressOptions,
   LaunchOptions,
@@ -511,6 +513,23 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
     const action = (): Promise<void> => this.pressOnKey(key, pressKeyOptions);
+    this.actions.push(action);
+    return this;
+  }
+  private async holdKey(key: KeyboardHoldKey): Promise<void> {
+    await action.holdDownKey(key, this.currentPage());
+  }
+  public holdDownKey(key: KeyboardHoldKey): PlaywrightFluent {
+    const action = (): Promise<void> => this.holdKey(key);
+    this.actions.push(action);
+    return this;
+  }
+  private async releaseHoldKey(key: KeyboardHoldKey): Promise<void> {
+    await action.releaseKey(key, this.currentPage());
+  }
+
+  public releaseKey(key: KeyboardHoldKey): PlaywrightFluent {
+    const action = (): Promise<void> => this.releaseHoldKey(key);
     this.actions.push(action);
     return this;
   }
