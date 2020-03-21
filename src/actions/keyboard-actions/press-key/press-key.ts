@@ -11,7 +11,40 @@ export interface KeyboardPressOptions {
   delay: number;
 }
 
-export type KeyboardKey = 'Tab' | 'Backspace' | 'Enter';
+export type KeyboardKey =
+  | 'ArrowDown'
+  | 'ArrowLeft'
+  | 'ArrowRight'
+  | 'ArrowUp'
+  | 'Backspace'
+  | 'Enter'
+  | 'KeyA'
+  | 'KeyB'
+  | 'KeyC'
+  | 'KeyD'
+  | 'KeyE'
+  | 'KeyF'
+  | 'KeyG'
+  | 'KeyH'
+  | 'KeyI'
+  | 'KeyJ'
+  | 'KeyK'
+  | 'KeyL'
+  | 'KeyM'
+  | 'KeyN'
+  | 'KeyO'
+  | 'KeyP'
+  | 'KeyQ'
+  | 'KeyR'
+  | 'KeyS'
+  | 'KeyT'
+  | 'KeyU'
+  | 'KeyV'
+  | 'KeyW'
+  | 'KeyX'
+  | 'KeyY'
+  | 'KeyZ'
+  | 'Tab';
 
 export const defaultKeyboardPressOptions: KeyboardPressOptions = {
   delay: 50,
