@@ -13,6 +13,8 @@
   - [click(selector[, options])](#clickselector-options)
   - [hover(selector[, options])](#hoverselector-options)
   - [pressKey(key[, options])](#pressKeykey-options)
+  - [holdDownKey(key)](#holdDownKeykey)
+  - [releaseKey(key)](#releaseKeykey)
   - [select(labels).in(selector[, options])](#selectlabelsinselector-options)
   - [typeText(text[, options])](#typeTexttext-options)
   - [pasteText(text[, options])](#pasteTexttext-options)
@@ -445,7 +447,7 @@ const page = p.currentPage();
 
 ### pressKey(key[, options])
 
-- key: `'Tab' | 'Backspace' | 'Enter'`
+- key: `'Tab' | 'Backspace' | 'Enter' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'KeyA' ... 'KeyZ'`
 - options: `Partial<KeyboardPressOptions>`
 
 ```js
@@ -462,6 +464,30 @@ interface KeyboardPressOptions {
 ```
 
 Will press the specified key.
+
+---
+
+### holdDownKey(key)
+
+### releaseKey(key)
+
+- key: `'Shift' | 'Control' | 'Alt'`
+
+Will hold down and release the specified key.
+
+Example:
+
+```js
+await p
+  .click(selector)
+  .holdDownKey('Shift')
+  .pressKey('KeyA')
+  .pressKey('KeyB')
+  .releaseKey('Shift')
+  .pressKey('KeyA');
+
+// will generate ABa
+```
 
 ---
 
