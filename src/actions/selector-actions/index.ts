@@ -1,4 +1,5 @@
 export * from './click-on-selector-object';
+export * from './has-selector-object-exact-value';
 export * from './has-selector-object-focus';
 export * from './has-selector-object-text';
 export * from './has-selector-object-value';
