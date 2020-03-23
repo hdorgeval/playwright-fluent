@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>handle value</title>
+</head>
+
+<body>
+  <input id="emptyInput"></input>
+  <input id="undefinedInput"></input>
+  <input id="nullInput"></input>
+  <p id="withUndefinedValue">with undefined value property</p>
+  <p id="withNullValue">with null value property</p>
+
+  <script>
+    window.setTimeout(() => {
+      const undefinedInput = document.querySelector('#undefinedInput');
+      undefinedInput.value = undefined;
+
+      const nullInput = document.querySelector('#nullInput');
+      nullInput.value = null;
+
+      const withUndefinedValue = document.querySelector('#withUndefinedValue');
+      withUndefinedValue.value = undefined;
+
+      const withNullValue = document.querySelector('#withNullValue');
+      withNullValue.value = null;
+
+    }, 0);
+  </script>
+
+</body>
+
+</html>
