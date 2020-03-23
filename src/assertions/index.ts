@@ -1,3 +1,4 @@
+export * from './has-exact-value';
 export * from './has-focus';
 export * from './has-result';
 export * from './has-text';

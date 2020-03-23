@@ -109,6 +109,7 @@ export interface AsyncFuncExpectAssertion {
 }
 
 export interface ExpectAssertion {
+  hasExactValue: (value: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasText: (text: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasValue: (value: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
@@ -692,12 +693,28 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return await assertion.hasValue(selector, value, this.currentPage(), options);
   }
 
+  public async hasExactValue(
+    selector: string | SelectorFluent,
+    value: string,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<boolean> {
+    return await assertion.hasExactValue(selector, value, this.currentPage(), options);
+  }
+
   private async expectThatSelectorHasText(
     selector: string | SelectorFluent,
     text: string,
     options: Partial<AssertOptions> = defaultAssertOptions,
   ): Promise<void> {
     await assertion.expectThatSelectorHasText(selector, text, this.currentPage(), options);
+  }
+
+  private async expectThatSelectorHasExactValue(
+    selector: string | SelectorFluent,
+    value: string,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatSelectorHasExactValue(selector, value, this.currentPage(), options);
   }
 
   private async expectThatSelectorHasValue(
@@ -784,6 +801,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public expectThatSelector(selector: string | SelectorFluent): ExpectAssertion {
     return {
+      hasExactValue: (
+        value: string,
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorHasExactValue(selector, value, options));
+        return this;
+      },
+
       hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
         return this;
