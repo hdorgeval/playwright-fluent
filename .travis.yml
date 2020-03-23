@@ -30,7 +30,6 @@ sudo: false
 
 node_js:
   - '12'
-  - '13'
 
 before_install:
   # Info about OS
