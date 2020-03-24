@@ -8,6 +8,7 @@ export * from './get-inner-text-of-handle';
 export * from './get-nth-handle';
 export * from './get-parent-of-handles';
 export * from './get-value-of-handle';
+export * from './has-handle-class';
 export * from './has-handle-exact-value';
 export * from './has-handle-focus';
 export * from './has-handle-text';
