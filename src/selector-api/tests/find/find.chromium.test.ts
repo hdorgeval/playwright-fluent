@@ -16,6 +16,7 @@ describe('Selector API - find', (): void => {
   test('should get no handle on wrong selector', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'find.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -35,12 +36,14 @@ describe('Selector API - find', (): void => {
   test('should get handles', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'find.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('td')
@@ -65,12 +68,14 @@ describe('Selector API - find', (): void => {
     void
   > => {
     // Given
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('td')
       .find('select[data-test-id="my-select"]');
 
     const url = `file:${path.join(__dirname, 'find.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })

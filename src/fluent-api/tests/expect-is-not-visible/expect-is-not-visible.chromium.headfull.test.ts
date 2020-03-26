@@ -38,6 +38,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
   test('should give back an error when selector object is visible', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
+    // prettier-ignore
     const selector = p
       .selector('p')
       .withText('I am visible')

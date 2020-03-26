@@ -19,6 +19,7 @@ describe('Playwright Fluent - takeFullPageScreenshotAsBase64', (): void => {
     const url = `file:${path.join(__dirname, 'take-fullpage-screenshot-as-base64.test.html')}`;
 
     // When
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })

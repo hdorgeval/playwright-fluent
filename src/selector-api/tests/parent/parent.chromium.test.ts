@@ -16,6 +16,7 @@ describe('Selector API - parent', (): void => {
   test('should get no handle on wrong selector', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'parent.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -23,6 +24,7 @@ describe('Selector API - parent', (): void => {
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .withText('foobar')
@@ -37,6 +39,7 @@ describe('Selector API - parent', (): void => {
   test('should get parent handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'parent.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -44,6 +47,7 @@ describe('Selector API - parent', (): void => {
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('td')
@@ -66,6 +70,7 @@ describe('Selector API - parent', (): void => {
     void
   > => {
     // Given
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('td')
@@ -73,6 +78,7 @@ describe('Selector API - parent', (): void => {
       .parent();
 
     const url = `file:${path.join(__dirname, 'parent.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })

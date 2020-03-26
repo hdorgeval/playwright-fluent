@@ -19,6 +19,7 @@ describe('Playwright Fluent - expect func resolves to', (): void => {
     const selector = p.selector('input').withValue('dynamically added');
 
     // When
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
@@ -32,12 +33,14 @@ describe('Playwright Fluent - expect func resolves to', (): void => {
   test('should wait until selector count is expected - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-resolves-to.test.html')}`;
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('td')
       .find('p');
 
     // When
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: false })

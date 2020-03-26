@@ -16,6 +16,7 @@ describe('Selector API - isVisible', (): void => {
   test('should return false on wrong selector', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -33,6 +34,7 @@ describe('Selector API - isVisible', (): void => {
   test('should return true when selector is visible', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -40,6 +42,7 @@ describe('Selector API - isVisible', (): void => {
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('p')
@@ -54,6 +57,7 @@ describe('Selector API - isVisible', (): void => {
   test('should return false when selector is hidden', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -61,6 +65,7 @@ describe('Selector API - isVisible', (): void => {
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('p')
@@ -74,6 +79,7 @@ describe('Selector API - isVisible', (): void => {
   test('should return false when selector is transparent', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -81,6 +87,7 @@ describe('Selector API - isVisible', (): void => {
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('p')
@@ -95,6 +102,7 @@ describe('Selector API - isVisible', (): void => {
   test('should return false when selector is out of screen', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -102,6 +110,7 @@ describe('Selector API - isVisible', (): void => {
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('p')
@@ -115,6 +124,7 @@ describe('Selector API - isVisible', (): void => {
   test('should return true when selector is first hidden', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -140,6 +150,7 @@ describe('Selector API - isVisible', (): void => {
   test('should wait for selector to be visible', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -162,12 +173,14 @@ describe('Selector API - isVisible', (): void => {
     void
   > => {
     // Given
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('p')
       .withText('I am visible');
 
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })

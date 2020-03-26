@@ -15,10 +15,11 @@ describe('Selector API - AG Grid samples', (): void => {
   test.skip('should select a name in the grid', async (): Promise<void> => {
     // Given I open The AG Grid demo site
     const url = 'https://www.ag-grid.com/example.php';
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withCursor()
-      .withOptions({ headless: false })
+      .withOptions({headless: false})
       .navigateTo(url);
 
     // When I select Olivia Brenan's name

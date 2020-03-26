@@ -40,6 +40,7 @@ describe('record requests to', (): void => {
       'foo-header': 'bar',
     };
     fakeServer &&
+      // prettier-ignore
       fakeServer.http
         .get()
         .to('/foobar')
@@ -70,6 +71,7 @@ describe('record requests to', (): void => {
     const page = await context.newPage();
 
     fakeServer &&
+      // prettier-ignore
       fakeServer.http
         .get()
         .to('/500')

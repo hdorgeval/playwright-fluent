@@ -40,12 +40,14 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
       'foo-header': 'bar',
     };
     fakeServer &&
+      // prettier-ignore
       fakeServer.http
         .get()
         .to('/foobar')
         .willReturn(responseBody, 200, responseHeaders);
 
     fakeServer &&
+      // prettier-ignore
       fakeServer.http
         .get()
         .to('/yo')
@@ -101,11 +103,12 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     const url = `file:${path.join(__dirname, 'record-failed-requests-500.test.html')}`;
 
     fakeServer &&
+      // prettier-ignore
       fakeServer.http
         .get()
         .to('/500')
         .willFail(500);
-    // When
+
     // When
     await p
       .withBrowser('chromium')

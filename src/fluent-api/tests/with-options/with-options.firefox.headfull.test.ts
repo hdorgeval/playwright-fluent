@@ -42,6 +42,7 @@ describe('Playwright Fluent - withOptions', (): void => {
     const url = 'https://reactstrap.github.io/components/form';
 
     // When
+    // prettier-ignore
     await p
       .withBrowser(browser)
       .withOptions(options)

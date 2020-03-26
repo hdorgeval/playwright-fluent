@@ -124,6 +124,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined,
     onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null | undefined,
   ): Promise<TResult1 | TResult2> {
+    // prettier-ignore
     return await this.executeActions()
       .then(onfulfilled)
       .catch(onrejected);

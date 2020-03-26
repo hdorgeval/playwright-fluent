@@ -14,7 +14,9 @@ export async function isSelectorObjectNotVisible(
     );
   }
 
-  const isVisible = await isHandleVisible(await selector.getHandle(), { verbose: options.verbose });
+  const isVisible = await isHandleVisible(await selector.getHandle(), {
+    verbose: options.verbose,
+  });
   if (isVisible) {
     report('waiting for the selector to disappear ...', options.verbose);
     await waitUntil(() => selector.isNotVisible(), `'${selector.toString()}' is visible.`, options);

@@ -16,6 +16,7 @@ describe('Selector API - immutability', (): void => {
   test('should be immutable', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'immutability.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })

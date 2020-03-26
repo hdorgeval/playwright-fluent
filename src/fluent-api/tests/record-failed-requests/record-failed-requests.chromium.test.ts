@@ -31,6 +31,7 @@ describe('Playwright Fluent - recordFailedRequests(url)', (): void => {
     const url = `file:${path.join(__dirname, 'record-failed-requests-500.test.html')}`;
 
     fakeServer &&
+      // prettier-ignore
       fakeServer.http
         .get()
         .to('/500')
@@ -67,21 +68,9 @@ describe('Playwright Fluent - recordFailedRequests(url)', (): void => {
     const url503 = `file:${path.join(__dirname, 'record-failed-requests-503.test.html')}`;
     const url400 = `file:${path.join(__dirname, 'record-failed-requests-400.test.html')}`;
 
-    fakeServer &&
-      fakeServer.http
-        .get()
-        .to('/500')
-        .willFail(500);
-    fakeServer &&
-      fakeServer.http
-        .get()
-        .to('/503')
-        .willFail(503);
-    fakeServer &&
-      fakeServer.http
-        .get()
-        .to('/400')
-        .willFail(400);
+    fakeServer && fakeServer.http.get().to('/500').willFail(500);
+    fakeServer && fakeServer.http.get().to('/503').willFail(503);
+    fakeServer && fakeServer.http.get().to('/400').willFail(400);
 
     // When
     await p

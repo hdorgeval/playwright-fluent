@@ -16,6 +16,7 @@ describe('Selector API - nth', (): void => {
   test('should throw an error when index is 0', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -37,6 +38,7 @@ describe('Selector API - nth', (): void => {
   test('should get no handle on too big index', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -54,12 +56,14 @@ describe('Selector API - nth', (): void => {
   test('should get first handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
@@ -78,12 +82,14 @@ describe('Selector API - nth', (): void => {
   test('should get last handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
@@ -102,12 +108,14 @@ describe('Selector API - nth', (): void => {
   test('should get the before the last handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
@@ -126,12 +134,14 @@ describe('Selector API - nth', (): void => {
   test('should get the third handle', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .navigateTo(url);
 
     // When
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
@@ -151,12 +161,14 @@ describe('Selector API - nth', (): void => {
     void
   > => {
     // Given
+    // prettier-ignore
     const selector = p
       .selector('[role="row"]')
       .find('select[data-test-id="my-select"]')
       .nth(3);
 
     const url = `file:${path.join(__dirname, 'nth.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })

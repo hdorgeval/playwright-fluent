@@ -47,6 +47,7 @@ describe('on request to respond with', (): void => {
       'foo-header': 'bar',
     };
     fakeServer &&
+      // prettier-ignore
       fakeServer.http
         .get()
         .to('/foobar')

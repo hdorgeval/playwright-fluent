@@ -36,6 +36,7 @@ describe('record failed requests', (): void => {
     const page = await context.newPage();
 
     fakeServer &&
+      // prettier-ignore
       fakeServer.http
         .get()
         .to('/500')

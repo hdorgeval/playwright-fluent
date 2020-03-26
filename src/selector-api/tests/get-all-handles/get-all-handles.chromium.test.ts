@@ -34,6 +34,7 @@ describe('Selector API - getAllHandles', (): void => {
   test('should get no handle on wrong selector', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'get-all-handles.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -51,6 +52,7 @@ describe('Selector API - getAllHandles', (): void => {
   test('should get handles', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'get-all-handles.test.html')}`;
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -76,6 +78,7 @@ describe('Selector API - getAllHandles', (): void => {
     // Given
     const url = `file:${path.join(__dirname, 'get-all-handles.test.html')}`;
     const selector = p.selector('[role="row"]');
+    // prettier-ignore
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
