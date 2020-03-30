@@ -1,6 +1,6 @@
 import * as SUT from './index';
-import { Browser, webkit } from 'playwright';
 import { exists } from '..';
+import { Browser, webkit } from 'playwright';
 
 describe('show-mouse-position', (): void => {
   let browser: Browser | undefined = undefined;
