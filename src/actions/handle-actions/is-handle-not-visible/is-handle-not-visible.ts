@@ -1,5 +1,6 @@
 import { report } from '../../../utils';
 import { VerboseOptions } from '../is-handle-visible';
+import { getIntersectionRatioOfHandle } from '../get-intersection-ratio-of-handle';
 import { ElementHandle } from 'playwright';
 
 declare const window: Window;
@@ -12,7 +13,7 @@ export async function isHandleNotVisible(
     return true;
   }
 
-  const visibleRatio = await selector.visibleRatio();
+  const visibleRatio = await getIntersectionRatioOfHandle(selector);
 
   report(`visible ratio is ${visibleRatio}`, options.verbose);
 

@@ -11,21 +11,25 @@ export async function recordFailedRequests(
     throw new Error(`Cannot record failed requests because no browser has been launched`);
   }
 
-  page.on('requestfinished', (request) => {
-    const response = request.response();
+  page.on('requestfinished', async (request) => {
+    const response = await request.response();
     if (response === null) {
-      callback(request);
+      const typedRequest = (request as unknown) as Request;
+      callback(typedRequest);
       return;
     }
 
     const status = response.status();
     if (failedStatus.includes(status)) {
-      callback(request);
+      const typedRequest = (request as unknown) as Request;
+      callback(typedRequest);
       return;
     }
   });
 
   page.on('requestfailed', (request) => {
-    callback(request);
+    const typedRequest = (request as unknown) as Request;
+    callback(typedRequest);
+    return;
   });
 }

@@ -18,7 +18,7 @@ export interface ResponseInfo {
   statusText: string;
 }
 
-function toJsonOrDefault(data: string | undefined): string | undefined | unknown {
+function toJsonOrDefault(data: string | null | undefined): string | null | undefined | unknown {
   try {
     if (!data) {
       return data;

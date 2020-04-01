@@ -13,7 +13,5 @@ export interface BrowserContextOptions {
   userAgent?: string;
   timezoneId?: string;
   geolocation?: Geolocation;
-  permissions?: {
-    [key: string]: string[];
-  };
+  permissions?: string[];
 }

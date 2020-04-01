@@ -8,7 +8,7 @@ export async function showMousePosition(page: Page | undefined): Promise<void> {
     throw new Error('Cannot show mouse position because no browser has been launched');
   }
   // code from https://gist.github.com/aslushnikov/94108a4094532c7752135c42e12a00eb
-  await page.evaluateOnNewDocument(() => {
+  await page.addInitScript(() => {
     // Install mouse helper only for top-level frame.
     if (window !== window.parent) return;
     window.addEventListener(

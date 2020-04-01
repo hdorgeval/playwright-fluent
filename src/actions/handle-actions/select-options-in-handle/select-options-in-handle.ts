@@ -81,5 +81,5 @@ export async function selectOptionsInHandle(
     };
   });
 
-  await selector.select(...values);
+  await selector.selectOption(values);
 }

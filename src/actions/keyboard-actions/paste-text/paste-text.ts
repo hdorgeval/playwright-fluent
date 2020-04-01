@@ -76,7 +76,7 @@ export async function pasteText(
   await page.keyboard.press('Backspace', { delay: options.delay });
 
   await handle.evaluate(
-    (node, content: string, handlePasteEvent: boolean) => {
+    (node: Node, { content, handlePasteEvent }) => {
       function attachPasteEvent(el: Node): void {
         el.addEventListener('paste', (event: Event | InputEvent | ClipboardEvent) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -110,7 +110,6 @@ export async function pasteText(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).clipboardData = undefined;
     },
-    text,
-    options.handlePasteEvent,
+    { content: text, handlePasteEvent: options.handlePasteEvent },
   );
 }

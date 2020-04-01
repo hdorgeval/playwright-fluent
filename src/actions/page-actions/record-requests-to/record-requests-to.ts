@@ -3,7 +3,7 @@ import { Page } from 'playwright';
 export interface Request {
   url(): string;
   method(): string;
-  postData(): string | undefined;
+  postData(): string | undefined | null;
   headers(): {
     [key: string]: string;
   };
@@ -39,7 +39,8 @@ export async function recordRequestsTo(
   page.on('requestfinished', (request) => {
     const requestedUrl = request.url();
     if (requestedUrl && requestedUrl.includes(partialUrl)) {
-      callback(request);
+      const typedRequest = (request as unknown) as Request;
+      callback(typedRequest);
       return;
     }
   });
@@ -47,7 +48,8 @@ export async function recordRequestsTo(
   page.on('requestfailed', (request) => {
     const requestedUrl = request.url();
     if (requestedUrl && requestedUrl.includes(partialUrl)) {
-      callback(request);
+      const typedRequest = (request as unknown) as Request;
+      callback(typedRequest);
       return;
     }
   });

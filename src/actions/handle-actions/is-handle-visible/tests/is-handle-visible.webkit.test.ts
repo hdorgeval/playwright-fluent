@@ -1,6 +1,7 @@
 import * as SUT from '../index';
 import { getWindowState } from '../../../page-actions';
 import { defaultVerboseOptions } from '../is-handle-visible';
+import { getIntersectionRatioOfHandle } from '../../get-intersection-ratio-of-handle';
 import { Browser, webkit } from 'playwright';
 import * as path from 'path';
 
@@ -126,8 +127,7 @@ describe.skip('handle is visible', (): void => {
     const handle = await page.$('#visible');
 
     // When
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const visibleRatio = await handle!.visibleRatio();
+    const visibleRatio = await getIntersectionRatioOfHandle(handle);
     // eslint-disable-next-line no-console
     console.log(`visible ratio is ${visibleRatio}`);
     const windowState = await getWindowState(page);
@@ -152,8 +152,7 @@ describe.skip('handle is visible', (): void => {
     const handle = await page.$('#visible');
 
     // When
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const visibleRatio = await handle!.visibleRatio();
+    const visibleRatio = await getIntersectionRatioOfHandle(handle);
     // eslint-disable-next-line no-console
     console.log(`visible ratio is ${visibleRatio}`);
     const windowState = await getWindowState(page);
