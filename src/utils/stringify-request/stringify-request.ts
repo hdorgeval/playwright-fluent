@@ -47,7 +47,7 @@ export async function stringifyRequest(request: Request): Promise<string> {
     response: null,
   };
 
-  const response = request.response();
+  const response = await request.response();
   if (response === null) {
     const result = JSON.stringify(requestInfo, null, 2);
     return result;

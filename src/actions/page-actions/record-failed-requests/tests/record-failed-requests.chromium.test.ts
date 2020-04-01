@@ -53,12 +53,10 @@ describe('record failed requests', (): void => {
 
     // Then
     expect(requests.length).toBe(1);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(requests[0].response()!.status()).toBe(500);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(requests[0].response()!.statusText()).toBe('Internal Server Error');
 
-    const request = JSON.parse(await stringifyRequest(requests[0])) as RequestInfo;
+    const stringifiedRequest = await stringifyRequest(requests[0]);
+    const request = JSON.parse(stringifiedRequest) as RequestInfo;
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(request.response!.status).toBe(500);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

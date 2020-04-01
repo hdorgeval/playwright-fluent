@@ -7,7 +7,7 @@ export interface Request {
   headers(): {
     [key: string]: string;
   };
-  response(): Response | null;
+  response(): Promise<Response | null>;
   failure(): {
     errorText: string;
   } | null;

@@ -1,4 +1,5 @@
 import * as SUT from '../index';
+import { stringifyRequest, RequestInfo } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
@@ -57,11 +58,15 @@ describe('record requests to', (): void => {
 
     // Then
     expect(requests.length).toBe(1);
-    expect(requests[0].url()).toContain('?foo=bar');
+
+    const stringifiedRequest = await stringifyRequest(requests[0]);
+    const request = JSON.parse(stringifiedRequest) as RequestInfo;
+
+    expect(request.url).toContain('?foo=bar');
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(requests[0].response()!.status()).toBe(200);
+    expect(request.response!.status).toBe(200);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(await requests[0].response()!.json()).toMatchObject(responseBody);
+    expect(await request.response!.payload).toMatchObject(responseBody);
   });
 
   test('should record failed requests 500', async (): Promise<void> => {
@@ -88,9 +93,13 @@ describe('record requests to', (): void => {
 
     // Then
     expect(requests.length).toBe(1);
+
+    const stringifiedRequest = await stringifyRequest(requests[0]);
+    const request = JSON.parse(stringifiedRequest) as RequestInfo;
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(requests[0].response()!.status()).toBe(500);
+    expect(request.response!.status).toBe(500);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(requests[0].response()!.statusText()).toBe('Internal Server Error');
+    expect(request.response!.statusText).toBe('Internal Server Error');
   });
 });
