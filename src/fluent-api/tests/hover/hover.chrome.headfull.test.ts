@@ -1,6 +1,6 @@
 import * as SUT from '../../playwright-fluent';
 import * as path from 'path';
-describe('Playwright Fluent - hover', (): void => {
+describe.skip('Playwright Fluent - hover', (): void => {
   let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
@@ -29,7 +29,7 @@ describe('Playwright Fluent - hover', (): void => {
     expect(value).toBe('I am hovered');
   });
 
-  test('should wait until selector object exists - chrome', async (): Promise<void> => {
+  test.only('should wait until selector object exists - chrome', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'hover.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added');

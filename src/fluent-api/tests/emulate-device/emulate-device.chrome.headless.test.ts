@@ -1,7 +1,7 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { LaunchOptions } from '../../../actions';
 import { getDevice, defaultDevice } from '../../../devices';
-describe('Playwright Fluent - emulateDevice', (): void => {
+describe.skip('Playwright Fluent - emulateDevice', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);

@@ -6,7 +6,7 @@ describe('Playwright Fluent - withBrowser', (): void => {
     jest.setTimeout(30000);
   });
 
-  test('should target chrome', async (): Promise<void> => {
+  test.skip('should target chrome', async (): Promise<void> => {
     // Given
     const browser = 'chrome';
     const p = new PlaywrightFluent();
