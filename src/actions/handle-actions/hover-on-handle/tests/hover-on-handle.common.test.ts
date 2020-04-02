@@ -8,13 +8,14 @@ describe('scroll to handle', (): void => {
   let browser: Browser | undefined = undefined;
 
   beforeEach((): void => {
-    jest.setTimeout(30000);
+    jest.setTimeout(60000);
   });
 
   afterEach(
     async (): Promise<void> => {
       if (browser) {
         await browser.close();
+        browser = undefined;
       }
     },
   );
