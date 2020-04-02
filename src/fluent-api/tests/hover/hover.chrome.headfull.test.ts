@@ -29,7 +29,7 @@ describe.skip('Playwright Fluent - hover', (): void => {
     expect(value).toBe('I am hovered');
   });
 
-  test.only('should wait until selector object exists - chrome', async (): Promise<void> => {
+  test('should wait until selector object exists - chrome', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'hover.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added');

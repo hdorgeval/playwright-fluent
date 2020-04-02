@@ -21,7 +21,7 @@ describe.skip('click on handle', (): void => {
     },
   );
 
-  test.only('should throw when selector is undefined - chromium', async (): Promise<void> => {
+  test('should throw when selector is undefined - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true, executablePath: getChromePath() });
     const browserContext = await browser.newContext();
