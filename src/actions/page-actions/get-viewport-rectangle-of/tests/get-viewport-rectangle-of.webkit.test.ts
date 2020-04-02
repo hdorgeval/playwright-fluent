@@ -25,13 +25,13 @@ describe('get viewport rectangle of page', (): void => {
 
     // Then
     const defaultViewportRectangle: ViewportRect = {
-      height: 600,
+      height: 720,
       offsetLeft: 0,
       offsetTop: 0,
       pageLeft: 0,
       pageTop: 0,
       scale: 1,
-      width: 800,
+      width: 1280,
     };
     expect(result).toBeDefined();
     expect(result).toMatchObject(defaultViewportRectangle);
