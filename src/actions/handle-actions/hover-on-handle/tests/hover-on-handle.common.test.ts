@@ -33,6 +33,7 @@ describe('scroll to handle', (): void => {
       ...defaultHoverOptions,
       timeoutInMilliseconds: 1000,
     };
+
     // When
     // Then
     const expectedError = new Error(
