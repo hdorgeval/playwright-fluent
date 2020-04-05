@@ -119,15 +119,19 @@ describe('hover on handle', (): void => {
     const handle = await page.$(selector);
 
     // When
-    await SUT.hoverOnHandle(handle, selector, page, SUT.defaultHoverOptions);
+    const options: SUT.HoverOptions = {
+      ...SUT.defaultHoverOptions,
+      verbose: false,
+    };
+    await SUT.hoverOnHandle(handle, selector, page, options);
 
     // Then
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const expectedX = currentClientRectangle.left + currentClientRectangle.width / 2;
     const expectedY = currentClientRectangle.top + currentClientRectangle.height / 2;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(Math.abs((page.mouse as any)._x - expectedX)).toBeLessThan(1);
+    expect(Math.abs((page.mouse as any)._x - expectedX)).toBeLessThan(3);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(Math.abs((page.mouse as any)._y - expectedY)).toBeLessThan(1);
+    expect(Math.abs((page.mouse as any)._y - expectedY)).toBeLessThan(3);
   });
 });
