@@ -4,7 +4,7 @@ import { getDevice, defaultDevice } from '../../../devices';
 describe('Playwright Fluent - emulateDevice', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(30000);
+    jest.setTimeout(60000);
     p = new PlaywrightFluent();
   });
   afterEach(
