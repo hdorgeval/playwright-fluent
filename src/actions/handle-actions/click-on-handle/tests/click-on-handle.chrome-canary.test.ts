@@ -2,7 +2,7 @@ import * as SUT from '../index';
 import { defaultClickOptions, ClickOptions } from '../click-on-handle';
 import { hasHandleFocus } from '../../has-handle-focus';
 import { showMousePosition } from '../../../dom-actions';
-import { getChromePath } from '../../../../utils';
+import { getChromeCanaryPath } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -21,9 +21,9 @@ describe.skip('click on handle', (): void => {
     },
   );
 
-  test('should throw when selector is undefined - chrome', async (): Promise<void> => {
+  test('should throw when selector is undefined - chrome-canary', async (): Promise<void> => {
     // Given
-    browser = await chromium.launch({ headless: true, executablePath: getChromePath() });
+    browser = await chromium.launch({ headless: true, executablePath: getChromeCanaryPath() });
     const browserContext = await browser.newContext();
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'click-on-handle.test.html')}`;
@@ -40,9 +40,9 @@ describe.skip('click on handle', (): void => {
     );
   });
 
-  test('should throw when selector is null - chrome', async (): Promise<void> => {
+  test('should throw when selector is null - chrome-canary', async (): Promise<void> => {
     // Given
-    browser = await chromium.launch({ headless: true, executablePath: getChromePath() });
+    browser = await chromium.launch({ headless: true, executablePath: getChromeCanaryPath() });
     const browserContext = await browser.newContext({ viewport: null });
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'click-on-handle.test.html')}`;
@@ -59,9 +59,9 @@ describe.skip('click on handle', (): void => {
     );
   });
 
-  test('should wait for the selector to be enabled - chrome', async (): Promise<void> => {
+  test('should wait for the selector to be enabled - chrome-canary', async (): Promise<void> => {
     // Given
-    browser = await chromium.launch({ headless: true, executablePath: getChromePath() });
+    browser = await chromium.launch({ headless: true, executablePath: getChromeCanaryPath() });
     const browserContext = await browser.newContext({ viewport: null });
     const page = await browserContext.newPage();
     await showMousePosition(page);
@@ -78,9 +78,11 @@ describe.skip('click on handle', (): void => {
     expect(await hasHandleFocus(handle)).toBe(true);
   });
 
-  test('should wait for the selector to be enabled (verbose) - chrome', async (): Promise<void> => {
+  test('should wait for the selector to be enabled (verbose) - chrome-canary', async (): Promise<
+    void
+  > => {
     // Given
-    browser = await chromium.launch({ headless: true, executablePath: getChromePath() });
+    browser = await chromium.launch({ headless: true, executablePath: getChromeCanaryPath() });
     const browserContext = await browser.newContext({ viewport: null });
     const page = await browserContext.newPage();
     await showMousePosition(page);
