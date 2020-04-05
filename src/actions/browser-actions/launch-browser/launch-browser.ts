@@ -1,7 +1,7 @@
-import { getChromePath } from '../../../utils';
+import { getChromePath, getChromeCanaryPath } from '../../../utils';
 import { chromium, Browser, firefox, webkit } from 'playwright';
 
-export type BrowserName = 'chromium' | 'chrome' | 'firefox' | 'webkit';
+export type BrowserName = 'chromium' | 'chrome' | 'chrome-canary' | 'firefox' | 'webkit';
 
 export interface LaunchOptions {
   /**
@@ -43,6 +43,21 @@ export async function launchBrowser(name: BrowserName, options: LaunchOptions): 
         const chromeOptions: LaunchOptions = {
           ...options,
           executablePath: getChromePath(),
+        };
+        const browser = await chromium.launch(chromeOptions);
+        return browser;
+      }
+    }
+
+    case 'chrome-canary': {
+      if (options && options.executablePath !== undefined) {
+        const browser = await chromium.launch(options);
+        return browser;
+      }
+      {
+        const chromeOptions: LaunchOptions = {
+          ...options,
+          executablePath: getChromeCanaryPath(),
         };
         const browser = await chromium.launch(chromeOptions);
         return browser;

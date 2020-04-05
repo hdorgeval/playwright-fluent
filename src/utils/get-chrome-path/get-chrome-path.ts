@@ -21,3 +21,19 @@ export function getChromePath(): string {
       throw new Error('You should supply the path to the Chrome App in the launch options');
   }
 }
+
+export function getChromeCanaryPath(): string {
+  switch (currentPlatformType) {
+    case 'Darwin':
+      return '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary';
+
+    case 'Windows_NT':
+      return 'C:/Program Files (x86)/Google/Chrome SxS/Application/chrome.exe';
+
+    case 'Linux':
+      return 'google-chrome-unstable';
+
+    default:
+      throw new Error('You should supply the path to the Chrome Canary App in the launch options');
+  }
+}
