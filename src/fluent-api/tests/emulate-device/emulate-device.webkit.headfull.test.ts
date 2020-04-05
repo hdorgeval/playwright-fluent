@@ -27,7 +27,8 @@ describe('Playwright Fluent - emulateDevice', (): void => {
       .withBrowser(browser)
       .withOptions(options)
       .emulateDevice('iPhone 6 landscape')
-      .navigateTo(url);
+      .navigateTo(url)
+      .wait(5000);
 
     // Then
     const windowState = await p.getCurrentWindowState();
