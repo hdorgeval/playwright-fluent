@@ -13,11 +13,12 @@
   <script>
     window.setTimeout(() => {
       fetch('http://localhost:1234/foobar?foo=bar');
-    }, 500);
+    }, 0);
 
     window.setTimeout(() => {
       fetch('http://localhost:1234/yo?foo=bar');
-    }, 1000);
+    }, 500);
+
   </script>
 </body>
 

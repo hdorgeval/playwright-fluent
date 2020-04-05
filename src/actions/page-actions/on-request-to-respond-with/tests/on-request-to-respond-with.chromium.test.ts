@@ -5,7 +5,7 @@ import { Browser, chromium } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
 
-describe('on request to respond with', (): void => {
+describe.skip('on request to respond with', (): void => {
   let browser: Browser | undefined = undefined;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
