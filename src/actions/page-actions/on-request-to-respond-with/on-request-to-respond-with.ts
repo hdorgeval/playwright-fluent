@@ -49,8 +49,8 @@ export async function onRequestToRespondWith<T>(
     (uri) => {
       return uri.toString().includes(url);
     },
-    (request) => {
-      request.fulfill(playwrightResponse);
+    (route) => {
+      route.fulfill(playwrightResponse);
     },
   );
 }
