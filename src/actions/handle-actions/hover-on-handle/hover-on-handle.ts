@@ -1,4 +1,4 @@
-import { waitUntil, sleep, report } from '../../../utils';
+import { waitUntil, report } from '../../../utils';
 import { scrollToHandle } from '../scroll-to-handle';
 import { isHandleVisible } from '../is-handle-visible';
 import { isHandleMoving } from '../is-handle-moving';
@@ -59,15 +59,14 @@ export async function hoverOnHandle(
     },
   );
 
-  for (let index = 0; index < 3; index++) {
-    await sleep(50);
-    const clientRectangle = await getClientRectangleOfHandle(selector);
-    if (clientRectangle === null) {
-      continue;
-    }
-    const x = clientRectangle.left + clientRectangle.width / 2;
-    const y = clientRectangle.top + clientRectangle.height / 2;
-    report(`moving the mouse to x=${x} y=${y}`, options.verbose);
-    await page.mouse.move(x, y, { steps: options.steps });
+  const clientRectangle = await getClientRectangleOfHandle(selector);
+  if (clientRectangle === null) {
+    report(`Cannot get ClientRectangle of selector '${name}'`, options.verbose);
+    return;
   }
+
+  const x = clientRectangle.left + clientRectangle.width / 2;
+  const y = clientRectangle.top + clientRectangle.height / 2;
+  report(`moving the mouse to x=${x} y=${y}`, options.verbose);
+  await page.mouse.move(x, y, { steps: options.steps });
 }
