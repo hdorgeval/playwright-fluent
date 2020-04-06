@@ -39,8 +39,12 @@ describe('Playwright Fluent - emulateDevice', (): void => {
     console.log('viewport', viewport);
     // eslint-disable-next-line no-console
     console.log('windowState', windowState);
-    expect(Math.abs(viewport.height - windowState.outerHeight)).toBeLessThanOrEqual(132);
-    expect(Math.abs(viewport.width - windowState.outerWidth)).toBeLessThanOrEqual(20);
+    if (windowState.outerHeight > 0) {
+      expect(Math.abs(viewport.height - windowState.outerHeight)).toBeLessThanOrEqual(132);
+    }
+    if (windowState.outerWidth > 0) {
+      expect(Math.abs(viewport.width - windowState.outerWidth)).toBeLessThanOrEqual(20);
+    }
 
     // Then default viewport should have (almost) the same size as the screen size
     const screen = windowState.screen;
