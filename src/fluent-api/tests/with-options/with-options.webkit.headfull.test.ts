@@ -1,6 +1,6 @@
 import { PlaywrightFluent, LaunchOptions } from '../../playwright-fluent';
 declare const window: Window;
-describe('Playwright Fluent - withOptions', (): void => {
+describe.skip('Playwright Fluent - withOptions', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(70000);
@@ -30,9 +30,7 @@ describe('Playwright Fluent - withOptions', (): void => {
     expect(userAgent).toContain('Safari');
   });
 
-  test.skip('should target webkit in headfull mode with custom window size', async (): Promise<
-    void
-  > => {
+  test('should target webkit in headfull mode with custom window size', async (): Promise<void> => {
     // Given
     const browser = 'webkit';
     const options: LaunchOptions = {
