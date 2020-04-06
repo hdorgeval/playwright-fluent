@@ -9,7 +9,7 @@ describe('click on handle', (): void => {
   let browser: Browser | undefined = undefined;
 
   beforeEach((): void => {
-    jest.setTimeout(30000);
+    jest.setTimeout(70000);
   });
 
   afterEach(
@@ -77,7 +77,7 @@ describe('click on handle', (): void => {
     expect(await hasHandleFocus(handle)).toBe(true);
   });
 
-  test('should wait for the selector to be enabled (verbose) - chromium', async (): Promise<
+  test.only('should wait for the selector to be enabled (verbose) - chromium', async (): Promise<
     void
   > => {
     // Given
