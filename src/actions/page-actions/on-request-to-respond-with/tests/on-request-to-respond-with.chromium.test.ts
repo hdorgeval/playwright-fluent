@@ -4,8 +4,9 @@ import { stringifyRequest, RequestInfo } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
+import { readFileSync } from 'fs';
 
-describe.skip('on request to respond with', (): void => {
+describe('on request to respond with', (): void => {
   let browser: Browser | undefined = undefined;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
@@ -53,6 +54,16 @@ describe.skip('on request to respond with', (): void => {
         .to('/foobar')
         .willReturn(responseBody, 200, responseHeaders);
 
+    const htmlContent = readFileSync(
+      `${path.join(__dirname, 'on-request-to-respond-with.test.html')}`,
+    );
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/app')
+        .willReturn(htmlContent.toString(), 200);
+
     const requests: Request[] = [];
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (request: Request) => requests.push(request);
@@ -68,7 +79,7 @@ describe.skip('on request to respond with', (): void => {
       page,
     );
 
-    await page.goto(`file:${path.join(__dirname, 'on-request-to-respond-with.test.html')}`);
+    await page.goto('http://localhost:1234/app');
     await page.waitFor(3000);
 
     // Then

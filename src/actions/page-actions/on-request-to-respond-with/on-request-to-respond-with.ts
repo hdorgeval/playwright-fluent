@@ -1,10 +1,12 @@
 import { Page } from 'playwright';
 
+export type Headers = {
+  [key: string]: string;
+};
+
 export interface MockResponse<T> {
   status: number;
-  headers: {
-    [key: string]: string;
-  };
+  headers: Headers;
   contentType: string;
   body: T;
 }
@@ -22,6 +24,22 @@ function serializeBody<T>(body: T): string | Buffer {
   }
 }
 
+function buildPlaywrightResponseWith<T>(
+  mockedResponse: Partial<MockResponse<T>>,
+): {
+  status: number;
+  headers: Headers;
+  contentType: string;
+  body: string | Buffer;
+} {
+  return {
+    headers: mockedResponse.headers || {},
+    contentType: mockedResponse.contentType || 'application/json',
+    status: mockedResponse.status || 200,
+    body: serializeBody(mockedResponse.body),
+  };
+}
+
 export async function onRequestToRespondWith<T>(
   url: string,
   response: Partial<MockResponse<T>>,
@@ -31,25 +49,12 @@ export async function onRequestToRespondWith<T>(
     throw new Error(`Cannot intercept requests to '${url}' because no browser has been launched`);
   }
 
-  const playwrightResponse: {
-    status: number;
-    headers: {
-      [key: string]: string;
-    };
-    contentType: string;
-    body: string | Buffer;
-  } = {
-    headers: response.headers || {},
-    contentType: response.contentType || 'application/json',
-    status: response.status || 200,
-    body: serializeBody(response.body),
-  };
-
   await page.route(
     (uri) => {
       return uri.toString().includes(url);
     },
     (route) => {
+      const playwrightResponse = buildPlaywrightResponseWith(response);
       route.fulfill(playwrightResponse);
     },
   );
