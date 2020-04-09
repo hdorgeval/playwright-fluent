@@ -109,6 +109,7 @@ export interface AsyncFuncExpectAssertion {
 }
 
 export interface ExpectAssertion {
+  hasClass: (className: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasExactValue: (value: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasText: (text: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
@@ -725,6 +726,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await assertion.expectThatSelectorHasValue(selector, value, this.currentPage(), options);
   }
+
+  private async expectThatSelectorHasClass(
+    selector: string | SelectorFluent,
+    className: string,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatSelectorHasClass(selector, className, this.currentPage(), options);
+  }
+
   private async expectThatSelectorIsVisible(
     selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
@@ -802,6 +812,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public expectThatSelector(selector: string | SelectorFluent): ExpectAssertion {
     return {
+      hasClass: (
+        className: string,
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorHasClass(selector, className, options));
+        return this;
+      },
+
       hasExactValue: (
         value: string,
         options: Partial<AssertOptions> = defaultAssertOptions,

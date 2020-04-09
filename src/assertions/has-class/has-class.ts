@@ -54,6 +54,11 @@ async function expectThatCssSelectorHasClass(
         page,
         noWaitNoThrowOptions,
       );
+
+      if (Array.isArray(currentClassList) && currentClassList.length === 0) {
+        return `Selector '${selector}' does not have class '${expectedClass}', because no class has been found on the selector`;
+      }
+
       return `Selector '${selector}' does not have class '${expectedClass}', but instead has classes '${currentClassList}'`;
     },
     waitOptions,
@@ -82,7 +87,11 @@ async function expectThatSelectorObjectHasClass(
       }
 
       const currentClassList = await selector.classList();
-      return `Selector '${selector.toString()}' does not have class '${expectedClass}', but instead has classes '${currentClassList}'`;
+      if (Array.isArray(currentClassList) && currentClassList.length === 0) {
+        return `'${selector.toString()}' does not have class '${expectedClass}', because no class has been found on the selector`;
+      }
+
+      return `'${selector.toString()}' does not have class '${expectedClass}', but instead has classes '${currentClassList}'`;
     },
     waitOptions,
   );
