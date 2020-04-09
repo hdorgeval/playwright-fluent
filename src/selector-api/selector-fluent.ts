@@ -315,4 +315,10 @@ export class SelectorFluent {
     const value = await action.getValueOfHandle(handle);
     return value;
   }
+
+  public async classList(): Promise<string[]> {
+    const handle = await this.getHandle();
+    const result = await action.getClassListOfHandle(handle);
+    return result;
+  }
 }

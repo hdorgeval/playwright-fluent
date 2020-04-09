@@ -1,6 +1,7 @@
 export * from './are-options-available-in-handle';
 export * from './click-on-handle';
 export * from './get-all-options-of-handle';
+export * from './get-class-list-of-handle';
 export * from './get-client-rectangle-of-handle';
 export * from './get-handles-with-text';
 export * from './get-handles-with-value';
