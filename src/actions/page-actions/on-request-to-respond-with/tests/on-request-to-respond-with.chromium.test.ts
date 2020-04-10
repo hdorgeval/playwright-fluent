@@ -20,7 +20,7 @@ describe('on request to respond with', (): void => {
     }
   });
   beforeEach((): void => {
-    jest.setTimeout(60000);
+    jest.setTimeout(120000);
   });
   afterEach(
     async (): Promise<void> => {
