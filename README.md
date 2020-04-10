@@ -58,9 +58,9 @@ const selector = p
 await p.expectThatSelector(selector).hasText('foobar-2');
 ```
 
-This packgage provides also a way to write tests as functional components called `Story`:
-
 # Usage with Stories
+
+This packgage provides a way to write tests as functional components called `Story`:
 
 `stories.ts`
 
@@ -92,7 +92,7 @@ export const fillForm: Story = async (p) => {
 };
 ```
 
-`main.ts`
+`test.ts`
 
 ```
 import {startApp, fillForm} from 'stories';
@@ -121,9 +121,9 @@ Check out our [contributing guide](./CONTRIBUTING.md).
 
 ### Q: How does playwright-fluent relate to [Playwright](https://github.com/microsoft/playwright)?
 
-playwright-fluent is just a wrapper around the Playwright API.
+`playwright-fluent` is just a wrapper around the Playwright API.
 It leverages the power of Playwright by giving a Fluent API, that enables to consume the Playwright API with chainable actions and assertions.
-The purpose of playwright-fluent is to be able to write e2e tests in a way that makes tests more readable, reusable and maintainable.
+The purpose of `playwright-fluent` is to be able to write e2e tests in a way that makes tests more readable, reusable and maintainable.
 
 ### Q: Can I start using playwright-fluent in my existing code base?
 
