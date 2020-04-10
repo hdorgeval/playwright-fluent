@@ -58,6 +58,53 @@ const selector = p
 await p.expectThatSelector(selector).hasText('foobar-2');
 ```
 
+This packgage provides also a way to write tests as functional components called `Story`:
+
+# Usage with Stories
+
+`stories.ts`
+
+```js
+import { Story, StoryWithProps } from 'playwright-fluent';
+
+export interface StartAppProps {
+  browser: BrowserName;
+  isHeadless: boolean;
+  url: string;
+}
+
+// first story: start the App
+export const startApp: StoryWithProps<StartAppProps> = async (p, props) => {
+  await p
+    .withBrowser(props.browser)
+    .withOptions({ headless: props.isHeadless })
+    .withCursor()
+    .navigateTo(props.url);
+}
+
+// second story: fill in the form
+export const fillForm: Story = async (p) => {
+  await p
+    .click(selector)
+    .select(option)
+    .in(customSelect)
+    ...;
+};
+```
+
+`main.ts`
+
+```
+import {startApp, fillForm} from 'stories';
+import { PlaywrightFluent} from 'playwright-fluent';
+const p = new PlaywrightFluent();
+
+await p
+  .runStory(startApp, {browser: 'chrome', isHeadless: false, url: 'http://example.com'})
+  .runStory(fillForm)
+  .close();
+```
+
 This API is still a draft and is in early development, but stay tuned!
 
 ## Contributing

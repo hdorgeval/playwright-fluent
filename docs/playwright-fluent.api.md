@@ -679,12 +679,13 @@ await p
 ../stories/start-app.js
 
 ```js
-import {StoryWithProps} from 'playwright-fluent'
+import { StoryWithProps } from 'playwright-fluent';
 
 export interface StartAppProps {
   browser: BrowserName;
   isHeadless: boolean;
   url: string;
+}
 
 export const startApp: StoryWithProps<StartAppProps> = async (p, props) => {
   await p
@@ -692,7 +693,7 @@ export const startApp: StoryWithProps<StartAppProps> = async (p, props) => {
     .withOptions({ headless: props.isHeadless })
     .withCursor()
     .navigateTo(props.url);
-}
+};
 ```
 
 ../stories/select-label.js
