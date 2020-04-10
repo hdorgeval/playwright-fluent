@@ -25,11 +25,11 @@ const p = new PlaywrightFluent();
 
 await p
   .withBrowser('chromium')
-  .withOptions({
-    headless: false,
-  })
-  .emulateDevice('iPhone 6 landscape')
+  .withOptions({ headless: false })
   .withCursor()
+  .recordPageErrors()
+  .recordFailedRequests()
+  .emulateDevice('iPhone 6 landscape')
   .navigateTo('https://reactstrap.github.io/components/form/')
   .click('#exampleEmail')
   .typeText('foo.bar@baz.com')
@@ -38,7 +38,7 @@ await p
   .hasFocus()
   .typeText("don't tell!")
   .pressKey('Tab')
-  .expectThatSelector(passwordInputSelector)
+  .expectThatSelector('#examplePassword')
   .hasClass('is-valid')
   .hover('#exampleCustomSelect')
   .select('Value 3')
@@ -46,7 +46,7 @@ await p
   .close();
 ```
 
-This API provides a Selector Fluent API that enables to find and target a DOM element or a collection of DOM elements that is embedded in complex DOM Hierarchy:
+This package provides also a Selector API that enables to find and target a DOM element or a collection of DOM elements embedded in complex DOM Hierarchy:
 
 ```js
 const selector = p

@@ -24,7 +24,7 @@
   - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
   - [waitForStabilityOf(func[, waitOptions])](#waitForStabilityOffunc-waitOptions)
   - [close()](#close)
-  - [chainable methods from Assertion API](./assertion.api.md)
+  - [see also all chainable methods exposed by the Assertion API](./assertion.api.md)
 
 - Helper Methods
 
@@ -134,11 +134,7 @@ const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
 const p = new PlaywrightFluent();
 
-await p
-  .withBrowser(browser)
-  .withOptions({ headless: false })
-  .withCursor()
-  .navigateTo(url);
+await p.withBrowser(browser).withOptions({ headless: false }).withCursor().navigateTo(url);
 ```
 
 ![demo cursor](../images/demo-cursor.gif)
@@ -367,10 +363,7 @@ Example with a Selector Object:
 const browser = 'chromium';
 const url = 'https://reactstrap.github.io/components/form';
 const p = new PlaywrightFluent();
-const selector = p
-  .selector('label')
-  .withText('Email')
-  .nth(3);
+const selector = p.selector('label').withText('Email').nth(3);
 
 await p
   .withBrowser(browser)
