@@ -7,6 +7,7 @@ The selector can be either a CSS selector or a selector created with the [Select
 - Chainable Methods
 
   - [expectThatAsyncFunc(func).resolvesTo(value,[options])](#expectThatAsyncFuncfuncresolvesTovalueoptions)
+  - [expectThatSelector(selector).hasClass(className,[options])](#expectThatSelectorselectorhasclassclassNameoptions)
   - [expectThatSelector(selector).hasExactValue(value,[options])](#expectThatSelectorselectorhasExactvaluevalueoptions)
   - [expectThatSelector(selector).hasFocus([options])](#expectThatSelectorselectorhasFocusoptions)
   - [expectThatSelector(selector).hasText(text,[options])](#expectThatSelectorselectorhastexttextoptions)
@@ -84,6 +85,17 @@ interface AssertOptions {
 - returns: `PlaywrightFluent`
 
 Will check if the selector's inner text contains the specified `text`.
+
+---
+
+### expectThatSelector(selector).hasClass(className,[options])
+
+- selector: `string | SelectorFluent`
+- className: `string`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector has a class named `className`.
 
 ---
 
