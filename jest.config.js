@@ -28,6 +28,7 @@ module.exports = {
     '!src/**/get*.ts',
     '!src/**/has-handle-focus.ts',
     '!src/**/index.ts',
+    '!src/**/is-handle-checked.ts',
     '!src/**/is-handle-disabled.ts',
     '!src/**/is-handle-enabled.ts',
     '!src/**/is-handle-not-visible.ts',
