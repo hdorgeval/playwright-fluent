@@ -15,6 +15,7 @@ export * from './has-handle-focus';
 export * from './has-handle-text';
 export * from './has-handle-value';
 export * from './hover-on-handle';
+export * from './is-handle-checked';
 export * from './is-handle-disabled';
 export * from './is-handle-enabled';
 export * from './is-handle-moving';
