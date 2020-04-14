@@ -114,6 +114,7 @@ export interface ExpectAssertion {
   hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasText: (text: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasValue: (value: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
+  isChecked: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isDisabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isEnabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isNotVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
@@ -763,6 +764,19 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return await assertion.isVisible(selector, this.currentPage(), options);
   }
 
+  private async expectThatSelectorIsChecked(
+    selector: string | SelectorFluent,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatSelectorIsChecked(selector, this.currentPage(), options);
+  }
+  public async isChecked(
+    selector: string | SelectorFluent,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<boolean> {
+    return await assertion.isChecked(selector, this.currentPage(), options);
+  }
+
   private async expectThatSelectorIsEnabled(
     selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
@@ -845,6 +859,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
         options: Partial<AssertOptions> = defaultAssertOptions,
       ): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasValue(selector, value, options));
+        return this;
+      },
+
+      isChecked: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorIsChecked(selector, options));
         return this;
       },
 
