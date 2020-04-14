@@ -37,6 +37,7 @@
   - [getPageErrors()](#getPageErrors)
   - [getValueOf(selector[, options])](#getValueOfselector-options)
   - [hasFocus(selector[, options])](#hasFocusselector-options)
+  - [isChecked(selector[, options])](#isCheckedselector-options)
   - [isDisabled(selector[, options])](#isDisabledselector-options)
   - [isEnabled(selector[, options])](#isEnabledselector-options)
   - [isVisible(selector[, options])](#isVisibleselector-options)
@@ -954,6 +955,18 @@ interface WaitUntilOptions {
 - returns: `Promise<boolean>`
 
 Checks if selector has the focus.
+
+> The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+---
+
+### isChecked(selector[, options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<WaitUntilOptions>`
+- returns: `Promise<boolean>`
+
+Checks if selector is checked.
 
 > The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
 

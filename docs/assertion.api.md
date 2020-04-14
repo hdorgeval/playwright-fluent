@@ -12,6 +12,7 @@ The selector can be either a CSS selector or a selector created with the [Select
   - [expectThatSelector(selector).hasFocus([options])](#expectThatSelectorselectorhasFocusoptions)
   - [expectThatSelector(selector).hasText(text,[options])](#expectThatSelectorselectorhastexttextoptions)
   - [expectThatSelector(selector).hasValue(value,[options])](#expectThatSelectorselectorhasvaluevalueoptions)
+  - [expectThatSelector(selector).isChecked([options])](#expectThatSelectorselectorisCheckedoptions)
   - [expectThatSelector(selector).isDisabled([options])](#expectThatSelectorselectorisDisabledoptions)
   - [expectThatSelector(selector).isEnabled([options])](#expectThatSelectorselectorisEnabledoptions)
   - [expectThatSelector(selector).isVisible([options])](#expectThatSelectorselectorisVisibleoptions)
@@ -162,6 +163,16 @@ Will check if the selector is visible.
 - returns: `PlaywrightFluent`
 
 Will check if the selector is not visible.
+
+---
+
+### expectThatSelector(selector).isChecked([options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector is checked.
 
 ---
 
