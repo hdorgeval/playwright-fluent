@@ -23,6 +23,7 @@ import {
   NavigationOptions,
   PasteTextOptions,
   ScreenshotOptions,
+  SelectOptionInfo,
   SelectOptions,
   TypeTextOptions,
   WindowState,
@@ -60,6 +61,7 @@ export {
   Response,
   ScreenshotOptions,
   SelectOptions,
+  SelectOptionInfo,
   TypeTextOptions,
   WindowState,
 } from '../actions';
@@ -653,6 +655,18 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
     const result = await action.getValueOfSelector(selector, this.currentPage(), waitOptions);
+    return result;
+  }
+
+  public async getAllOptionsOf(
+    selector: string,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<SelectOptionInfo[]> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...options,
+    };
+    const result = await action.getAllOptionsOfSelector(selector, this.currentPage(), waitOptions);
     return result;
   }
 

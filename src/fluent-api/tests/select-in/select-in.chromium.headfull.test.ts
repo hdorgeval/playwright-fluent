@@ -30,6 +30,14 @@ describe('Playwright Fluent - select(label).in(selector)', (): void => {
     expect(value).toBe('value2');
     const hasFocus = await p.hasFocus(selector);
     expect(hasFocus).toBe(false);
+
+    const allOptions = await p.getAllOptionsOf(selector);
+    expect(Array.isArray(allOptions)).toBe(true);
+    const selectedOption = allOptions.find((option) => option.selected);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(selectedOption!.selected).toBe(true);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(selectedOption!.label).toBe('label 2');
   });
   test('should select an existing option of a selector object - chromium', async (): Promise<
     void
@@ -52,6 +60,14 @@ describe('Playwright Fluent - select(label).in(selector)', (): void => {
     expect(value).toBe('value2');
     const hasFocus = await p.hasFocus(selector);
     expect(hasFocus).toBe(false);
+
+    const allOptions = await selector.options();
+    expect(Array.isArray(allOptions)).toBe(true);
+    const selectedOption = allOptions.find((option) => option.selected);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(selectedOption!.selected).toBe(true);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(selectedOption!.label).toBe('label 2');
   });
 
   test('should wait until option is available - chromium', async (): Promise<void> => {

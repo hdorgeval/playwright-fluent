@@ -1,6 +1,6 @@
 import * as action from '../actions';
 import { PlaywrightFluent } from '../fluent-api';
-import { VerboseOptions, defaultVerboseOptions } from '../actions';
+import { VerboseOptions, defaultVerboseOptions, SelectOptionInfo } from '../actions';
 import { ElementHandle } from 'playwright';
 type Action = (handles: ElementHandle<Element>[]) => Promise<ElementHandle<Element>[]>;
 
@@ -342,6 +342,12 @@ export class SelectorFluent {
     };
     const handle = await this.getHandle();
     const result = await action.isHandleChecked(handle, verboseOptions);
+    return result;
+  }
+
+  public async options(): Promise<SelectOptionInfo[]> {
+    const handle = await this.getHandle();
+    const result = await action.getAllOptionsOfHandle(handle, this.toString());
     return result;
   }
 }
