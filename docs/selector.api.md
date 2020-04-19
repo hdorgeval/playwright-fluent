@@ -20,6 +20,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [isChecked()](#isChecked)
   - [isVisible()](#isVisible)
   - [isNotVisible()](#isNotVisible)
+  - [options()](#options)
   - [toString()](#toString)
   - [value()](#value)
 
@@ -34,6 +35,7 @@ const p = new PlaywrightFluent();
 
 // Given I open The AG Grid demo site
 const url = 'https://www.ag-grid.com/example.php';
+// prettier-ignore
 await p
   .withBrowser('chromium')
   .withCursor()
@@ -187,7 +189,7 @@ await p.waitUntil(() => selector.isVisible());
 
 ### innerText()
 
-- returns: `Promise<tring | undefined | null>`
+- returns: `Promise<string | undefined | null>`
 
 Returns the innerText of the selector.
 
@@ -195,9 +197,27 @@ The result may differ from one execution to another especially if targeted eleme
 
 ---
 
+### options()
+
+- returns: `Promise<SelectOptionInfo[]>`
+
+```js
+interface SelectOptionInfo {
+  value: string;
+  label: string;
+  selected: boolean;
+}
+```
+
+Returns the list of all options of a `select` element.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
 ### value()
 
-- returns: `Promise<tring | undefined | null>`
+- returns: `Promise<string | undefined | null>`
 
 Returns the value of the selector.
 
@@ -225,6 +245,7 @@ Example:
 
 ```js
 const url = 'https://www.ag-grid.com/example.php';
+// prettier-ignore
 await p
   .withBrowser('chromium')
   .withCursor()

@@ -32,6 +32,7 @@
   - [clearPageErrors()](#clearPageErrors)
   - [currentBrowser()](#currentBrowser)
   - [currentPage()](#currentPage)
+  - [getAllOptionsOf(selector[, options])](#getAllOptionsOfselector-options)
   - [getCurrentUrl()](#getCurrentUrl)
   - [getCurrentWindowState()](#getCurrentWindowState)
   - [getPageErrors()](#getPageErrors)
@@ -909,6 +910,62 @@ Clear page errors that occurred. Usefull if you want to track page errors only a
 Get selector's value.
 
 > The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+```js
+interface WaitUntilOptions {
+  /**
+   * Defaults to 30000 milliseconds.
+   *
+   * @type {number}
+   * @memberof WaitUntilOptions
+   */
+  timeoutInMilliseconds: number;
+  /**
+   * Time during which the callback must always return true.
+   * Defaults to 300 milliseconds.
+   * You must not setup a duration < 100 milliseconds.
+   * @type {number}
+   * @memberof AssertOptions
+   */
+  stabilityInMilliseconds: number;
+  /**
+   * Throw a timeout exception when the callback still returns false.
+   * Defaults to false.
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  throwOnTimeout: boolean;
+  /**
+   * Output to the console all steps of the waiting mechanism.
+   * Defaults to false.
+   * Use this option when the waitUntil() method does not wait as expected.
+   *
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  verbose: boolean;
+}
+```
+
+---
+
+### getAllOptionsOf(selector[, options])
+
+- selector: `string`
+- options: `Partial<WaitUntilOptions>`
+- returns: `Promise<SelectOptionInfo[]>`
+
+Get selector's options list. Only apply when selector is a `select` element.
+
+> The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+```js
+interface SelectOptionInfo {
+  value: string;
+  label: string;
+  selected: boolean;
+}
+```
 
 ```js
 interface WaitUntilOptions {
