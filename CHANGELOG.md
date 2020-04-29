@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [0.24.1] - 2020-04-29
+
+### Fixed
+
+- fix(handle-actions): disable smooth scrolling
+  > the scrollIntoView method becomes unresponsive after a few scrolling when the smooth option is enabled. Therefore this option has been removed until fixed.
+
 ## [0.24.0] - 2020-04-19
 
 ### Added
