@@ -9,7 +9,7 @@ export async function scrollToHandle(
 
   await selector.evaluate((el: Element): void => {
     if (el && typeof el.scrollIntoView === 'function') {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      el.scrollIntoView({ block: 'center', inline: 'center' });
     }
   });
 }
