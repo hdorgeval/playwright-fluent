@@ -6,7 +6,7 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 [![Build status](https://ci.appveyor.com/api/projects/status/5gtetagv1onhhn7l?svg=true)](https://ci.appveyor.com/project/hdorgeval/playwright-fluent)
 [![npm version](https://img.shields.io/npm/v/playwright-fluent.svg)](https://www.npmjs.com/package/playwright-fluent)
 
-###### [Fluent API](/docs/playwright-fluent.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter)
+###### [Fluent API](/docs/playwright-fluent.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter) | [with cucumber-js](https://github.com/hdorgeval/playwright-fluent-ts-cucumber-starter#playwright-fluent-ts-cucumber-starter)
 
 ### Installation
 
