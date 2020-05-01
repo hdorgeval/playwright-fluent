@@ -172,4 +172,4 @@ reflect the current status of the development and are inline with the published 
 
 ### Q: Do you have some samples on how to use this library with jest?
 
-Yes, have a look to this [starter project](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter).
+Yes, have a look to this [demo project with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter) or this [demo project with cucumber-js](https://github.com/hdorgeval/playwright-fluent-ts-cucumber-starter#playwright-fluent-ts-cucumber-starter).
