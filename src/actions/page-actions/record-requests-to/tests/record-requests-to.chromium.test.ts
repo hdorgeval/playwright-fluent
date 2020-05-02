@@ -102,4 +102,30 @@ describe('record requests to', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(request.response!.statusText).toBe('Internal Server Error');
   });
+
+  test('should encode HTML response', async (): Promise<void> => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({ viewport: null });
+    const page = await context.newPage();
+
+    const requests: SUT.Request[] = [];
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    const callback = (request: SUT.Request) => requests.push(request);
+
+    // When
+    await SUT.recordRequestsTo('/', page, callback);
+    await page.goto(`file:${path.join(__dirname, 'record-requests-to.test.html')}`);
+    await page.waitFor(3000);
+
+    // Then
+    const htmlPageRequest = requests[0];
+    const stringifiedRequest = await stringifyRequest(htmlPageRequest);
+    const request = JSON.parse(stringifiedRequest) as RequestInfo;
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(request.response!.payload).not.toContain('<script>');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(request.response!.payload).toContain('&lt;script&gt;');
+  });
 });

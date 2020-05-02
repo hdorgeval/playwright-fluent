@@ -1,5 +1,6 @@
 import { Request, Response } from '../../actions';
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const escapeHtml = require('escape-html');
 export interface RequestInfo {
   url: string;
   method: string;
@@ -18,6 +19,15 @@ export interface ResponseInfo {
   statusText: string;
 }
 
+function encodeHtml(content: string | unknown | undefined): string | unknown | undefined {
+  if (typeof content !== 'string') {
+    return content;
+  }
+
+  const result = escapeHtml(content);
+  return result;
+}
+
 function toJsonOrDefault(data: string | null | undefined): string | null | undefined | unknown {
   try {
     if (!data) {
@@ -34,7 +44,8 @@ async function toJsonOrText(response: Response): Promise<string | unknown> {
     const payload = await response.json();
     return payload;
   } catch (error) {
-    return await response.text();
+    const payload = await response.text();
+    return encodeHtml(payload);
   }
 }
 export async function stringifyRequest(request: Request): Promise<string> {
