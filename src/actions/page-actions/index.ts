@@ -2,6 +2,7 @@ export * from './click-on-selector';
 export * from './get-all-options-of-selector';
 export * from './get-class-list-of-selector';
 export * from './get-current-url';
+export * from './get-focused-handle';
 export * from './get-inner-text-of-selector';
 export * from './get-value-of-selector';
 export * from './get-viewport-rectangle-of';
