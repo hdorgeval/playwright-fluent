@@ -170,6 +170,6 @@ The documentations:
 
 reflect the current status of the development and are inline with the published package.
 
-### Q: Do you have some samples on how to use this library with jest?
+### Q: Do you have some samples on how to use this library?
 
 Yes, have a look to this [demo project with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter) or this [demo project with cucumber-js](https://github.com/hdorgeval/playwright-fluent-ts-cucumber-starter#playwright-fluent-ts-cucumber-starter).
