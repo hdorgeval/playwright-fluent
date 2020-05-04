@@ -1,5 +1,5 @@
-import * as SUT from '.';
-import { defaultWaitUntilOptions, WaitUntilOptions } from '../../../utils';
+import * as SUT from '..';
+import { defaultWaitUntilOptions, WaitUntilOptions } from '../../../../utils';
 import { Browser, firefox } from 'playwright';
 
 describe('get-handle-of', (): void => {
@@ -30,7 +30,7 @@ describe('get-handle-of', (): void => {
     expect(result).toBeDefined();
   });
 
-  test('should return null when selector does not exist on the page - firefox', async (): Promise<
+  test('should throw an error when selector does not exist on the page - firefox', async (): Promise<
     void
   > => {
     // Given
@@ -43,9 +43,14 @@ describe('get-handle-of', (): void => {
     };
 
     // When
-    const result = await SUT.getHandleOf('foobar', page, options);
+    let result: Error | undefined = undefined;
+    try {
+      await SUT.getHandleOf('foobar', page, options);
+    } catch (error) {
+      result = error;
+    }
 
     // Then
-    expect(result).toBeNull();
+    expect(result && result.message).toContain("Selector 'foobar' was not found in DOM");
   });
 });
