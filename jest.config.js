@@ -35,6 +35,7 @@ module.exports = {
     '!src/**/is-handle-visible.ts',
     '!src/**/paste-text.ts',
     '!src/**/scroll-to-handle.ts',
+    '!src/**/select-options-in-focused.ts',
     '!src/**/show*.ts',
     '!src/**/type-text.ts',
   ],

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      .big {
+        height: 2000px;
+        min-height: 2000px;
+        max-height: 2000px;
+        border-bottom-width: 5;
+        border-style: solid;
+      }
+
+      #hidden {
+        width: 20px;
+        display: none;
+      }
+
+      #transparent {
+        opacity: 0;
+        color: black;
+      }
+
+      #out-of-screen {
+        position: absolute;
+        top: -100px;
+      }
+
+      #moving {
+        width: 20px;
+        max-width: 20px;
+        animation-duration: 3s;
+        animation-name: slidein;
+        animation-iteration-count: initial;
+        animation-direction: alternate;
+      }
+
+      @keyframes slidein {
+        from {
+          margin-left: 100%;
+          width: 100%;
+        }
+
+        to {
+          margin-left: 0%;
+          width: 100%;
+        }
+      }
+    </style>
+
+    <title>select an option</title>
+  </head>
+
+  <body>
+    <div class="big">
+      Yo!
+      <br />
+      <br />
+      <label for="select">First Field</label>
+      <select id="select">
+        <option value="" selected>Please select an option</option>
+        <option value="value1">label 1</option>
+        <option value="value2">label 2</option>
+        <option value="value3">label 3</option>
+      </select>
+      <hr />
+      <label for="select2">Second Field</label>
+      <select id="select2">
+        <option value="value1">label 1</option>
+        <option value="value2" selected>label 2</option>
+        <option value="value3">label 3</option>
+      </select>
+      <hr />
+      <label for="multiSelect">Multiselect Field</label>
+      <select id="multiSelect" multiple>
+        <option value="value 1">label 1</option>
+        <option value="value 2">label 2</option>
+      </select>
+    </div>
+    <p id="out-of-view-port">I am out of viewport</p>
+    <table border="1">
+      <tr role="row">
+        <td>
+          <select id="select-row-1" data-test-id="my-select">
+            <option value="1" selected>label 1 (row1)</option>
+            <option value="2">label 2 (row1)</option>
+            <option value="3">label 3 (row1)</option>
+          </select>
+        </td>
+        <td>row1-cell2</td>
+      </tr>
+      <tr role="row">
+        <td>
+          <select id="select-row-2" data-test-id="my-select">
+            <option value="1">label 1 (row2)</option>
+            <option value="2" selected>label 2 (row2)</option>
+            <option value="3">label 3 (row2)</option>
+          </select>
+        </td>
+        <td>row2-cell2</td>
+      </tr>
+      <tr role="row">
+        <td>
+          <select id="select-row-3" data-test-id="my-select">
+            <option value="1">label 1 (row3)</option>
+            <option value="2">label 2 (row3)</option>
+            <option value="3" selected>label 3 (row3)</option>
+          </select>
+        </td>
+        <td>row3-cell2</td>
+      </tr>
+    </table>
+
+    <script>
+      window.setTimeout(() => {
+        const select = document.querySelector('#select');
+        addOptionInSelect(select, 'foo', 'label foo');
+
+        const select2 = document.querySelector('#multiSelect');
+        addOptionInSelect(select2, 'foo', 'label foo');
+      }, 1000);
+
+      window.setTimeout(() => {
+        const select = document.querySelector('#select');
+        addOptionInSelect(select, 'bar', 'label bar');
+
+        const select2 = document.querySelector('#multiSelect');
+        addOptionInSelect(select2, 'bar', 'label bar');
+      }, 6000);
+
+      function addOptionInSelect(select, value, label) {
+        const option = document.createElement('option');
+        option.setAttribute('value', value);
+        const newContent = document.createTextNode(label);
+        option.appendChild(newContent);
+        select.appendChild(option);
+      }
+    </script>
+  </body>
+</html>

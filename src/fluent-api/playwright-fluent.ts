@@ -364,6 +364,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.selectOptionsInSelector(selector, labels, this.currentPage(), options);
   }
+
+  private async selectOptionsInFocusedSelector(
+    labels: string[],
+    options: SelectOptions,
+  ): Promise<void> {
+    await action.selectOptionsInFocused(labels, this.currentPage(), options);
+  }
   private async selectOptionsInSelectorObject(
     selector: SelectorFluent,
     labels: string[],
@@ -375,6 +382,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     ...labels: string[]
   ): {
     in: (selector: string | SelectorFluent, options?: Partial<SelectOptions>) => PlaywrightFluent;
+    inFocused: (options?: Partial<SelectOptions>) => PlaywrightFluent;
   } {
     return {
       in: (
@@ -399,6 +407,18 @@ export class PlaywrightFluent implements PromiseLike<void> {
           this.actions.push(action);
           return this;
         }
+      },
+      inFocused: (options: Partial<SelectOptions> = defaultSelectOptions): PlaywrightFluent => {
+        const selectOptions: SelectOptions = {
+          ...defaultSelectOptions,
+          ...options,
+        };
+
+        const action = (): Promise<void> =>
+          this.selectOptionsInFocusedSelector(labels, selectOptions);
+        this.actions.push(action);
+
+        return this;
       },
     };
   }

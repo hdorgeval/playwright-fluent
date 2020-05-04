@@ -37,7 +37,7 @@ export async function selectOptionsInFocused(
       }
       const tagName = await focusedHandle.evaluate((el) => el.tagName);
       if (tagName && tagName !== 'SELECT') {
-        return `The element that has the focus is '${tagName}', but it should be a 'select' element instead.`;
+        return `The element that has the focus is '${tagName}', but it should be a 'SELECT' element instead.`;
       }
 
       return 'never';
