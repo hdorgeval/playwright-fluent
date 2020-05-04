@@ -127,6 +127,7 @@ describe('wait for stability of', (): void => {
     const options: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
       timeoutInMilliseconds: 200,
+      throwOnTimeout: false,
       verbose: false,
     };
 
@@ -165,8 +166,8 @@ describe('wait for stability of', (): void => {
   test('should throw when timeout is reached', async (): Promise<void> => {
     // Given
     const options: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
       stabilityInMilliseconds: 300,
-      throwOnTimeout: true,
       timeoutInMilliseconds: 200,
       verbose: false,
     };
@@ -185,8 +186,8 @@ describe('wait for stability of', (): void => {
   test('should throw func when timeout is reached', async (): Promise<void> => {
     // Given
     const options: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
       stabilityInMilliseconds: 300,
-      throwOnTimeout: true,
       timeoutInMilliseconds: 200,
       verbose: false,
     };
