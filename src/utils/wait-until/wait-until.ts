@@ -37,7 +37,7 @@ export interface WaitUntilOptions {
 
 export const defaultWaitUntilOptions: WaitUntilOptions = {
   stabilityInMilliseconds: 300,
-  throwOnTimeout: false,
+  throwOnTimeout: true,
   timeoutInMilliseconds: 30000,
   verbose: false,
 };
