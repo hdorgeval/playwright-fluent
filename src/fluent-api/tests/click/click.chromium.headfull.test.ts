@@ -69,9 +69,7 @@ describe('Playwright Fluent - click', (): void => {
     }
 
     // Then
-    expect(result && result.message).toContain(
-      "Cannot click on 'foobar' because selector was not found in DOM",
-    );
+    expect(result && result.message).toContain("Selector 'foobar' was not found in DOM");
   });
 
   test('should not click on a non existing selector object - chromium', async (): Promise<void> => {
