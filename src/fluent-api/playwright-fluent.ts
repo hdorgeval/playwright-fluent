@@ -178,11 +178,12 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private actions: (() => Promise<void>)[] = [];
 
   private launchOptions: LaunchOptions = defaultLaunchOptions;
+  private contextOptions: BrowserContextOptions = { viewport: null };
   private emulatedDevice: Device | undefined = undefined;
 
   private showMousePosition = false;
   private async launchBrowser(name: BrowserName): Promise<void> {
-    const contextOptions: BrowserContextOptions = { viewport: null };
+    const contextOptions: BrowserContextOptions = { ...this.contextOptions };
     if (this.emulatedDevice) {
       contextOptions.viewport = this.emulatedDevice.viewport;
       contextOptions.userAgent = this.emulatedDevice.userAgent;
