@@ -27,6 +27,7 @@ import {
   SelectOptions,
   TypeTextOptions,
   WindowState,
+  MockResponse,
 } from '../actions';
 import {
   allKnownDevices,
@@ -55,13 +56,14 @@ export {
   KeyboardKey,
   KeyboardPressOptions,
   LaunchOptions,
+  MockResponse,
   NavigationOptions,
   PasteTextOptions,
   Request,
   Response,
   ScreenshotOptions,
-  SelectOptions,
   SelectOptionInfo,
+  SelectOptions,
   TypeTextOptions,
   WindowState,
 } from '../actions';
@@ -246,6 +248,26 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const action = (): Promise<void> => this.recordRequestsToUrl(partialUrl);
     this.actions.push(action);
     return this;
+  }
+
+  private async onRequestToRespondWith<T>(
+    partialUrl: string,
+    response: Partial<MockResponse<T>>,
+  ): Promise<void> {
+    await action.onRequestToRespondWith(partialUrl, response, this.currentPage());
+  }
+  public onRequestTo(
+    partialUrl: string,
+  ): {
+    respondWith: <T>(response: Partial<MockResponse<T>>) => PlaywrightFluent;
+  } {
+    return {
+      respondWith: <T>(response: Partial<MockResponse<T>>): PlaywrightFluent => {
+        const action = (): Promise<void> => this.onRequestToRespondWith(partialUrl, response);
+        this.actions.push(action);
+        return this;
+      },
+    };
   }
 
   private failedRequests: action.Request[] = [];

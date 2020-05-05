@@ -19,6 +19,7 @@ export * from './is-selector-enabled';
 export * from './is-selector-not-visible';
 export * from './is-selector-visible';
 export * from './navigate-to';
+export * from './on-request-to-respond-with';
 export * from './query-selector-all-in-page';
 export * from './record-failed-requests';
 export * from './record-page-errors';
