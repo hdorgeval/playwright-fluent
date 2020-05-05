@@ -25,7 +25,7 @@ describe('Playwright Fluent - select(label).inFocused()', (): void => {
         .withCursor()
         .navigateTo(url)
         .select('label 2')
-        .inFocused({ timeoutInMilliseconds: 1000, verbose: true });
+        .inFocused({ timeoutInMilliseconds: 1000 });
     } catch (error) {
       result = error;
     }
