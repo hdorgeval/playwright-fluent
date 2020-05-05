@@ -72,7 +72,7 @@ export async function pasteText(
   };
 
   await handle.click(tripleClickOptions);
-  await page.waitFor(500);
+  await page.waitForTimeout(500);
   await page.keyboard.press('Backspace', { delay: options.delay });
 
   await handle.evaluate(

@@ -28,7 +28,7 @@ describe.skip('scroll to handle', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'scroll-to-handle.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const selector = '#out-of-view-port';
 
@@ -40,7 +40,7 @@ describe.skip('scroll to handle', (): void => {
 
     // When
     await SUT.scrollToHandle(handle);
-    await page.waitFor(2000);
+    await page.waitForTimeout(2000);
 
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const currentViewportRectangle = await getViewportRectangleOf(page);
@@ -64,7 +64,7 @@ describe.skip('scroll to handle', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'scroll-to-handle.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const selector = '#hidden';
     const handle = await page.$(selector);
@@ -74,7 +74,7 @@ describe.skip('scroll to handle', (): void => {
 
     // When
     await SUT.scrollToHandle(handle);
-    await page.waitFor(2000);
+    await page.waitForTimeout(2000);
 
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const currentViewportRectangle = await getViewportRectangleOf(page);
@@ -94,7 +94,7 @@ describe.skip('scroll to handle', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'scroll-to-handle.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const selector = '#transparent';
     const handle = await page.$(selector);
@@ -104,7 +104,7 @@ describe.skip('scroll to handle', (): void => {
 
     // When
     await SUT.scrollToHandle(handle);
-    await page.waitFor(2000);
+    await page.waitForTimeout(2000);
 
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const currentViewportRectangle = await getViewportRectangleOf(page);

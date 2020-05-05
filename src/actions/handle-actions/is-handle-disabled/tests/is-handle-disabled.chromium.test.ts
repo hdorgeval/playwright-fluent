@@ -44,7 +44,7 @@ describe('handle is disabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-disabled.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const handle = await page.$('p');
@@ -62,7 +62,7 @@ describe('handle is disabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-disabled.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const handle = await page.$('#disabledInput');
@@ -80,7 +80,7 @@ describe('handle is disabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-disabled.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const handle = await page.$('#enabledInput');
@@ -98,7 +98,7 @@ describe('handle is disabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-disabled.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const handle = await page.$('#enabledSelect');
@@ -116,7 +116,7 @@ describe('handle is disabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-disabled.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const handle = await page.$('#disabledSelect');

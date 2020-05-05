@@ -22,7 +22,7 @@ describe('get client rectangle of an element handle', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'get-client-rectangle-of-handle.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const handle = await page.$('#foo');

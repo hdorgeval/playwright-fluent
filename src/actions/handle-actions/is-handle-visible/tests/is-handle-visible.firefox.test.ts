@@ -24,7 +24,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const handle = await page.$('#hidden');
 
@@ -43,7 +43,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const handle = await page.$('#visible');
 
@@ -62,7 +62,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const handle = await page.$('#transparent');
 
@@ -81,7 +81,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const handle = await page.$('#out-of-screen');
 
@@ -100,7 +100,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     const handle = await page.$('#out-of-viewport');
 

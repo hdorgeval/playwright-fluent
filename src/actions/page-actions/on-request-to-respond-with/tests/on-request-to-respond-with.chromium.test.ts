@@ -80,7 +80,7 @@ describe('on request to respond with', (): void => {
     );
 
     await page.goto('http://localhost:1234/app');
-    await page.waitFor(3000);
+    await page.waitForTimeout(3000);
 
     // Then
     expect(requests.length).toBe(1);

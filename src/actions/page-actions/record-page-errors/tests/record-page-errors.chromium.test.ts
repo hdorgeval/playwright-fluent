@@ -40,7 +40,7 @@ describe('record page errors', (): void => {
     // When
     await SUT.recordPageErrors(page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-page-errors.test.html')}`);
-    await page.waitFor(3000);
+    await page.waitForTimeout(3000);
 
     // Then
     expect(errors.length).toBe(1);

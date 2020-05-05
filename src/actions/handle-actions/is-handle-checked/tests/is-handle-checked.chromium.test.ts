@@ -23,7 +23,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const handle = await page.$('p');
@@ -41,7 +41,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const label = await page.$('label[for="switch1"]');
@@ -63,7 +63,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const handle = await page.$('#switch1');
@@ -81,7 +81,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const label = await page.$('label[for="radio2"]');
@@ -102,7 +102,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     // When
     const label = await page.$('label[for="radio2"]');

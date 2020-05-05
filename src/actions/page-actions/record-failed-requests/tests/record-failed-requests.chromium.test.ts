@@ -49,7 +49,7 @@ describe('record failed requests', (): void => {
     // When
     await SUT.recordFailedRequests(page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-failed-requests-500.test.html')}`);
-    await page.waitFor(3000);
+    await page.waitForTimeout(3000);
 
     // Then
     expect(requests.length).toBe(1);
