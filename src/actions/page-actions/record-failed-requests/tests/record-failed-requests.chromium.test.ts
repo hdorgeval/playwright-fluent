@@ -1,6 +1,6 @@
 import * as SUT from '../index';
 import { Request } from '../../record-requests-to';
-import { stringifyRequest, RequestInfo } from '../../../../utils';
+import { stringifyRequest, RequestInfo, sleep } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
@@ -49,7 +49,7 @@ describe('record failed requests', (): void => {
     // When
     await SUT.recordFailedRequests(page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-failed-requests-500.test.html')}`);
-    await page.waitForTimeout(3000);
+    await sleep(3000);
 
     // Then
     expect(requests.length).toBe(1);

@@ -2,6 +2,7 @@ import * as SUT from '../index';
 import { getViewportRectangleOf } from '../../../page-actions';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
 import { isHandleVisible, defaultVerboseOptions } from '../../is-handle-visible';
+import { sleep } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -30,7 +31,7 @@ describe('scroll to handle', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'scroll-to-handle.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const selector = '#out-of-view-port';
 
@@ -42,7 +43,7 @@ describe('scroll to handle', (): void => {
 
     // When
     await SUT.scrollToHandle(handle);
-    await page.waitForTimeout(2000);
+    await sleep(2000);
 
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const currentViewportRectangle = await getViewportRectangleOf(page);
@@ -66,7 +67,7 @@ describe('scroll to handle', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'scroll-to-handle.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const selector = '#hidden';
     const handle = await page.$(selector);
@@ -76,7 +77,7 @@ describe('scroll to handle', (): void => {
 
     // When
     await SUT.scrollToHandle(handle);
-    await page.waitForTimeout(2000);
+    await sleep(2000);
 
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const currentViewportRectangle = await getViewportRectangleOf(page);
@@ -96,7 +97,7 @@ describe('scroll to handle', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'scroll-to-handle.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const selector = '#transparent';
     const handle = await page.$(selector);
@@ -106,7 +107,7 @@ describe('scroll to handle', (): void => {
 
     // When
     await SUT.scrollToHandle(handle);
-    await page.waitForTimeout(2000);
+    await sleep(2000);
 
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const currentViewportRectangle = await getViewportRectangleOf(page);

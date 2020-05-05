@@ -1,6 +1,7 @@
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { defaultPasteTextOptions } from '../paste-text';
+import { sleep } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -29,7 +30,7 @@ describe('paste text', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'paste-text.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const selector = '#target';
     await page.click(selector);
@@ -56,7 +57,7 @@ describe('paste text', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'paste-text.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const selector = '#targetInput';
     await page.click(selector);
@@ -83,7 +84,7 @@ describe('paste text', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'paste-text.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const selector = '#emptyInput';
     await page.click(selector);

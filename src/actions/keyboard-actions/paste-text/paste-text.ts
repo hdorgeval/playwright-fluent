@@ -1,4 +1,4 @@
-import { defaultWaitUntilOptions } from '../../../utils';
+import { defaultWaitUntilOptions, sleep } from '../../../utils';
 import { ClickOptions } from '../../handle-actions';
 import { Page } from 'playwright';
 declare const window: Window;
@@ -72,7 +72,7 @@ export async function pasteText(
   };
 
   await handle.click(tripleClickOptions);
-  await page.waitForTimeout(500);
+  await sleep(500);
   await page.keyboard.press('Backspace', { delay: options.delay });
 
   await handle.evaluate(

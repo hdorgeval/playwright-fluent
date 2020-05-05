@@ -1,5 +1,5 @@
 import { ClickOptions } from '../../../fluent-api';
-import { defaultWaitUntilOptions } from '../../../utils';
+import { defaultWaitUntilOptions, sleep } from '../../../utils';
 import { Page } from 'playwright';
 declare const window: Window;
 
@@ -57,7 +57,7 @@ export async function typeText(
   };
 
   await handle.click(tripleClickOptions);
-  await page.waitForTimeout(500);
+  await sleep(500);
   await page.keyboard.press('Backspace', { delay: options.delay });
   await page.keyboard.type(text, options);
 }

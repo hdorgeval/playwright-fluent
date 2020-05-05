@@ -1,6 +1,7 @@
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { pressKey, defaultKeyboardPressOptions } from '../../press-key';
+import { sleep } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -27,7 +28,7 @@ describe('hold down key', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'hold-down-key.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const selector = '#emptyInput';
     await page.click(selector);

@@ -1,5 +1,6 @@
 import * as SUT from '../index';
 import { defaultVerboseOptions } from '../is-handle-visible';
+import { sleep } from '../../../../utils';
 import { Browser, firefox } from 'playwright';
 import * as path from 'path';
 
@@ -24,7 +25,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const handle = await page.$('#hidden');
 
@@ -43,7 +44,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const handle = await page.$('#visible');
 
@@ -62,7 +63,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const handle = await page.$('#transparent');
 
@@ -81,7 +82,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const handle = await page.$('#out-of-screen');
 
@@ -100,7 +101,7 @@ describe.skip('handle is visible', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-visible.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const handle = await page.$('#out-of-viewport');
 

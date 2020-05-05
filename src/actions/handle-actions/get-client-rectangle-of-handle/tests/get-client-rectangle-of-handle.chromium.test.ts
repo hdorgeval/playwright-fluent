@@ -1,4 +1,5 @@
 import * as SUT from '../index';
+import { sleep } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -22,7 +23,7 @@ describe('get client rectangle of an element handle', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'get-client-rectangle-of-handle.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const handle = await page.$('#foo');

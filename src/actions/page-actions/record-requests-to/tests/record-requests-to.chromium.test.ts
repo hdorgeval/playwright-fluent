@@ -1,5 +1,5 @@
 import * as SUT from '../index';
-import { stringifyRequest, RequestInfo } from '../../../../utils';
+import { stringifyRequest, RequestInfo, sleep } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
@@ -54,7 +54,7 @@ describe('record requests to', (): void => {
     // When
     await SUT.recordRequestsTo('/foobar', page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-requests-to.test.html')}`);
-    await page.waitForTimeout(3000);
+    await sleep(3000);
 
     // Then
     expect(requests.length).toBe(1);
@@ -89,7 +89,7 @@ describe('record requests to', (): void => {
     // When
     await SUT.recordRequestsTo('/500', page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-failed-requests-500.test.html')}`);
-    await page.waitForTimeout(3000);
+    await sleep(3000);
 
     // Then
     expect(requests.length).toBe(1);
@@ -116,7 +116,7 @@ describe('record requests to', (): void => {
     // When
     await SUT.recordRequestsTo('/', page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-requests-to.test.html')}`);
-    await page.waitForTimeout(3000);
+    await sleep(3000);
 
     // Then
     const htmlPageRequest = requests[0];

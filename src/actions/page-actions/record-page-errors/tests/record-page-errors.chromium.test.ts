@@ -1,4 +1,5 @@
 import * as SUT from '../index';
+import { sleep } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
@@ -40,7 +41,7 @@ describe('record page errors', (): void => {
     // When
     await SUT.recordPageErrors(page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-page-errors.test.html')}`);
-    await page.waitForTimeout(3000);
+    await sleep(3000);
 
     // Then
     expect(errors.length).toBe(1);

@@ -1,5 +1,6 @@
 import * as SUT from '../index';
 import { defaultVerboseOptions } from '../../is-handle-visible';
+import { sleep } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -23,7 +24,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const handle = await page.$('p');
@@ -41,7 +42,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const label = await page.$('label[for="switch1"]');
@@ -63,7 +64,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const handle = await page.$('#switch1');
@@ -81,7 +82,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const label = await page.$('label[for="radio2"]');
@@ -102,7 +103,7 @@ describe('handle is checked', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-checked.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const label = await page.$('label[for="radio2"]');

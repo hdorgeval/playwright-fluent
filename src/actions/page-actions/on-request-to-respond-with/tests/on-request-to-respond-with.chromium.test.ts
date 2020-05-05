@@ -1,6 +1,6 @@
 import * as SUT from '../index';
 import { recordRequestsTo, Request } from '../../record-requests-to';
-import { stringifyRequest, RequestInfo } from '../../../../utils';
+import { stringifyRequest, RequestInfo, sleep } from '../../../../utils';
 import { Browser, chromium } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
@@ -80,7 +80,7 @@ describe('on request to respond with', (): void => {
     );
 
     await page.goto('http://localhost:1234/app');
-    await page.waitForTimeout(3000);
+    await sleep(3000);
 
     // Then
     expect(requests.length).toBe(1);

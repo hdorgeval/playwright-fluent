@@ -1,5 +1,6 @@
 import * as SUT from '../index';
 import { defaultVerboseOptions } from '../../is-handle-visible';
+import { sleep } from '../../../../utils';
 import { Browser, ElementHandle, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -44,7 +45,7 @@ describe('handle is enabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-enabled.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const handle = await page.$('p');
@@ -62,7 +63,7 @@ describe('handle is enabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-enabled.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const handle = await page.$('#enabledInput');
@@ -80,7 +81,7 @@ describe('handle is enabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-enabled.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const handle = await page.$('#disabledInput');
@@ -98,7 +99,7 @@ describe('handle is enabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-enabled.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const handle = await page.$('#disabledSelect');
@@ -116,7 +117,7 @@ describe('handle is enabled', (): void => {
     const page = await browserContext.newPage();
     const url = `file:${path.join(__dirname, 'is-handle-enabled.test.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     // When
     const handle = await page.$('#enabledSelect');

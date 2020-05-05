@@ -1,5 +1,6 @@
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
+import { sleep } from '../../../../utils';
 import { Browser, firefox } from 'playwright';
 import * as path from 'path';
 
@@ -24,7 +25,7 @@ describe.skip('handle is moving', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'is-handle-moving.test1.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(100); // wait for the animation to be started
+    await sleep(100); // wait for the animation to be started
 
     // When
     const selector = '#moving';
@@ -43,7 +44,7 @@ describe.skip('handle is moving', (): void => {
     await showMousePosition(page);
     const url = `file:${path.join(__dirname, 'is-handle-moving.test2.html')}`;
     await page.goto(url);
-    await page.waitForTimeout(2000); // wait twice the animation duration
+    await sleep(2000); // wait twice the animation duration
 
     // When
     const selector = '#moving';
