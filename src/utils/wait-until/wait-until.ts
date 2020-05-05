@@ -19,7 +19,7 @@ export interface WaitUntilOptions {
   stabilityInMilliseconds: number;
   /**
    * Throw a timeout exception when the callback still returns false.
-   * Defaults to false.
+   * Defaults to true.
    * @type {boolean}
    * @memberof WaitUntilOptions
    */

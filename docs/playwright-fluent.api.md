@@ -16,6 +16,7 @@
   - [holdDownKey(key)](#holdDownKeykey)
   - [releaseKey(key)](#releaseKeykey)
   - [select(labels).in(selector[, options])](#selectlabelsinselector-options)
+  - [select(labels).inFocused([options])](#selectlabelsinfocusedoptions)
   - [typeText(text[, options])](#typeTexttext-options)
   - [pasteText(text[, options])](#pasteTexttext-options)
   - [clearText([options])](#clearTextoptions)
@@ -517,6 +518,39 @@ await p.select('label 2').in(selector);
 
 ---
 
+### select(labels).inFocused([options])
+
+- labels : `...string[]`
+- options: `Partial<SelectOptions>`
+
+```js
+interface SelectOptions {
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+```
+
+Will select label(s) in the select element that has current focus.
+
+```html
+<label for="select">Select something</label>
+<select id="select">
+  <option value="value 1" selected>label 1</option>
+  <option value="value 2">label 2</option>
+  <option value="value 3">label 3</option>
+</select>
+```
+
+```js
+// prettier-ignore
+await p
+  .click(p.selector('label').withText('Select something'))
+  .select('label 2').inFocused();
+```
+
+---
+
 ### typeText(text[, options])
 
 - text: `string`
@@ -618,6 +652,8 @@ await p
 - waitOptions: `Partial<WaitUntilOptions>`
 
 Will wait until predicate becomes true.
+If the predicate does not return true during the specified period, an error will be throwed.
+To prevent throwing, set `throwOnTimeout: false` in the `waitOptions`.
 
 Usage example:
 
@@ -639,6 +675,9 @@ await p.waitUntil(() => selector.isVisible());
 - waitOptions: `Partial<WaitUntilOptions>`
 
 Waits until the function `func()` returns the same result during a specified period of time that defaults to 300 ms.
+
+If the function `func()` does not return the same result during the specified period, an error will be throwed.
+To prevent throwing, set `throwOnTimeout: false` in the `waitOptions`.
 
 Usage example:
 
@@ -930,7 +969,7 @@ interface WaitUntilOptions {
   stabilityInMilliseconds: number;
   /**
    * Throw a timeout exception when the callback still returns false.
-   * Defaults to false.
+   * Defaults to true.
    * @type {boolean}
    * @memberof WaitUntilOptions
    */
@@ -986,7 +1025,7 @@ interface WaitUntilOptions {
   stabilityInMilliseconds: number;
   /**
    * Throw a timeout exception when the callback still returns false.
-   * Defaults to false.
+   * Defaults to true.
    * @type {boolean}
    * @memberof WaitUntilOptions
    */
