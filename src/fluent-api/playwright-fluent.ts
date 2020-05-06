@@ -51,6 +51,7 @@ export {
   BrowserName,
   ClearTextOptions,
   ClickOptions,
+  Headers,
   HoverOptions,
   KeyboardHoldKey,
   KeyboardKey,
