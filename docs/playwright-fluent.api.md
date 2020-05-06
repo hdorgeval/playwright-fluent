@@ -9,6 +9,7 @@
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordPageErrors()](#recordPageErrors)
   - [recordRequestsTo(url)](#recordRequestsTourl)
+  - [onRequestTo(url).respondWith(response)](#onRequestTourlrespondWithresponse)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [click(selector[, options])](#clickselector-options)
   - [hover(selector[, options])](#hoverselector-options)
@@ -274,6 +275,55 @@ await p
 
 ```js
 JSON.parse(stringifyRequest(request)) as RequestInfo;
+```
+
+---
+
+### onRequestTo(url).respondWith(response)
+
+- url: `string`
+- response: `Partial<MockResponse<T>`
+
+Will intercept any request whose url contains the input `url` (this parameter should be seen as a partial url, it is not a regex and not a glob pattern), then will respond with the given `response` object.
+
+The main purpose of this feature, is to be able to intercept rest API calls, that gives back a JSON object of type `T`, and then substitute the response by another JSON object of type `T`, or subsitute the HTTP response status by another one (for example subsitute an HTTP 200 by an HTTP 500, for chaos testing).
+
+```js
+interface MockResponse<T> {
+  status: number;
+  headers: Headers;
+  contentType: string;
+  body: T;
+}
+```
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+const mockResponseBody {
+  prop1: 'mocked-prop1',
+  prop2: 'mocked-prop2'
+};
+const responseHeaders = {'foo-header': 'bar' };
+
+// start the browser in headfull mode
+// and emulate an iPhone 6 in landscape mode
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .emulateDevice('iPhone 6 landscape')
+  .onRequestTo('/foobar')
+  .respondWith({
+    status: 200,
+    headers: responseHeaders,
+    body: mockResponseBody,
+  })
+  .navigateTo(url);
+
 ```
 
 ---
