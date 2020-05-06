@@ -1,6 +1,6 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 declare const window: Window;
-describe('Playwright Fluent - withGeolocation', (): void => {
+describe.skip('Playwright Fluent - withGeolocation', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(60000);
