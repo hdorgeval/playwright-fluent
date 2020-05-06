@@ -5,6 +5,26 @@ export interface Geolocation {
   latitude: number;
   accuracy?: number;
 }
+
+export type Permission =
+  | '*'
+  | 'geolocation'
+  | 'midi'
+  | 'midi-sysex'
+  | 'notifications'
+  | 'push'
+  | 'camera'
+  | 'microphone'
+  | 'background-sync'
+  | 'ambient-light-sensor'
+  | 'accelerometer'
+  | 'gyroscope'
+  | 'magnetometer'
+  | 'accessibility-events'
+  | 'clipboard-read'
+  | 'clipboard-write'
+  | 'payment-handler';
+
 export interface BrowserContextOptions {
   viewport?: Viewport | null;
   ignoreHTTPSErrors?: boolean;
@@ -13,5 +33,5 @@ export interface BrowserContextOptions {
   userAgent?: string;
   timezoneId?: string;
   geolocation?: Geolocation;
-  permissions?: string[];
+  permissions?: Permission[];
 }

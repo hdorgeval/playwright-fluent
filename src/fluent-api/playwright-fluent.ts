@@ -1,4 +1,4 @@
-import { BrowserContextOptions } from './playwright-types';
+import { BrowserContextOptions, Geolocation, Permission } from './playwright-types';
 import * as assertion from '../assertions';
 import * as action from '../actions';
 import {
@@ -20,6 +20,7 @@ import {
   KeyboardKey,
   KeyboardPressOptions,
   LaunchOptions,
+  MockResponse,
   NavigationOptions,
   PasteTextOptions,
   ScreenshotOptions,
@@ -27,7 +28,6 @@ import {
   SelectOptions,
   TypeTextOptions,
   WindowState,
-  MockResponse,
 } from '../actions';
 import {
   allKnownDevices,
@@ -70,6 +70,7 @@ export {
 } from '../actions';
 
 export { Device, DeviceName, allKnownDevices } from '../devices';
+export { Geolocation, Permission } from './playwright-types';
 
 export interface AssertOptions {
   /**
@@ -216,6 +217,16 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public withBrowser(name: BrowserName): PlaywrightFluent {
     const action = (): Promise<void> => this.launchBrowser(name);
     this.actions.push(action);
+    return this;
+  }
+
+  public withGeolocation(location: Geolocation): PlaywrightFluent {
+    this.contextOptions.geolocation = location;
+    return this;
+  }
+
+  public withPermissions(...permissions: Permission[]): PlaywrightFluent {
+    this.contextOptions.permissions = permissions;
     return this;
   }
 
