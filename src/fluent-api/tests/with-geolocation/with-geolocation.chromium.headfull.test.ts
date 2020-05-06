@@ -16,7 +16,6 @@ describe('Playwright Fluent - withGeolocation', (): void => {
     const browser = 'chromium';
 
     // When
-    // prettier-ignore
     await p
       .withBrowser(browser)
       .withOptions({ headless: false })

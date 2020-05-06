@@ -17,7 +17,6 @@ describe.skip('Playwright Fluent - withGeolocation', (): void => {
     const browser = 'webkit';
 
     // When
-    // prettier-ignore
     await p
       .withBrowser(browser)
       .withOptions({ headless: false })
