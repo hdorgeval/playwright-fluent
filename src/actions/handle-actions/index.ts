@@ -1,4 +1,5 @@
 export * from './are-options-available-in-handle';
+export * from './check-handle';
 export * from './click-on-handle';
 export * from './get-all-options-of-handle';
 export * from './get-class-list-of-handle';
