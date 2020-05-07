@@ -77,7 +77,7 @@ describe('click on handle', (): void => {
     expect(await hasHandleFocus(handle)).toBe(true);
   });
 
-  test.only('should wait for the selector to be enabled (verbose) - chromium', async (): Promise<
+  test('should wait for the selector to be enabled (verbose) - chromium', async (): Promise<
     void
   > => {
     // Given
