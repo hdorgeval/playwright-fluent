@@ -5,6 +5,8 @@
   - [withBrowser(browser)](#withBrowserbrowser)
   - [withOptions(options)](#withOptionsoptions)
   - [withCursor()](#withCursor)
+  - [withGeolocation(location)](#withGeolocationlocation)
+  - [withPermissions(permissions)](#withPermissionspermissions)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordPageErrors()](#recordPageErrors)
@@ -142,6 +144,81 @@ await p.withBrowser(browser).withOptions({ headless: false }).withCursor().navig
 ```
 
 ![demo cursor](../images/demo-cursor.gif)
+
+---
+
+### withPermissions(permissions)
+
+- permissions: `...Permission[]`
+
+Will set permissions.
+
+```js
+type Permission =
+  | '*'
+  | 'geolocation'
+  | 'midi'
+  | 'midi-sysex'
+  | 'notifications'
+  | 'push'
+  | 'camera'
+  | 'microphone'
+  | 'background-sync'
+  | 'ambient-light-sensor'
+  | 'accelerometer'
+  | 'gyroscope'
+  | 'magnetometer'
+  | 'accessibility-events'
+  | 'clipboard-read'
+  | 'clipboard-write'
+  | 'payment-handler';
+```
+
+Example:
+
+```js
+const browser = 'chromium';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withGeolocation({ longitude: 12.492507, latitude: 41.889938 })
+  .withPermissions('geolocation')
+  .navigateTo('https://www.openstreetmap.org/')
+  .click('.control-locate');
+```
+
+---
+
+### withGeolocation(location)
+
+- location: `GeoLocation`
+
+Will set Geo Location to the specified `location` data.
+
+```js
+interface Geolocation {
+  longitude: number;
+  latitude: number;
+  accuracy?: number;
+}
+```
+
+Example:
+
+```js
+const browser = 'chromium';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withGeolocation({ longitude: 12.492507, latitude: 41.889938 })
+  .withPermissions('geolocation')
+  .navigateTo('https://www.openstreetmap.org/')
+  .click('.control-locate');
+```
 
 ---
 
