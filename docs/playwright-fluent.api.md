@@ -13,6 +13,7 @@
   - [recordRequestsTo(url)](#recordRequestsTourl)
   - [onRequestTo(url).respondWith(response)](#onRequestTourlrespondWithresponse)
   - [navigateTo(url[, options])](#navigateTourl-options)
+  - [check(selector[, options])](#checkselector-options)
   - [click(selector[, options])](#clickselector-options)
   - [hover(selector[, options])](#hoverselector-options)
   - [pressKey(key[, options])](#pressKeykey-options)
@@ -501,6 +502,50 @@ await p
   .withCursor()
   .navigateTo(url)
   .hover(selector);
+
+// now if you want to use the playwright API from this point:
+const browser = p.currentBrowser();
+const page = p.currentPage();
+
+// the browser and page objects are standard playwright objects
+// so now you are ready to go by using the playwright API
+```
+
+---
+
+### check(selector[, options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<CheckOptions>`
+
+```js
+interface CheckOptions {
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+```
+
+Will check the specified selector. The selector can be either a CSS selector or Selector Object created by the [Selector API](/docs/selector.api.md).
+
+This method automatically waits for the selector to be visible, then hovers over it, then waits until it is enabled and finally check it, if not already checked.
+
+Example:
+
+```js
+const url = 'https://reactstrap.github.io/components/form';
+const checkMeOut = p.selector('label').withText('Check me out').find('input');
+
+// When
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .emulateDevice('iPhone 6 landscape')
+  .navigateTo(url)
+  .check(checkMeOut)
+  .expectThatSelector(checkMeOut)
+  .isChecked();
 
 // now if you want to use the playwright API from this point:
 const browser = p.currentBrowser();
