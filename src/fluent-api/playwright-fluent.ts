@@ -3,8 +3,10 @@ import * as assertion from '../assertions';
 import * as action from '../actions';
 import {
   BrowserName,
+  CheckOptions,
   ClearTextOptions,
   ClickOptions,
+  defaultCheckOptions,
   defaultClearTextOptions,
   defaultClickOptions,
   defaultFullPageScreenshotOptions,
@@ -49,6 +51,7 @@ import { Browser, Page, BrowserContext } from 'playwright';
 export { WaitUntilOptions, noWaitNoThrowOptions, defaultWaitUntilOptions } from '../utils';
 export {
   BrowserName,
+  CheckOptions,
   ClearTextOptions,
   ClickOptions,
   Headers,
@@ -387,6 +390,36 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
     {
       const action = (): Promise<void> => this.clickOnSelectorObject(selector, clickOptions);
+      this.actions.push(action);
+      return this;
+    }
+  }
+
+  private async checkSelector(selector: string, options: CheckOptions): Promise<void> {
+    await action.checkSelector(selector, this.currentPage(), options);
+  }
+  private async checkSelectorObject(
+    selector: SelectorFluent,
+    options: CheckOptions,
+  ): Promise<void> {
+    await action.checkSelectorObject(selector, this.currentPage(), options);
+  }
+  public check(
+    selector: string | SelectorFluent,
+    options: Partial<CheckOptions> = defaultCheckOptions,
+  ): PlaywrightFluent {
+    const checkOptions: CheckOptions = {
+      ...defaultCheckOptions,
+      ...options,
+    };
+    if (typeof selector === 'string') {
+      const action = (): Promise<void> => this.checkSelector(selector, checkOptions);
+      this.actions.push(action);
+      return this;
+    }
+
+    {
+      const action = (): Promise<void> => this.checkSelectorObject(selector, checkOptions);
       this.actions.push(action);
       return this;
     }

@@ -1,3 +1,4 @@
+export * from './check-selector-object';
 export * from './click-on-selector-object';
 export * from './has-selector-object-class';
 export * from './has-selector-object-exact-value';
