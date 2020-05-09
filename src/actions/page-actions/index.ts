@@ -18,6 +18,7 @@ export * from './is-selector-checked';
 export * from './is-selector-disabled';
 export * from './is-selector-enabled';
 export * from './is-selector-not-visible';
+export * from './is-selector-unchecked';
 export * from './is-selector-visible';
 export * from './navigate-to';
 export * from './on-request-to-respond-with';
