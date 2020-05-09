@@ -12,3 +12,4 @@ export * from './is-selector-object-enabled';
 export * from './is-selector-object-not-visible';
 export * from './is-selector-object-visible';
 export * from './select-options-in-selector-object';
+export * from './uncheck-selector-object';
