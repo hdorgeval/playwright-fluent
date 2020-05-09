@@ -17,7 +17,9 @@ describe('handle is unchecked', (): void => {
     },
   );
 
-  test('should return true when selector has no checked property', async (): Promise<void> => {
+  test.only('should return false when selector has no checked property', async (): Promise<
+    void
+  > => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -32,7 +34,7 @@ describe('handle is unchecked', (): void => {
 
     // Then
     expect(handle).toBeDefined();
-    expect(result).toBe(true);
+    expect(result).toBe(false);
   });
 
   test('should return true when checkbox is unchecked', async (): Promise<void> => {

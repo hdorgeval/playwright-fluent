@@ -15,7 +15,7 @@ export async function isHandleUnchecked(
     if (inputElement && inputElement.checked !== undefined) {
       return !inputElement.checked;
     }
-    return true;
+    return false;
   });
 
   report(`handle is ${result ? 'unchecked' : 'checked'}`, options.verbose);
