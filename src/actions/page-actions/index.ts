@@ -28,3 +28,4 @@ export * from './record-requests-to';
 export * from './select-options-in-focused';
 export * from './select-options-in-selector';
 export * from './take-fullpage-screenshot-as-base64';
+export * from './uncheck-selector';
