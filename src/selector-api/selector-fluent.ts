@@ -345,6 +345,18 @@ export class SelectorFluent {
     return result;
   }
 
+  public async isUnchecked(
+    options: Partial<VerboseOptions> = defaultVerboseOptions,
+  ): Promise<boolean> {
+    const verboseOptions = {
+      ...defaultVerboseOptions,
+      options,
+    };
+    const handle = await this.getHandle();
+    const result = await action.isHandleUnchecked(handle, verboseOptions);
+    return result;
+  }
+
   public async options(): Promise<SelectOptionInfo[]> {
     const handle = await this.getHandle();
     const result = await action.getAllOptionsOfHandle(handle, this.toString());

@@ -425,6 +425,36 @@ export class PlaywrightFluent implements PromiseLike<void> {
     }
   }
 
+  private async uncheckSelector(selector: string, options: CheckOptions): Promise<void> {
+    await action.uncheckSelector(selector, this.currentPage(), options);
+  }
+  private async uncheckSelectorObject(
+    selector: SelectorFluent,
+    options: CheckOptions,
+  ): Promise<void> {
+    await action.uncheckSelectorObject(selector, this.currentPage(), options);
+  }
+  public uncheck(
+    selector: string | SelectorFluent,
+    options: Partial<CheckOptions> = defaultCheckOptions,
+  ): PlaywrightFluent {
+    const checkOptions: CheckOptions = {
+      ...defaultCheckOptions,
+      ...options,
+    };
+    if (typeof selector === 'string') {
+      const action = (): Promise<void> => this.uncheckSelector(selector, checkOptions);
+      this.actions.push(action);
+      return this;
+    }
+
+    {
+      const action = (): Promise<void> => this.uncheckSelectorObject(selector, checkOptions);
+      this.actions.push(action);
+      return this;
+    }
+  }
+
   private async selectOptionsInSelector(
     selector: string,
     labels: string[],
@@ -877,6 +907,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
   ): Promise<boolean> {
     return await assertion.isChecked(selector, this.currentPage(), options);
+  }
+
+  public async isUnchecked(
+    selector: string | SelectorFluent,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<boolean> {
+    return await assertion.isUnchecked(selector, this.currentPage(), options);
   }
 
   private async expectThatSelectorIsEnabled(
