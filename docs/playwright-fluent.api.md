@@ -14,6 +14,7 @@
   - [onRequestTo(url).respondWith(response)](#onRequestTourlrespondWithresponse)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [check(selector[, options])](#checkselector-options)
+  - [uncheck(selector[, options])](#uncheckselector-options)
   - [click(selector[, options])](#clickselector-options)
   - [hover(selector[, options])](#hoverselector-options)
   - [pressKey(key[, options])](#pressKeykey-options)
@@ -44,6 +45,7 @@
   - [getValueOf(selector[, options])](#getValueOfselector-options)
   - [hasFocus(selector[, options])](#hasFocusselector-options)
   - [isChecked(selector[, options])](#isCheckedselector-options)
+  - [isUnchecked(selector[, options])](#isUncheckedselector-options)
   - [isDisabled(selector[, options])](#isDisabledselector-options)
   - [isEnabled(selector[, options])](#isEnabledselector-options)
   - [isVisible(selector[, options])](#isVisibleselector-options)
@@ -546,6 +548,48 @@ await p
   .check(checkMeOut)
   .expectThatSelector(checkMeOut)
   .isChecked();
+
+// now if you want to use the playwright API from this point:
+const browser = p.currentBrowser();
+const page = p.currentPage();
+
+// the browser and page objects are standard playwright objects
+// so now you are ready to go by using the playwright API
+```
+
+---
+
+### uncheck(selector[, options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<CheckOptions>`
+
+```js
+interface CheckOptions {
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+```
+
+Will uncheck the specified selector. The selector can be either a CSS selector or Selector Object created by the [Selector API](/docs/selector.api.md).
+
+This method automatically waits for the selector to be visible, then hovers over it, then waits until it is enabled and finally uncheck it, if not already unchecked.
+
+Example:
+
+```js
+const url = 'https://reactstrap.github.io/components/form';
+const checkMeOut = p.selector('label').withText('Check me out').find('input');
+
+// When
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .emulateDevice('iPhone 6 landscape')
+  .navigateTo(url)
+  .uncheck(checkMeOut);
 
 // now if you want to use the playwright API from this point:
 const browser = p.currentBrowser();
@@ -1235,6 +1279,18 @@ Checks if selector has the focus.
 - returns: `Promise<boolean>`
 
 Checks if selector is checked.
+
+> The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+---
+
+### isUnchecked(selector[, options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<WaitUntilOptions>`
+- returns: `Promise<boolean>`
+
+Checks if selector is unchecked.
 
 > The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
 

@@ -18,6 +18,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [getHandle()](#getHandle)
   - [innerText()](#innerText)
   - [isChecked()](#isChecked)
+  - [isUnchecked()](#isUnchecked)
   - [isVisible()](#isVisible)
   - [isNotVisible()](#isNotVisible)
   - [options()](#options)
@@ -158,6 +159,29 @@ const selector = p
   .find('input[type=checkbox]');
 
 await p.waitUntil(() => selector.isChecked());
+// now we are sure that the selector is checked
+```
+
+---
+
+### isUnchecked()
+
+- returns: `Promise<boolean>`
+
+Checks if the selector is unchecked.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+In order to call this method in an unflaky way, you should do the following:
+
+```js
+const selector = p
+  .selector('label')
+  .withText('Turn on this custom switch')
+  .parent()
+  .find('input[type=checkbox]');
+
+await p.waitUntil(() => selector.isUnchecked());
 // now we are sure that the selector is checked
 ```
 
