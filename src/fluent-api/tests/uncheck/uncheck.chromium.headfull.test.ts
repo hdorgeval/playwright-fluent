@@ -29,7 +29,7 @@ describe('Playwright Fluent - uncheck', (): void => {
     expect(isUnchecked).toBe(true);
 
     // And
-    // await p.expectThatSelector(selector).isUnChecked();
+    await p.expectThatSelector(selector).isUnchecked();
   });
 
   test('should wait until selector object is enabled - chromium', async (): Promise<void> => {
@@ -50,7 +50,7 @@ describe('Playwright Fluent - uncheck', (): void => {
     expect(isUnchecked).toBe(true);
 
     // And
-    // await p.expectThatSelector(selector).isUnchecked();
+    await p.expectThatSelector(selector).isUnchecked();
   });
 
   test('should do nothing when selector is already unchecked - chromium', async (): Promise<
@@ -73,7 +73,7 @@ describe('Playwright Fluent - uncheck', (): void => {
     expect(isUnchecked).toBe(true);
 
     // And
-    // await p.expectThatSelector(selector).isUnchecked();
+    await p.expectThatSelector(selector).isUnchecked();
   });
 
   test('should do nothing when selector object is already unchecked - chromium', async (): Promise<
@@ -96,7 +96,7 @@ describe('Playwright Fluent - uncheck', (): void => {
     expect(isUnchecked).toBe(true);
 
     // And
-    // await p.expectThatSelector(selector).isUnchecked();
+    await p.expectThatSelector(selector).isUnchecked();
   });
   test('should not uncheck a non existing selector - chromium', async (): Promise<void> => {
     // Given
@@ -230,9 +230,9 @@ describe('Playwright Fluent - uncheck', (): void => {
       .check(checkMeOut)
       .expectThatSelector(checkMeOut)
       .isChecked()
-      .uncheck(checkMeOut);
-    //.expectThatSelector(checkMeOut)
-    //.isUnchecked()
+      .uncheck(checkMeOut)
+      .expectThatSelector(checkMeOut)
+      .isUnchecked();
 
     // Then
     expect(await checkMeOut.isUnchecked()).toBe(true);
