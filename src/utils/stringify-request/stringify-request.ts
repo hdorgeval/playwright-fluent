@@ -1,8 +1,15 @@
 import { Request, Response } from '../../actions';
+import { URL } from 'url';
+import * as querystring from 'querystring';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const escapeHtml = require('escape-html');
+
+export interface QueryString {
+  [key: string]: string | number | boolean | string[] | number[] | boolean[] | null;
+}
 export interface RequestInfo {
   url: string;
+  queryString: QueryString;
   method: string;
   error: {
     errorText: string;
@@ -49,9 +56,25 @@ async function toJsonOrText(response: Response): Promise<string | unknown> {
   }
 }
 
+export function toQueryString(url: string): QueryString {
+  try {
+    const nodeUrl = new URL(url);
+    const rawSearch = nodeUrl.search;
+    let rawQueryString = rawSearch;
+    if (rawSearch && rawSearch.startsWith('?')) {
+      rawQueryString = rawSearch.replace('?', '');
+    }
+    const query = querystring.parse(rawQueryString) as QueryString;
+    return query;
+  } catch (error) {
+    return {};
+  }
+}
+
 export async function toRequestInfo(request: Request): Promise<RequestInfo> {
   const requestInfo: RequestInfo = {
     url: request.url(),
+    queryString: toQueryString(request.url()),
     method: request.method(),
     error: request.failure(),
     headers: request.headers(),
