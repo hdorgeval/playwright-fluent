@@ -6,6 +6,7 @@ export {
   RequestInfo,
   ResponseInfo,
   stringifyRequest,
+  toRequestInfo,
   waitForStabilityOf,
   waitUntil,
 } from './utils';

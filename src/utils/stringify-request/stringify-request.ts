@@ -48,7 +48,8 @@ async function toJsonOrText(response: Response): Promise<string | unknown> {
     return encodeHtml(payload);
   }
 }
-export async function stringifyRequest(request: Request): Promise<string> {
+
+export async function toRequestInfo(request: Request): Promise<RequestInfo> {
   const requestInfo: RequestInfo = {
     url: request.url(),
     method: request.method(),
@@ -60,8 +61,7 @@ export async function stringifyRequest(request: Request): Promise<string> {
 
   const response = await request.response();
   if (response === null) {
-    const result = JSON.stringify(requestInfo, null, 2);
-    return result;
+    return requestInfo;
   }
 
   let responseBody: string | unknown | undefined = undefined;
@@ -79,6 +79,12 @@ export async function stringifyRequest(request: Request): Promise<string> {
   };
 
   requestInfo.response = responseInfo;
+  return requestInfo;
+}
+
+export async function stringifyRequest(request: Request): Promise<string> {
+  const requestInfo = await toRequestInfo(request);
   const result = JSON.stringify(requestInfo, null, 2);
+
   return result;
 }
