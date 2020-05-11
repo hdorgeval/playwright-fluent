@@ -302,7 +302,7 @@ await p
   .navigateTo(url);
 ```
 
-The `playwright-fluent` package exposes the helper function `stringifyRequest(request)` that you can use to convert the `playwright` request object to a JSON object (see the example below).
+The `playwright-fluent` package exposes the helper functions `stringifyRequest(request)` and `toRequestInfo(request)` that you can use to convert the `playwright` request object to a JSON object (see the example below).
 
 ```js
 import { stringifyRequest } from 'playwright-fluent';
@@ -325,7 +325,7 @@ Will track and record requests whose url contains the input url. This parameter 
 
 Usefull when you need to check what the front sends to the back and/or what the back sends to the front. Each recorded request is a standard `playwright` request object that contains both the request and the response.
 
-The `playwright-fluent` package exposes the helper function `stringifyRequest(request)` that you can use to convert the `playwright` request object to a JSON object (see the example below).
+The `playwright-fluent` package exposes the helper functions `stringifyRequest(request)` and `toRequestInfo(request)` that you can use to convert the `playwright` request object to a JSON object (see the example below).
 
 Example:
 
@@ -351,11 +351,17 @@ await p
 
 - use `clearRecordedRequestsTo(url)` helper method on the fluent API to clear all past requests with this `url`.
 
-- use `stringifyRequest()` method exposed by the package to either log the recorded requests or convert them to json objects:
+- use `stringifyRequest(request)` method exposed by the package to either log the recorded requests
 
-```js
-JSON.parse(stringifyRequest(request)) as RequestInfo;
-```
+  ```js
+  console.log(await stringifyRequest(request));
+  ```
+
+- use `toRequestInfo(request)` method exposed by the package to convert the recorded request to a POJO object:
+
+  ```js
+  const requestInfo = await toRequestInfo(request);
+  ```
 
 ---
 
