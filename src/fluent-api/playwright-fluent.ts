@@ -33,10 +33,14 @@ import {
 } from '../actions';
 import {
   allKnownDevices,
+  defaultWindowSizeOptions,
   Device,
   DeviceName,
   getBrowserArgsForDevice,
   getDevice,
+  WindowSize,
+  WindowSizeOptions,
+  getBrowserArgsForWindowSize,
 } from '../devices';
 import {
   defaultWaitUntilOptions,
@@ -72,7 +76,7 @@ export {
   WindowState,
 } from '../actions';
 
-export { Device, DeviceName, allKnownDevices } from '../devices';
+export { Device, DeviceName, allKnownDevices, WindowSizeOptions, windowsize } from '../devices';
 export { Geolocation, Permission } from './playwright-types';
 
 export interface AssertOptions {
@@ -188,16 +192,29 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private launchOptions: LaunchOptions = defaultLaunchOptions;
   private contextOptions: BrowserContextOptions = { viewport: null };
   private emulatedDevice: Device | undefined = undefined;
+  private customWindowSize: WindowSize | undefined = undefined;
+  private customWindowSizeOptions: WindowSizeOptions = defaultWindowSizeOptions;
 
   private showMousePosition = false;
   private async launchBrowser(name: BrowserName): Promise<void> {
     const contextOptions: BrowserContextOptions = { ...this.contextOptions };
+
     if (this.emulatedDevice) {
       contextOptions.viewport = this.emulatedDevice.viewport;
       contextOptions.userAgent = this.emulatedDevice.userAgent;
       this.launchOptions.args = this.launchOptions.args || [];
       this.launchOptions.args.push(
         ...getBrowserArgsForDevice(this.emulatedDevice).andBrowser(name),
+      );
+    }
+
+    if (this.customWindowSize) {
+      this.launchOptions.args = this.launchOptions.args || [];
+      this.launchOptions.args.push(
+        ...getBrowserArgsForWindowSize(
+          this.customWindowSize,
+          this.customWindowSizeOptions,
+        ).andBrowser(name),
       );
     }
 
@@ -215,6 +232,20 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
     this.launchOptions = updatedOptions;
+    return this;
+  }
+
+  public withWindowSize(
+    size: WindowSize,
+    options: Partial<WindowSizeOptions> = defaultWindowSizeOptions,
+  ): PlaywrightFluent {
+    const windowSizeOptions: WindowSizeOptions = {
+      ...defaultWindowSizeOptions,
+      ...options,
+    };
+
+    this.customWindowSize = size;
+    this.customWindowSizeOptions = windowSizeOptions;
     return this;
   }
 
