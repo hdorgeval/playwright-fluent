@@ -25,6 +25,7 @@ export function getBrowserArgsForDevice(device: Device) {
     andBrowser: (browsername: BrowserName): string[] => {
       switch (browsername) {
         case 'chromium':
+        case 'chrome-canary':
         case 'chrome': {
           const arg = `--window-size=${device.viewport.width},${device.viewport.height + 100}`;
           return [arg];
