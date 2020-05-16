@@ -34,7 +34,7 @@ describe('Playwright Fluent - withWindowSize', (): void => {
 
     // Then
     const windowState = await p.getCurrentWindowState();
-    expect(Math.abs(windowState.outerWidth - size.width)).toBeLessThanOrEqual(10);
+    expect(Math.abs(windowState.outerWidth - size.width)).toBeLessThanOrEqual(25);
     expect(Math.abs(windowState.outerHeight - size.height)).toBeLessThanOrEqual(50);
   });
 });
