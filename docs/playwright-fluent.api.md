@@ -4,6 +4,8 @@
 
   - [withBrowser(browser)](#withBrowserbrowser)
   - [withOptions(options)](#withOptionsoptions)
+  - [withWindowSize(size[, options])](#withWindowSizesize-options)
+  - [withViewport(viewport[, options])](#withViewportviewport-options)
   - [withCursor()](#withCursor)
   - [withGeolocation(location)](#withGeolocationlocation)
   - [withPermissions(permissions)](#withPermissionspermissions)
@@ -147,6 +149,86 @@ await p.withBrowser(browser).withOptions({ headless: false }).withCursor().navig
 ```
 
 ![demo cursor](../images/demo-cursor.gif)
+
+---
+
+### withWindowSize(size[, options])
+
+- size : `WindowSize`
+- options: `Partial<WindowSizeOptions>`
+
+Will set the browser window size to the specified `size`. Works only with Chrome and Firefox.
+
+```js
+interface WindowSize {
+  width: number;
+  height: number;
+}
+
+interface WindowSizeOptions {
+  ciOnly: boolean;
+}
+```
+
+If you want this setting to apply only in a CI, set `ciOnly: true` in the options parameter.
+
+Example:
+
+```js
+const browser = 'chromium';
+const options: LaunchOptions = {
+  headless: false,
+};
+const url = 'https://reactstrap.github.io/components/form';
+
+// prettier-ignore
+await p
+  .withBrowser(browser)
+  .withOptions(options)
+  .withWindowSize(sizeOf._1600x900)
+  .navigateTo(url);
+```
+
+---
+
+### withViewport(viewport[, options])
+
+- viewport : `Viewport`
+- options: `Partial<ViewportOptions>`
+
+Will set the viewport size to the specified `viewport`.
+
+```js
+interface Viewport {
+  width: number;
+  height: number;
+  deviceScaleFactor?: number;
+  isMobile?: boolean;
+}
+
+interface ViewportOptions {
+  ciOnly: boolean;
+}
+```
+
+If you want this setting to apply only in a CI, set `ciOnly: true` in the options parameter.
+
+Example:
+
+```js
+const browser = 'chromium';
+const options: LaunchOptions = {
+  headless: false,
+};
+const url = 'https://reactstrap.github.io/components/form';
+
+// prettier-ignore
+await p
+  .withBrowser(browser)
+  .withOptions(options)
+  .withViewport({...sizeOf._1920x1440}, {ciOnly: true})
+  .navigateTo(url);
+```
 
 ---
 
