@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [0.31.0] - 2020-05-17
+
+### Added
+
+- feat(fluent-api): add `withWindowSize(size)` to the Fluent API
+- feat(fluent-api): add `withViewport(viewport)` to the Fluent API
+
 ## [0.30.0] - 2020-05-11
 
 ### Added
