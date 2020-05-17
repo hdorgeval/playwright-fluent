@@ -1,7 +1,7 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { LaunchOptions } from '../../../actions';
-import { sizeOf } from '../../../devices';
-describe('Playwright Fluent - withWindowSize', (): void => {
+import { sizeOf, Viewport } from '../../../devices';
+describe('Playwright Fluent - withViewPort', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
@@ -12,83 +12,81 @@ describe('Playwright Fluent - withWindowSize', (): void => {
       await p.close();
     },
   );
-  test('should target chromium in headfull with window size 800x600', async (): Promise<void> => {
+  test('should target chromium in headfull with viewport size 800x600', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
     const options: LaunchOptions = {
       headless: false,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const size = sizeOf._800x600;
+    const viewport: Viewport = {
+      ...sizeOf._800x600,
+    };
 
     // When
     // prettier-ignore
     await p
       .withBrowser(browser)
       .withOptions(options)
-      .withWindowSize(size)
+      .withViewport(viewport)
       .navigateTo(url);
 
     // Then
     const windowState = await p.getCurrentWindowState();
-    expect(Math.abs(windowState.outerWidth - size.width)).toBeLessThanOrEqual(10);
-    expect(Math.abs(windowState.outerHeight - size.height)).toBeLessThanOrEqual(10);
+    expect(Math.abs(windowState.innerWidth - viewport.width)).toBeLessThanOrEqual(10);
+    expect(Math.abs(windowState.innerHeight - viewport.height)).toBeLessThanOrEqual(10);
   });
 
-  test('should target chromium in headfull with window size 1280x720', async (): Promise<void> => {
+  test('should target chromium in headfull with viewport size 1280x720', async (): Promise<
+    void
+  > => {
     // Given
     const browser = 'chromium';
     const options: LaunchOptions = {
       headless: false,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const size = sizeOf._1280x720;
+    const viewport: Viewport = {
+      ...sizeOf._1280x720,
+    };
 
     // When
     // prettier-ignore
     await p
       .withBrowser(browser)
       .withOptions(options)
-      .withWindowSize(size)
+      .withViewport(viewport)
       .navigateTo(url);
 
     // Then
     const windowState = await p.getCurrentWindowState();
-    if (windowState.isMaximized) {
-      // eslint-disable-next-line no-console
-      console.log('1280x720 oversizes actual screen', windowState);
-      return;
-    }
-    expect(Math.abs(windowState.outerWidth - size.width)).toBeLessThanOrEqual(10);
-    expect(Math.abs(windowState.outerHeight - size.height)).toBeLessThanOrEqual(50);
+    expect(Math.abs(windowState.innerWidth - viewport.width)).toBeLessThanOrEqual(10);
+    expect(Math.abs(windowState.innerHeight - viewport.height)).toBeLessThanOrEqual(10);
   });
 
-  test('should target chromium in headfull with window size 1600x900', async (): Promise<void> => {
+  test('should target chromium in headfull with viewport size 1600x900', async (): Promise<
+    void
+  > => {
     // Given
     const browser = 'chromium';
     const options: LaunchOptions = {
       headless: false,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const size = sizeOf._1600x900;
-
+    const viewport: Viewport = {
+      ...sizeOf._1600x900,
+    };
     // When
     // prettier-ignore
     await p
       .withBrowser(browser)
       .withOptions(options)
-      .withWindowSize(size)
+      .withViewport(viewport, {ciOnly: true})
       .navigateTo(url);
 
     // Then
     const windowState = await p.getCurrentWindowState();
-    if (windowState.isMaximized) {
-      // eslint-disable-next-line no-console
-      console.log('1600x900 oversizes actual screen', windowState);
-      return;
-    }
-
-    expect(Math.abs(windowState.outerWidth - size.width)).toBeLessThanOrEqual(300);
-    expect(Math.abs(windowState.outerHeight - size.height)).toBeLessThanOrEqual(200);
+    expect(Math.abs(windowState.innerWidth - viewport.width)).toBeLessThanOrEqual(10);
+    expect(Math.abs(windowState.innerHeight - viewport.height)).toBeLessThanOrEqual(10);
   });
 });

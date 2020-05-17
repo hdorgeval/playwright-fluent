@@ -21,6 +21,15 @@ export interface Viewport {
   deviceScaleFactor?: number;
   isMobile?: boolean;
 }
+
+export interface ViewportOptions {
+  ciOnly: boolean;
+}
+
+export const defaultViewportOptions: ViewportOptions = {
+  ciOnly: false,
+};
+
 export interface Device {
   name: string;
 

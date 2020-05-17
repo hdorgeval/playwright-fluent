@@ -41,6 +41,9 @@ import {
   WindowSize,
   WindowSizeOptions,
   getBrowserArgsForWindowSize,
+  Viewport,
+  ViewportOptions,
+  defaultViewportOptions,
 } from '../devices';
 import {
   defaultWaitUntilOptions,
@@ -51,6 +54,7 @@ import {
 } from '../utils';
 import { SelectorFluent } from '../selector-api';
 import { Browser, Page, BrowserContext } from 'playwright';
+const isCI = require('is-ci') as boolean;
 
 export { WaitUntilOptions, noWaitNoThrowOptions, defaultWaitUntilOptions } from '../utils';
 export {
@@ -76,7 +80,16 @@ export {
   WindowState,
 } from '../actions';
 
-export { Device, DeviceName, allKnownDevices, WindowSizeOptions, windowsize } from '../devices';
+export {
+  allKnownDevices,
+  Device,
+  DeviceName,
+  sizeOf,
+  Viewport,
+  ViewportOptions,
+  WindowSize,
+  WindowSizeOptions,
+} from '../devices';
 export { Geolocation, Permission } from './playwright-types';
 
 export interface AssertOptions {
@@ -246,6 +259,23 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
     this.customWindowSize = size;
     this.customWindowSizeOptions = windowSizeOptions;
+    return this;
+  }
+
+  public withViewport(
+    viewport: Viewport,
+    options: Partial<ViewportOptions> = defaultViewportOptions,
+  ): PlaywrightFluent {
+    const viewportOptions: ViewportOptions = {
+      ...defaultViewportOptions,
+      ...options,
+    };
+
+    if (viewportOptions.ciOnly && !isCI) {
+      return this;
+    }
+
+    this.contextOptions.viewport = viewport;
     return this;
   }
 

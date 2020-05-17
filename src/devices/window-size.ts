@@ -67,7 +67,7 @@ export const _1600x900: WindowSize = {
   height: 900,
 };
 
-export const windowsize = {
+export const sizeOf = {
   _800x600,
   _1024x768,
   _1280x720,

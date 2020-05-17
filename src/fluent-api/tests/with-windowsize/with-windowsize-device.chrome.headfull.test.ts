@@ -1,6 +1,6 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { LaunchOptions } from '../../../actions';
-import { windowsize } from '../../../devices';
+import { sizeOf } from '../../../devices';
 describe.skip('Playwright Fluent - withWindowSize', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
@@ -19,7 +19,7 @@ describe.skip('Playwright Fluent - withWindowSize', (): void => {
       headless: false,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const size = windowsize._800x600;
+    const size = sizeOf._800x600;
 
     // When
     // prettier-ignore
