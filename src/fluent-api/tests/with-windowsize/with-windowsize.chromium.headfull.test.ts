@@ -54,6 +54,11 @@ describe('Playwright Fluent - withWindowSize', (): void => {
 
     // Then
     const windowState = await p.getCurrentWindowState();
+    if (windowState.isMaximized) {
+      // eslint-disable-next-line no-console
+      console.log('1280x720 oversizes actual screen', windowState);
+      return;
+    }
     expect(Math.abs(windowState.outerWidth - size.width)).toBeLessThanOrEqual(10);
     expect(Math.abs(windowState.outerHeight - size.height)).toBeLessThanOrEqual(10);
   });
@@ -77,6 +82,12 @@ describe('Playwright Fluent - withWindowSize', (): void => {
 
     // Then
     const windowState = await p.getCurrentWindowState();
+    if (windowState.isMaximized) {
+      // eslint-disable-next-line no-console
+      console.log('1600x900 oversizes actual screen', windowState);
+      return;
+    }
+
     expect(Math.abs(windowState.outerWidth - size.width)).toBeLessThanOrEqual(300);
     expect(Math.abs(windowState.outerHeight - size.height)).toBeLessThanOrEqual(200);
   });
