@@ -1,6 +1,7 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { LaunchOptions } from '../../../actions';
 import { sizeOf, Viewport } from '../../../devices';
+const isCI = require('is-ci') as boolean;
 describe('Playwright Fluent - withViewPort', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
@@ -68,6 +69,11 @@ describe('Playwright Fluent - withViewPort', (): void => {
     void
   > => {
     // Given
+    if (!isCI) {
+      // eslint-disable-next-line no-console
+      console.log('test will be ignored because it should be executed only in a CI env');
+      return;
+    }
     const browser = 'chromium';
     const options: LaunchOptions = {
       headless: false,
