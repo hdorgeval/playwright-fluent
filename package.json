@@ -65,7 +65,9 @@
     "@types/which": "1.3.2",
     "escape-html": "1.0.3",
     "is-ci": "2.0.0",
-    "playwright": "0.13.0",
     "which": "2.0.2"
+  },
+  "peerDependencies": {
+    "playwright": ">= 0.13.0"
   }
 }
