@@ -14,7 +14,7 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 npm i --save playwright-fluent
 ```
 
-This will also install Playwright along with its dependencies and the browser binaries. Browser binaries are about 50-100MB each, so expect the installation network traffic to be substantial.
+If not already installed, the `playwright` package should also be installed with a version >= 0.13.0.
 
 # Usage
 
