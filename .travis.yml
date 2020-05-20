@@ -39,6 +39,9 @@ before_install:
   # Launch XVFB
   - if [[ `uname` = "Linux" ]]; then export DISPLAY=:99.0; fi
 
+before_script:
+  - npm install --no-save playwright@0.13.0
+
 script:
   - node --version
   - npm --version
