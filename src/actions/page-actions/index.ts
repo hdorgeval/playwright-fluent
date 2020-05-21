@@ -8,6 +8,7 @@ export * from './get-inner-text-of-selector';
 export * from './get-value-of-selector';
 export * from './get-viewport-rectangle-of';
 export * from './get-window-state';
+export * from './has-not-selector-class';
 export * from './has-selector-class';
 export * from './has-selector-exact-value';
 export * from './has-selector-focus';
