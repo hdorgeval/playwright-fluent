@@ -323,6 +323,22 @@ export class SelectorFluent {
   }
 
   /**
+   * Checks that selector has the specified class
+   * If the selector targets multiple DOM elements, this check is done only on the first one found.
+   * The result may differ from one execution to another
+   * especially if targeted element is rendered lately because its data is based on some backend response.
+   *
+   * @param {string} expectedClass
+   * @returns {Promise<boolean>}
+   * @memberof SelectorFluent
+   */
+  public async hasClass(expectedClass: string): Promise<boolean> {
+    const handle = await this.getHandle();
+    const result = await action.hasHandleClass(handle, expectedClass);
+    return result;
+  }
+
+  /**
    * Checks that the selector is checked.
    * If the selector targets multiple DOM elements, this check is done only on the first one found.
    * The result may differ from one execution to another
