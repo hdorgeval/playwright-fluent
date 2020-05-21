@@ -135,6 +135,7 @@ export interface AsyncFuncExpectAssertion {
 }
 
 export interface ExpectAssertion {
+  doesNotHaveClass: (className: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasClass: (className: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasExactValue: (value: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
@@ -930,6 +931,19 @@ export class PlaywrightFluent implements PromiseLike<void> {
     await assertion.expectThatSelectorHasClass(selector, className, this.currentPage(), options);
   }
 
+  private async expectThatSelectorDoesNotHaveClass(
+    selector: string | SelectorFluent,
+    className: string,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatSelectorDoesNotHaveClass(
+      selector,
+      className,
+      this.currentPage(),
+      options,
+    );
+  }
+
   private async expectThatSelectorIsVisible(
     selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
@@ -1033,6 +1047,16 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public expectThatSelector(selector: string | SelectorFluent): ExpectAssertion {
     return {
+      doesNotHaveClass: (
+        className: string,
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightFluent => {
+        this.actions.push(() =>
+          this.expectThatSelectorDoesNotHaveClass(selector, className, options),
+        );
+        return this;
+      },
+
       hasClass: (
         className: string,
         options: Partial<AssertOptions> = defaultAssertOptions,

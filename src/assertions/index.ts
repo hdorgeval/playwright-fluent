@@ -1,3 +1,4 @@
+export * from './does-not-have-class';
 export * from './has-class';
 export * from './has-exact-value';
 export * from './has-focus';

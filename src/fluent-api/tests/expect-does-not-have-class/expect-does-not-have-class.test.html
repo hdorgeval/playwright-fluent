@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>has class</title>
+  <style type="text/css">
+    #uppercase {
+      text-transform: uppercase;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <input id="input-with-no-class" value="input with no class"></input>
+  <input id="input1" value="1" class="foo foo1 foo2"></input>
+  <input id="input-with-class-foo-and-bar" value="input with class foo and bar" class="foo bar"></input>
+  <input id="input3" value="3" class=""></input>
+
+  <script>
+    window.setTimeout(() => {
+      const el = document.querySelector('#input3');
+      el.setAttribute('class', 'foobar');
+    }, 3000);
+
+    function addInput() {
+      const input = document.createElement('input');
+      input.setAttribute('class', 'foo bar baz');
+      input.setAttribute('id', 'dynamically-added-input-with-class-foo-and-bar');
+      input.setAttribute('value', 'dynamically added input with class foo and bar');
+      const body = document.querySelector('body');
+      body.appendChild(input);
+    }
+
+    function setClasses(id, classes) {
+      const input = document.querySelector(id);
+      input.setAttribute('class', classes);
+    }
+
+    window.setTimeout(() => {
+      addInput();
+    }, 3000);
+
+    window.setTimeout(() => {
+      setClasses('#dynamically-added-input-with-class-foo-and-bar', 'foo bar');
+    }, 20000);
+
+  </script>
+</body>
+
+</html>
