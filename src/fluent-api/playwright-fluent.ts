@@ -6,9 +6,11 @@ import {
   CheckOptions,
   ClearTextOptions,
   ClickOptions,
+  CloseOptions,
   defaultCheckOptions,
   defaultClearTextOptions,
   defaultClickOptions,
+  defaultCloseOptions,
   defaultFullPageScreenshotOptions,
   defaultHoverOptions,
   defaultKeyboardPressOptions,
@@ -62,6 +64,7 @@ export {
   CheckOptions,
   ClearTextOptions,
   ClickOptions,
+  CloseOptions,
   Headers,
   HoverOptions,
   KeyboardHoldKey,
@@ -296,12 +299,16 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
-  private async closeBrowser(): Promise<void> {
-    await action.closeBrowser(this.currentBrowser());
+  private async closeBrowser(options: CloseOptions): Promise<void> {
+    await action.closeBrowser(this.currentBrowser(), options);
   }
 
-  public close(): PlaywrightFluent {
-    const action = (): Promise<void> => this.closeBrowser();
+  public close(options: Partial<CloseOptions> = defaultCloseOptions): PlaywrightFluent {
+    const closeOptions: CloseOptions = {
+      ...defaultCloseOptions,
+      ...options,
+    };
+    const action = (): Promise<void> => this.closeBrowser(closeOptions);
     this.actions.push(action);
     return this;
   }
