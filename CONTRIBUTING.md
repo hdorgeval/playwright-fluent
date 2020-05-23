@@ -24,7 +24,13 @@ cd playwright-fluent
 npm install
 ```
 
-3. Run tests locally
+3. Install peer dependencies
+
+```bash
+npm run install-peers
+```
+
+4. Run tests locally
 
 ```bash
 npm test
