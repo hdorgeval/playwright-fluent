@@ -31,7 +31,7 @@
   - [wait(duration)](#waitduration)
   - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
   - [waitForStabilityOf(func[, waitOptions])](#waitForStabilityOffunc-waitOptions)
-  - [close()](#close)
+  - [close([options])](#closeoptions)
   - [see also all chainable methods exposed by the Assertion API](./assertion.api.md)
 
 - Helper Methods
@@ -1125,9 +1125,28 @@ const mainStory: Story = async (p) => {
 
 ---
 
-### close()
+### close(options)
+
+- options: `Partial<CloseOptions>`
 
 Will close the browser. This should be the last method called in the chain.
+
+```js
+interface CloseOptions {
+  /**
+   * Time out used to prevent too slow or buggy browser closing.
+   * Defaults to 5000 milliseconds.
+   *
+   * @type {number}
+   * @memberof CloseOptions
+   */
+  timeoutInMilliseconds: number;
+}
+```
+
+The `options` object ensure that the `close()` method will exit after the specified `timeoutInMilliseconds`. This prevents the `close()` method to be stuck for whatever reason.
+
+Use this option if you observe that closing the browser takes too much time.
 
 ---
 

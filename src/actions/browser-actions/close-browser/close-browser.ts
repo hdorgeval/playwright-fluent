@@ -2,6 +2,13 @@ import { sleep } from '../../../utils';
 import { Browser } from 'playwright';
 
 export interface CloseOptions {
+  /**
+   * Time out used to prevent too slow or buggy browser closing.
+   * Defaults to 5000 milliseconds.
+   *
+   * @type {number}
+   * @memberof CloseOptions
+   */
   timeoutInMilliseconds: number;
 }
 

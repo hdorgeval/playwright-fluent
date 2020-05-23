@@ -13,14 +13,16 @@ The Selector API enables to find and target a DOM element or a collection of DOM
 - Helper Methods
 
   - [count()](#count)
+  - [doesNotHaveClass(className)](#doesNotHaveClassclassName)
   - [exists()](#exists)
   - [getAllHandles()](#getAllHandles)
   - [getHandle()](#getHandle)
+  - [hasClass(className)](#hasClassclassName)
   - [innerText()](#innerText)
   - [isChecked()](#isChecked)
+  - [isNotVisible()](#isNotVisible)
   - [isUnchecked()](#isUnchecked)
   - [isVisible()](#isVisible)
-  - [isNotVisible()](#isNotVisible)
   - [options()](#options)
   - [toString()](#toString)
   - [value()](#value)
@@ -208,6 +210,28 @@ await p.waitUntil(() => selector.isVisible());
 // now we are sure that the selector is visible
 
 ```
+
+---
+
+### hasClass(className)
+
+- className: `string`
+- returns: `Promise<boolean>`
+
+Checks that selector has the specified class `className`.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### doesNotHaveClass(className)
+
+- className: `string`
+- returns: `Promise<boolean>`
+
+Checks that selector does not have the specified class `className`.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 
 ---
 
