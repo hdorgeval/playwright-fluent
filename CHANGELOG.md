@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.1.0] - 2020-05-23
+
+### Added
+
+- feat(selector-fluent): add helper method `hasClass(class)` to the Selector API
+- feat(selector-fluent): add helper method `doesNotHaveClass(class)` to the Selector API
+- feat(assertion): add `expectThatSelector(selector).doesNotHaveClass(className)` to the Assertion API
+
+### Fixed
+
+- feat(browser): add timeout option on closing the browser. This mechanism prevents a test to fail if closing the browser does not work as expected. It has been added to prevent a use case observed on windows where calling `close()` on the browser does close the browser but execution of this method never finishes, causing a timeout in `jest` or `cucumber`.
+
 ## [1.0.0] - 2020-05-20
 
 ### Breaking change
