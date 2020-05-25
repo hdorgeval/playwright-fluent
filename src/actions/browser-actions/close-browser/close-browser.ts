@@ -4,7 +4,7 @@ import { Browser } from 'playwright';
 export interface CloseOptions {
   /**
    * Time out used to prevent too slow or buggy browser closing.
-   * Defaults to 5000 milliseconds.
+   * Defaults to 3000 milliseconds.
    *
    * @type {number}
    * @memberof CloseOptions
@@ -13,7 +13,7 @@ export interface CloseOptions {
 }
 
 export const defaultCloseOptions: CloseOptions = {
-  timeoutInMilliseconds: 5000,
+  timeoutInMilliseconds: 3000,
 };
 
 export async function closeBrowser(
