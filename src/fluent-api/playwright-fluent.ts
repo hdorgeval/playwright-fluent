@@ -19,6 +19,7 @@ import {
   defaultPasteTextOptions,
   defaultSelectOptions,
   defaultTypeTextOptions,
+  Headers,
   HoverOptions,
   KeyboardHoldKey,
   KeyboardKey,
@@ -291,6 +292,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public withGeolocation(location: Geolocation): PlaywrightFluent {
     this.contextOptions.geolocation = location;
+    return this;
+  }
+
+  public withExtraHttpHeaders(headers: Headers): PlaywrightFluent {
+    this.contextOptions.extraHTTPHeaders = headers;
     return this;
   }
 

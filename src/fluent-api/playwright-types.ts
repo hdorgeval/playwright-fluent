@@ -26,12 +26,13 @@ export type Permission =
   | 'payment-handler';
 
 export interface BrowserContextOptions {
-  viewport?: Viewport | null;
+  bypassCSP?: boolean;
+  extraHTTPHeaders?: Record<string, string>;
+  geolocation?: Geolocation;
   ignoreHTTPSErrors?: boolean;
   javaScriptEnabled?: boolean;
-  bypassCSP?: boolean;
-  userAgent?: string;
-  timezoneId?: string;
-  geolocation?: Geolocation;
   permissions?: Permission[];
+  timezoneId?: string;
+  userAgent?: string;
+  viewport?: Viewport | null;
 }
