@@ -9,6 +9,7 @@
   - [withCursor()](#withCursor)
   - [withGeolocation(location)](#withGeolocationlocation)
   - [withPermissions(permissions)](#withPermissionspermissions)
+  - [withExtraHttpHeaders(headers)](#withExtraHttpHeadersheaders)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordPageErrors()](#recordPageErrors)
@@ -227,6 +228,27 @@ await p
   .withBrowser(browser)
   .withOptions(options)
   .withViewport({...sizeOf._1920x1440}, {ciOnly: true})
+  .navigateTo(url);
+```
+
+---
+
+### withExtraHttpHeaders(headers)
+
+- headers: `Headers`
+
+Will add specified HTTP headers for each request.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io';
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withExtraHttpHeaders({ 'X-FOO': 'false', 'X-BAR': 'true' })
   .navigateTo(url);
 ```
 
@@ -1135,7 +1157,7 @@ Will close the browser. This should be the last method called in the chain.
 interface CloseOptions {
   /**
    * Time out used to prevent too slow or buggy browser closing.
-   * Defaults to 5000 milliseconds.
+   * Defaults to 3000 milliseconds.
    *
    * @type {number}
    * @memberof CloseOptions
