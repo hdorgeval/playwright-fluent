@@ -1,7 +1,7 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { LaunchOptions } from '../../../actions';
 import { sizeOf } from '../../../devices';
-describe('Playwright Fluent - withWindowSize', (): void => {
+describe.skip('Playwright Fluent - withWindowSize', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);

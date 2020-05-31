@@ -47,7 +47,7 @@ describe('get handles with value', (): void => {
     );
   });
 
-  test('should return only two elements', async (): Promise<void> => {
+  test.skip('should return only two elements', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -72,7 +72,7 @@ describe('get handles with value', (): void => {
       await result[1].evaluate((node) => (node as HTMLSelectElement).getAttribute('data-e2e')),
     ).toBe('foobar');
   });
-  test('should return no elements when value is not found', async (): Promise<void> => {
+  test.skip('should return no elements when value is not found', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

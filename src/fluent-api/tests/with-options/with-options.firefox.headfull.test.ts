@@ -30,7 +30,7 @@ describe('Playwright Fluent - withOptions', (): void => {
     expect(userAgent).toContain('Firefox');
   });
 
-  test('should target firefox in headfull mode with custom window size', async (): Promise<
+  test.skip('should target firefox in headfull mode with custom window size', async (): Promise<
     void
   > => {
     // Given
