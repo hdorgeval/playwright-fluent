@@ -12,6 +12,7 @@ export * from './has-not-selector-class';
 export * from './has-selector-class';
 export * from './has-selector-exact-value';
 export * from './has-selector-focus';
+export * from './has-selector-placeholder';
 export * from './has-selector-text';
 export * from './has-selector-value';
 export * from './hover-on-selector';
