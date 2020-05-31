@@ -4,6 +4,7 @@ export * from './has-not-selector-object-class';
 export * from './has-selector-object-class';
 export * from './has-selector-object-exact-value';
 export * from './has-selector-object-focus';
+export * from './has-selector-object-placeholder';
 export * from './has-selector-object-text';
 export * from './has-selector-object-value';
 export * from './hover-on-selector-object';
