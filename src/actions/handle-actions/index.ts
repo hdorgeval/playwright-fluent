@@ -13,6 +13,7 @@ export * from './get-value-of-handle';
 export * from './has-handle-class';
 export * from './has-handle-exact-value';
 export * from './has-handle-focus';
+export * from './has-handle-placeholder';
 export * from './has-handle-text';
 export * from './has-handle-value';
 export * from './has-not-handle-class';
