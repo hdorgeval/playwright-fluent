@@ -19,8 +19,9 @@ export const defaultDevice: Device = {
   },
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function getBrowserArgsForDevice(device: Device) {
+export function getBrowserArgsForDevice(
+  device: Device,
+): { andBrowser: (browsername: BrowserName) => string[] } {
   return {
     andBrowser: (browsername: BrowserName): string[] => {
       switch (browsername) {

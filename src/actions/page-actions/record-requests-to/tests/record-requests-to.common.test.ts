@@ -10,7 +10,6 @@ describe('record requests to', (): void => {
     // Given
     const page: Page | undefined = undefined;
     const requests: SUT.Request[] = [];
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (request: SUT.Request) => requests.push(request);
 
     // When

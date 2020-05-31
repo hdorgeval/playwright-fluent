@@ -48,7 +48,6 @@ describe('record requests to', (): void => {
         .willReturn(responseBody, 200, responseHeaders);
 
     const requests: SUT.Request[] = [];
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (request: SUT.Request) => requests.push(request);
 
     // When
@@ -83,7 +82,6 @@ describe('record requests to', (): void => {
         .willFail(500);
 
     const requests: SUT.Request[] = [];
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (request: SUT.Request) => requests.push(request);
 
     // When
@@ -110,7 +108,6 @@ describe('record requests to', (): void => {
     const page = await context.newPage();
 
     const requests: SUT.Request[] = [];
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (request: SUT.Request) => requests.push(request);
 
     // When

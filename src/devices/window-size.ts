@@ -14,8 +14,10 @@ export const defaultWindowSizeOptions: WindowSizeOptions = {
   ciOnly: false,
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function getBrowserArgsForWindowSize(size: WindowSize, options: WindowSizeOptions) {
+export function getBrowserArgsForWindowSize(
+  size: WindowSize,
+  options: WindowSizeOptions,
+): { andBrowser: (browsername: BrowserName) => string[] } {
   return {
     andBrowser: (browsername: BrowserName): string[] => {
       if (!size) {

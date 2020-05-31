@@ -10,7 +10,6 @@ describe('record failed requests', (): void => {
     // Given
     const page: Page | undefined = undefined;
     const requests: Request[] = [];
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (request: Request) => requests.push(request);
 
     // When

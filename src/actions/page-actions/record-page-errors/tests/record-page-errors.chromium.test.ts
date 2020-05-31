@@ -35,7 +35,6 @@ describe('record page errors', (): void => {
     const page = await context.newPage();
 
     const errors: Error[] = [];
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (request: Error) => errors.push(request);
 
     // When

@@ -65,7 +65,6 @@ describe('on request to respond with', (): void => {
         .willReturn(htmlContent.toString(), 200);
 
     const requests: Request[] = [];
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (request: Request) => requests.push(request);
     await recordRequestsTo('/foobar', page, callback);
 

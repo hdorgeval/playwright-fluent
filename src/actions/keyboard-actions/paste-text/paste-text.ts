@@ -100,7 +100,6 @@ export async function pasteText(
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).clipboardData = { getData: (): string => content };
-      // eslint-disable-next-line no-undef
       const event = new CustomEvent('paste', {
         bubbles: true,
       });

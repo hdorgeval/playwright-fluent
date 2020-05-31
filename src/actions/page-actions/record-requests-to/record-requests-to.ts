@@ -23,7 +23,7 @@ export interface Response {
   };
   buffer(): Promise<Buffer>;
   text(): Promise<string>;
-  json(): Promise<object>;
+  json(): Promise<Record<string, unknown>>;
 }
 export async function recordRequestsTo(
   partialUrl: string,

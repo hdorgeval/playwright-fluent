@@ -43,7 +43,6 @@ describe('record failed requests', (): void => {
         .willFail(500);
 
     const requests: Request[] = [];
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (request: Request) => requests.push(request);
 
     // When

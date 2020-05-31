@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as action from '../actions';
 import { PlaywrightFluent } from '../fluent-api';
 import { VerboseOptions, defaultVerboseOptions, SelectOptionInfo } from '../actions';
@@ -40,27 +41,21 @@ export class SelectorFluent {
   private getActionFrom(actionInfo: ActionInfo): Action {
     switch (actionInfo.name) {
       case 'querySelectorAllInPage':
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         return () => action.querySelectorAllInPage(actionInfo.selector, this.pwf.currentPage());
 
       case 'find':
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         return (handles) => action.querySelectorAllFromHandles(actionInfo.selector, [...handles]);
 
       case 'nth':
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         return (handles) => action.getNthHandle(actionInfo.index, [...handles]);
 
       case 'parent':
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         return (handles) => action.getParentsOf([...handles]);
 
       case 'withText':
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         return (handles) => action.getHandlesWithText(actionInfo.text, [...handles]);
 
       case 'withValue':
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         return (handles) => action.getHandlesWithValue(actionInfo.text, [...handles]);
 
       default:

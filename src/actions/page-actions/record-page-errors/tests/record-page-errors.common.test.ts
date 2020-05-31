@@ -10,7 +10,6 @@ describe('record page errors', (): void => {
     // Given
     const page: Page | undefined = undefined;
     const errors: Error[] = [];
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const callback = (error: Error) => errors.push(error);
 
     // When

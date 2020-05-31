@@ -65,7 +65,6 @@ describe('exists', (): void => {
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });
     const page = await context.newPage();
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     page.$ = () => {
       throw new Error('internal error!');
     };
