@@ -11,14 +11,15 @@ The selector can be either a CSS selector or a selector created with the [Select
   - [expectThatSelector(selector).hasClass(className,[options])](#expectThatSelectorselectorhasclassclassNameoptions)
   - [expectThatSelector(selector).hasExactValue(value,[options])](#expectThatSelectorselectorhasExactvaluevalueoptions)
   - [expectThatSelector(selector).hasFocus([options])](#expectThatSelectorselectorhasFocusoptions)
+  - [expectThatSelector(selector).hasPlaceholder(text,[options])](#expectThatSelectorselectorhasplaceholdertextoptions)
   - [expectThatSelector(selector).hasText(text,[options])](#expectThatSelectorselectorhastexttextoptions)
   - [expectThatSelector(selector).hasValue(value,[options])](#expectThatSelectorselectorhasvaluevalueoptions)
   - [expectThatSelector(selector).isChecked([options])](#expectThatSelectorselectorisCheckedoptions)
-  - [expectThatSelector(selector).isUnchecked([options])](#expectThatSelectorselectorisUncheckedoptions)
   - [expectThatSelector(selector).isDisabled([options])](#expectThatSelectorselectorisDisabledoptions)
   - [expectThatSelector(selector).isEnabled([options])](#expectThatSelectorselectorisEnabledoptions)
-  - [expectThatSelector(selector).isVisible([options])](#expectThatSelectorselectorisVisibleoptions)
   - [expectThatSelector(selector).isNotVisible([options])](#expectThatSelectorselectorisNotVisibleoptions)
+  - [expectThatSelector(selector).isUnchecked([options])](#expectThatSelectorselectorisUncheckedoptions)
+  - [expectThatSelector(selector).isVisible([options])](#expectThatSelectorselectorisVisibleoptions)
 
 ## Usage
 
@@ -99,6 +100,17 @@ Will check if the selector's inner text contains the specified `text`.
 - returns: `PlaywrightFluent`
 
 Will check if the selector has a class named `className`.
+
+---
+
+### expectThatSelector(selector).hasPlaceholder(text,[options])
+
+- selector: `string | SelectorFluent`
+- text: `string`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector has a placeholder attribute with the specified `text`.
 
 ---
 
