@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.3.0] - 2020-06-01
+
+### Breaking change
+
+- `playwright` is made a peer dependency with version >= 0.14.0
+
+### Added
+
+- feat(assertion): add `expectThatSelector(selector).hasPlaceholder(text)` to the Assertion API
+- feat(selector-fluent): add helper method `getAttribute(attributeName)` to the Selector API
+- feat(selector-fluent): add helper method `placeholder()` to the Selector API
+
 ## [1.2.0] - 2020-05-26
 
 ### Added
