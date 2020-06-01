@@ -143,6 +143,7 @@ export interface ExpectAssertion {
   hasClass: (className: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasExactValue: (value: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
+  hasPlaceholder: (text: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasText: (text: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasValue: (value: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   isChecked: (options?: Partial<AssertOptions>) => PlaywrightFluent;
@@ -957,6 +958,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
     );
   }
 
+  private async expectThatSelectorHasPlaceholder(
+    selector: string | SelectorFluent,
+    text: string,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatSelectorHasPlaceholder(selector, text, this.currentPage(), options);
+  }
+
   private async expectThatSelectorIsVisible(
     selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
@@ -1090,6 +1099,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
         return this;
       },
+
+      hasPlaceholder: (
+        text: string,
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorHasPlaceholder(selector, text, options));
+        return this;
+      },
+
       hasText: (
         text: string,
         options: Partial<AssertOptions> = defaultAssertOptions,

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>has placeholder</title>
+  <style type="text/css">
+    #uppercase {
+      text-transform: uppercase;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <input id="input-with-no-placeholder" value="input with no placeholder"></input>
+  <input id="input-with-placeholder" placeholder="enter text here" value="input with placeholder"></input>
+  <input id="input-with-dynamic-placeholder" value="input with dynamic placeholder" class="foo bar"></input>
+
+  <script>
+   
+
+    function addInput() {
+      const input = document.createElement('input');
+      input.setAttribute('placeholder', 'foo bar baz');
+      input.setAttribute('id', 'dynamically-added-input');
+      input.setAttribute('value', 'dynamically added input');
+      const body = document.querySelector('body');
+      body.appendChild(input);
+    }
+
+    window.setTimeout(() => {
+      addInput();
+    }, 3000);
+
+     window.setTimeout(() => {
+      const el = document.querySelector('#dynamically-added-input');
+      el.setAttribute('placeholder', 'foobar');
+    }, 5000);
+
+  </script>
+</body>
+
+</html>

@@ -317,6 +317,16 @@ export class SelectorFluent {
     return result;
   }
 
+  public async getAttribute(attributeName: string): Promise<string | null> {
+    const handle = await this.getHandle();
+    const result = await action.getAttributeOfHandle(attributeName, handle);
+    return result;
+  }
+
+  public async placeholder(): Promise<string | null> {
+    return this.getAttribute('placeholder');
+  }
+
   /**
    * Checks that selector has the specified class
    * If the selector targets multiple DOM elements, this check is done only on the first one found.
