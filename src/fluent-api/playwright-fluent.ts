@@ -57,6 +57,7 @@ import {
 } from '../utils';
 import { SelectorFluent } from '../selector-api';
 import { Browser, Page, BrowserContext } from 'playwright';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
 
 export { WaitUntilOptions, noWaitNoThrowOptions, defaultWaitUntilOptions } from '../utils';

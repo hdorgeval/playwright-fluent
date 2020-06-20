@@ -1,4 +1,5 @@
 import { BrowserName } from '..';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
 
 export interface WindowSize {

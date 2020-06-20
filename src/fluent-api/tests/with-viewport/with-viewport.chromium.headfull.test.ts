@@ -1,6 +1,7 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { LaunchOptions } from '../../../actions';
 import { sizeOf, Viewport } from '../../../devices';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
 describe('Playwright Fluent - withViewPort', (): void => {
   let p: PlaywrightFluent;

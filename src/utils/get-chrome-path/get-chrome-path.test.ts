@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/ban-types */
 describe('get-chrome-path', (): void => {
   afterEach((): void => {
