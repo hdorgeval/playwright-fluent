@@ -7,6 +7,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [find(selector)](#findselector)
   - [nth(index)](#nthindex)
   - [parent()](#parent)
+  - [withPlaceholder(text)](#withPlaceholdertext)
   - [withText(text)](#withTexttext)
   - [withValue(text)](#withValuetext)
 
@@ -24,6 +25,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [isUnchecked()](#isUnchecked)
   - [isVisible()](#isVisible)
   - [options()](#options)
+  - [placeholder()](#placeholder)
   - [toString()](#toString)
   - [value()](#value)
 
@@ -73,6 +75,14 @@ Finds all `selector` elements starting from previous found elements.
 - text: `string`
 
 Take, from previous search, only the elements whose innerText contains the specified text.
+
+---
+
+### withPlaceholder(text)
+
+- text: `string`
+
+Take, from previous search, only the elements whose placeholder contains the specified text.
 
 ---
 
@@ -268,6 +278,16 @@ The result may differ from one execution to another especially if targeted eleme
 - returns: `Promise<string | undefined | null>`
 
 Returns the value of the selector.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### placeholder()
+
+- returns: `Promise<string | null>`
+
+Returns the selector's placeholder.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 

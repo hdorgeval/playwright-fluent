@@ -342,6 +342,12 @@ export class SelectorFluent {
     return result;
   }
 
+  /**
+   * Get the placeholder content
+   *
+   * @returns {(Promise<string | null>)}
+   * @memberof SelectorFluent
+   */
   public async placeholder(): Promise<string | null> {
     return this.getAttribute('placeholder');
   }
