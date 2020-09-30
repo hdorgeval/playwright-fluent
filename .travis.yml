@@ -20,6 +20,11 @@ addons:
       - libnotify4
       - libxslt1.1
       - libvpx5
+      # gstreamer and plugins to support video playback in WebKit.
+      - gstreamer1.0-gl
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-bad
       # This is required to run chromium
       - libgbm1
       # this is needed for running headful tests
@@ -36,6 +41,8 @@ before_install:
   - uname
   - if [[ `node -v` = v6* ]]; then npm i -g npx; fi
   - npx --version
+  # Enable user namespace cloning
+  - if [[ `uname` = "Linux" ]]; then sysctl kernel.unprivileged_userns_clone=1; fi
   # Launch XVFB
   - if [[ `uname` = "Linux" ]]; then export DISPLAY=:99.0; fi
 
