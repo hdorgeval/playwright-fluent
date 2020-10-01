@@ -9,6 +9,7 @@ export * from './get-handles-with-placeholder';
 export * from './get-handles-with-text';
 export * from './get-handles-with-value';
 export * from './get-inner-text-of-handle';
+export * from './get-next-sibling-of-handles';
 export * from './get-nth-handle';
 export * from './get-parent-of-handles';
 export * from './get-value-of-handle';
