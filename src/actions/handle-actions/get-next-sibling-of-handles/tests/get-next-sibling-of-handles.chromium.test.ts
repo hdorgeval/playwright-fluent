@@ -82,7 +82,7 @@ describe('get next siblings', (): void => {
       'Select 2 - label 2',
     );
   });
-  test.only('should return no elements when sibling is not found', async (): Promise<void> => {
+  test('should return no elements when sibling is not found', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
