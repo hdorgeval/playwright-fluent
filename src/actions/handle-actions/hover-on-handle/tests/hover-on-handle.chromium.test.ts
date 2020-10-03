@@ -44,13 +44,19 @@ describe('hover on handle', (): void => {
     // Then
     expect(isSelectorVisibleBeforeScroll).toBe(false);
     expect(isSelectorVisibleAfterScroll).toBe(true);
+
+    const mousePositionClientRectangle = await getClientRectangleOf(
+      'playwright-mouse-pointer',
+      page,
+    );
+    const mouseX = mousePositionClientRectangle.left + mousePositionClientRectangle.width / 2;
+    const mouseY = mousePositionClientRectangle.top + mousePositionClientRectangle.height / 2;
+
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const expectedX = currentClientRectangle.left + currentClientRectangle.width / 2;
     const expectedY = currentClientRectangle.top + currentClientRectangle.height / 2;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(Math.abs((page.mouse as any)._x - expectedX)).toBeLessThan(1);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(Math.abs((page.mouse as any)._y - expectedY)).toBeLessThan(1);
+    expect(Math.abs(mouseX - expectedX)).toBeLessThanOrEqual(1);
+    expect(Math.abs(mouseY - expectedY)).toBeLessThanOrEqual(1);
   });
 
   test('should throw when selector is hidden - chromium', async (): Promise<void> => {
@@ -126,12 +132,18 @@ describe('hover on handle', (): void => {
     await SUT.hoverOnHandle(handle, selector, page, options);
 
     // Then
+    const mousePositionClientRectangle = await getClientRectangleOf(
+      'playwright-mouse-pointer',
+      page,
+    );
+    const mouseX = mousePositionClientRectangle.left + mousePositionClientRectangle.width / 2;
+    const mouseY = mousePositionClientRectangle.top + mousePositionClientRectangle.height / 2;
+
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const expectedX = currentClientRectangle.left + currentClientRectangle.width / 2;
     const expectedY = currentClientRectangle.top + currentClientRectangle.height / 2;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(Math.abs((page.mouse as any)._x - expectedX)).toBeLessThan(3);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(Math.abs((page.mouse as any)._y - expectedY)).toBeLessThan(3);
+
+    expect(Math.abs(mouseX - expectedX)).toBeLessThan(3);
+    expect(Math.abs(mouseY - expectedY)).toBeLessThan(3);
   });
 });
