@@ -866,6 +866,23 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return result;
   }
 
+  public async getSelectedOptionOf(
+    selector: string,
+    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+  ): Promise<SelectOptionInfo | undefined> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...options,
+    };
+    const selectOptions = await action.getAllOptionsOfSelector(
+      selector,
+      this.currentPage(),
+      waitOptions,
+    );
+    const selectedOption = selectOptions.find((option) => option.selected);
+    return selectedOption;
+  }
+
   /**
    * Create a Selector object to be able to target a DOM element
    * that is embedded in a complex dom hierarchy or dom array
