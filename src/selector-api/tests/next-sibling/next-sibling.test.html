@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Get next sibling of elements</title>
+  </head>
+
+  <body>
+    <table border="1">
+      <tr role="row" data-test-id="row1">
+        <td data-test-id="row1-cell1">
+          <select data-test-id="my-select1">
+            <option value="1" selected>Select 1 - label 1</option>
+            <option value="2">Select 1 - label 2</option>
+            <option value="3">Select 1 - label 3</option>
+          </select>
+        </td>
+        <td data-test-id="row1-cell2">row1-cell2</td>
+        <td></td>
+      </tr>
+      <tr role="row" data-test-id="row2">
+        <td>
+          <select data-test-id="my-select2">
+            <option value="1">Select 2 - label 1</option>
+            <option value="2" selected>Select 2 - label 2</option>
+            <option value="3">Select 2 - label 3</option>
+          </select>
+        </td>
+        <td>row2-cell2</td>
+        <td>cell3</td>
+      </tr>
+      <tr role="row" data-test-id="row3">
+        <td>
+          <select data-test-id="my-select3">
+            <option value="1">label 1</option>
+            <option value="2">label 2</option>
+            <option value="3" selected>label 3</option>
+          </select>
+        </td>
+        <td>row3-cell2</td>
+        <td>cell3</td>
+      </tr>
+    </table>
+  </body>
+</html>
