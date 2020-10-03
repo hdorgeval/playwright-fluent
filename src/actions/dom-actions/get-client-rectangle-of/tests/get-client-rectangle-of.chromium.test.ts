@@ -22,7 +22,9 @@ describe('get client rectangle', (): void => {
     // When
 
     // Then
-    const expectedError = new Error('Error: failed to find element matching selector "foobar"');
+    const expectedError = new Error(
+      'page.$eval: Error: failed to find element matching selector "foobar"',
+    );
     await SUT.getClientRectangleOf('foobar', page).catch((error): void =>
       expect(error).toMatchObject(expectedError),
     );
