@@ -1,5 +1,4 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
-declare const window: Window;
 describe('Playwright Fluent - withGeolocation', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {

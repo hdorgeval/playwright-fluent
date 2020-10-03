@@ -1,6 +1,5 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { toRequestInfo } from '../../../utils';
-declare const window: Window;
 describe('Playwright Fluent - withExtraHttpHeaders', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
