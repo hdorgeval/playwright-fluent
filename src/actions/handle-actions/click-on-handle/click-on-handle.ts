@@ -14,7 +14,7 @@ export interface ClickOptions {
   clickCount: number;
   delay: number;
   modifiers?: Modifier[];
-  relativePoint?: Point;
+  position?: Point;
   stabilityInMilliseconds: number;
   timeoutInMilliseconds: number;
   verbose: boolean;
