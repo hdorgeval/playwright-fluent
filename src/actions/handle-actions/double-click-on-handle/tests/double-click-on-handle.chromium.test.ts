@@ -76,6 +76,13 @@ describe('double-click on handle', (): void => {
     // When
     const selector = '#disabled-then-enabled';
     const handle = await page.$('#disabled-then-enabled');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    await handle!.click();
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press('ArrowLeft');
+
     await SUT.doubleClickOnHandle(handle, selector, page, defaultDoubleClickOptions);
 
     // Then
