@@ -1,5 +1,6 @@
 export * from './check-selector-object';
 export * from './click-on-selector-object';
+export * from './double-click-on-selector-object';
 export * from './has-not-selector-object-class';
 export * from './has-selector-object-class';
 export * from './has-selector-object-exact-value';
