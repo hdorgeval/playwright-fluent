@@ -11,6 +11,7 @@ import {
   defaultClearTextOptions,
   defaultClickOptions,
   defaultCloseOptions,
+  defaultDoubleClickOptions,
   defaultFullPageScreenshotOptions,
   defaultHoverOptions,
   defaultKeyboardPressOptions,
@@ -19,6 +20,7 @@ import {
   defaultPasteTextOptions,
   defaultSelectOptions,
   defaultTypeTextOptions,
+  DoubleClickOptions,
   Headers,
   HoverOptions,
   KeyboardHoldKey,
@@ -67,6 +69,7 @@ export {
   ClearTextOptions,
   ClickOptions,
   CloseOptions,
+  DoubleClickOptions,
   Headers,
   HoverOptions,
   KeyboardHoldKey,
@@ -473,6 +476,40 @@ export class PlaywrightFluent implements PromiseLike<void> {
     }
   }
 
+  private async doubleClickOnSelector(
+    selector: string,
+    options: DoubleClickOptions,
+  ): Promise<void> {
+    await action.doubleClickOnSelector(selector, this.currentPage(), options);
+  }
+  private async doubleClickOnSelectorObject(
+    selector: SelectorFluent,
+    options: DoubleClickOptions,
+  ): Promise<void> {
+    await action.doubleClickOnSelectorObject(selector, this.currentPage(), options);
+  }
+  public doubleClick(
+    selector: string | SelectorFluent,
+    options: Partial<DoubleClickOptions> = defaultDoubleClickOptions,
+  ): PlaywrightFluent {
+    const doubleClickOptions: DoubleClickOptions = {
+      ...defaultDoubleClickOptions,
+      ...options,
+    };
+    if (typeof selector === 'string') {
+      const action = (): Promise<void> => this.doubleClickOnSelector(selector, doubleClickOptions);
+      this.actions.push(action);
+      return this;
+    }
+
+    {
+      const action = (): Promise<void> =>
+        this.doubleClickOnSelectorObject(selector, doubleClickOptions);
+      this.actions.push(action);
+      return this;
+    }
+  }
+
   private async checkSelector(selector: string, options: CheckOptions): Promise<void> {
     await action.checkSelector(selector, this.currentPage(), options);
   }
@@ -840,6 +877,16 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
     const result = await action.getInnerTextOfSelector(selector, this.currentPage(), waitOptions);
     return result;
+  }
+
+  public async getSelectedText(): Promise<string> {
+    const page = this.currentPage();
+    if (!page) {
+      return '';
+    }
+    /* istanbul ignore next */
+    const selectedText = await page.evaluate(() => (document.getSelection() || '').toString());
+    return selectedText;
   }
 
   public async getValueOf(
