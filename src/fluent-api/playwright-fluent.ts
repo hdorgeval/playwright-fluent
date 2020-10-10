@@ -1,4 +1,5 @@
 import { BrowserContextOptions, Geolocation, Permission } from './playwright-types';
+import { TimeZoneId } from './timezone-ids';
 import * as assertion from '../assertions';
 import * as action from '../actions';
 import {
@@ -99,6 +100,8 @@ export {
   WindowSizeOptions,
 } from '../devices';
 export { Geolocation, Permission } from './playwright-types';
+
+export { TimeZoneId } from './timezone-ids';
 
 export interface AssertOptions {
   /**
@@ -297,6 +300,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public withGeolocation(location: Geolocation): PlaywrightFluent {
     this.contextOptions.geolocation = location;
+    return this;
+  }
+
+  public withTimezone(timezoneId: TimeZoneId): PlaywrightFluent {
+    this.contextOptions.timezoneId = timezoneId;
     return this;
   }
 
