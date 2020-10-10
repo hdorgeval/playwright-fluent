@@ -81,7 +81,7 @@ export async function launchBrowser(name: BrowserName, options: LaunchOptions): 
 
     default:
       throw new Error(
-        `Browser named '${name}' is unknown. It should be one of 'chrome', 'chromium', 'firefox', 'webkit'`,
+        `Browser named '${name}' is unknown. It should be one of 'chrome', 'chromium', 'chrome-canary', 'firefox', 'webkit'`,
       );
   }
 }
