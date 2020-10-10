@@ -19,6 +19,7 @@
   - [check(selector[, options])](#checkselector-options)
   - [uncheck(selector[, options])](#uncheckselector-options)
   - [click(selector[, options])](#clickselector-options)
+  - [doubleClick(selector[, options])](#doubleClickselector-options)
   - [hover(selector[, options])](#hoverselector-options)
   - [pressKey(key[, options])](#pressKeykey-options)
   - [holdDownKey(key)](#holdDownKeykey)
@@ -43,6 +44,7 @@
   - [currentPage()](#currentPage)
   - [getAllOptionsOf(selector[, options])](#getAllOptionsOfselector-options)
   - [getSelectedOptionOf(selector[, options])](#getSelectedOptionOfselector-options)
+  - [getSelectedText()](#getSelectedText)
   - [getCurrentUrl()](#getCurrentUrl)
   - [getCurrentWindowState()](#getCurrentWindowState)
   - [getPageErrors()](#getPageErrors)
@@ -723,7 +725,7 @@ interface ClickOptions {
   clickCount: number;
   delay: number;
   modifiers?: Modifier[];
-  relativePoint?: Point;
+  position?: Point;
   stabilityInMilliseconds: number;
   timeoutInMilliseconds: number;
   verbose: boolean;
@@ -765,6 +767,52 @@ const page = p.currentPage();
 ```
 
 ![click demo](../images/demo-click.gif)
+
+---
+
+### doubleClick(selector[, options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<DoubleClickOptions>`
+
+```js
+interface DoubleClickOptions {
+  button: 'left' | 'right' | 'middle';
+  delay: number;
+  modifiers?: Modifier[];
+  position?: Point;
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+
+type Modifier = 'Alt' | 'Control' | 'Meta' | 'Shift';
+type Point = {
+  x: number,
+  y: number,
+};
+```
+
+Will double-click on the specified selector. The selector can be either a CSS selector or Selector Object created by the [Selector API](/docs/selector.api.md).
+
+This method automatically waits for the selector to be visible, then hovers over it, then waits until it is enabled and finally double-click on it.
+
+Example:
+
+```js
+const url = 'https://reactstrap.github.io/components/form';
+const label = p.selector('label').withText('Email');
+
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .emulateDevice('iPhone 6 landscape')
+  .navigateTo(url)
+  .doubleClick(label)
+  .expectThatAsyncFunc(async () => await p.getSelectedText())
+  .resolvesTo('Email');
+```
 
 ---
 
@@ -1443,6 +1491,15 @@ interface WaitUntilOptions {
   verbose: boolean;
 }
 ```
+
+---
+
+### getSelectedText()
+
+- returns: `Promise<string>`
+
+Get the text selected on the the current page.
+Returns an empty string when no text has been selected.
 
 ---
 
