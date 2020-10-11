@@ -10,6 +10,7 @@
   - [withGeolocation(location)](#withGeolocationlocation)
   - [withPermissions(permissions)](#withPermissionspermissions)
   - [withExtraHttpHeaders(headers)](#withExtraHttpHeadersheaders)
+  - [withTimezone(timezoneId)](#withTimezonetimezoneId)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordPageErrors()](#recordPageErrors)
@@ -297,6 +298,27 @@ await p
   .withPermissions('geolocation')
   .navigateTo('https://www.openstreetmap.org/')
   .click('.control-locate');
+```
+
+---
+
+### withTimezone(timezoneId)
+
+- timezoneId: `TimezeoneId`
+
+Will set the timezone.
+
+Example:
+
+```js
+const browser = 'chromium';
+const p = new PlaywrightFluent();
+
+// prettier-ignore
+await p
+  .withBrowser(browser)
+  .withTimezone('Asia/Tokyo')
+  .navigateTo('example.com');
 ```
 
 ---
