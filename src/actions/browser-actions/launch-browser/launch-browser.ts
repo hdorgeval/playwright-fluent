@@ -12,6 +12,7 @@ export interface LaunchOptions {
    * @memberof LaunchOptions
    */
   headless: boolean;
+
   /**
    * Additional arguments to pass to the browser instance.
    * The list of Chromium flags can be found at
@@ -21,6 +22,15 @@ export interface LaunchOptions {
    * @memberof LaunchOptions
    */
   args?: string[];
+
+  /**
+   * If specified, accepted downloads are downloaded into this folder. Otherwise, temporary folder is created and is deleted when browser is closed.
+   *
+   * @type {string}
+   * @memberof LaunchOptions
+   */
+  downloadsPath?: string;
+
   /**
    * Path to a browser executable to run instead of the bundled one.
    *
@@ -28,6 +38,50 @@ export interface LaunchOptions {
    * @memberof LaunchOptions
    */
   executablePath?: string;
+  /**
+   * Maximum time in milliseconds to wait for the browser instance to start. Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
+   *
+   * @type {number}
+   * @memberof LaunchOptions
+   */
+  timeout?: number;
+
+  /**
+   * Slows down Playwright operations by the specified amount of milliseconds. Useful so that you can see what is going on.
+   *
+   * @type {number}
+   * @memberof LaunchOptions
+   */
+  slowMo?: number;
+  proxy?: {
+    /**
+     * Proxy to be used for all requests. HTTP and SOCKS proxies are supported, for example http://myproxy.com:3128 or socks5://myproxy.com:3128. Short form myproxy.com:3128 is considered an HTTP proxy.
+     *
+     * @type {string}
+     */
+    server: string;
+
+    /**
+     * coma-separated domains to bypass proxy, for example ".com, chromium.org, .domain.com".
+     *
+     * @type {string}
+     */
+    bypass?: string;
+
+    /**
+     * username to use if HTTP proxy requires authentication.
+     *
+     * @type {string}
+     */
+    username?: string;
+
+    /**
+     * password to use if HTTP proxy requires authentication.
+     *
+     * @type {string}
+     */
+    password?: string;
+  };
 }
 export const defaultLaunchOptions: LaunchOptions = {
   headless: true,

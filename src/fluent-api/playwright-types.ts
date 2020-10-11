@@ -1,3 +1,4 @@
+import { TimeZoneId } from './timezone-ids';
 import { Viewport } from '../devices';
 
 export interface Geolocation {
@@ -31,8 +32,9 @@ export interface BrowserContextOptions {
   geolocation?: Geolocation;
   ignoreHTTPSErrors?: boolean;
   javaScriptEnabled?: boolean;
+  locale?: string;
   permissions?: Permission[];
-  timezoneId?: string;
+  timezoneId?: TimeZoneId;
   userAgent?: string;
   viewport?: Viewport | null;
 }
