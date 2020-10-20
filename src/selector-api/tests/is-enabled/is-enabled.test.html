@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>is enabled</title>
+</head>
+
+<body>
+
+  <input id="enabledInput" value="I am enabled">Yo!</input>
+  <input disabled id="disabledInput" value="I am disabled">Yo!</input>
+  <input disabled id="disabled-then-enabled-input" value="I am disabled">Yo!</input>
+  <select id="disabledSelect" disabled="disabled">
+    <option value="1">1</option>
+    <option value="2">2</option>
+  </select>
+  <select id="enabledSelect">
+    <option value="1">1</option>
+    <option value="2">2</option>
+  </select>
+  <p>yo!</p>
+
+  <script>
+      function enableInput(id) {
+        const input = document.querySelector(id);
+        input.value = "I am enabled";
+        input.removeAttribute('disabled');
+      }
+
+      window.setTimeout(() => {
+        enableInput('#disabled-then-enabled-input');
+      }, 3000);
+    </script>
+</body>
+
+</html>
