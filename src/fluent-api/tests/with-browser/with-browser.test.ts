@@ -100,7 +100,7 @@ describe('Playwright Fluent - withBrowser', (): void => {
 
     // Then
     const expectedErrorMessage =
-      "Browser named 'yo' is unknown. It should be one of 'chrome', 'chromium', 'firefox', 'webkit'";
+      "Browser named 'yo' is unknown. It should be one of 'chrome', 'chromium', 'chrome-canary', 'firefox', 'webkit'";
     expect(result && result.message).toContain(expectedErrorMessage);
     expect((p.lastError() || {}).message).toBe(expectedErrorMessage);
   });
