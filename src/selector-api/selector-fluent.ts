@@ -1,6 +1,14 @@
 import * as action from '../actions';
 import { PlaywrightFluent } from '../fluent-api';
-import { VerboseOptions, defaultVerboseOptions, SelectOptionInfo } from '../actions';
+import {
+  ClickOptions,
+  defaultClickOptions,
+  defaultHoverOptions,
+  defaultVerboseOptions,
+  HoverOptions,
+  SelectOptionInfo,
+  VerboseOptions,
+} from '../actions';
 import { ElementHandle } from 'playwright';
 type Action = (handles: ElementHandle<Element>[]) => Promise<ElementHandle<Element>[]>;
 
@@ -459,5 +467,36 @@ export class SelectorFluent {
     const handle = await this.getHandle();
     const result = await action.getAllOptionsOfHandle(handle, this.toString());
     return result;
+  }
+
+  /**
+   * hover over selector
+   * @param {Partial<HoverOptions>} [options=defaultHoverOptions]
+   * @returns {Promise<void>}
+   * @memberof SelectorFluent
+   */
+  public async hover(options: Partial<HoverOptions> = defaultHoverOptions): Promise<void> {
+    const handle = await this.getHandle();
+    const hoverOptions = {
+      ...defaultHoverOptions,
+      ...options,
+    } as HoverOptions;
+    await action.hoverOnHandle(handle, this.toString(), this.pwf.currentPage(), hoverOptions);
+  }
+
+  /**
+   * click on selector
+   *
+   * @param {Partial<ClickOptions>} [options=defaultClickOptions]
+   * @returns {Promise<void>}
+   * @memberof SelectorFluent
+   */
+  public async click(options: Partial<ClickOptions> = defaultClickOptions): Promise<void> {
+    const handle = await this.getHandle();
+    const clickOptions = {
+      ...defaultClickOptions,
+      ...options,
+    } as ClickOptions;
+    await action.clickOnHandle(handle, this.toString(), this.pwf.currentPage(), clickOptions);
   }
 }
