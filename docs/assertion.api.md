@@ -38,6 +38,15 @@ await p
   .navigateTo(url)
   .expectThatSelector('body')
   .hasFocus();
+
+// you can also use the alias expectThat:
+await p
+  .withBrowser('chromium')
+  .withCursor()
+  .withOptions({ headless: false })
+  .navigateTo(url)
+  .expectThat('body')
+  .hasFocus();
 ```
 
 ## Chainable Methods
