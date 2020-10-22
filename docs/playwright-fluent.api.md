@@ -32,7 +32,7 @@
   - [clearText([options])](#clearTextoptions)
   - [runStory(story)](#runStorystory)
   - [wait(duration)](#waitduration)
-  - [waitUntil(predicate[, waitOptions])](#waitUntilpredicate-waitOptions)
+  - [waitUntil(predicate[, waitOptions, errorMessage])](#waitUntilpredicate-waitOptions-errorMessage)
   - [waitForStabilityOf(func[, waitOptions])](#waitForStabilityOffunc-waitOptions)
   - [close([options])](#closeoptions)
   - [see also all chainable methods exposed by the Assertion API](./assertion.api.md)
@@ -1043,14 +1043,18 @@ await p
 
 ---
 
-### waitUntil(predicate[, waitOptions])
+### waitUntil(predicate[, waitOptions, errorMessage])
 
 - predicate: `() => Promise<boolean>`
 - waitOptions: `Partial<WaitUntilOptions>`
+- errorMessage: `string | (() => Promise<string>)`
 
 Will wait until predicate becomes true.
 If the predicate does not return true during the specified period, an error will be throwed.
+
 To prevent throwing, set `throwOnTimeout: false` in the `waitOptions`.
+
+To generate a custom error message pass either a `string` or an async function `() => Promise<string>` that gives back a string.
 
 Usage example:
 

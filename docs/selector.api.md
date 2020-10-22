@@ -15,6 +15,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
 - Helper Methods
 
   - [count()](#count)
+  - [doesNotExist()](#doesNotExist)
   - [doesNotHaveClass(className)](#doesNotHaveClassclassName)
   - [exists()](#exists)
   - [getAllHandles()](#getAllHandles)
@@ -155,6 +156,16 @@ The result may differ from one execution to another especially if targeted eleme
 - returns: `Promise<boolean>`
 
 Checks if the selector exists.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### doesNotExist()
+
+- returns: `Promise<boolean>`
+
+Checks if the selector is removed from the DOM.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 
