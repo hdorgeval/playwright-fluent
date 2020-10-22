@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      #hidden {
+        width: 20px;
+        display: none;
+      }
+
+      #transparent {
+        opacity: 0;
+        color: black;
+      }
+
+      #out-of-screen {
+        position: absolute;
+        top: -100px;
+      }
+
+      #hidden-then-visible {
+        opacity: 0;
+        color: black;
+      }
+    </style>
+
+    <title>check that selector does not exists</title>
+  </head>
+
+  <body>
+    <table>
+      <tr role="row">
+        <td>
+          <p id="hidden">I am hidden</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="visible">I am visible</p>
+          <p id="visible-then-removed">I am visible and will be removed</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="transparent">I am transparent</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="out-of-screen">I am out of screen</p>
+        </td>
+      </tr>
+    </table>
+
+    <script>
+      function removeElementFromDom(id) {
+        const el = document.querySelector(id);
+        el.remove();
+      }
+
+      window.setTimeout(() => {
+        removeElementFromDom('#visible-then-removed');
+      }, 3000);
+    </script>
+  </body>
+</html>

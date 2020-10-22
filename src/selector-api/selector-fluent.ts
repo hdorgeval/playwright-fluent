@@ -297,6 +297,24 @@ export class SelectorFluent {
   }
 
   /**
+   * Checks if selector is not in the DOM.
+   * The result may differ from one execution to another
+   * especially if targeted element is rendered lately because its data is based on some backend response.
+   * So the existence status is the one known when executing this method.
+   *
+   * @returns {Promise<boolean>}
+   * @memberof SelectorFluent
+   */
+  public async doesNotExist(): Promise<boolean> {
+    const handle = await this.getFirstHandleOrNull();
+    if (handle === null) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
    * Checks if the selector is visible.
    * If the selector targets multiple DOM elements, this check is done only on the first one found.
    * The result may differ from one execution to another
