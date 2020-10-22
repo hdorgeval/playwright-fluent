@@ -820,22 +820,24 @@ export class PlaywrightFluent implements PromiseLike<void> {
    *
    * @param {() => Promise<boolean>} predicate
    * @param {Partial<WaitUntilOptions>} [options=defaultWaitUntilOptions]
+   * @param {(string | (() => Promise<string>))} errorMessage
    * @returns {PlaywrightFluent}
    * @memberof PlaywrightFluent
    */
   public waitUntil(
     predicate: () => Promise<boolean>,
     options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    errorMessage?: string | (() => Promise<string>),
   ): PlaywrightFluent {
     const waitUntilOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
       ...options,
     };
-
+    const defaultErrorMessage = `Predicate still resolved to false after ${waitUntilOptions.timeoutInMilliseconds} ms.`;
+    const errorMessageOrDefault = errorMessage || defaultErrorMessage;
     this.actions.push(
       async (): Promise<void> => {
-        const defaultErrorMessage = `Predicate still resolved to false after ${waitUntilOptions.timeoutInMilliseconds} ms.`;
-        await waitUntil(predicate, defaultErrorMessage, waitUntilOptions);
+        await waitUntil(predicate, errorMessageOrDefault, waitUntilOptions);
       },
     );
     return this;
