@@ -722,6 +722,17 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  /**
+   * Alias for clearText.
+   *
+   * @param {Partial<ClearTextOptions>} [options=defaultClearTextOptions]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public clear(options: Partial<ClearTextOptions> = defaultClearTextOptions): PlaywrightFluent {
+    return this.clearText(options);
+  }
+
   private async pasteTextInFocusedElement(text: string, options: PasteTextOptions): Promise<void> {
     await action.pasteText(text, this.currentPage(), options);
   }

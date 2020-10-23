@@ -118,7 +118,7 @@ describe('Playwright Fluent - clearText', (): void => {
       .withCursor()
       .navigateTo(url)
       .click(selector)
-      .clearText();
+      .clear(); // use alias instead of clearText()
 
     // Then
     const currentValue = await p.getValueOf('#in-view-port');
