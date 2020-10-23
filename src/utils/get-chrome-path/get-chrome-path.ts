@@ -12,7 +12,7 @@ export function getChromePath(): string {
       return 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe';
 
     case 'Linux':
-      if (which.sync('google-chrome-stable')) {
+      if (which.sync('google-chrome-stable', { nothrow: true })) {
         return 'google-chrome-stable';
       }
       return 'google-chrome';
