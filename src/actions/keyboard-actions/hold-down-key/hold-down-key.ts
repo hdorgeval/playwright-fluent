@@ -1,6 +1,6 @@
 import { Page } from 'playwright';
 
-export type KeyboardHoldKey = 'Shift' | 'Control' | 'Alt';
+export type KeyboardHoldKey = 'Shift' | 'Control' | 'Alt' | 'Meta';
 
 export async function holdDownKey(key: KeyboardHoldKey, page: Page | undefined): Promise<void> {
   if (!page) {
