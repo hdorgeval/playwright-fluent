@@ -8,6 +8,7 @@ The selector can be either a CSS selector or a selector created with the [Select
 
   - [expectThatAsyncFunc(func).resolvesTo(value,[options])](#expectThatAsyncFuncfuncresolvesTovalueoptions)
   - [expectThatSelector(selector).doesNotHaveClass(className,[options])](#expectThatSelectorselectordoesNotHaveClassclassNameoptions)
+  - [expectThatSelector(selector).hasAttributeWithValue(attributeName, attributeValue, [options])](#expectThatSelectorselectorhasAttributeWithValueattributeName-attributeValue-options)
   - [expectThatSelector(selector).hasClass(className,[options])](#expectThatSelectorselectorhasclassclassNameoptions)
   - [expectThatSelector(selector).hasExactValue(value,[options])](#expectThatSelectorselectorhasExactvaluevalueoptions)
   - [expectThatSelector(selector).hasFocus([options])](#expectThatSelectorselectorhasFocusoptions)
@@ -120,6 +121,18 @@ Will check if the selector has a class named `className`.
 - returns: `PlaywrightFluent`
 
 Will check if the selector has a placeholder attribute with the specified `text`.
+
+---
+
+### expectThatSelector(selector).hasAttributeWithValue(attributeName, attributeValue, [options])
+
+- selector: `string | SelectorFluent`
+- attributeName: `string`
+- attributeValue: `string`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector has an attribute with the specified value.
 
 ---
 
