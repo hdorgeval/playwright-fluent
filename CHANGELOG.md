@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.11.0] - 2020-10-26
+
+### Added
+
+- feat(fluent-api): add `clear()` as an alias of `clearText()`
+- feat(selector-fluent): add helper method `hasAttributeWithValue()` to the Selector API
+- feat(assertion): add `expectThatSelector(selector).hasAttributeWithValue()` to the Assertion API
+
+### Fixed
+
+- fix(keyboard-actions): add missing keyboard keys
+
 ## [1.10.1] - 2020-10-23
 
 ### Fixed
