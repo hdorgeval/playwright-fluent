@@ -438,6 +438,26 @@ export class SelectorFluent {
   }
 
   /**
+   * Checks that selector has the an attribute with an expected value
+   * If the selector targets multiple DOM elements, this check is done only on the first one found.
+   * The result may differ from one execution to another
+   * especially if targeted element is rendered lately because its data is based on some backend response.
+   *
+   * @param {string} attributeName
+   * @param {string} expectedAttributeValue
+   * @returns {Promise<boolean>}
+   * @memberof SelectorFluent
+   */
+  public async hasAttributeWithValue(
+    attributeName: string,
+    expectedAttributeValue: string,
+  ): Promise<boolean> {
+    const handle = await this.getHandle();
+    const result = await action.hasHandleAttribute(handle, attributeName, expectedAttributeValue);
+    return result;
+  }
+
+  /**
    * Checks that selector has the specified class
    * If the selector targets multiple DOM elements, this check is done only on the first one found.
    * The result may differ from one execution to another

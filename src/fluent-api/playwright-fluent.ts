@@ -147,6 +147,11 @@ export interface AsyncFuncExpectAssertion {
 
 export interface ExpectAssertion {
   doesNotHaveClass: (className: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
+  hasAttributeWithValue: (
+    attrbuteName: string,
+    attributeValue: string,
+    options?: Partial<AssertOptions>,
+  ) => PlaywrightFluent;
   hasClass: (className: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasExactValue: (value: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasFocus: (options?: Partial<AssertOptions>) => PlaywrightFluent;
@@ -1052,6 +1057,21 @@ export class PlaywrightFluent implements PromiseLike<void> {
     await assertion.expectThatSelectorHasPlaceholder(selector, text, this.currentPage(), options);
   }
 
+  private async expectThatSelectorHasAttributeWithValue(
+    selector: string | SelectorFluent,
+    attributeName: string,
+    attributeValue: string,
+    options: Partial<AssertOptions> = defaultAssertOptions,
+  ): Promise<void> {
+    await assertion.expectThatSelectorHasAttributeWithValue(
+      selector,
+      attributeName,
+      attributeValue,
+      this.currentPage(),
+      options,
+    );
+  }
+
   private async expectThatSelectorIsVisible(
     selector: string | SelectorFluent,
     options: Partial<AssertOptions> = defaultAssertOptions,
@@ -1165,6 +1185,22 @@ export class PlaywrightFluent implements PromiseLike<void> {
         return this;
       },
 
+      hasAttributeWithValue: (
+        attributeName: string,
+        attributeValue: string,
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightFluent => {
+        this.actions.push(() =>
+          this.expectThatSelectorHasAttributeWithValue(
+            selector,
+            attributeName,
+            attributeValue,
+            options,
+          ),
+        );
+        return this;
+      },
+
       hasClass: (
         className: string,
         options: Partial<AssertOptions> = defaultAssertOptions,
@@ -1254,6 +1290,22 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ): PlaywrightFluent => {
         this.actions.push(() =>
           this.expectThatSelectorDoesNotHaveClass(selector, className, options),
+        );
+        return this;
+      },
+
+      hasAttributeWithValue: (
+        attributeName: string,
+        attributeValue: string,
+        options: Partial<AssertOptions> = defaultAssertOptions,
+      ): PlaywrightFluent => {
+        this.actions.push(() =>
+          this.expectThatSelectorHasAttributeWithValue(
+            selector,
+            attributeName,
+            attributeValue,
+            options,
+          ),
         );
         return this;
       },
