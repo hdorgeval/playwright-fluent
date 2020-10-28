@@ -1,4 +1,4 @@
-import { Page } from 'playwright';
+import { Page, Request } from 'playwright';
 
 export type Headers = {
   [key: string]: string;
@@ -42,7 +42,7 @@ function buildPlaywrightResponseWith<T>(
 
 export async function onRequestToRespondWith<T>(
   url: string,
-  response: Partial<MockResponse<T>>,
+  response: Partial<MockResponse<T>> | ((request: Request) => Partial<MockResponse<T>>),
   page: Page | undefined,
 ): Promise<void> {
   if (!page) {
@@ -53,8 +53,9 @@ export async function onRequestToRespondWith<T>(
     (uri) => {
       return uri.toString().includes(url);
     },
-    (route) => {
-      const playwrightResponse = buildPlaywrightResponseWith(response);
+    (route, request) => {
+      const mockedResponse = typeof response === 'function' ? response(request) : response;
+      const playwrightResponse = buildPlaywrightResponseWith(mockedResponse);
       route.fulfill(playwrightResponse);
     },
   );

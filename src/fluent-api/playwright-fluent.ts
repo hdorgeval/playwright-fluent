@@ -59,7 +59,7 @@ import {
   WaitUntilOptions,
 } from '../utils';
 import { SelectorFluent } from '../selector-api';
-import { Browser, Page, BrowserContext } from 'playwright';
+import { Browser, Page, BrowserContext, Request as PlaywrightRequest } from 'playwright';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
 
@@ -361,17 +361,25 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private async onRequestToRespondWith<T>(
     partialUrl: string,
-    response: Partial<MockResponse<T>>,
+    response: Partial<MockResponse<T>> | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
   ): Promise<void> {
     await action.onRequestToRespondWith(partialUrl, response, this.currentPage());
   }
   public onRequestTo(
     partialUrl: string,
   ): {
-    respondWith: <T>(response: Partial<MockResponse<T>>) => PlaywrightFluent;
+    respondWith: <T>(
+      response:
+        | Partial<MockResponse<T>>
+        | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
+    ) => PlaywrightFluent;
   } {
     return {
-      respondWith: <T>(response: Partial<MockResponse<T>>): PlaywrightFluent => {
+      respondWith: <T>(
+        response:
+          | Partial<MockResponse<T>>
+          | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
+      ): PlaywrightFluent => {
         const action = (): Promise<void> => this.onRequestToRespondWith(partialUrl, response);
         this.actions.push(action);
         return this;
