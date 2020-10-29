@@ -497,11 +497,11 @@ await p
 ### onRequestTo(url).respondWith(response)
 
 - url: `string`
-- response: `Partial<MockResponse<T>`
+- response: `Partial<MockResponse<T> | ((request: Request) => Partial<MockResponse<T>>)`
 
 Will intercept any request whose url contains the input `url` (this parameter should be seen as a partial url, it is not a regex and not a glob pattern), then will respond with the given `response` object.
 
-The main purpose of this feature, is to be able to intercept rest API calls, that gives back a JSON object of type `T`, and then substitute the response by another JSON object of type `T`, or subsitute the HTTP response status by another one (for example subsitute an HTTP 200 by an HTTP 500, for chaos testing).
+The main purpose of this feature, is to be able to intercept rest API calls, that gives back a JSON object of type `T`, and then substitute the response by another JSON object of type `T`, or substitute the HTTP response status by another one (for example subsitute an HTTP 200 by an HTTP 500, for chaos testing).
 
 ```js
 interface MockResponse<T> {
@@ -539,6 +539,28 @@ await p
   })
   .navigateTo(url);
 
+```
+
+if the `response` object depends on the `request` object, you may use the functional version of this method:
+
+```js
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .emulateDevice('iPhone 6 landscape')
+  .onRequestTo('/foobar')
+  .respondWith((request) => {
+    const url = request.url();
+    if (url.includes('?foo=bar')) {
+      return {
+        status: 200,
+        headers: responseHeaders,
+        body: mockResponseBody,
+      };
+    }
+    throw new Error(`Cannot handle to request '${url}'`);
+  })
+  .navigateTo(url);
 ```
 
 ---
