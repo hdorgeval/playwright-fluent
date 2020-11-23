@@ -6,9 +6,7 @@ describe('Playwright Fluent - ctor usage', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });
-  test('should be called with both a browser and a page instance - chromium case', async (): Promise<
-    void
-  > => {
+  test('should be called with both a browser and a page instance - chromium case', async (): Promise<void> => {
     // Given
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();

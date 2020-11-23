@@ -64,9 +64,7 @@ describe('Selector API - find', (): void => {
   .find(select[data-test-id="my-select"])`);
   });
 
-  test('should get handles, even when selector is created before browser is launched', async (): Promise<
-    void
-  > => {
+  test('should get handles, even when selector is created before browser is launched', async (): Promise<void> => {
     // Given
     // prettier-ignore
     const selector = p

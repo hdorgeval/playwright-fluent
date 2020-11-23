@@ -13,9 +13,7 @@ describe.skip('Playwright Fluent - withWindowSize', (): void => {
     },
   );
 
-  test('should target firefox in headfull mode with window size 800x600', async (): Promise<
-    void
-  > => {
+  test('should target firefox in headfull mode with window size 800x600', async (): Promise<void> => {
     // Given
     const browser = 'firefox';
     const options: LaunchOptions = {

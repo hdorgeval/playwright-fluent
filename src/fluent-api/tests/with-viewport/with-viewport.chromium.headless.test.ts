@@ -37,9 +37,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
     expect(Math.abs(windowState.innerHeight - viewport.height)).toBeLessThanOrEqual(10);
   });
 
-  test('should target chromium in headless with viewport size 1280x720', async (): Promise<
-    void
-  > => {
+  test('should target chromium in headless with viewport size 1280x720', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
     const options: LaunchOptions = {
@@ -64,9 +62,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
     expect(Math.abs(windowState.innerHeight - viewport.height)).toBeLessThanOrEqual(10);
   });
 
-  test('should target chromium in headless with viewport size 1600x900', async (): Promise<
-    void
-  > => {
+  test('should target chromium in headless with viewport size 1600x900', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
     const options: LaunchOptions = {

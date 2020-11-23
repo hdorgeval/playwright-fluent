@@ -92,9 +92,7 @@ describe('double-click on handle', (): void => {
     expect(selectedText).toBe('disabled');
   });
 
-  test.skip('should wait for the selector to be enabled (verbose) - chromium', async (): Promise<
-    void
-  > => {
+  test.skip('should wait for the selector to be enabled (verbose) - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

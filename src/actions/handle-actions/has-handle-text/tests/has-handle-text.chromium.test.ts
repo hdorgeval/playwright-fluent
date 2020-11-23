@@ -72,9 +72,7 @@ describe('handle has text', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return true when selector is empty and expected is empty', async (): Promise<
-    void
-  > => {
+  test('should return true when selector is empty and expected is empty', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

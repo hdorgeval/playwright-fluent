@@ -35,9 +35,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     expect(result && result.message).toContain("Selector 'foobar' was not found in DOM.");
   });
 
-  test('should give back an error when selector object does not exists', async (): Promise<
-    void
-  > => {
+  test('should give back an error when selector object does not exists', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
     const selector = p.selector('foobar');
@@ -78,9 +76,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     expect(isVisible).toBe(true);
   });
 
-  test('should wait until selector object exists and is visible - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector object exists and is visible - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
     const selector = p.selector('p').withText('dynamically added');
@@ -124,9 +120,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
     expect(result && result.message).toContain("Selector '#hidden' is not visible.");
   });
 
-  test('should give back an error when selector object is not visible - chromium', async (): Promise<
-    void
-  > => {
+  test('should give back an error when selector object is not visible - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-visible.test.html')}`;
     const selector = p.selector('p').withText('I am hidden');

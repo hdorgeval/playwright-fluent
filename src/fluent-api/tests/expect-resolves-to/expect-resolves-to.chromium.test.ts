@@ -11,9 +11,7 @@ describe('Playwright Fluent - expect func resolves to', (): void => {
       await p.close();
     },
   );
-  test('should wait until selector value has expected value - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector value has expected value - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-resolves-to.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added');
@@ -51,9 +49,7 @@ describe('Playwright Fluent - expect func resolves to', (): void => {
     await p.expectThatAsyncFunc(() => selector.count()).resolvesTo(6);
   });
 
-  test('should give back an error when selector does not resolve to expected value', async (): Promise<
-    void
-  > => {
+  test('should give back an error when selector does not resolve to expected value', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-resolves-to.test.html')}`;
     const selector = p.selector('foobar');

@@ -113,9 +113,7 @@ describe('wait until', (): void => {
     );
   });
 
-  test('should throw when timeout is reached - error message is a func', async (): Promise<
-    void
-  > => {
+  test('should throw when timeout is reached - error message is a func', async (): Promise<void> => {
     // Given
     const options: WaitUntilOptions = {
       ...defaultWaitUntilOptions,

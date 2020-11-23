@@ -61,9 +61,7 @@ describe('Playwright Fluent - pasteText', (): void => {
     );
   });
 
-  test('should paste text in an input selector that has no paste event handler- chromium', async (): Promise<
-    void
-  > => {
+  test('should paste text in an input selector that has no paste event handler- chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'paste-text.test.html')}`;
     const selector = '#targetInput';
@@ -82,9 +80,7 @@ describe('Playwright Fluent - pasteText', (): void => {
     expect(currentValue).toBe('foobar');
   });
 
-  test('should paste text in a contenteditable selector that has no paste event handler- chromium', async (): Promise<
-    void
-  > => {
+  test('should paste text in a contenteditable selector that has no paste event handler- chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'paste-text.test.html')}`;
     const selector = 'p#target';
@@ -103,9 +99,7 @@ describe('Playwright Fluent - pasteText', (): void => {
     expect(currentValue).toBe('foobar');
   });
 
-  test('should paste text in an input selector that has a paste event handler- chromium', async (): Promise<
-    void
-  > => {
+  test('should paste text in an input selector that has a paste event handler- chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'paste-text.test.html')}`;
     const selector = '#emptyInput';

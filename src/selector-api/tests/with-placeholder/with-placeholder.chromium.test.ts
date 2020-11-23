@@ -66,9 +66,7 @@ describe('Selector API - withPlaceholder', (): void => {
   .withPlaceholder(foo bar)`);
   });
 
-  test('should get handles, even when selector is created before browser is launched', async (): Promise<
-    void
-  > => {
+  test('should get handles, even when selector is created before browser is launched', async (): Promise<void> => {
     // Given
     // prettier-ignore
     const selector = p.selector('[role="row"]')

@@ -20,9 +20,7 @@ describe('paste text', (): void => {
     },
   );
 
-  test('should paste text in a content-editable element that do not have paste event handler - chromium', async (): Promise<
-    void
-  > => {
+  test('should paste text in a content-editable element that do not have paste event handler - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -47,9 +45,7 @@ describe('paste text', (): void => {
     expect(await handle!.evaluate((node) => node.innerHTML)).toBe('foobar');
   });
 
-  test('should paste text in an input element that do not have paste event handler - chromium', async (): Promise<
-    void
-  > => {
+  test('should paste text in an input element that do not have paste event handler - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -74,9 +70,7 @@ describe('paste text', (): void => {
     expect(await handle!.evaluate((node) => (node as HTMLInputElement).value)).toBe('foobar');
   });
 
-  test('should paste text in a content-editable element that have paste event handler - chromium', async (): Promise<
-    void
-  > => {
+  test('should paste text in a content-editable element that have paste event handler - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

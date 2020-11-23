@@ -54,9 +54,7 @@ describe('check handle', (): void => {
       expect(error).toMatchObject(expectedError),
     );
   });
-  test('should throw when selector is disabled and unchecked - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector is disabled and unchecked - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

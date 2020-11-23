@@ -120,9 +120,7 @@ describe('Playwright Fluent - expect has text', (): void => {
     );
   });
 
-  test('should throw when selector object does not contain text - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector object does not contain text - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-text.test.html')}`;
     const selector = p.selector('p').withText('dynamically added');

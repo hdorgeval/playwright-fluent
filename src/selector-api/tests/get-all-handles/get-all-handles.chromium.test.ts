@@ -72,9 +72,7 @@ describe('Selector API - getAllHandles', (): void => {
     expect(selector.toString()).toBe('selector([role="row"])');
   });
 
-  test('should get handles, even when selector is created before browser is launched', async (): Promise<
-    void
-  > => {
+  test('should get handles, even when selector is created before browser is launched', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'get-all-handles.test.html')}`;
     const selector = p.selector('[role="row"]');

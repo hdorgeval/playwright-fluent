@@ -12,9 +12,7 @@ describe('Playwright Fluent - double-click', (): void => {
     },
   );
 
-  test('should give back an error on double-click when browser is not launched', async (): Promise<
-    void
-  > => {
+  test('should give back an error on double-click when browser is not launched', async (): Promise<void> => {
     // Given
 
     // When

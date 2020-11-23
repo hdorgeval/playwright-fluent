@@ -60,9 +60,7 @@ describe('Playwright Fluent - clearText', (): void => {
       'You must first click on an editable element before clearing text',
     );
   });
-  test('should raise an error when clicked div is not editable - chromium', async (): Promise<
-    void
-  > => {
+  test('should raise an error when clicked div is not editable - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'clear-text.test.html')}`;
     const selector = '#content-not-editable-div';
@@ -124,9 +122,7 @@ describe('Playwright Fluent - clearText', (): void => {
     const currentValue = await p.getValueOf('#in-view-port');
     expect(currentValue).toBe('');
   });
-  test('should clear text in a contenteditable selector object - chromium', async (): Promise<
-    void
-  > => {
+  test('should clear text in a contenteditable selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'clear-text.test.html')}`;
     const selector = p.selector('p').withText('dynamically added');
@@ -145,9 +141,7 @@ describe('Playwright Fluent - clearText', (): void => {
     expect(currentText).toBe('');
   });
 
-  test('should clear text in a contenteditable div selector object - chromium', async (): Promise<
-    void
-  > => {
+  test('should clear text in a contenteditable div selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'clear-text.test.html')}`;
     const selector = p.selector('div[contenteditable="true"]').withText('editable div');

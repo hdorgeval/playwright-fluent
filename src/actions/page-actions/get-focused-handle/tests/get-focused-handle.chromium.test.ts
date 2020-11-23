@@ -14,9 +14,7 @@ describe('get-focused-handle', (): void => {
     },
   );
 
-  test('should return handle when focused element exists on the page - chromium', async (): Promise<
-    void
-  > => {
+  test('should return handle when focused element exists on the page - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });

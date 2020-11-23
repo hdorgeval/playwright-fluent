@@ -39,9 +39,7 @@ describe('Playwright Fluent - select(label).in(selector)', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(selectedOption!.label).toBe('label 2');
   });
-  test('should select an existing option of a selector object - chromium', async (): Promise<
-    void
-  > => {
+  test('should select an existing option of a selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'select-in.test.html')}`;
     const selector = p.selector('select').withText('Please select an option');
@@ -89,9 +87,7 @@ describe('Playwright Fluent - select(label).in(selector)', (): void => {
     expect(value).toBe('bar');
   });
 
-  test('should wait until option is available in selector object - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until option is available in selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'select-in.test.html')}`;
     const selector = p.selector('select').withText('Please select an option');

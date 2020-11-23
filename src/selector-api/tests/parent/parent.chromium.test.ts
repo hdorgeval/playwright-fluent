@@ -66,9 +66,7 @@ describe('Selector API - parent', (): void => {
   .parent()`);
   });
 
-  test('should get handles, even when selector is created before page is instanciated', async (): Promise<
-    void
-  > => {
+  test('should get handles, even when selector is created before page is instanciated', async (): Promise<void> => {
     // Given
     // prettier-ignore
     const selector = p

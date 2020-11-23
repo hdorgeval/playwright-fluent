@@ -74,9 +74,7 @@ describe('Playwright Fluent - check', (): void => {
     await p.expectThatSelector(selector).isChecked();
   });
 
-  test('should do nothing when selector object is already checked - chromium', async (): Promise<
-    void
-  > => {
+  test('should do nothing when selector object is already checked - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'check.test.html')}`;
     const selector = p.selector('input').withValue('I am checked and disabled');

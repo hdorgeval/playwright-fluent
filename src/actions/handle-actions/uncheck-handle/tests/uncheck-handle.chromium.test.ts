@@ -92,9 +92,7 @@ describe('uncheck handle', (): void => {
     );
   });
 
-  test('should do nothing when selector is already unchecked - chromium', async (): Promise<
-    void
-  > => {
+  test('should do nothing when selector is already unchecked - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

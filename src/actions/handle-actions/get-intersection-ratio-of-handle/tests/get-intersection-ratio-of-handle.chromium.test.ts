@@ -37,9 +37,7 @@ describe('get intersection ratio of handle', (): void => {
     expect(result).toBe(0);
   });
 
-  test('should return 1 when selector is inside of viewport - chromium', async (): Promise<
-    void
-  > => {
+  test('should return 1 when selector is inside of viewport - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -58,9 +56,7 @@ describe('get intersection ratio of handle', (): void => {
     expect(result).toBe(1);
   });
 
-  test('should return a ratio when selector is intersecting viewport - chromium', async (): Promise<
-    void
-  > => {
+  test('should return a ratio when selector is intersecting viewport - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

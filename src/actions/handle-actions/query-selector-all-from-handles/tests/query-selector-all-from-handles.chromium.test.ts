@@ -48,9 +48,7 @@ describe('query selector all from handles', (): void => {
     expect(await result[1].evaluate((node) => (node as HTMLSelectElement).value)).toBe('2');
     expect(await result[2].evaluate((node) => (node as HTMLSelectElement).value)).toBe('3');
   });
-  test('should return no elements when child selector is not found - chromium', async (): Promise<
-    void
-  > => {
+  test('should return no elements when child selector is not found - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

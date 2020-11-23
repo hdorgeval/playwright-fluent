@@ -12,9 +12,7 @@ describe('Playwright Fluent - pressKey', (): void => {
     },
   );
 
-  test('should give back an error on hover without launching the browser', async (): Promise<
-    void
-  > => {
+  test('should give back an error on hover without launching the browser', async (): Promise<void> => {
     // Given
 
     // When

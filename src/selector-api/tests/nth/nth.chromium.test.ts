@@ -157,9 +157,7 @@ describe('Selector API - nth', (): void => {
   .nth(3)`);
   });
 
-  test('should get handle, even when selector is created before page is instanciated', async (): Promise<
-    void
-  > => {
+  test('should get handle, even when selector is created before page is instanciated', async (): Promise<void> => {
     // Given
     // prettier-ignore
     const selector = p

@@ -12,9 +12,7 @@ describe('Playwright Fluent - expect does not have class', (): void => {
     },
   );
 
-  test('should give back an error on expectThat.doesNotHaveClass when browser has not been launched', async (): Promise<
-    void
-  > => {
+  test('should give back an error on expectThat.doesNotHaveClass when browser has not been launched', async (): Promise<void> => {
     // Given
 
     // When

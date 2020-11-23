@@ -140,9 +140,7 @@ describe('Playwright Fluent - expectThat isNotVisible', (): void => {
     expect(isNotVisible).toBe(true);
   });
 
-  test('should assert is not visible when selector is out of viewport - chromium', async (): Promise<
-    void
-  > => {
+  test('should assert is not visible when selector is out of viewport - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-not-visible.test.html')}`;
     const selector = p.selector('p').withText('I am out of viewport');

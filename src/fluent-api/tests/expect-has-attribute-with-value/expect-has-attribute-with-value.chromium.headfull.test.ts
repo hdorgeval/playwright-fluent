@@ -83,9 +83,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
     );
   });
 
-  test('should throw when selector object has not the attribute - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector object has not the attribute - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-attribute-with-value.test.html')}`;
     const selector = p.selector('input').withValue('input with no data-id');
@@ -111,9 +109,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
     );
   });
 
-  test('should throw when selector does not have the attribute with the expected value - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector does not have the attribute with the expected value - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-attribute-with-value.test.html')}`;
     const selector = '#input-with-data-id';
@@ -138,9 +134,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
     );
   });
 
-  test('should throw when selector object does have the attribute with the expected value - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector object does have the attribute with the expected value - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-attribute-with-value.test.html')}`;
     const selector = p.selector('input').withValue('input with data-id');
@@ -184,9 +178,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
     // THEN
   });
 
-  test('should wait until selector object has expected attribute - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector object has expected attribute - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-attribute-with-value.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added input');

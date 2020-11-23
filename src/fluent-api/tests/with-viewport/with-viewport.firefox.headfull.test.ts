@@ -13,9 +13,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
     },
   );
 
-  test('should target firefox in headfull mode with viewport size 800x600', async (): Promise<
-    void
-  > => {
+  test('should target firefox in headfull mode with viewport size 800x600', async (): Promise<void> => {
     // Given
     const browser = 'firefox';
     const options: LaunchOptions = {
@@ -40,9 +38,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
     expect(Math.abs(windowState.innerHeight - viewport.height)).toBeLessThanOrEqual(10);
   });
 
-  test('should target firefox in headfull mode with viewport size 1920x1440', async (): Promise<
-    void
-  > => {
+  test('should target firefox in headfull mode with viewport size 1920x1440', async (): Promise<void> => {
     // Given
     const browser = 'firefox';
     const options: LaunchOptions = {

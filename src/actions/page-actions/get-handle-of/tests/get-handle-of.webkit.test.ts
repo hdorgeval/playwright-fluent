@@ -15,9 +15,7 @@ describe('get-handle-of', (): void => {
     },
   );
 
-  test('should return handle when selector exists on the page - webkit', async (): Promise<
-    void
-  > => {
+  test('should return handle when selector exists on the page - webkit', async (): Promise<void> => {
     // Given
     browser = await webkit.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });
@@ -30,9 +28,7 @@ describe('get-handle-of', (): void => {
     expect(result).toBeDefined();
   });
 
-  test('should throw an error when selector does not exist on the page - webkit', async (): Promise<
-    void
-  > => {
+  test('should throw an error when selector does not exist on the page - webkit', async (): Promise<void> => {
     // Given
     browser = await webkit.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });

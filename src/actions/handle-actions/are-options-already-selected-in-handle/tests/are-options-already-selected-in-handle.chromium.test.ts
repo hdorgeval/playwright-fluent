@@ -37,9 +37,7 @@ describe('are options already selected in handle', (): void => {
     );
   });
 
-  test('should check that all options are already selected in a disabled select - chromium', async (): Promise<
-    void
-  > => {
+  test('should check that all options are already selected in a disabled select - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -61,9 +59,7 @@ describe('are options already selected in handle', (): void => {
     expect(result).toBe(true);
   });
 
-  test('should check that all options are not already selected in a disabled select - chromium', async (): Promise<
-    void
-  > => {
+  test('should check that all options are not already selected in a disabled select - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

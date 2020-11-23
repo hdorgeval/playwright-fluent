@@ -26,9 +26,7 @@ describe('get-handle-of', (): void => {
     expect(handle).toBeNull();
   });
 
-  test('should return handle when selector exists on the page - chromium', async (): Promise<
-    void
-  > => {
+  test('should return handle when selector exists on the page - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });
@@ -41,9 +39,7 @@ describe('get-handle-of', (): void => {
     expect(result).toBeDefined();
   });
 
-  test('should throw an error when selector does not exist on the page - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw an error when selector does not exist on the page - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });

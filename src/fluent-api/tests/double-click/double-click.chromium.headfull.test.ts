@@ -72,9 +72,7 @@ describe('Playwright Fluent - double-click', (): void => {
     expect(result && result.message).toContain("Selector 'foobar' was not found in DOM");
   });
 
-  test('should not double-click on a non existing selector object - chromium', async (): Promise<
-    void
-  > => {
+  test('should not double-click on a non existing selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'double-click.test.html')}`;
     const selector = p.selector('foobar');
@@ -145,9 +143,7 @@ describe('Playwright Fluent - double-click', (): void => {
     );
   });
 
-  test('should not double-click on a disabled selector object - chromium', async (): Promise<
-    void
-  > => {
+  test('should not double-click on a disabled selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'double-click.test.html')}`;
     const selector = p.selector('input').withValue('I am disabled');

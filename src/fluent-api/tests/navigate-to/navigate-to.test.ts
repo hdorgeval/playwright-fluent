@@ -12,9 +12,7 @@ describe('Playwright Fluent - navigateTo', (): void => {
     },
   );
 
-  test('should give back an error on navigating to an url without launching the browser', async (): Promise<
-    void
-  > => {
+  test('should give back an error on navigating to an url without launching the browser', async (): Promise<void> => {
     // Given
 
     // When

@@ -12,9 +12,7 @@ describe('Playwright Fluent - expect is visible', (): void => {
     },
   );
 
-  test('should give back an error on expectThat.isVisible when browser has not been launched', async (): Promise<
-    void
-  > => {
+  test('should give back an error on expectThat.isVisible when browser has not been launched', async (): Promise<void> => {
     // Given
 
     // When

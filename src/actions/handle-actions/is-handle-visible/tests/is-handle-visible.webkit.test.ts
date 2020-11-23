@@ -114,9 +114,7 @@ describe.skip('handle is visible', (): void => {
     expect(result).toBe(false);
   });
 
-  test.skip('should return 1 when selector is in viewport - issue playwright headless', async (): Promise<
-    void
-  > => {
+  test.skip('should return 1 when selector is in viewport - issue playwright headless', async (): Promise<void> => {
     // Given
     browser = await webkit.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -139,9 +137,7 @@ describe.skip('handle is visible', (): void => {
     expect(visibleRatio).toBe(1);
   });
 
-  test.skip('should return 1 when selector is in viewport - issue playwright headfull', async (): Promise<
-    void
-  > => {
+  test.skip('should return 1 when selector is in viewport - issue playwright headfull', async (): Promise<void> => {
     // Given
     browser = await webkit.launch({ headless: false });
     const browserContext = await browser.newContext({ viewport: null });

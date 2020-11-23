@@ -15,9 +15,7 @@ describe('handle has attribue with expected value', (): void => {
     },
   );
 
-  test('should return true when selector has attribute with the expected value', async (): Promise<
-    void
-  > => {
+  test('should return true when selector has attribute with the expected value', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

@@ -78,9 +78,7 @@ describe.skip('click on handle', (): void => {
     expect(await hasHandleFocus(handle)).toBe(true);
   });
 
-  test('should wait for the selector to be enabled (verbose) - chrome-canary', async (): Promise<
-    void
-  > => {
+  test('should wait for the selector to be enabled (verbose) - chrome-canary', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true, executablePath: getChromeCanaryPath() });
     const browserContext = await browser.newContext({ viewport: null });

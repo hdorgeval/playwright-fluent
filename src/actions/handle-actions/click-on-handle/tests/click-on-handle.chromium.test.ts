@@ -77,9 +77,7 @@ describe('click on handle', (): void => {
     expect(await hasHandleFocus(handle)).toBe(true);
   });
 
-  test('should wait for the selector to be enabled (verbose) - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait for the selector to be enabled (verbose) - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

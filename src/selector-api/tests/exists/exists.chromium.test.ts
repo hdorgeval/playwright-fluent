@@ -169,9 +169,7 @@ describe('Selector API - exists', (): void => {
     expect(finalExistsStatus).toBe(true);
   });
 
-  test('should return true, even when selector is created before page is instanciated', async (): Promise<
-    void
-  > => {
+  test('should return true, even when selector is created before page is instanciated', async (): Promise<void> => {
     // Given
     // prettier-ignore
     const selector = p

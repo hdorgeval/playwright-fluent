@@ -36,9 +36,7 @@ describe('handle has exact value', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return false when handle is null and expected value is empty', async (): Promise<
-    void
-  > => {
+  test('should return false when handle is null and expected value is empty', async (): Promise<void> => {
     // Given
     const handle: ElementHandle<Element> | null = null;
 
@@ -49,9 +47,7 @@ describe('handle has exact value', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return false when handle is undefined and expected value is empty', async (): Promise<
-    void
-  > => {
+  test('should return false when handle is undefined and expected value is empty', async (): Promise<void> => {
     // Given
     const handle: ElementHandle<Element> | undefined = undefined;
 
@@ -125,9 +121,7 @@ describe('handle has exact value', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return true when selector has undefined value and expected is empty', async (): Promise<
-    void
-  > => {
+  test('should return true when selector has undefined value and expected is empty', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -144,9 +138,7 @@ describe('handle has exact value', (): void => {
     expect(result).toBe(true);
   });
 
-  test('should return true when selector has empty value and expected is empty', async (): Promise<
-    void
-  > => {
+  test('should return true when selector has empty value and expected is empty', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -164,9 +156,7 @@ describe('handle has exact value', (): void => {
     expect(result).toBe(true);
   });
 
-  test('should return true when selector has null value and expected is empty', async (): Promise<
-    void
-  > => {
+  test('should return true when selector has null value and expected is empty', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

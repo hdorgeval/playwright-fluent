@@ -17,9 +17,7 @@ describe('get class list of handle', (): void => {
     },
   );
 
-  test('should return empty array when class attribute is empty - chromium', async (): Promise<
-    void
-  > => {
+  test('should return empty array when class attribute is empty - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -37,9 +35,7 @@ describe('get class list of handle', (): void => {
     expect(result.length).toBe(0);
   });
 
-  test('should return empty array when class attribute does not exist - chromium', async (): Promise<
-    void
-  > => {
+  test('should return empty array when class attribute does not exist - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

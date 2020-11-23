@@ -83,9 +83,7 @@ describe('Playwright Fluent - expect has placeholder', (): void => {
     );
   });
 
-  test('should throw when selector object has no placeholder - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector object has no placeholder - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-placeholder.test.html')}`;
     const selector = p.selector('input').withValue('input with no placeholder');
@@ -111,9 +109,7 @@ describe('Playwright Fluent - expect has placeholder', (): void => {
     );
   });
 
-  test('should throw when selector does not have the placeholder - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector does not have the placeholder - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-placeholder.test.html')}`;
     const selector = '#input-with-placeholder';
@@ -138,9 +134,7 @@ describe('Playwright Fluent - expect has placeholder', (): void => {
     );
   });
 
-  test('should throw when selector object does have the placeholder - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector object does have the placeholder - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-placeholder.test.html')}`;
     const selector = p.selector('input').withValue('input with placeholder');
@@ -166,9 +160,7 @@ describe('Playwright Fluent - expect has placeholder', (): void => {
     );
   });
 
-  test('should wait until selector has expected placeholder - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector has expected placeholder - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-placeholder.test.html')}`;
     const selector = '#dynamically-added-input';
@@ -186,9 +178,7 @@ describe('Playwright Fluent - expect has placeholder', (): void => {
     // THEN
   });
 
-  test('should wait until selector object has expected placeholder - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector object has expected placeholder - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-placeholder.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added input');

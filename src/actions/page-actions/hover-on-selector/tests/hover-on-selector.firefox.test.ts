@@ -25,9 +25,7 @@ describe.skip('hover on selector', (): void => {
     },
   );
 
-  test('should wait for the selector to exists before hovering - firefox', async (): Promise<
-    void
-  > => {
+  test('should wait for the selector to exists before hovering - firefox', async (): Promise<void> => {
     // Given
     browser = await firefox.launch({ headless: false });
     const browserContext = await browser.newContext({ viewport: null });

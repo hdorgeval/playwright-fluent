@@ -169,9 +169,7 @@ describe('Selector API - isVisible', (): void => {
     expect(finalVisibleStatus).toBe(true);
   });
 
-  test('should return true, even when selector is created before page is instanciated', async (): Promise<
-    void
-  > => {
+  test('should return true, even when selector is created before page is instanciated', async (): Promise<void> => {
     // Given
     // prettier-ignore
     const selector = p

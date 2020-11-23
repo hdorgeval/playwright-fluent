@@ -21,9 +21,7 @@ describe('scroll to handle', (): void => {
     },
   );
 
-  test('should scroll to a selector that is out of viewport - chromium', async (): Promise<
-    void
-  > => {
+  test('should scroll to a selector that is out of viewport - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

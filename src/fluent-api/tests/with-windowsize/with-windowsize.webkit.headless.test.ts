@@ -13,9 +13,7 @@ describe.skip('Playwright Fluent - withWindowSize', (): void => {
     },
   );
 
-  test('should target webkit in headless mode with window size 800x600', async (): Promise<
-    void
-  > => {
+  test('should target webkit in headless mode with window size 800x600', async (): Promise<void> => {
     // Given
     const browser = 'webkit';
     const options: LaunchOptions = {

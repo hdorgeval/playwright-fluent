@@ -14,9 +14,7 @@ describe('get-focused-handle', (): void => {
     },
   );
 
-  test('should return handle when selector exists on the page - webkit', async (): Promise<
-    void
-  > => {
+  test('should return handle when selector exists on the page - webkit', async (): Promise<void> => {
     // Given
     browser = await webkit.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });

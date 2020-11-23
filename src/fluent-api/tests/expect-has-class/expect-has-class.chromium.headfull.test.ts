@@ -134,9 +134,7 @@ describe('Playwright Fluent - expect has class', (): void => {
     );
   });
 
-  test('should throw when selector object does have the class - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector object does have the class - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-class.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added');
@@ -180,9 +178,7 @@ describe('Playwright Fluent - expect has class', (): void => {
     // THEN
   });
 
-  test('should wait until selector object has expected class - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector object has expected class - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-class.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added input');

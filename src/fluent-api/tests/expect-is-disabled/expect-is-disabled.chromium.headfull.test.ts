@@ -35,9 +35,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
     expect(result && result.message).toContain("Selector 'foobar' was not found in DOM.");
   });
 
-  test('should give back an error when selector object does not exists', async (): Promise<
-    void
-  > => {
+  test('should give back an error when selector object does not exists', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-disabled.test.html')}`;
     const selector = p.selector('foobar');
@@ -78,9 +76,7 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
     expect(isDisabled).toBe(true);
   });
 
-  test('should wait until selector object exists and is disabled - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector object exists and is disabled - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-is-disabled.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added');

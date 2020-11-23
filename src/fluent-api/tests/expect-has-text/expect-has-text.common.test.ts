@@ -12,9 +12,7 @@ describe('Playwright Fluent - expect has text', (): void => {
     },
   );
 
-  test('should give back an error on expectThat.hasText when browser has not been launched', async (): Promise<
-    void
-  > => {
+  test('should give back an error on expectThat.hasText when browser has not been launched', async (): Promise<void> => {
     // Given
 
     // When

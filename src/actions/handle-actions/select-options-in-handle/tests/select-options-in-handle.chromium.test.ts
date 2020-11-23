@@ -89,9 +89,7 @@ describe('are options already selected in handle', (): void => {
     }).catch((error): void => expect(error).toMatchObject(expectedError));
   });
 
-  test('should not throw when options are already selected in a disabled select - chromium', async (): Promise<
-    void
-  > => {
+  test('should not throw when options are already selected in a disabled select - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

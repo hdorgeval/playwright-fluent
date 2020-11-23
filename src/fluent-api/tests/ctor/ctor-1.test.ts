@@ -57,9 +57,7 @@ describe('Playwright Fluent - ctor usage', (): void => {
     await browser.close();
   });
 
-  test.skip('should take existing browser and page instance of firefox', async (): Promise<
-    void
-  > => {
+  test.skip('should take existing browser and page instance of firefox', async (): Promise<void> => {
     // Given
     const browser = await firefox.launch({ headless: true });
     const context = await browser.newContext();

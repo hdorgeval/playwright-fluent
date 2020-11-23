@@ -28,9 +28,7 @@ describe('handle has text', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return false when handle is null and expected value is empty', async (): Promise<
-    void
-  > => {
+  test('should return false when handle is null and expected value is empty', async (): Promise<void> => {
     // Given
     const handle: ElementHandle<Element> | null = null;
 
@@ -41,9 +39,7 @@ describe('handle has text', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return false when handle is undefined and expected value is empty', async (): Promise<
-    void
-  > => {
+  test('should return false when handle is undefined and expected value is empty', async (): Promise<void> => {
     // Given
     const handle: ElementHandle<Element> | undefined = undefined;
 

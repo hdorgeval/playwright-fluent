@@ -31,9 +31,7 @@ describe('Playwright Fluent - expect has value', (): void => {
     expect(currentValue).toBe('I am hovered');
   });
 
-  test('should wait until selector object has expected value - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait until selector object has expected value - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-value.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added');
@@ -122,9 +120,7 @@ describe('Playwright Fluent - expect has value', (): void => {
     );
   });
 
-  test('should throw when selector object does not contain value - chromium', async (): Promise<
-    void
-  > => {
+  test('should throw when selector object does not contain value - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'expect-has-value.test.html')}`;
     const selector = p.selector('input').withValue('dynamically added');

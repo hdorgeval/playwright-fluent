@@ -19,9 +19,7 @@ describe('uncheck selector', (): void => {
     },
   );
 
-  test('should wait for the selector to be enabled before unchecking - chromium', async (): Promise<
-    void
-  > => {
+  test('should wait for the selector to be enabled before unchecking - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });

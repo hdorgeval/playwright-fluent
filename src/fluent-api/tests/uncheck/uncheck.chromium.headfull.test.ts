@@ -53,9 +53,7 @@ describe('Playwright Fluent - uncheck', (): void => {
     await p.expectThatSelector(selector).isUnchecked();
   });
 
-  test('should do nothing when selector is already unchecked - chromium', async (): Promise<
-    void
-  > => {
+  test('should do nothing when selector is already unchecked - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'uncheck.test.html')}`;
     const selector = '#unchecked-and-disabled';
@@ -76,9 +74,7 @@ describe('Playwright Fluent - uncheck', (): void => {
     await p.expectThatSelector(selector).isUnchecked();
   });
 
-  test('should do nothing when selector object is already unchecked - chromium', async (): Promise<
-    void
-  > => {
+  test('should do nothing when selector object is already unchecked - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'uncheck.test.html')}`;
     const selector = p.selector('input').withValue('I am unchecked and disabled');

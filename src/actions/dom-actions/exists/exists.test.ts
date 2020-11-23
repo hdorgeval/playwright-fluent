@@ -28,9 +28,7 @@ describe('exists', (): void => {
     );
   });
 
-  test('should return true when selector exists on the page - chromium', async (): Promise<
-    void
-  > => {
+  test('should return true when selector exists on the page - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });
@@ -43,9 +41,7 @@ describe('exists', (): void => {
     expect(result).toBe(true);
   });
 
-  test('should return false when selector does not exist on the page - chromium', async (): Promise<
-    void
-  > => {
+  test('should return false when selector does not exist on the page - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });
@@ -58,9 +54,7 @@ describe('exists', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return false when playright API throws an internal error', async (): Promise<
-    void
-  > => {
+  test('should return false when playright API throws an internal error', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({ viewport: null });

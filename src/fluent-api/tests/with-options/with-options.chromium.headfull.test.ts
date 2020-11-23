@@ -30,9 +30,7 @@ describe('Playwright Fluent - withOptions', (): void => {
     expect(userAgent).not.toContain('Headless');
   });
 
-  test('should target chromium in headfull mode with custom window size', async (): Promise<
-    void
-  > => {
+  test('should target chromium in headfull mode with custom window size', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
     const options: LaunchOptions = {
