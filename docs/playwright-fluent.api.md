@@ -4,6 +4,7 @@
 
   - [withBrowser(browser)](#withBrowserbrowser)
   - [withOptions(options)](#withOptionsoptions)
+  - [withDefaultWaitOptions(options)](#withDefaultWaitOptionsoptions)
   - [withWindowSize(size[, options])](#withWindowSizesize-options)
   - [withViewport(viewport[, options])](#withViewportviewport-options)
   - [withCursor()](#withCursor)
@@ -135,6 +136,49 @@ const p = new PlaywrightFluent();
 
 // start the browser in headfull mode
 await p.withBrowser(browser).withOptions({ headless: false });
+```
+
+---
+
+### withDefaultWaitOptions(options)
+
+- options : `WaitOptions`
+
+```js
+interface WaitOptions {
+  /**
+   * Defaults to 30000 milliseconds.
+   *
+   * @type {number}
+   * @memberof WaitOptions
+   */
+  timeoutInMilliseconds: number;
+  /**
+   * Time during which the callback must always return true.
+   * Defaults to 300 milliseconds.
+   * You must not setup a duration < 100 milliseconds.
+   * @type {number}
+   * @memberof WaitOptions
+   */
+  stabilityInMilliseconds: number;
+}
+```
+
+Will set the wait options to be applied on all browser actions (click, hoover, ...).
+Use this method if you want to speed up test execution (but some flakiness may appear).
+This default settings does not apply to assertions.
+
+Example:
+
+```js
+const browser = 'chromium';
+const p = new PlaywrightFluent();
+
+// start the browser in headfull mode
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withDefaultWaitOptions({ stabilityInMilliseconds: 0, timeoutInMilliseconds: 10000 });
 ```
 
 ---
