@@ -55,6 +55,7 @@ import {
   defaultWaitUntilOptions,
   sleep,
   waitForStabilityOf,
+  WaitOptions,
   waitUntil,
   WaitUntilOptions,
 } from '../utils';
@@ -63,7 +64,13 @@ import { Browser, Page, BrowserContext, Request as PlaywrightRequest } from 'pla
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
 
-export { WaitUntilOptions, noWaitNoThrowOptions, defaultWaitUntilOptions } from '../utils';
+export {
+  WaitOptions,
+  WaitUntilOptions,
+  noWaitNoThrowOptions,
+  defaultWaitUntilOptions,
+} from '../utils';
+
 export {
   BrowserName,
   CheckOptions,
@@ -221,6 +228,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private actions: (() => Promise<void>)[] = [];
 
   private launchOptions: LaunchOptions = defaultLaunchOptions;
+  private defaultWaitOptions: WaitOptions = {
+    stabilityInMilliseconds: defaultWaitUntilOptions.stabilityInMilliseconds,
+    timeoutInMilliseconds: defaultWaitUntilOptions.timeoutInMilliseconds,
+  };
   private contextOptions: BrowserContextOptions = { viewport: null };
   private emulatedDevice: Device | undefined = undefined;
   private customWindowSize: WindowSize | undefined = undefined;
@@ -255,6 +266,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
     if (this.showMousePosition) {
       await action.showMousePosition(this.page);
     }
+  }
+
+  public withDefaultWaitOptions(options: Partial<WaitOptions>): PlaywrightFluent {
+    const updatedOptions: WaitOptions = {
+      ...this.defaultWaitOptions,
+      ...options,
+    };
+    this.defaultWaitOptions = updatedOptions;
+    return this;
   }
 
   public withOptions(options: Partial<LaunchOptions>): PlaywrightFluent {
@@ -453,6 +473,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): PlaywrightFluent {
     const hoverOptions: HoverOptions = {
       ...defaultHoverOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     if (typeof selector === 'string') {
@@ -482,6 +503,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): PlaywrightFluent {
     const clickOptions: ClickOptions = {
       ...defaultClickOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     if (typeof selector === 'string') {
@@ -515,6 +537,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): PlaywrightFluent {
     const doubleClickOptions: DoubleClickOptions = {
       ...defaultDoubleClickOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     if (typeof selector === 'string') {
@@ -546,6 +569,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): PlaywrightFluent {
     const checkOptions: CheckOptions = {
       ...defaultCheckOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     if (typeof selector === 'string') {
@@ -576,6 +600,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): PlaywrightFluent {
     const checkOptions: CheckOptions = {
       ...defaultCheckOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     if (typeof selector === 'string') {
@@ -625,6 +650,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ): PlaywrightFluent => {
         const selectOptions: SelectOptions = {
           ...defaultSelectOptions,
+          ...this.defaultWaitOptions,
           ...options,
         };
 
@@ -645,6 +671,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       inFocused: (options: Partial<SelectOptions> = defaultSelectOptions): PlaywrightFluent => {
         const selectOptions: SelectOptions = {
           ...defaultSelectOptions,
+          ...this.defaultWaitOptions,
           ...options,
         };
 
@@ -907,6 +934,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<string | null | undefined> {
     const waitOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     const result = await action.getInnerTextOfSelector(selector, this.currentPage(), waitOptions);
@@ -929,6 +957,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<string | undefined | null> {
     const waitOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     const result = await action.getValueOfSelector(selector, this.currentPage(), waitOptions);
@@ -941,6 +970,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<SelectOptionInfo[]> {
     const waitOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     const result = await action.getAllOptionsOfSelector(selector, this.currentPage(), waitOptions);
@@ -953,6 +983,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<SelectOptionInfo | undefined> {
     const waitOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     const selectOptions = await action.getAllOptionsOfSelector(

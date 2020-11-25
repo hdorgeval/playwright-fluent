@@ -1,12 +1,12 @@
 import { report } from '../report';
 import { sleep } from '../sleep';
 
-export interface WaitUntilOptions {
+export interface WaitOptions {
   /**
    * Defaults to 30000 milliseconds.
    *
    * @type {number}
-   * @memberof WaitUntilOptions
+   * @memberof WaitOptions
    */
   timeoutInMilliseconds: number;
   /**
@@ -14,9 +14,12 @@ export interface WaitUntilOptions {
    * Defaults to 300 milliseconds.
    * You must not setup a duration < 100 milliseconds.
    * @type {number}
-   * @memberof AssertOptions
+   * @memberof WaitOptions
    */
   stabilityInMilliseconds: number;
+}
+
+export interface WaitUntilOptions extends WaitOptions {
   /**
    * Throw a timeout exception when the callback still returns false.
    * Defaults to true.
@@ -69,7 +72,7 @@ export async function waitUntil(
   report(JSON.stringify(options, null, 2), options.verbose);
 
   const timeout = options.timeoutInMilliseconds;
-  const interval = options.stabilityInMilliseconds <= 0 ? 1 : options.stabilityInMilliseconds / 3;
+  const interval = options.stabilityInMilliseconds <= 3 ? 1 : options.stabilityInMilliseconds / 3;
   const nbIntervals = timeout <= 0 ? 1 : timeout / interval;
   const stabilityCounterMaxValue = options.stabilityInMilliseconds / interval;
   let stabilityCounterCurrentValue = 0;
