@@ -12,10 +12,19 @@ export interface TypeTextOptions {
    * @memberof TypeTextOptions
    */
   delay: number;
+  /**
+   * Clear existing text before typing.
+   * Defaults to true
+   *
+   * @type {boolean}
+   * @memberof TypeTextOptions
+   */
+  clearExistingTextBeforeTyping: boolean;
 }
 
 export const defaultTypeTextOptions: TypeTextOptions = {
   delay: 50,
+  clearExistingTextBeforeTyping: true,
 };
 export async function typeText(
   text: string,
@@ -49,15 +58,25 @@ export async function typeText(
     throw new Error(`You must first click on an editable element before typing text.`);
   }
 
-  const tripleClickOptions: ClickOptions = {
-    ...defaultWaitUntilOptions,
-    button: 'left',
-    delay: options.delay,
-    clickCount: 3,
-  };
+  if (options.clearExistingTextBeforeTyping) {
+    const tripleClickOptions: ClickOptions = {
+      ...defaultWaitUntilOptions,
+      button: 'left',
+      delay: options.delay,
+      clickCount: 3,
+    };
+    await handle.click(tripleClickOptions);
+    const selectionRange = await handle.evaluate((el: HTMLInputElement) => {
+      if (el && typeof el.selectionStart === 'number' && typeof el.selectionEnd === 'number') {
+        return el.selectionEnd - el.selectionStart;
+      }
+      return 0;
+    });
+    if (selectionRange > 0) {
+      await sleep(500);
+      await page.keyboard.press('Backspace', { delay: options.delay });
+    }
+  }
 
-  await handle.click(tripleClickOptions);
-  await sleep(500);
-  await page.keyboard.press('Backspace', { delay: options.delay });
   await page.keyboard.type(text, options);
 }

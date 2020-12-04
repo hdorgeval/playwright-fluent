@@ -80,7 +80,7 @@ describe('Playwright Fluent - typeText', (): void => {
     expect(currentValue).toBe('foobar');
   });
 
-  test('should type text in an input selector object - chromium', async (): Promise<void> => {
+  test('should clear text before typing in an input selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'typetext.test.html')}`;
     const selector = p.selector('input').withValue('I am in viewport');
@@ -96,6 +96,44 @@ describe('Playwright Fluent - typeText', (): void => {
 
     // Then
     const currentValue = await p.getValueOf('#in-view-port');
+    expect(currentValue).toBe('foobar');
+  });
+
+  test('should type text in an empty input selector object - chromium', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'typetext.test.html')}`;
+    const selector = p.selector('input#in-view-port-and-empty');
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .navigateTo(url)
+      .click(selector)
+      .typeText('foobar');
+
+    // Then
+    const currentValue = await p.getValueOf('#in-view-port-and-empty');
+    expect(currentValue).toBe('foobar');
+  });
+
+  test('should type text in an editable selector - chromium', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'typetext.test.html')}`;
+    const selector = 'p#editable-content';
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .navigateTo(url)
+      .click(selector)
+      .typeText('foobar');
+
+    // Then
+    const currentValue = await p.getInnerTextOf(selector);
     expect(currentValue).toBe('foobar');
   });
 });
