@@ -14,7 +14,7 @@ describe('Playwright Fluent - recordPageErrors', (): void => {
     },
   );
 
-  test('should record uncaught exception', async (): Promise<void> => {
+  test('should record uncaught exception and console.error logs', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'record-page-errors.test.html')}`;
 
@@ -32,10 +32,11 @@ describe('Playwright Fluent - recordPageErrors', (): void => {
     // Then
     const result = p.getPageErrors();
 
-    expect(result.length).toBe(3);
+    expect(result.length).toBe(4);
     expect(result[0].message).toContain('Error#1');
-    expect(result[1].message).toContain('Error#2');
-    expect(result[2].message).toContain('Error#3');
+    expect(result[1].message).toContain('console error');
+    expect(result[2].message).toContain('Error#2');
+    expect(result[3].message).toContain('Error#3');
 
     p.clearPageErrors();
     expect(p.getPageErrors().length).toBe(0);

@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8">
+    <title>page with unhandled execptions</title>
+  </head>
 
-  <title>page with unhandled execptions</title>
-</head>
+  <body>
+    <h1>Yo!</h1>
 
-<body>
-  <h1>Yo!</h1>
-
-  <script>
-    window.setTimeout(() => {
-      throw new Error(`Error#1`);
-    }, 500);
-    window.setTimeout(() => {
-      throw new Error(`Error#2`);
-    }, 600);
-    window.setTimeout(() => {
-      throw new Error(`Error#3`);
-    }, 700);
-  </script>
-
-</body>
-
+    <script>
+      window.setTimeout(() => {
+        console.error('console error', 'foobar', { prop1: 'yo', prop2: 'yo' });
+        throw new Error(`Error#1`);
+      }, 500);
+      window.setTimeout(() => {
+        throw new Error(`Error#2`);
+      }, 600);
+      window.setTimeout(() => {
+        throw new Error(`Error#3`);
+      }, 700);
+    </script>
+  </body>
 </html>
