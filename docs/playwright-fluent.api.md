@@ -425,7 +425,7 @@ await p
 
 ### recordPageErrors()
 
-Will track and record page errors (uncaught exceptions).
+Will track and record page errors (uncaught exceptions and console.error logs).
 
 - use `getPageErrors()` helper method on the fluent API to access errors that have occurred.
 - use `clearPageErrors()` helper method on the fluent API to clear all past errors.
@@ -1029,10 +1029,20 @@ interface TypeTextOptions {
    * @memberof TypeTextOptions
    */
   delay: number;
+  /**
+   * Clear existing text before typing.
+   * Defaults to true
+   *
+   * @type {boolean}
+   * @memberof TypeTextOptions
+   */
+  clearExistingTextBeforeTyping: boolean;
 }
 ```
 
 Will type text in the element that has current focus. This method will automtically empty any existing content before typing the specified text.
+
+If you know that an input element is always empty, you might set the option `clearExistingTextBeforeTyping` to `false` in order to speed-up the input process.
 
 ---
 
@@ -1385,7 +1395,7 @@ interface WindowState {
 
 ### getPageErrors()
 
-Get page errors (uncaught exceptions) that occurred while executing the test.
+Get page errors (uncaught exceptions and console.error logs) that occurred while executing the test.
 
 ```js
 await p
