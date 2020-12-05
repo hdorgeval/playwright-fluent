@@ -69,6 +69,6 @@
     "which": "2.0.2"
   },
   "peerDependencies": {
-    "playwright": ">= 0.14.0"
+    "playwright": ">= 1.0.0"
   }
 }
