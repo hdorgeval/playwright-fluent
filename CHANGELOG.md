@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.14.0] - 2020-12-05
+
+### Added
+
+- feat(fluent-api): add option `clearExistingTextBeforeTyping` for `typeText(options)` of the Fluent API
+
+- feat(fluent-api): add console.error logs tracking when using `recordPageErrors()`
+
+### Changed
+
+- playwright peer-dependency version must be >= 1.0.0
+
 ## [1.13.0] - 2020-11-25
 
 ### Added
