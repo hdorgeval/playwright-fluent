@@ -232,6 +232,17 @@ export class PlaywrightFluent implements PromiseLike<void> {
     stabilityInMilliseconds: defaultWaitUntilOptions.stabilityInMilliseconds,
     timeoutInMilliseconds: defaultWaitUntilOptions.timeoutInMilliseconds,
   };
+  private defaultAssertOptions: AssertOptions = {
+    ...defaultAssertOptions,
+  };
+
+  private buildAssertOptionsFrom(options?: Partial<AssertOptions>) {
+    const fullOptions: AssertOptions = {
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return fullOptions;
+  }
   private contextOptions: BrowserContextOptions = { viewport: null };
   private emulatedDevice: Device | undefined = undefined;
   private customWindowSize: WindowSize | undefined = undefined;
@@ -274,6 +285,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
     this.defaultWaitOptions = updatedOptions;
+    return this;
+  }
+
+  public withDefaultAssertOptions(options: Partial<AssertOptions>): PlaywrightFluent {
+    const updatedOptions: AssertOptions = {
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    this.defaultAssertOptions = updatedOptions;
     return this;
   }
 
@@ -1015,9 +1035,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private async expectThatSelectorHasFocus(
     selector: string | SelectorFluent,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorHasFocus(selector, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorHasFocus(selector, this.currentPage(), fullOptions);
   }
   public async hasText(
     selector: string | SelectorFluent,
@@ -1046,83 +1067,107 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async expectThatSelectorHasText(
     selector: string | SelectorFluent,
     text: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorHasText(selector, text, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorHasText(selector, text, this.currentPage(), fullOptions);
   }
 
   private async expectThatSelectorHasExactValue(
     selector: string | SelectorFluent,
     value: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorHasExactValue(selector, value, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorHasExactValue(
+      selector,
+      value,
+      this.currentPage(),
+      fullOptions,
+    );
   }
 
   private async expectThatSelectorHasValue(
     selector: string | SelectorFluent,
     value: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorHasValue(selector, value, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorHasValue(selector, value, this.currentPage(), fullOptions);
   }
 
   private async expectThatSelectorHasClass(
     selector: string | SelectorFluent,
     className: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorHasClass(selector, className, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorHasClass(
+      selector,
+      className,
+      this.currentPage(),
+      fullOptions,
+    );
   }
 
   private async expectThatSelectorDoesNotHaveClass(
     selector: string | SelectorFluent,
     className: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
+    const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatSelectorDoesNotHaveClass(
       selector,
       className,
       this.currentPage(),
-      options,
+      fullOptions,
     );
   }
 
   private async expectThatSelectorHasPlaceholder(
     selector: string | SelectorFluent,
     text: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorHasPlaceholder(selector, text, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorHasPlaceholder(
+      selector,
+      text,
+      this.currentPage(),
+      fullOptions,
+    );
   }
 
   private async expectThatSelectorHasAttributeWithValue(
     selector: string | SelectorFluent,
     attributeName: string,
     attributeValue: string,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
+    const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatSelectorHasAttributeWithValue(
       selector,
       attributeName,
       attributeValue,
       this.currentPage(),
-      options,
+      fullOptions,
     );
   }
 
   private async expectThatSelectorIsVisible(
     selector: string | SelectorFluent,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorIsVisible(selector, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorIsVisible(selector, this.currentPage(), fullOptions);
   }
 
   private async expectThatSelectorIsNotVisible(
     selector: string | SelectorFluent,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorIsNotVisible(selector, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorIsNotVisible(selector, this.currentPage(), fullOptions);
   }
 
   public async isNotVisible(
@@ -1141,9 +1186,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private async expectThatSelectorIsChecked(
     selector: string | SelectorFluent,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorIsChecked(selector, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorIsChecked(selector, this.currentPage(), fullOptions);
   }
   public async isChecked(
     selector: string | SelectorFluent,
@@ -1154,9 +1200,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private async expectThatSelectorIsUnchecked(
     selector: string | SelectorFluent,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorIsUnchecked(selector, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorIsUnchecked(selector, this.currentPage(), fullOptions);
   }
   public async isUnchecked(
     selector: string | SelectorFluent,
@@ -1167,9 +1214,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private async expectThatSelectorIsEnabled(
     selector: string | SelectorFluent,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorIsEnabled(selector, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorIsEnabled(selector, this.currentPage(), fullOptions);
   }
 
   public async isEnabled(
@@ -1181,9 +1229,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private async expectThatSelectorIsDisabled(
     selector: string | SelectorFluent,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatSelectorIsDisabled(selector, this.currentPage(), options);
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorIsDisabled(selector, this.currentPage(), fullOptions);
   }
 
   public async isDisabled(
@@ -1214,10 +1263,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public expectThatSelector(selector: string | SelectorFluent): ExpectAssertion {
     return {
-      doesNotHaveClass: (
-        className: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      doesNotHaveClass: (className: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() =>
           this.expectThatSelectorDoesNotHaveClass(selector, className, options),
         );
@@ -1227,7 +1273,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       hasAttributeWithValue: (
         attributeName: string,
         attributeValue: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
+        options?: Partial<AssertOptions>,
       ): PlaywrightFluent => {
         this.actions.push(() =>
           this.expectThatSelectorHasAttributeWithValue(
@@ -1240,74 +1286,59 @@ export class PlaywrightFluent implements PromiseLike<void> {
         return this;
       },
 
-      hasClass: (
-        className: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasClass: (className: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasClass(selector, className, options));
         return this;
       },
 
-      hasExactValue: (
-        value: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasExactValue: (value: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasExactValue(selector, value, options));
         return this;
       },
 
-      hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      hasFocus: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
         return this;
       },
 
-      hasPlaceholder: (
-        text: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasPlaceholder: (text: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasPlaceholder(selector, text, options));
         return this;
       },
 
-      hasText: (
-        text: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasText: (text: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasText(selector, text, options));
         return this;
       },
 
-      hasValue: (
-        value: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasValue: (value: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasValue(selector, value, options));
         return this;
       },
 
-      isChecked: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isChecked: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsChecked(selector, options));
         return this;
       },
 
-      isUnchecked: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isUnchecked: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsUnchecked(selector, options));
         return this;
       },
 
-      isDisabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isDisabled: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsDisabled(selector, options));
         return this;
       },
-      isEnabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isEnabled: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsEnabled(selector, options));
         return this;
       },
-      isVisible: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isVisible: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsVisible(selector, options));
         return this;
       },
-      isNotVisible: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isNotVisible: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsNotVisible(selector, options));
         return this;
       },
@@ -1323,10 +1354,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    */
   public expectThat(selector: string | SelectorFluent): ExpectAssertion {
     return {
-      doesNotHaveClass: (
-        className: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      doesNotHaveClass: (className: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() =>
           this.expectThatSelectorDoesNotHaveClass(selector, className, options),
         );
@@ -1336,7 +1364,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       hasAttributeWithValue: (
         attributeName: string,
         attributeValue: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
+        options?: Partial<AssertOptions>,
       ): PlaywrightFluent => {
         this.actions.push(() =>
           this.expectThatSelectorHasAttributeWithValue(
@@ -1349,66 +1377,51 @@ export class PlaywrightFluent implements PromiseLike<void> {
         return this;
       },
 
-      hasClass: (
-        className: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasClass: (className: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasClass(selector, className, options));
         return this;
       },
 
-      hasExactValue: (
-        value: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasExactValue: (value: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasExactValue(selector, value, options));
         return this;
       },
 
-      hasFocus: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      hasFocus: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasFocus(selector, options));
         return this;
       },
 
-      hasPlaceholder: (
-        text: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasPlaceholder: (text: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasPlaceholder(selector, text, options));
         return this;
       },
 
-      hasText: (
-        text: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasText: (text: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasText(selector, text, options));
         return this;
       },
 
-      hasValue: (
-        value: string,
-        options: Partial<AssertOptions> = defaultAssertOptions,
-      ): PlaywrightFluent => {
+      hasValue: (value: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorHasValue(selector, value, options));
         return this;
       },
 
-      isChecked: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isChecked: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsChecked(selector, options));
         return this;
       },
 
-      isUnchecked: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isUnchecked: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsUnchecked(selector, options));
         return this;
       },
 
-      isDisabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isDisabled: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsDisabled(selector, options));
         return this;
       },
-      isEnabled: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isEnabled: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsEnabled(selector, options));
         return this;
       },
@@ -1416,7 +1429,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
         this.actions.push(() => this.expectThatSelectorIsVisible(selector, options));
         return this;
       },
-      isNotVisible: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isNotVisible: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsNotVisible(selector, options));
         return this;
       },
