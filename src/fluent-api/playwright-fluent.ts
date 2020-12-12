@@ -229,8 +229,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private launchOptions: LaunchOptions = defaultLaunchOptions;
   private defaultWaitOptions: WaitOptions = {
-    stabilityInMilliseconds: defaultWaitUntilOptions.stabilityInMilliseconds,
-    timeoutInMilliseconds: defaultWaitUntilOptions.timeoutInMilliseconds,
+    ...defaultWaitUntilOptions,
   };
   private defaultAssertOptions: AssertOptions = {
     ...defaultAssertOptions,
@@ -306,10 +305,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
-  public withWindowSize(
-    size: WindowSize,
-    options: Partial<WindowSizeOptions> = defaultWindowSizeOptions,
-  ): PlaywrightFluent {
+  public withWindowSize(size: WindowSize, options?: Partial<WindowSizeOptions>): PlaywrightFluent {
     const windowSizeOptions: WindowSizeOptions = {
       ...defaultWindowSizeOptions,
       ...options,
@@ -320,10 +316,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
-  public withViewport(
-    viewport: Viewport,
-    options: Partial<ViewportOptions> = defaultViewportOptions,
-  ): PlaywrightFluent {
+  public withViewport(viewport: Viewport, options?: Partial<ViewportOptions>): PlaywrightFluent {
     const viewportOptions: ViewportOptions = {
       ...defaultViewportOptions,
       ...options,
@@ -367,7 +360,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     await action.closeBrowser(this.currentBrowser(), options);
   }
 
-  public close(options: Partial<CloseOptions> = defaultCloseOptions): PlaywrightFluent {
+  public close(options?: Partial<CloseOptions>): PlaywrightFluent {
     const closeOptions: CloseOptions = {
       ...defaultCloseOptions,
       ...options,
@@ -465,10 +458,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async gotoUrl(url: string, options: NavigationOptions): Promise<void> {
     await action.navigateTo(url, options, this.currentPage());
   }
-  public navigateTo(
-    url: string,
-    options: Partial<NavigationOptions> = defaultNavigationOptions,
-  ): PlaywrightFluent {
+  public navigateTo(url: string, options?: Partial<NavigationOptions>): PlaywrightFluent {
     const navigationOptions: NavigationOptions = {
       ...defaultNavigationOptions,
       ...options,
@@ -489,7 +479,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public hover(
     selector: string | SelectorFluent,
-    options: Partial<HoverOptions> = defaultHoverOptions,
+    options?: Partial<HoverOptions>,
   ): PlaywrightFluent {
     const hoverOptions: HoverOptions = {
       ...defaultHoverOptions,
@@ -519,7 +509,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public click(
     selector: string | SelectorFluent,
-    options: Partial<ClickOptions> = defaultClickOptions,
+    options?: Partial<ClickOptions>,
   ): PlaywrightFluent {
     const clickOptions: ClickOptions = {
       ...defaultClickOptions,
@@ -553,7 +543,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public doubleClick(
     selector: string | SelectorFluent,
-    options: Partial<DoubleClickOptions> = defaultDoubleClickOptions,
+    options?: Partial<DoubleClickOptions>,
   ): PlaywrightFluent {
     const doubleClickOptions: DoubleClickOptions = {
       ...defaultDoubleClickOptions,
@@ -585,7 +575,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public check(
     selector: string | SelectorFluent,
-    options: Partial<CheckOptions> = defaultCheckOptions,
+    options?: Partial<CheckOptions>,
   ): PlaywrightFluent {
     const checkOptions: CheckOptions = {
       ...defaultCheckOptions,
@@ -616,7 +606,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public uncheck(
     selector: string | SelectorFluent,
-    options: Partial<CheckOptions> = defaultCheckOptions,
+    options?: Partial<CheckOptions>,
   ): PlaywrightFluent {
     const checkOptions: CheckOptions = {
       ...defaultCheckOptions,
@@ -666,7 +656,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return {
       in: (
         selector: string | SelectorFluent,
-        options: Partial<SelectOptions> = defaultSelectOptions,
+        options?: Partial<SelectOptions>,
       ): PlaywrightFluent => {
         const selectOptions: SelectOptions = {
           ...defaultSelectOptions,
@@ -688,7 +678,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
           return this;
         }
       },
-      inFocused: (options: Partial<SelectOptions> = defaultSelectOptions): PlaywrightFluent => {
+      inFocused: (options?: Partial<SelectOptions>): PlaywrightFluent => {
         const selectOptions: SelectOptions = {
           ...defaultSelectOptions,
           ...this.defaultWaitOptions,
@@ -747,10 +737,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * @returns {PlaywrightFluent}
    * @memberof PlaywrightFluent
    */
-  public typeText(
-    text: string,
-    options: Partial<TypeTextOptions> = defaultTypeTextOptions,
-  ): PlaywrightFluent {
+  public typeText(text: string, options?: Partial<TypeTextOptions>): PlaywrightFluent {
     const typeTextOptions: TypeTextOptions = {
       ...defaultTypeTextOptions,
       ...options,
@@ -771,7 +758,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * @returns {PlaywrightFluent}
    * @memberof PlaywrightFluent
    */
-  public clearText(options: Partial<ClearTextOptions> = defaultClearTextOptions): PlaywrightFluent {
+  public clearText(options?: Partial<ClearTextOptions>): PlaywrightFluent {
     const clearTextOptions: ClearTextOptions = {
       ...defaultClearTextOptions,
       ...options,
@@ -789,7 +776,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * @returns {PlaywrightFluent}
    * @memberof PlaywrightFluent
    */
-  public clear(options: Partial<ClearTextOptions> = defaultClearTextOptions): PlaywrightFluent {
+  public clear(options?: Partial<ClearTextOptions>): PlaywrightFluent {
     return this.clearText(options);
   }
 
@@ -805,10 +792,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * @returns {PlaywrightFluent}
    * @memberof PlaywrightFluent
    */
-  public pasteText(
-    text: string,
-    options: Partial<PasteTextOptions> = defaultPasteTextOptions,
-  ): PlaywrightFluent {
+  public pasteText(text: string, options?: Partial<PasteTextOptions>): PlaywrightFluent {
     const pasteTextOptions: PasteTextOptions = {
       ...defaultPasteTextOptions,
       ...options,
@@ -822,10 +806,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async pressOnKey(key: KeyboardKey, options: KeyboardPressOptions): Promise<void> {
     await action.pressKey(key, this.currentPage(), options);
   }
-  public pressKey(
-    key: KeyboardKey,
-    options: Partial<KeyboardPressOptions> = defaultKeyboardPressOptions,
-  ): PlaywrightFluent {
+  public pressKey(key: KeyboardKey, options?: Partial<KeyboardPressOptions>): PlaywrightFluent {
     const pressKeyOptions: KeyboardPressOptions = {
       ...defaultKeyboardPressOptions,
       ...options,
@@ -857,7 +838,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
   public async takeFullPageScreenshotAsBase64(
-    options: Partial<ScreenshotOptions> = defaultFullPageScreenshotOptions,
+    options?: Partial<ScreenshotOptions>,
   ): Promise<string> {
     const screenshotOptions: ScreenshotOptions = {
       ...defaultFullPageScreenshotOptions,
@@ -897,11 +878,12 @@ export class PlaywrightFluent implements PromiseLike<void> {
    */
   public waitUntil(
     predicate: () => Promise<boolean>,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options: Partial<WaitUntilOptions> = {},
     errorMessage?: string | (() => Promise<string>),
   ): PlaywrightFluent {
     const waitUntilOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
     const defaultErrorMessage = `Predicate still resolved to false after ${waitUntilOptions.timeoutInMilliseconds} ms.`;
@@ -925,10 +907,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
    */
   public waitForStabilityOf(
     getValue: () => Promise<string | boolean | number | null | undefined>,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): PlaywrightFluent {
     const waitUntilOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
+      ...this.defaultWaitOptions,
       ...options,
     };
 
@@ -950,7 +933,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public async getInnerTextOf(
     selector: string,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<string | null | undefined> {
     const waitOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
@@ -973,7 +956,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public async getValueOf(
     selector: string,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<string | undefined | null> {
     const waitOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
@@ -986,7 +969,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public async getAllOptionsOf(
     selector: string,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<SelectOptionInfo[]> {
     const waitOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
@@ -999,7 +982,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public async getSelectedOptionOf(
     selector: string,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<SelectOptionInfo | undefined> {
     const waitOptions: WaitUntilOptions = {
       ...defaultWaitUntilOptions,
@@ -1028,9 +1011,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public async hasFocus(
     selector: string | SelectorFluent,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.hasFocus(selector, this.currentPage(), options);
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.hasFocus(selector, this.currentPage(), waitOptions);
   }
 
   private async expectThatSelectorHasFocus(
@@ -1043,25 +1031,40 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public async hasText(
     selector: string | SelectorFluent,
     text: string,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.hasText(selector, text, this.currentPage(), options);
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.hasText(selector, text, this.currentPage(), waitOptions);
   }
 
   public async hasValue(
     selector: string | SelectorFluent,
     value: string,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.hasValue(selector, value, this.currentPage(), options);
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.hasValue(selector, value, this.currentPage(), waitOptions);
   }
 
   public async hasExactValue(
     selector: string | SelectorFluent,
     value: string,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.hasExactValue(selector, value, this.currentPage(), options);
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.hasExactValue(selector, value, this.currentPage(), waitOptions);
   }
 
   private async expectThatSelectorHasText(
@@ -1172,16 +1175,26 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public async isNotVisible(
     selector: string | SelectorFluent,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.isNotVisible(selector, this.currentPage(), options);
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.isNotVisible(selector, this.currentPage(), waitOptions);
   }
 
   public async isVisible(
     selector: string | SelectorFluent,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.isVisible(selector, this.currentPage(), options);
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.isVisible(selector, this.currentPage(), waitOptions);
   }
 
   private async expectThatSelectorIsChecked(
@@ -1193,9 +1206,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public async isChecked(
     selector: string | SelectorFluent,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.isChecked(selector, this.currentPage(), options);
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.isChecked(selector, this.currentPage(), waitOptions);
   }
 
   private async expectThatSelectorIsUnchecked(
@@ -1207,9 +1225,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public async isUnchecked(
     selector: string | SelectorFluent,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.isUnchecked(selector, this.currentPage(), options);
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.isUnchecked(selector, this.currentPage(), waitOptions);
   }
 
   private async expectThatSelectorIsEnabled(
@@ -1222,9 +1245,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public async isEnabled(
     selector: string | SelectorFluent,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.isEnabled(selector, this.currentPage(), options);
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.isEnabled(selector, this.currentPage(), waitOptions);
   }
 
   private async expectThatSelectorIsDisabled(
@@ -1237,23 +1265,32 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public async isDisabled(
     selector: string | SelectorFluent,
-    options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
+    options?: Partial<WaitUntilOptions>,
   ): Promise<boolean> {
-    return await assertion.isDisabled(selector, this.currentPage(), options);
+    const assertOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.isDisabled(selector, this.currentPage(), assertOptions);
   }
 
   private async expectThatAsyncFuncHasResult(
     func: AsyncFunc,
     value: string | number | boolean | undefined | null,
-    options: Partial<AssertOptions> = defaultAssertOptions,
+    options?: Partial<AssertOptions>,
   ): Promise<void> {
-    await assertion.expectThatAsyncFuncHasResult(func, value, options);
+    const assertOptions: AssertOptions = {
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    await assertion.expectThatAsyncFuncHasResult(func, value, assertOptions);
   }
   public expectThatAsyncFunc(func: AsyncFunc): AsyncFuncExpectAssertion {
     return {
       resolvesTo: (
         value: string | number | boolean | undefined | null,
-        options: Partial<AssertOptions> = defaultAssertOptions,
+        options?: Partial<AssertOptions>,
       ): PlaywrightFluent => {
         this.actions.push(() => this.expectThatAsyncFuncHasResult(func, value, options));
         return this;
@@ -1425,7 +1462,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
         this.actions.push(() => this.expectThatSelectorIsEnabled(selector, options));
         return this;
       },
-      isVisible: (options: Partial<AssertOptions> = defaultAssertOptions): PlaywrightFluent => {
+      isVisible: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsVisible(selector, options));
         return this;
       },
