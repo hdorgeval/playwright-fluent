@@ -5,6 +5,7 @@
   - [withBrowser(browser)](#withBrowserbrowser)
   - [withOptions(options)](#withOptionsoptions)
   - [withDefaultWaitOptions(options)](#withDefaultWaitOptionsoptions)
+  - [withDefaultAssertOptions(options)](#withDefaultAssertOptionsoptions)
   - [withWindowSize(size[, options])](#withWindowSizesize-options)
   - [withViewport(viewport[, options])](#withViewportviewport-options)
   - [withCursor()](#withCursor)
@@ -142,7 +143,7 @@ await p.withBrowser(browser).withOptions({ headless: false });
 
 ### withDefaultWaitOptions(options)
 
-- options : `WaitOptions`
+- options : `Partial<WaitOptions>`
 
 ```js
 interface WaitOptions {
@@ -165,6 +166,7 @@ interface WaitOptions {
 ```
 
 Will set the wait options to be applied on all browser actions (click, hoover, ...).
+
 Use this method if you want to speed up test execution (but some flakiness may appear).
 This default settings does not apply to assertions.
 
@@ -179,6 +181,57 @@ await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .withDefaultWaitOptions({ stabilityInMilliseconds: 0, timeoutInMilliseconds: 10000 });
+```
+
+---
+
+### withDefaultAssertOptions(options)
+
+- options : `Partial<AssertOptions>`
+
+```js
+interface AssertOptions {
+  /**
+   * Defaults to 30000 milliseconds.
+   *
+   * @type {number}
+   * @memberof AssertOptions
+   */
+  timeoutInMilliseconds: number;
+  /**
+   * time during which the Assert must give back the same result.
+   * Defaults to 300 milliseconds.
+   * You should not setup a duration < 100 milliseconds.
+   * @type {number}
+   * @memberof AssertOptions
+   */
+  stabilityInMilliseconds: number;
+  /**
+   * Will generate 'debug' logs,
+   * so that you can understand why the assertion does not give the expected result.
+   * Defaults to false
+   * @type {boolean}
+   * @memberof AssertOptions
+   */
+  verbose: boolean;
+}
+```
+
+Will set the options to be applied on all assertions (expectThat...).
+
+Use this method if you want to speed up test execution (but some flakiness may appear).
+
+Example:
+
+```js
+const browser = 'chromium';
+const p = new PlaywrightFluent();
+
+// start the browser in headfull mode
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withDefaultAssertOptions({ stabilityInMilliseconds: 100, timeoutInMilliseconds: 10000 });
 ```
 
 ---
