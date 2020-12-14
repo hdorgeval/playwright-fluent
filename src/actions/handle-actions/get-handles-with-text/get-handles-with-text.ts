@@ -11,8 +11,8 @@ export async function getHandlesWithText(
 
     const innerText = await handle.evaluate((node) => {
       const nodeWithText = node as HTMLElement;
-      if (nodeWithText && nodeWithText.innerText) {
-        return nodeWithText.innerText;
+      if (nodeWithText && typeof nodeWithText.innerText === 'string') {
+        return nodeWithText.innerText.replace(/\s/g, ' ');
       }
 
       return undefined;

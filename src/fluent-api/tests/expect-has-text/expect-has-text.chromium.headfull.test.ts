@@ -145,4 +145,42 @@ describe('Playwright Fluent - expect has text', (): void => {
   .withText(dynamically added)' does not contain 'yo', but instead it contains 'I am dynamically added in DOM'`,
     );
   });
+
+  test('should replace char 160 by a true space - chromium', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'expect-has-text.test.html')}`;
+    const selector = '#dynamically-added-paragraph-with-160';
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .navigateTo(url)
+      .expectThatSelector(selector)
+      .hasText('12.34 %');
+
+    // Then
+    const innerText = await p.getInnerTextOf(selector);
+    expect(innerText).toBe('12.34 %');
+  });
+
+  test('should replace char 160 by a true space #2 - chromium', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'expect-has-text.test.html')}`;
+    const selector = p.selector('p').withText('12.34 %');
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .navigateTo(url)
+      .expectThatSelector(selector)
+      .hasText('12.34 %');
+
+    // Then
+    const innerText = await p.getInnerTextOf('#dynamically-added-paragraph-with-160');
+    expect(innerText).toBe('12.34 %');
+  });
 });

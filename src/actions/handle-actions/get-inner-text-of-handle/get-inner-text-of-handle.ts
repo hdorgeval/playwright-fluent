@@ -12,5 +12,9 @@ export async function getInnerTextOfHandle(
     return inputElement && inputElement.innerText;
   });
 
+  if (typeof result === 'string') {
+    return result.replace(/\s/g, ' ');
+  }
+
   return result;
 }
