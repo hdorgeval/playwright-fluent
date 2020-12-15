@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.15.1] - 2020-12-15
+
+### Fixed
+
+- fix(fluent-api): replace character #160 by a standard white space when reading the innerText of a selector
+
 ## [1.15.0] - 2020-12-13
 
 ### Added
