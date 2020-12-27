@@ -39,7 +39,7 @@ node_js:
 before_install:
   # Info about OS
   - uname
-  - if [[ `node -v` = v14* ]]; then npm i -g npx; fi
+  #- if [[ `node -v` = v14* ]]; then npm i -g npx; fi
   - npx --version
   # Enable user namespace cloning
   - if [[ `uname` = "Linux" ]]; then sysctl kernel.unprivileged_userns_clone=1; fi
