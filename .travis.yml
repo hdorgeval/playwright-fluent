@@ -34,12 +34,12 @@ language: node_js
 sudo: false
 
 node_js:
-  - '12'
+  - '14'
 
 before_install:
   # Info about OS
   - uname
-  - if [[ `node -v` = v6* ]]; then npm i -g npx; fi
+  - if [[ `node -v` = v14* ]]; then npm i -g npx; fi
   - npx --version
   # Enable user namespace cloning
   - if [[ `uname` = "Linux" ]]; then sysctl kernel.unprivileged_userns_clone=1; fi
@@ -47,7 +47,7 @@ before_install:
   - if [[ `uname` = "Linux" ]]; then export DISPLAY=:99.0; fi
 
 before_script:
-  - npm install --no-save playwright@1.4.2
+  - npm install --no-save playwright@1.7.1
 
 script:
   - node --version
