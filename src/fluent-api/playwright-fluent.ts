@@ -1,4 +1,4 @@
-import { BrowserContextOptions, Geolocation, Permission } from './playwright-types';
+import { BrowserContextOptions, Geolocation, Permission, StorageState } from './playwright-types';
 import { TimeZoneId } from './timezone-ids';
 import * as assertion from '../assertions';
 import * as action from '../actions';
@@ -106,7 +106,7 @@ export {
   WindowSize,
   WindowSizeOptions,
 } from '../devices';
-export { Geolocation, Permission } from './playwright-types';
+export { BrowserContextOptions, Geolocation, Permission, StorageState } from './playwright-types';
 
 export { TimeZoneId } from './timezone-ids';
 
@@ -356,6 +356,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  public withStorageState(storageStateFile: string | StorageState): PlaywrightFluent {
+    this.contextOptions.storageState = storageStateFile;
+    return this;
+  }
+
   private async closeBrowser(options: CloseOptions): Promise<void> {
     await action.closeBrowser(this.currentBrowser(), options);
   }
@@ -453,6 +458,32 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const action = (): Promise<void> => this.recordUncaughtExceptions();
     this.actions.push(action);
     return this;
+  }
+  private async saveStorageStateToFile(targetFile: string): Promise<void> {
+    await this.browserContext?.storageState({ path: targetFile });
+  }
+
+  /**
+   * Will save the storage state in a local file
+   *
+   * @param {string} targetFile : The file path to save the storage state to. If path is a relative path, then it is resolved relative to current working directory
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public saveStorageStateTo(targetFile: string): PlaywrightFluent {
+    const action = (): Promise<void> => this.saveStorageStateToFile(targetFile);
+    this.actions.push(action);
+    return this;
+  }
+
+  /**
+   * Get current Playwright Storage State
+   *
+   * @returns {(Promise<StorageState | undefined>)}
+   * @memberof PlaywrightFluent
+   */
+  public async currentStorageState(): Promise<StorageState | undefined> {
+    return await this.browserContext?.storageState();
   }
 
   private async gotoUrl(url: string, options: NavigationOptions): Promise<void> {

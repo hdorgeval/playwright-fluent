@@ -1,0 +1,20 @@
+{
+  "cookies": [
+    {
+      "sameSite": "None",
+      "name": "foo",
+      "value": "bar",
+      "domain": "www.foobar.com",
+      "path": "/",
+      "httpOnly": false,
+      "secure": false,
+      "expires": -1
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://reactstrap.github.io",
+      "localStorage": [{ "name": "foo-localStorage", "value": "bar-localStorage" }]
+    }
+  ]
+}

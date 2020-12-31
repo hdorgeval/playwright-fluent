@@ -107,3 +107,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Tests data
+final-storage-state.json
