@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.16.0] - 2021-01-01
+
+### Added
+
+- feat(fluent-api): add `withStorageState(state)` to the Fluent API
+- feat(fluent-api): add `saveStorageStateTo(file)` to the Fluent API
+- feat(fluent-api): add `currentStorageState()` to the Fluent API
+
+### Updated
+
+- update of all dependencies
+
 ## [1.15.1] - 2020-12-15
 
 ### Fixed
