@@ -13,6 +13,7 @@
   - [withPermissions(permissions)](#withPermissionspermissions)
   - [withExtraHttpHeaders(headers)](#withExtraHttpHeadersheaders)
   - [withTimezone(timezoneId)](#withTimezonetimezoneId)
+  - [withStorageState(state)](#withStorageStatestate)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordPageErrors()](#recordPageErrors)
@@ -45,6 +46,7 @@
   - [clearPageErrors()](#clearPageErrors)
   - [currentBrowser()](#currentBrowser)
   - [currentPage()](#currentPage)
+  - [currentStorageState()](#currentStorageState)
   - [getAllOptionsOf(selector[, options])](#getAllOptionsOfselector-options)
   - [getSelectedOptionOf(selector[, options])](#getSelectedOptionOfselector-options)
   - [getSelectedText()](#getSelectedText)
@@ -58,6 +60,7 @@
   - [isDisabled(selector[, options])](#isDisabledselector-options)
   - [isEnabled(selector[, options])](#isEnabledselector-options)
   - [isVisible(selector[, options])](#isVisibleselector-options)
+  - [saveStorageStateToFile(file)](#saveStorageStateToFilefile)
   - [takeFullPageScreenshotAsBase64([options])](#takeFullPageScreenshotAsBase64options)
 
 ## Chainable Methods
@@ -447,6 +450,101 @@ await p
   .withPermissions('geolocation')
   .navigateTo('https://www.openstreetmap.org/')
   .click('.control-locate');
+```
+
+---
+
+### withStorageState(state)
+
+(use only with Playwright >= v1.7.0)
+
+- state: `string | StorageState`
+
+Will re-hydrate cookies and localStorage values with the ones defined in `state`.
+
+`state` is either a path to the file with saved storage, or an object with the following fields:
+
+```js
+export type StorageState = {
+  /**
+   * Optional cookies to set for context
+   */
+  cookies?: Array<{
+    /**
+     * **required**
+     */
+    name: string,
+
+    /**
+     * **required**
+     */
+    value: string,
+
+    /**
+     * Optional either url or domain / path are required
+     */
+    url?: string,
+
+    /**
+     * Optional either url or domain / path are required
+     */
+    domain?: string,
+
+    /**
+     * Optional either url or domain / path are required
+     */
+    path?: string,
+
+    /**
+     * Optional Unix time in seconds.
+     */
+    expires?: number,
+
+    /**
+     * Optional httpOnly flag
+     */
+    httpOnly?: boolean,
+
+    /**
+     * Optional secure flag
+     */
+    secure?: boolean,
+
+    /**
+     * Optional sameSite flag
+     */
+    sameSite?: 'Lax' | 'None' | 'Strict',
+  }>,
+
+  /**
+   * Optional localStorage to set for context
+   */
+  origins?: Array<{
+    origin: string,
+
+    localStorage: Array<{
+      name: string,
+
+      value: string,
+    }>,
+  }>,
+};
+```
+
+This method can be used to initialize context with logged-in information obtained via `saveStorageStateToFile(file)` or via `currentStorageState()` methods available on the PlaywrightFluent instance.
+
+Example:
+
+```js
+const browser = 'chromium';
+const p = new PlaywrightFluent();
+const storageStateFile = join(__dirname, 'storage-state.json');
+
+// prettier-ignore
+await p
+  .withBrowser(browser)
+  .withStorageState(storageStateFile)
+  .navigateTo('example.com');
 ```
 
 ---
@@ -1730,6 +1828,14 @@ Checks if selector is visible.
 
 ---
 
+### saveStorageStateToFile(file)
+
+- file: `string`
+
+Save the storage state to a file. If `file` is a relative path, then it is resolved relative to current working directory.
+
+---
+
 ### takeFullPageScreenshotAsBase64([options])
 
 - options: `Partial<ScreenshotOptions>`
@@ -1776,6 +1882,14 @@ const page = p.currentPage();
 
 // now use this page instance through the playwright API
 ```
+
+---
+
+### currentStorageState()
+
+- returns: `Promise<StorageState | undefined>`
+
+Get current Playwright Storage State or `undefined` if no context has been created.
 
 ---
 
