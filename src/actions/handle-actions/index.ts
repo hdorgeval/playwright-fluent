@@ -13,6 +13,7 @@ export * from './get-inner-text-of-handle';
 export * from './get-next-sibling-of-handles';
 export * from './get-nth-handle';
 export * from './get-parent-of-handles';
+export * from './get-previous-sibling-of-handles';
 export * from './get-value-of-handle';
 export * from './has-handle-attribute';
 export * from './has-handle-class';
