@@ -28,7 +28,7 @@
     "url": "git+https://github.com/hdorgeval/playwright-fluent.git"
   },
   "engines": {
-    "node": ">=10.17.0"
+    "node": ">=12"
   },
   "author": "Henri d'Orgeval",
   "license": "MIT",
