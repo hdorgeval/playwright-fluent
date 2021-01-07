@@ -32,6 +32,7 @@ export * from './is-handle-not-visible';
 export * from './is-handle-unchecked';
 export * from './is-handle-visible';
 export * from './is-option-available-in-handle';
+export * from './is-option-by-value-available-in-handle';
 export * from './query-selector-all-from-handles';
 export * from './scroll-to-handle';
 export * from './select-options-in-handle';
