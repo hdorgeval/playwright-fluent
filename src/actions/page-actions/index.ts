@@ -31,6 +31,8 @@ export * from './query-selector-all-in-page';
 export * from './record-failed-requests';
 export * from './record-page-errors';
 export * from './record-requests-to';
+export * from './select-options-by-value-in-focused';
+export * from './select-options-by-value-in-selector';
 export * from './select-options-in-focused';
 export * from './select-options-in-selector';
 export * from './take-fullpage-screenshot-as-base64';
