@@ -35,5 +35,6 @@ export * from './is-option-available-in-handle';
 export * from './is-option-by-value-available-in-handle';
 export * from './query-selector-all-from-handles';
 export * from './scroll-to-handle';
+export * from './select-options-by-value-in-handle';
 export * from './select-options-in-handle';
 export * from './uncheck-handle';
