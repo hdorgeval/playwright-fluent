@@ -725,6 +725,34 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
   }
 
+  private async selectOptionsByValueInFocusedSelector(
+    values: string[],
+    options: SelectOptions,
+  ): Promise<void> {
+    await action.selectOptionsByValueInFocused(values, this.currentPage(), options);
+  }
+  public selectByValue(
+    ...values: string[]
+  ): {
+    inFocused: (options?: Partial<SelectOptions>) => PlaywrightFluent;
+  } {
+    return {
+      inFocused: (options?: Partial<SelectOptions>): PlaywrightFluent => {
+        const selectOptions: SelectOptions = {
+          ...defaultSelectOptions,
+          ...this.defaultWaitOptions,
+          ...options,
+        };
+
+        const action = (): Promise<void> =>
+          this.selectOptionsByValueInFocusedSelector(values, selectOptions);
+        this.actions.push(action);
+
+        return this;
+      },
+    };
+  }
+
   /**
    * Emulate device
    *
@@ -1027,6 +1055,24 @@ export class PlaywrightFluent implements PromiseLike<void> {
     );
     const selectedOption = selectOptions.find((option) => option.selected);
     return selectedOption;
+  }
+
+  public async getAllSelectedOptionsOf(
+    selector: string,
+    options?: Partial<WaitUntilOptions>,
+  ): Promise<SelectOptionInfo[]> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultWaitOptions,
+      ...options,
+    };
+    const selectOptions = await action.getAllOptionsOfSelector(
+      selector,
+      this.currentPage(),
+      waitOptions,
+    );
+    const selectedOptions = selectOptions.filter((option) => option.selected);
+    return selectedOptions;
   }
 
   /**

@@ -37,6 +37,7 @@ module.exports = {
     '!src/**/paste-text.ts',
     '!src/**/scroll-to-handle.ts',
     '!src/**/select-options-in-focused.ts',
+    '!src/**/select-options-by-value-in-focused.ts',
     '!src/**/show*.ts',
     '!src/**/type-text.ts',
   ],

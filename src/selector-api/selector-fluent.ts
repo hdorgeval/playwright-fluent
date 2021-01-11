@@ -530,6 +530,19 @@ export class SelectorFluent {
     return result;
   }
 
+  public async allSelectedOptions(): Promise<SelectOptionInfo[]> {
+    const handle = await this.getHandle();
+    const allOptions = await action.getAllOptionsOfHandle(handle, this.toString());
+    return allOptions.filter((option) => option.selected);
+  }
+
+  public async selectedOption(): Promise<SelectOptionInfo | undefined> {
+    const handle = await this.getHandle();
+    const allOptions = await action.getAllOptionsOfHandle(handle, this.toString());
+    const selectedOption = allOptions.find((option) => option.selected);
+    return selectedOption;
+  }
+
   /**
    * hover over selector
    * @param {Partial<HoverOptions>} [options=defaultHoverOptions]
