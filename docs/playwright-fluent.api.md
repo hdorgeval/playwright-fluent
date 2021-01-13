@@ -30,6 +30,8 @@
   - [releaseKey(key)](#releaseKeykey)
   - [select(labels).in(selector[, options])](#selectlabelsinselector-options)
   - [select(labels).inFocused([options])](#selectlabelsinfocusedoptions)
+  - [selectByValue(values).in(selector[, options])](#selectByValuevaluesinselector-options)
+  - [selectByValue(values).inFocused([options])](#selectByValuevaluesinfocusedoptions)
   - [typeText(text[, options])](#typeTexttext-options)
   - [pasteText(text[, options])](#pasteTexttext-options)
   - [clearText([options])](#clearTextoptions)
@@ -49,6 +51,7 @@
   - [currentStorageState()](#currentStorageState)
   - [getAllOptionsOf(selector[, options])](#getAllOptionsOfselector-options)
   - [getSelectedOptionOf(selector[, options])](#getSelectedOptionOfselector-options)
+  - [getAllSelectedOptionsOf(selector[, options])](#getAllSelectedOptionsOfselector-options)
   - [getSelectedText()](#getSelectedText)
   - [getCurrentUrl()](#getCurrentUrl)
   - [getCurrentWindowState()](#getCurrentWindowState)
@@ -1132,6 +1135,37 @@ await p.select('label 2').in(selector);
 
 ---
 
+### selectByValue(values).in(selector[, options])
+
+- values : `...string[]`
+- selector: `string | SelectorFluent`
+- options: `Partial<SelectOptions>`
+
+```js
+interface SelectOptions {
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+```
+
+Will select label(s) by using their values in the specified selector.
+
+```html
+<select id="select">
+  <option value="value 1" selected>label 1</option>
+  <option value="value 2">label 2</option>
+  <option value="value 3">label 3</option>
+</select>
+```
+
+```js
+const selector = '#select';
+await p.selectByValue('value 2').in(selector);
+```
+
+---
+
 ### select(labels).inFocused([options])
 
 - labels : `...string[]`
@@ -1161,6 +1195,39 @@ Will select label(s) in the select element that has current focus.
 await p
   .click(p.selector('label').withText('Select something'))
   .select('label 2').inFocused();
+```
+
+---
+
+### selectByValue(values).inFocused([options])
+
+- values : `...string[]`
+- options: `Partial<SelectOptions>`
+
+```js
+interface SelectOptions {
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+```
+
+Will select values(s) in the select element that has current focus.
+
+```html
+<label for="select">Select something</label>
+<select id="select">
+  <option value="value 1" selected>label 1</option>
+  <option value="value 2">label 2</option>
+  <option value="value 3">label 3</option>
+</select>
+```
+
+```js
+// prettier-ignore
+await p
+  .click(p.selector('label').withText('Select something'))
+  .selectByValue('value 2').inFocused();
 ```
 
 ---
@@ -1698,6 +1765,62 @@ interface WaitUntilOptions {
 - returns: `Promise<SelectOptionInfo>`
 
 Get selector's first selected option. Only apply when selector is a `select` element.
+
+> The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+```js
+interface SelectOptionInfo {
+  value: string;
+  label: string;
+  selected: boolean;
+}
+```
+
+```js
+interface WaitUntilOptions {
+  /**
+   * Defaults to 30000 milliseconds.
+   *
+   * @type {number}
+   * @memberof WaitUntilOptions
+   */
+  timeoutInMilliseconds: number;
+  /**
+   * Time during which the callback must always return true.
+   * Defaults to 300 milliseconds.
+   * You must not setup a duration < 100 milliseconds.
+   * @type {number}
+   * @memberof AssertOptions
+   */
+  stabilityInMilliseconds: number;
+  /**
+   * Throw a timeout exception when the callback still returns false.
+   * Defaults to true.
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  throwOnTimeout: boolean;
+  /**
+   * Output to the console all steps of the waiting mechanism.
+   * Defaults to false.
+   * Use this option when the waitUntil() method does not wait as expected.
+   *
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  verbose: boolean;
+}
+```
+
+---
+
+### getAllSelectedOptionsOf(selector[, options])
+
+- selector: `string`
+- options: `Partial<WaitUntilOptions>`
+- returns: `Promise<SelectOptionInfo>`
+
+Get selector's all selected options. Only apply when selector is a `select` element.
 
 > The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
 

@@ -27,6 +27,8 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [isUnchecked()](#isUnchecked)
   - [isVisible()](#isVisible)
   - [options()](#options)
+  - [allSelectedOptions()](#allSelectedOptions)
+  - [selectedOption()](#selectedOption)
   - [placeholder()](#placeholder)
   - [toString()](#toString)
   - [value()](#value)
@@ -286,6 +288,42 @@ interface SelectOptionInfo {
 ```
 
 Returns the list of all options of a `select` element.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### allSelectedOptions()
+
+- returns: `Promise<SelectOptionInfo[]>`
+
+```js
+interface SelectOptionInfo {
+  value: string;
+  label: string;
+  selected: boolean;
+}
+```
+
+Returns the list of all selected options of a `select` element.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+---
+
+### selectedOption()
+
+- returns: `Promise<SelectOptionInfo | undefined>`
+
+```js
+interface SelectOptionInfo {
+  value: string;
+  label: string;
+  selected: boolean;
+}
+```
+
+Returns the first selected option of a `select` element.
 
 The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
 
