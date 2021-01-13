@@ -731,12 +731,59 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.selectOptionsByValueInFocused(values, this.currentPage(), options);
   }
+
+  private async selectOptionsByValueInSelector(
+    selector: string,
+    values: string[],
+    options: SelectOptions,
+  ): Promise<void> {
+    await action.selectOptionsByValueInSelector(selector, values, this.currentPage(), options);
+  }
+
+  private async selectOptionsByValueInSelectorObject(
+    selector: SelectorFluent,
+    values: string[],
+    options: SelectOptions,
+  ): Promise<void> {
+    await action.selectOptionsByValueInSelectorObject(
+      selector,
+      values,
+      this.currentPage(),
+      options,
+    );
+  }
+
   public selectByValue(
     ...values: string[]
   ): {
+    in: (selector: string | SelectorFluent, options?: Partial<SelectOptions>) => PlaywrightFluent;
     inFocused: (options?: Partial<SelectOptions>) => PlaywrightFluent;
   } {
     return {
+      in: (
+        selector: string | SelectorFluent,
+        options?: Partial<SelectOptions>,
+      ): PlaywrightFluent => {
+        const selectOptions: SelectOptions = {
+          ...defaultSelectOptions,
+          ...this.defaultWaitOptions,
+          ...options,
+        };
+
+        if (typeof selector === 'string') {
+          const action = (): Promise<void> =>
+            this.selectOptionsByValueInSelector(selector, values, selectOptions);
+          this.actions.push(action);
+          return this;
+        }
+
+        {
+          const action = (): Promise<void> =>
+            this.selectOptionsByValueInSelectorObject(selector, values, selectOptions);
+          this.actions.push(action);
+          return this;
+        }
+      },
       inFocused: (options?: Partial<SelectOptions>): PlaywrightFluent => {
         const selectOptions: SelectOptions = {
           ...defaultSelectOptions,
