@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.17.0] - 2021-01-13
+
+### Added
+
+- feat(fluent-api): add `selectByValue(values).inFocused()` to the fluent API
+- feat(fluent-api): add `selectByValue(values).in(selector)` to the fluent API
+- feat(selector): add helper method `allSelectedOptions()` to the Selector API
+- feat(selector): add helper method `selectedOption()` to the Selector API
+- feat(fluent-api): add helper method `getAllSelectedOptionsOf(selector)` to the Fluent API
+
 ## [1.16.1] - 2021-01-07
 
 ### Fixed
