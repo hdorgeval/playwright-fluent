@@ -13,7 +13,7 @@ import { ElementHandle } from 'playwright';
 type Action = (handles: ElementHandle<Element>[]) => Promise<ElementHandle<Element>[]>;
 
 interface ActionInfoWithoutParam {
-  name: 'parent' | 'nextSibling' | 'unknown';
+  name: 'parent' | 'nextSibling' | 'previousSibling' | 'unknown';
 }
 interface ActionInfoWithSelector {
   name: 'querySelectorAllInPage' | 'find';
@@ -61,6 +61,9 @@ export class SelectorFluent {
 
       case 'nextSibling':
         return (handles) => action.getNextSiblingsOf([...handles]);
+
+      case 'previousSibling':
+        return (handles) => action.getPreviousSiblingsOf([...handles]);
 
       case 'withText':
         return (handles) => action.getHandlesWithText(actionInfo.text, [...handles]);
@@ -254,6 +257,15 @@ export class SelectorFluent {
 
     const chainingHistory = `${this.chainingHistory}
   .nextSibling()`;
+
+    return this.createSelectorFrom('', actions, chainingHistory);
+  }
+  public previousSibling(): SelectorFluent {
+    const actions = [...this.actionInfos];
+    actions.push({ name: 'previousSibling' });
+
+    const chainingHistory = `${this.chainingHistory}
+  .previousSibling()`;
 
     return this.createSelectorFrom('', actions, chainingHistory);
   }
