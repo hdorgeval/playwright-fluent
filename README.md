@@ -7,7 +7,7 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 [![npm version](https://img.shields.io/npm/v/playwright-fluent.svg)](https://www.npmjs.com/package/playwright-fluent)
 [![Mentioned in Awesome](https://awesome.re/mentioned-badge.svg)](https://awesome.re)
 
-###### [Fluent API](/docs/playwright-fluent.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter) | [with cucumber-js v6](https://github.com/hdorgeval/playwright-fluent-ts-cucumber6-starter#playwright-fluent-cucumber-ts-starter)
+###### [Fluent API](/docs/playwright-fluent.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter) | [with cucumber-js v6](https://github.com/hdorgeval/playwright-fluent-ts-cucumber6-starter) | [with cucumber-js v7](https://github.com/hdorgeval/playwright-fluent-ts-cucumber7-starter)
 
 ### Installation
 
@@ -173,4 +173,4 @@ reflect the current status of the development and are inline with the published 
 
 ### Q: Do you have some samples on how to use this library?
 
-Yes, have a look to this [demo project with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter) or this [demo project with cucumber-js](https://github.com/hdorgeval/playwright-fluent-ts-cucumber-starter#playwright-fluent-ts-cucumber-starter).
+Yes, have a look to this [demo project with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter), this [demo project with cucumber-js v6](https://github.com/hdorgeval/playwright-fluent-ts-cucumber6-starter) or this [demo project with cucumber-js v7](https://github.com/hdorgeval/playwright-fluent-ts-cucumber7-starter).
