@@ -8,6 +8,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [nextSibling()](#nextSibling)
   - [nth(index)](#nthindex)
   - [parent()](#parent)
+  - [previousSibling()](#previousSibling)
   - [withPlaceholder(text)](#withPlaceholdertext)
   - [withText(text)](#withTexttext)
   - [withValue(text)](#withValuetext)
@@ -111,13 +112,19 @@ Take, from previous search, the nth element.
 
 ### parent()
 
-Take the direct parent of each elements found in the previous step.
+Take the direct parent of each element found in the previous step.
 
 ---
 
 ### nextSibling()
 
-Take the next sibling of each elements found in the previous step.
+Take the next sibling of each element found in the previous step.
+
+---
+
+### previousSibling()
+
+Take the previous sibling of each element found in the previous step.
 
 ---
 
