@@ -4,11 +4,43 @@ describe('get-chrome-path', (): void => {
   afterEach((): void => {
     jest.resetModules();
   });
-  test('should return default windows path on Windows platform', (): void => {
+  test('should return X64 windows path on Windows platform', (): void => {
     // Given
     jest.mock('os', (): unknown => ({
       ...jest.requireActual<object>('os'),
       type: (): string => 'Windows_NT',
+    }));
+    jest.mock('fs', (): unknown => ({
+      ...jest.requireActual<object>('fs'),
+      existsSync: (path: string): boolean => {
+        if (path === 'C:/Program Files/Google/Chrome/Application/chrome.exe') {
+          return true;
+        }
+        return false;
+      },
+    }));
+
+    // When
+    const result = require('./get-chrome-path').getChromePath();
+
+    // Then
+    expect(result).toBe('C:/Program Files/Google/Chrome/Application/chrome.exe');
+  });
+
+  test('should return X86 windows path on Windows platform', (): void => {
+    // Given
+    jest.mock('os', (): unknown => ({
+      ...jest.requireActual<object>('os'),
+      type: (): string => 'Windows_NT',
+    }));
+    jest.mock('fs', (): unknown => ({
+      ...jest.requireActual<object>('fs'),
+      existsSync: (path: string): boolean => {
+        if (path === 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe') {
+          return true;
+        }
+        return false;
+      },
     }));
 
     // When
