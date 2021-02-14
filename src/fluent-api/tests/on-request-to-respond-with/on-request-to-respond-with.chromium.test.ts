@@ -190,4 +190,79 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(sentRequest.response!.payload).toMatchObject(mockResponseBody);
   });
+
+  test('should intercept requests to a rest API by responding with HTTP Status 401', async (): Promise<void> => {
+    // Given
+    const htmlContent = readFileSync(
+      `${path.join(__dirname, 'on-request-to-respond-with.test.html')}`,
+    );
+
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/app')
+        .willReturn(htmlContent.toString(), 200);
+
+    interface CustomResponseBody {
+      prop1: string;
+      prop2?: string;
+    }
+
+    const responseBody: CustomResponseBody = {
+      prop1: 'foobar',
+    };
+    const responseBodyBaz: CustomResponseBody = {
+      prop1: 'foobaz',
+    };
+    const responseHeaders = {
+      'foo-header': 'bar',
+    };
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/foobar')
+        .willReturn(responseBody, 200, responseHeaders);
+
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/yo')
+        .willReturn(responseBodyBaz, 200, responseHeaders);
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: true })
+      .withCursor()
+      .recordRequestsTo('/foobar')
+      .onRequestTo('/foobar')
+      .respondWith<string>({
+        status: 401,
+        body: 'sorry, you have no access',
+      })
+      .navigateTo('http://localhost:1234/app');
+
+    // Then requests to /foobar should be intercepted
+    // And response should be mocked
+    await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
+      stabilityInMilliseconds: 1000,
+    });
+    const foobarRequests = p.getRecordedRequestsTo('/foobar');
+    expect(Array.isArray(foobarRequests)).toBe(true);
+    expect(foobarRequests.length).toBe(1);
+
+    const stringifiedSentRequest = await stringifyRequest(foobarRequests[0]);
+    const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
+
+    expect(sentRequest.url).toContain('?foo=bar');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(sentRequest.response!.status).toBe(401);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(sentRequest.response!.headers['content-type']).toBe('text/plain');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(sentRequest.response!.payload).toBe('sorry, you have no access');
+  });
 });

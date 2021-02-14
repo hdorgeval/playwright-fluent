@@ -34,10 +34,21 @@ function buildPlaywrightResponseWith<T>(
 } {
   return {
     headers: mockedResponse.headers || {},
-    contentType: mockedResponse.contentType || 'application/json',
+    contentType: buildContentTypeFrom(mockedResponse),
     status: mockedResponse.status || 200,
     body: serializeBody(mockedResponse.body),
   };
+}
+function buildContentTypeFrom<T>(mockedResponse: Partial<MockResponse<T>>): string {
+  if (mockedResponse.contentType) {
+    return mockedResponse.contentType;
+  }
+
+  if (typeof mockedResponse.body === 'string') {
+    return 'text/plain';
+  }
+
+  return 'application/json';
 }
 
 export async function onRequestToRespondWith<T>(
