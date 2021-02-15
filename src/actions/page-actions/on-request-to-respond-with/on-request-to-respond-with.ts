@@ -33,12 +33,51 @@ function buildPlaywrightResponseWith<T>(
   body: string | Buffer;
 } {
   return {
-    headers: mockedResponse.headers || {},
+    headers: buildHeadersFrom(mockedResponse),
     contentType: buildContentTypeFrom(mockedResponse),
     status: mockedResponse.status || 200,
     body: serializeBody(mockedResponse.body),
   };
 }
+function buildHeadersFrom<T>(mockedResponse: Partial<MockResponse<T>>): Headers {
+  const headers = {
+    ...mockedResponse.headers,
+  };
+
+  if (!hasAccessControlAllowCredentialsHeader(headers)) {
+    headers['Access-Control-Allow-Credentials'] = 'true';
+  }
+
+  if (!hasAccessControlAllowOriginHeader(headers)) {
+    headers['Access-Control-Allow-Origin'] = '*';
+  }
+
+  return headers;
+}
+function hasAccessControlAllowCredentialsHeader(headers: Headers): boolean {
+  if (headers['access-control-allow-credentials']) {
+    return true;
+  }
+
+  if (headers['Access-Control-Allow-Credentials']) {
+    return true;
+  }
+
+  return false;
+}
+
+function hasAccessControlAllowOriginHeader(headers: Headers): boolean {
+  if (headers['access-control-allow-origin']) {
+    return true;
+  }
+
+  if (headers['Access-Control-Allow-Origin']) {
+    return true;
+  }
+
+  return false;
+}
+
 function buildContentTypeFrom<T>(mockedResponse: Partial<MockResponse<T>>): string {
   if (mockedResponse.contentType) {
     return mockedResponse.contentType;

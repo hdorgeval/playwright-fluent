@@ -263,6 +263,10 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(sentRequest.response!.headers['content-type']).toBe('text/plain');
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(sentRequest.response!.headers['access-control-allow-origin']).toBe('*');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(sentRequest.response!.headers['access-control-allow-credentials']).toBe('true');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(sentRequest.response!.payload).toBe('sorry, you have no access');
   });
 });
