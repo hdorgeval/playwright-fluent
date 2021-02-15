@@ -701,6 +701,8 @@ Will intercept any request whose url contains the input `url` (this parameter sh
 
 The main purpose of this feature, is to be able to intercept rest API calls, that gives back a JSON object of type `T`, and then substitute the response by another JSON object of type `T`, or substitute the HTTP response status by another one (for example subsitute an HTTP 200 by an HTTP 500, for chaos testing).
 
+Be careful to call the `onRequestTo(url).respondWith(response)` before navigating to the first page of the web site under test.
+
 ```js
 interface MockResponse<T> {
   status: number;
@@ -729,7 +731,7 @@ await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .emulateDevice('iPhone 6 landscape')
-  .onRequestTo('/foobar')
+  .onRequestTo('/api/foobar')
   .respondWith({
     status: 200,
     headers: responseHeaders,
@@ -746,7 +748,7 @@ await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .emulateDevice('iPhone 6 landscape')
-  .onRequestTo('/foobar')
+  .onRequestTo('/api/foobar')
   .respondWith((request) => {
     const url = request.url();
     if (url.includes('?foo=bar')) {
@@ -757,6 +759,27 @@ await p
       };
     }
     throw new Error(`Cannot handle to request '${url}'`);
+  })
+  .navigateTo(url);
+```
+
+For chaos testing:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+// start the browser in headfull mode
+// and emulate an iPhone 6 in landscape mode
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .emulateDevice('iPhone 6 landscape')
+  .onRequestTo('/api/foobar')
+  .respondWith({
+    status: 401,
+    body: 'sorry, you have no access',
   })
   .navigateTo(url);
 ```
