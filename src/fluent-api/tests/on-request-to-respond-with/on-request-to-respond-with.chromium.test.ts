@@ -239,7 +239,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
       .withCursor()
       .recordRequestsTo('/foobar')
       .onRequestTo('/foobar')
-      .respondWith<string>({
+      .respondWith({
         status: 401,
         body: 'sorry, you have no access',
       })
