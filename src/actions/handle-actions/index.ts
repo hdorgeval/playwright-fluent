@@ -24,6 +24,7 @@ export * from './has-handle-text';
 export * from './has-handle-value';
 export * from './has-not-handle-class';
 export * from './hover-on-handle';
+export * from './invoke-method-on-handle';
 export * from './is-handle-checked';
 export * from './is-handle-disabled';
 export * from './is-handle-enabled';

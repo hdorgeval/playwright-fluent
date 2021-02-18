@@ -19,6 +19,7 @@ export * from './has-selector-placeholder';
 export * from './has-selector-text';
 export * from './has-selector-value';
 export * from './hover-on-selector';
+export * from './invoke-method-on-selector';
 export * from './is-selector-checked';
 export * from './is-selector-disabled';
 export * from './is-selector-enabled';
