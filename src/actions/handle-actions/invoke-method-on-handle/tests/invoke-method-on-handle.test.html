@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      .big {
+        height: 2000px;
+        min-height: 2000px;
+        max-height: 2000px;
+        border-bottom-width: 5;
+        border-style: solid;
+      }
+
+      #hidden {
+        width: 20px;
+        display: none;
+      }
+
+      #transparent {
+        opacity: 0;
+        color: black;
+      }
+
+      #out-of-screen {
+        position: absolute;
+        top: -100px;
+      }
+    </style>
+
+    <title>click on handle</title>
+  </head>
+
+  <body>
+    <div class="big">Yo!</div>
+    <table>
+      <tr role="row">
+        <td>
+          <p id="out-of-view-port">I am out of viewport</p>
+        </td>
+        <td>
+          <input id="disabled" value="I am disabled" disabled />
+          <input id="unchecked-and-disabled" type="checkbox" disabled />
+          <input id="unchecked-and-enabled" type="checkbox" />
+          <input id="already-checked-and-disabled" type="checkbox" checked disabled />
+          <input id="already-checked-and-enabled" type="checkbox" checked />
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="hidden">Yo!</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="transparent" contenteditable="true">I am transparent</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="out-of-screen">I am out of screen</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="hidden-then-visible">hidden, then visible</p>
+        </td>
+      </tr>
+      <tr role="row" data-e2e="last-row">
+        <td>
+          <p id="visible-then-removed">I am visible but will disappear</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
