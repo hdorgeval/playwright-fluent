@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      .big {
+        height: 2000px;
+        min-height: 2000px;
+        max-height: 2000px;
+        border-bottom-width: 5;
+        border-style: solid;
+      }
+
+      #hidden {
+        width: 20px;
+        display: none;
+      }
+
+      #transparent {
+        opacity: 0;
+        color: black;
+      }
+
+      #out-of-screen {
+        position: absolute;
+        top: -100px;
+      }
+
+      #moving {
+        width: 20px;
+        max-width: 20px;
+        animation-duration: 3s;
+        animation-name: slidein;
+        animation-iteration-count: initial;
+        animation-direction: alternate;
+      }
+
+      @keyframes slidein {
+        from {
+          margin-left: 100%;
+          width: 100%;
+        }
+
+        to {
+          margin-left: 0%;
+          width: 100%;
+        }
+      }
+    </style>
+
+    <title>invoke method on a selector</title>
+  </head>
+
+  <body>
+    <div class="big">
+      Yo!
+      <br />
+      <br />
+      <input id="in-view-port" value="I am in viewport" />
+      <input id="hidden" type="checkbox" value="I am hidden" />
+      <input id="disabled" type="checkbox" disabled value="I am disabled" />
+      <p id="moving">Yo!</p>
+    </div>
+    <p id="out-of-view-port">I am out of viewport</p>
+    <input id="out-of-view-port" value="I am out of viewport" />
+    <input
+      id="checked-and-disabled"
+      type="checkbox"
+      checked
+      disabled
+      value="I am checked and disabled"
+    />
+
+    <script>
+      window.setTimeout(() => {
+        const el = document.querySelector('#visible-then-removed');
+        el.remove();
+      }, 290);
+
+      function addInput(id) {
+        const input = document.createElement('input');
+        input.setAttribute('class', 'hidden');
+        input.setAttribute('id', id);
+        input.setAttribute('type', 'checkbox');
+        input.setAttribute('value', 'dynamically added input');
+        input.setAttribute('disabled', 'true');
+        input.addEventListener('mouseover', (ev) => {
+          ev.target.value = 'I am hovered';
+        });
+        input.addEventListener('mouseleave', (ev) => {
+          ev.target.value = 'I am leaved';
+        });
+        const body = document.querySelector('body');
+        body.appendChild(input);
+      }
+
+      function makeInputVisible(id) {
+        const input = document.querySelector('#' + id);
+        input.removeAttribute('class');
+      }
+
+      function makeInputEnabled(id) {
+        const input = document.querySelector('#' + id);
+        input.removeAttribute('disabled');
+      }
+
+      window.setTimeout(() => {
+        addInput('dynamically-added-input');
+      }, 3000);
+
+      window.setTimeout(() => {
+        makeInputVisible('dynamically-added-input');
+      }, 6000);
+
+      window.setTimeout(() => {
+        makeInputEnabled('dynamically-added-input');
+      }, 9000);
+    </script>
+  </body>
+</html>

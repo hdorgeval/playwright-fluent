@@ -10,6 +10,7 @@ export * from './has-selector-object-placeholder';
 export * from './has-selector-object-text';
 export * from './has-selector-object-value';
 export * from './hover-on-selector-object';
+export * from './invoke-method-on-selector-object';
 export * from './is-selector-object-checked';
 export * from './is-selector-object-disabled';
 export * from './is-selector-object-enabled';

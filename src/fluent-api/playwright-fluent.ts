@@ -15,6 +15,7 @@ import {
   defaultDoubleClickOptions,
   defaultFullPageScreenshotOptions,
   defaultHoverOptions,
+  defaultInvokeOptions,
   defaultKeyboardPressOptions,
   defaultLaunchOptions,
   defaultNavigationOptions,
@@ -24,10 +25,12 @@ import {
   DoubleClickOptions,
   Headers,
   HoverOptions,
+  InvokeOptions,
   KeyboardHoldKey,
   KeyboardKey,
   KeyboardPressOptions,
   LaunchOptions,
+  MethodName,
   MockResponse,
   NavigationOptions,
   PasteTextOptions,
@@ -80,10 +83,12 @@ export {
   DoubleClickOptions,
   Headers,
   HoverOptions,
+  InvokeOptions,
   KeyboardHoldKey,
   KeyboardKey,
   KeyboardPressOptions,
   LaunchOptions,
+  MethodName,
   MockResponse,
   NavigationOptions,
   PasteTextOptions,
@@ -884,6 +889,58 @@ export class PlaywrightFluent implements PromiseLike<void> {
    */
   public clear(options?: Partial<ClearTextOptions>): PlaywrightFluent {
     return this.clearText(options);
+  }
+
+  private async invokeMethodOnSelector(
+    methodName: MethodName,
+    selector: string,
+    options: InvokeOptions,
+  ): Promise<void> {
+    await action.invokeMethodOnSelector(methodName, selector, this.currentPage(), options);
+  }
+  private async invokeMethodOnSelectorObject(
+    methodName: MethodName,
+    selector: SelectorFluent,
+    options: InvokeOptions,
+  ): Promise<void> {
+    await action.invokeMethodOnSelectorObject(methodName, selector, options);
+  }
+  /**
+   * Be able to invoke a native method on a selector.
+   * Use this action only in edge cases
+   * where the selector itself is hidden because of its transprency,
+   * or because it has null dimension,
+   * and the normal click does not work neither on this selector nor on it's parent.
+   *
+   * @param {MethodName} methodName
+   * @param {(string | SelectorFluent)} selector
+   * @param {Partial<InvokeOptions>} [options]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public invokeMethod(
+    methodName: MethodName,
+    selector: string | SelectorFluent,
+    options?: Partial<InvokeOptions>,
+  ): PlaywrightFluent {
+    const invokeOptions: InvokeOptions = {
+      ...defaultInvokeOptions,
+      ...this.defaultWaitOptions,
+      ...options,
+    };
+    if (typeof selector === 'string') {
+      const action = (): Promise<void> =>
+        this.invokeMethodOnSelector(methodName, selector, invokeOptions);
+      this.actions.push(action);
+      return this;
+    }
+
+    {
+      const action = (): Promise<void> =>
+        this.invokeMethodOnSelectorObject(methodName, selector, invokeOptions);
+      this.actions.push(action);
+      return this;
+    }
   }
 
   private async pasteTextInFocusedElement(text: string, options: PasteTextOptions): Promise<void> {
