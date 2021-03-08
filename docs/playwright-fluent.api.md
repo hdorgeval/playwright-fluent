@@ -35,6 +35,7 @@
   - [typeText(text[, options])](#typeTexttext-options)
   - [pasteText(text[, options])](#pasteTexttext-options)
   - [clearText([options])](#clearTextoptions)
+  - [invokeMethod(methodName,selector[, options])](#invokeMethodmethodNameselector-options)
   - [runStory(story)](#runStorystory)
   - [wait(duration)](#waitduration)
   - [waitUntil(predicate[, waitOptions, errorMessage])](#waitUntilpredicate-waitOptions-errorMessage)
@@ -889,6 +890,45 @@ const page = p.currentPage();
 
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
+```
+
+---
+
+### invokeMethod(methodName,selector[, options])
+
+- methodName: `click | focus | blur | select`
+- selector: `string | SelectorFluent`
+- options: `Partial<InvokeOptions>`
+
+```js
+interface InvokeOptions {
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+```
+
+Be able to invoke a native method on a selector.
+Use this action only in edge cases where the selector itself is hidden because of its transprency, or because it has null dimension, and the normal click does not work neither on this selector nor on it's parent.
+
+This method automatically (and only ) waits for the selector to exist in the DOM.
+
+Example:
+
+```js
+const url = 'https://reactstrap.github.io/components/form';
+const checkMeOut = p.selector('label').withText('Check me out').find('input');
+
+// When
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .emulateDevice('iPhone 6 landscape')
+  .navigateTo(url)
+  .expectThat(checkMeOut)
+  .isEnabled()
+  .invokeMethod('click', selector);
 ```
 
 ---
