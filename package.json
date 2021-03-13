@@ -60,7 +60,7 @@
     "simple-fake-server": "3.4.0",
     "ts-jest": "26.5.3",
     "ts-node": "9.1.1",
-    "typescript": "4.1.5"
+    "typescript": "4.2.3"
   },
   "dependencies": {
     "@types/which": "2.0.0",
