@@ -83,7 +83,7 @@ describe('Playwright Fluent - selectByValue(values).in(selector)', (): void => {
     expect(value).toBe('value bar');
   });
 
-  test.only('should wait until option is available in selector object - chromium', async (): Promise<void> => {
+  test('should wait until option is available in selector object - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'select-by-value-in.test.html')}`;
     const selector = p.selector('select').withText('Please select an option');
