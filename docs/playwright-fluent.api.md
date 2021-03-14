@@ -20,6 +20,7 @@
   - [recordRequestsTo(url)](#recordRequestsTourl)
   - [onRequestTo(url).respondWith(response)](#onRequestTourlrespondWithresponse)
   - [navigateTo(url[, options])](#navigateTourl-options)
+  - [pause()](#pause)
   - [check(selector[, options])](#checkselector-options)
   - [uncheck(selector[, options])](#uncheckselector-options)
   - [click(selector[, options])](#clickselector-options)
@@ -826,6 +827,36 @@ const page = p.currentPage();
 
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
+```
+
+---
+
+### pause()
+
+(use only with Playwright >= v1.9.0)
+
+Pauses script execution. Playwright will stop executing the script and wait for the user to either press 'Resume' button in the page overlay or to call playwright.resume() in the DevTools console.
+
+User can inspect selectors or perform manual steps while paused. Resume will continue running the original script from the place it was paused.
+
+`pause` will be ignored when executed on CI or when the browser is headless.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const selector = '#exampleCustomRange';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .navigateTo(url)
+  .pause()
+  .hover(selector);
+
 ```
 
 ---
