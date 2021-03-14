@@ -28,6 +28,7 @@ export * from './is-selector-unchecked';
 export * from './is-selector-visible';
 export * from './navigate-to';
 export * from './on-request-to-respond-with';
+export * from './pause';
 export * from './query-selector-all-in-page';
 export * from './record-failed-requests';
 export * from './record-page-errors';

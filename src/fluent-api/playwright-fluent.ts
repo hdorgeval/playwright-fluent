@@ -491,6 +491,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return await this.browserContext?.storageState();
   }
 
+  private async pauseExecution(): Promise<void> {
+    await action.pause(this.currentPage());
+  }
+  public pause(): PlaywrightFluent {
+    const action = (): Promise<void> => this.pauseExecution();
+    this.actions.push(action);
+    return this;
+  }
+
   private async gotoUrl(url: string, options: NavigationOptions): Promise<void> {
     await action.navigateTo(url, options, this.currentPage());
   }
