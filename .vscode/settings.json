@@ -1,7 +1,8 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": false
+    "source.organizeImports": false,
+    "source.fixAll.markdownlint": true
   },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
@@ -9,14 +10,11 @@
   "eslint.alwaysShowStatus": true,
   "eslint.codeActionsOnSave.mode": "all",
   "eslint.options": {
-    "extensions": [".js", ".ts"]
+    "extensions": [".js", ".ts", ".md"]
   },
   "eslint.validate": [
     "javascript",
-    {
-      "language": "typescript",
-      "autoFix": true
-    }
+    "typescript"
   ],
   "files.eol": "\r\n",
   "jest.autoEnable": false,
