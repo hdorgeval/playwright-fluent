@@ -277,6 +277,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
     this.browser = await action.launchBrowser(name, this.launchOptions);
     this.browserContext = await this.browser.newContext(contextOptions);
+    this.browserContext.on('page', async (p) => {
+      try {
+        await p.waitForLoadState();
+        // eslint-disable-next-line no-empty
+      } catch (error) {}
+      this.page = p;
+    });
     this.page = await this.browserContext.newPage();
     if (this.showMousePosition) {
       await action.showMousePosition(this.page);
