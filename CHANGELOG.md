@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.21.0] - 2021-03-15
+
+### Added
+
+- feat(fluent-api): automatically switch the page object to the newly opened tab
+  
+  This enables to smoothly continue test execution on the new opened tab (for example when clicking on a link opens a new tab in the same browser)
+
 ## [1.20.0] - 2021-03-14
 
 ### Added
