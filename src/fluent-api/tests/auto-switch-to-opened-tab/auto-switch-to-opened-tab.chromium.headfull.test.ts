@@ -31,4 +31,21 @@ describe('Playwright Fluent - click', (): void => {
     // Then
     expect(await p.getCurrentUrl()).toContain('https://reactstrap.github.io/components/form');
   });
+
+  test('should detect redirection to another tab - chromium', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'auto-switch-to-opened-tab.test.html')}`;
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .emulateDevice('iPhone 6 landscape')
+      .navigateTo(url)
+      .click(p.selector('a[target="_blank"]').withText('open reactstrap form'));
+
+    // Then
+    expect(p.hasBeenRedirectedToAnotherTab()).toBe(true);
+  });
 });

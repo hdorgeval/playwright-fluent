@@ -230,6 +230,16 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this.page;
   }
 
+  private _previousPage: Page | undefined;
+  public previousPage(): Page | undefined {
+    return this._previousPage;
+  }
+
+  private _hasBeenRedirectedToAnotherTab = false;
+  public hasBeenRedirectedToAnotherTab(): boolean {
+    return this._hasBeenRedirectedToAnotherTab;
+  }
+
   private actions: (() => Promise<void>)[] = [];
 
   private launchOptions: LaunchOptions = defaultLaunchOptions;
@@ -277,17 +287,32 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
     this.browser = await action.launchBrowser(name, this.launchOptions);
     this.browserContext = await this.browser.newContext(contextOptions);
+
     this.browserContext.on('page', async (p) => {
+      this._previousPage = this.page;
+      this.page = p;
+      this._hasBeenRedirectedToAnotherTab = true;
       try {
         await p.waitForLoadState();
         // eslint-disable-next-line no-empty
       } catch (error) {}
-      this.page = p;
     });
+
     this.page = await this.browserContext.newPage();
     if (this.showMousePosition) {
       await action.showMousePosition(this.page);
     }
+  }
+
+  private async gotoPreviousTab(): Promise<void> {
+    if (!this._previousPage) {
+      return;
+    }
+    await this._previousPage.bringToFront();
+    const from = this._previousPage;
+    this._previousPage = this.page;
+    this.page = from;
+    this._hasBeenRedirectedToAnotherTab = true;
   }
 
   public withDefaultWaitOptions(options: Partial<WaitOptions>): PlaywrightFluent {
@@ -383,6 +408,12 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
     const action = (): Promise<void> => this.closeBrowser(closeOptions);
+    this.actions.push(action);
+    return this;
+  }
+
+  public switchToPreviousTab(): PlaywrightFluent {
+    const action = (): Promise<void> => this.gotoPreviousTab();
     this.actions.push(action);
     return this;
   }
