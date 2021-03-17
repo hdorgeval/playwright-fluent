@@ -37,6 +37,7 @@
   - [pasteText(text[, options])](#pasteTexttext-options)
   - [clearText([options])](#clearTextoptions)
   - [invokeMethod(methodName,selector[, options])](#invokeMethodmethodNameselector-options)
+  - [switchToPreviousTab()](#switchToPreviousTab)
   - [runStory(story)](#runStorystory)
   - [wait(duration)](#waitduration)
   - [waitUntil(predicate[, waitOptions, errorMessage])](#waitUntilpredicate-waitOptions-errorMessage)
@@ -59,6 +60,7 @@
   - [getCurrentWindowState()](#getCurrentWindowState)
   - [getPageErrors()](#getPageErrors)
   - [getValueOf(selector[, options])](#getValueOfselector-options)
+  - [hasBeenRedirectedToAnotherTab()](#hasBeenRedirectedToAnotherTab)
   - [hasFocus(selector[, options])](#hasFocusselector-options)
   - [isChecked(selector[, options])](#isCheckedselector-options)
   - [isUnchecked(selector[, options])](#isUncheckedselector-options)
@@ -1478,6 +1480,38 @@ await p.waitForStabilityOf(() => selector.count()); // waits until the number of
 
 ---
 
+### switchToPreviousTab()
+
+Switch to the previous tab.
+
+Use this method for example when a click on a link redirects test execution on a new tab but you want to continue your test in the original tab.
+
+Example:
+
+```js
+import { PlaywrightFluent } from 'playwright-fluent';
+
+const url = `some valid url`;
+const p = new PlaywrightFluent();
+const openLinkToNewTab = p.selector('a[target="_blank"]').withText('open reactstrap form')
+
+await p
+      // open tab 1
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .emulateDevice('iPhone 6 landscape')
+      .navigateTo(url)
+      .click(openLinkToNewTab) // will switch to tab 2
+      ... // continue test on tab 2
+      .switchToPreviousTab() // return to tab 1
+      ... // continue test on tab 1
+      .switchToPreviousTab() // return to tab 2
+      ... //etc
+```
+
+---
+
 ### runStory(story)
 
 - story: `Story | StoryWithProps<T>`
@@ -1702,6 +1736,12 @@ interface WindowState {
   };
 }
 ```
+
+---
+
+### hasBeenRedirectedToAnotherTab()
+
+Checks if you have have redirected in a new tab.
 
 ---
 
