@@ -98,6 +98,84 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     expect(yoRequest.response!.payload).toMatchObject(responseBodyBaz);
   });
 
+  test('should record post data fetch requests', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'record-requests-with-post-data-fetch.test.html')}`;
+
+    const responseBody = {
+      prop1: 'foobar',
+    };
+    const responseHeaders = {
+      'foo-header': 'bar',
+    };
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .post()
+        .to('/foobar')
+        .willReturn(responseBody, 200, responseHeaders);
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: true })
+      .withCursor()
+      .recordRequestsTo('/foobar')
+      .navigateTo(url);
+
+    // Then requests to /foobar can be analyzed
+    await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
+      stabilityInMilliseconds: 5000,
+    });
+    const foobarRequests = p.getRecordedRequestsTo('/foobar');
+    expect(Array.isArray(foobarRequests)).toBe(true);
+    expect(foobarRequests.length).toBe(1);
+
+    const stringifiedSentRequest = await stringifyRequest(foobarRequests[0]);
+    const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
+
+    expect((sentRequest.postData as { foo: string }).foo).toBe('bar');
+  });
+
+  test('should record post data xhr requests', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'record-requests-with-post-data-xhr.test.html')}`;
+
+    const responseBody = {
+      prop1: 'foobar',
+    };
+    const responseHeaders = {
+      'foo-header': 'bar',
+    };
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .post()
+        .to('/foobar')
+        .willReturn(responseBody, 200, responseHeaders);
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: true })
+      .withCursor()
+      .recordRequestsTo('/foobar')
+      .navigateTo(url);
+
+    // Then requests to /foobar can be analyzed
+    await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
+      stabilityInMilliseconds: 5000,
+    });
+    const foobarRequests = p.getRecordedRequestsTo('/foobar');
+    expect(Array.isArray(foobarRequests)).toBe(true);
+    expect(foobarRequests.length).toBe(1);
+
+    const stringifiedSentRequest = await stringifyRequest(foobarRequests[0]);
+    const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
+
+    expect((sentRequest.postData as { foo: string }).foo).toBe('bar');
+  });
+
   test('should record failed requests 500', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'record-failed-requests-500.test.html')}`;

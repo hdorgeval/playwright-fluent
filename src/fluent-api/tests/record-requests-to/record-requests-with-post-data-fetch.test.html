@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>page with request</title>
+  </head>
+
+  <body>
+    <h1>Yo!</h1>
+    <script>
+      window.setTimeout(() => {
+        fetch('http://localhost:1234/foobar', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ foo: 'bar' }),
+        });
+      }, 1000);
+    </script>
+  </body>
+</html>

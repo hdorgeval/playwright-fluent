@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>page with request</title>
+  </head>
+
+  <body>
+    <h1>Yo!</h1>
+    <script>
+      window.setTimeout(() => {
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = () => {
+          // print JSON response
+          if (xhr.status >= 200 && xhr.status < 300) {
+            // parse JSON
+            const response = JSON.parse(xhr.responseText);
+            console.log(response);
+          }
+        };
+        xhr.open('POST', 'http://localhost:1234/foobar');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(
+          JSON.stringify({
+            foo: 'bar',
+          }),
+        );
+      }, 1000);
+    </script>
+  </body>
+</html>
