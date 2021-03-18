@@ -15,7 +15,7 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 npm i --save playwright-fluent
 ```
 
-If not already installed, the `playwright` package should also be installed with a version >= 1.0.0
+If not already installed, the `playwright` package should also be installed with a version >= 1.3.0
 
 # Usage
 
