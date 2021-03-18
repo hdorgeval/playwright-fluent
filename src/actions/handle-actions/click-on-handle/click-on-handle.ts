@@ -1,7 +1,7 @@
 import { hoverOnHandle, HoverOptions, defaultHoverOptions } from '../hover-on-handle';
 import { waitUntil, report } from '../../../utils';
 import { isHandleEnabled } from '../is-handle-enabled';
-import { ElementHandle, Page } from 'playwright';
+import { ElementHandle, Frame, Page } from 'playwright';
 
 export type Modifier = 'Alt' | 'Control' | 'Meta' | 'Shift';
 export type Button = 'left' | 'right' | 'middle';
@@ -32,7 +32,7 @@ export const defaultClickOptions: ClickOptions = {
 export async function clickOnHandle(
   selector: ElementHandle<Element> | undefined | null,
   name: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: ClickOptions,
 ): Promise<void> {
   if (!page) {

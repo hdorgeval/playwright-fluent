@@ -1,16 +1,16 @@
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function getClientRectangleOf(
   selector: string,
-  page: Page | undefined,
+  pageOrFrame: Page | Frame | undefined,
 ): Promise<ClientRect> {
-  if (!page) {
+  if (!pageOrFrame) {
     throw new Error(
       `Cannot get the client rectangle of '${selector}' because no browser has been launched`,
     );
   }
 
-  const stringifiedResult = await page.$eval(selector, (el: Element): string => {
+  const stringifiedResult = await pageOrFrame.$eval(selector, (el: Element): string => {
     const clientRectangle = el && el.getBoundingClientRect();
     const result: ClientRect = {
       bottom: clientRectangle ? clientRectangle.bottom : 0,

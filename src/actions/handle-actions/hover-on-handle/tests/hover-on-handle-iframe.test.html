@@ -48,31 +48,10 @@
       }
     </style>
 
-    <title>hover to a selector</title>
+    <title>hover to a selector inside an iframe</title>
   </head>
 
   <body>
-    <div class="big">
-      Yo!
-      <br />
-      <br />
-      <input id="in-view-port" value="I am in viewport" />
-      <p id="moving">Yo!</p>
-    </div>
-    <p id="out-of-view-port">I am out of viewport</p>
-    <input id="out-of-view-port" value="I am out of viewport" />
-    <p id="hidden">Yo!</p>
-    <p id="visible">I am visible</p>
-    <p id="visible-then-removed">I am visible but will disappear</p>
-    <p id="transparent">I am transparent</p>
-    <p id="out-of-screen">I am out of screen</p>
-
-    <iframe src="./hover-on-handle-iframe.test.html"> </iframe>
-    <script>
-      window.setTimeout(() => {
-        const el = document.querySelector('#visible-then-removed');
-        el.remove();
-      }, 290);
-    </script>
+    <p id="inside-iframe">I am inside an iframe</p>
   </body>
 </html>

@@ -3,7 +3,7 @@ import { scrollToHandle } from '../scroll-to-handle';
 import { isHandleVisible } from '../is-handle-visible';
 import { isHandleMoving } from '../is-handle-moving';
 import { getClientRectangleOfHandle } from '../get-client-rectangle-of-handle';
-import { ElementHandle, Page } from 'playwright';
+import { ElementHandle, Frame, Page } from 'playwright';
 
 export interface HoverOptions {
   timeoutInMilliseconds: number;
@@ -21,10 +21,10 @@ export const defaultHoverOptions: HoverOptions = {
 export async function hoverOnHandle(
   selector: ElementHandle<Element> | undefined | null,
   name: string,
-  page: Page | undefined,
+  pageOrFrame: Page | Frame | null | undefined,
   options: HoverOptions,
 ): Promise<void> {
-  if (!page) {
+  if (!pageOrFrame) {
     throw new Error(`Cannot hover on '${name}' because no browser has been launched`);
   }
 
@@ -59,6 +59,8 @@ export async function hoverOnHandle(
     },
   );
 
+  const page = pageOrFrame as Page;
+
   for (let index = 0; index < 3; index++) {
     await sleep(options.stabilityInMilliseconds / 10);
     const clientRectangle = await getClientRectangleOfHandle(selector);
@@ -70,6 +72,8 @@ export async function hoverOnHandle(
     const x = clientRectangle.left + clientRectangle.width / 2;
     const y = clientRectangle.top + clientRectangle.height / 2;
     report(`moving the mouse to x=${x} y=${y}`, options.verbose);
-    await page.mouse.move(x, y, { steps: options.steps });
+    if (page.mouse) {
+      await page.mouse.move(x, y, { steps: options.steps });
+    }
   }
 }
