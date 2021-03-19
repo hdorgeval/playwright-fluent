@@ -102,6 +102,27 @@ export class SelectorFluent {
   }
 
   /**
+   * Iterate over each found selector
+   *
+   * @param {(selector: SelectorFluent) => Promise<void>} func
+   * @returns {Promise<void>}
+   * @memberof SelectorFluent
+   * @example
+   *  const rows = p.selector('[role="row"]');
+   *  await rows.forEach(async (row) => {
+   *    const checkbox = row.find('input[type="checkbox"]');
+   *    await p.hover(checkbox).check(checkbox);
+   *  });
+   */
+  public async forEach(func: (selector: SelectorFluent) => Promise<void>): Promise<void> {
+    const selectorsCount = await this.count();
+    for (let index = 1; index <= selectorsCount; index++) {
+      const selectorItem = this.nth(index);
+      await func(selectorItem);
+    }
+  }
+
+  /**
    * Obsolete: please use the getHandle() method
    * Executes the search and returns the first found element.
    * The result may differ from one execution to another
