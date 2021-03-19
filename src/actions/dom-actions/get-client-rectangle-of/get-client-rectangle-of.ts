@@ -2,7 +2,7 @@ import { Frame, Page } from 'playwright';
 
 export async function getClientRectangleOf(
   selector: string,
-  pageOrFrame: Page | Frame | undefined,
+  pageOrFrame: Page | Frame | null | undefined,
 ): Promise<ClientRect> {
   if (!pageOrFrame) {
     throw new Error(
