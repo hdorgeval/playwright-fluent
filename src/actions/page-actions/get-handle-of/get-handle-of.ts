@@ -1,10 +1,10 @@
 import { waitUntil, report, WaitUntilOptions } from '../../../utils';
 import { exists } from '../../dom-actions';
-import { Page, ElementHandle } from 'playwright';
+import { Page, ElementHandle, Frame } from 'playwright';
 
 export async function getHandleOf(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: WaitUntilOptions,
 ): Promise<ElementHandle<Element> | null> {
   if (!page) {

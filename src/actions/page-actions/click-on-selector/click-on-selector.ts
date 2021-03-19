@@ -1,11 +1,11 @@
 import { ClickOptions, clickOnHandle } from '../../handle-actions';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions, defaultWaitUntilOptions } from '../../../utils';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function clickOnSelector(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: ClickOptions,
 ): Promise<void> {
   if (!page) {

@@ -1,6 +1,6 @@
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
-export async function exists(selector: string, page: Page | undefined): Promise<boolean> {
+export async function exists(selector: string, page: Page | Frame | undefined): Promise<boolean> {
   if (!page) {
     throw new Error(`Cannot check that '${selector}' exists because no browser has been launched`);
   }
