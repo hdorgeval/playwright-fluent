@@ -168,3 +168,15 @@ export type StorageState = {
     }>;
   }>;
 };
+
+export interface HarOptions {
+  /**
+   * Optional setting to control whether to omit request content from the HAR. Defaults to `false`.
+   */
+  omitContent?: boolean;
+
+  /**
+   * Path on the filesystem to write the HAR file to.
+   */
+  path: string;
+}

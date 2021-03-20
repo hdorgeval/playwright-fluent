@@ -1,4 +1,10 @@
-import { BrowserContextOptions, Geolocation, Permission, StorageState } from './playwright-types';
+import {
+  BrowserContextOptions,
+  Geolocation,
+  HarOptions,
+  Permission,
+  StorageState,
+} from './playwright-types';
 import { TimeZoneId } from './timezone-ids';
 import * as assertion from '../assertions';
 import * as action from '../actions';
@@ -56,6 +62,8 @@ import {
 } from '../devices';
 import {
   defaultWaitUntilOptions,
+  HarContent,
+  readHarFileAsJson,
   sleep,
   waitForStabilityOf,
   WaitOptions,
@@ -68,10 +76,12 @@ import { Browser, Page, BrowserContext, Request as PlaywrightRequest } from 'pla
 const isCI = require('is-ci') as boolean;
 
 export {
+  defaultWaitUntilOptions,
+  HarContent,
+  noWaitNoThrowOptions,
+  uniqueFilename,
   WaitOptions,
   WaitUntilOptions,
-  noWaitNoThrowOptions,
-  defaultWaitUntilOptions,
 } from '../utils';
 
 export {
@@ -111,7 +121,13 @@ export {
   WindowSize,
   WindowSizeOptions,
 } from '../devices';
-export { BrowserContextOptions, Geolocation, Permission, StorageState } from './playwright-types';
+export {
+  BrowserContextOptions,
+  Geolocation,
+  HarOptions,
+  Permission,
+  StorageState,
+} from './playwright-types';
 
 export { TimeZoneId } from './timezone-ids';
 
@@ -261,7 +277,6 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private emulatedDevice: Device | undefined = undefined;
   private customWindowSize: WindowSize | undefined = undefined;
   private customWindowSizeOptions: WindowSizeOptions = defaultWindowSizeOptions;
-
   private showMousePosition = false;
   private async launchBrowser(name: BrowserName): Promise<void> {
     const contextOptions: BrowserContextOptions = { ...this.contextOptions };
@@ -396,6 +411,46 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public withStorageState(storageStateFile: string | StorageState): PlaywrightFluent {
     this.contextOptions.storageState = storageStateFile;
     return this;
+  }
+
+  /**
+   * Enables HAR recording for all pages.
+   * Network activity will be saved into options.path file.
+   * If not specified, the HAR is not recorded.
+   * Make sure to await browserContext.close() for the HAR to be saved.
+   *
+   * @param {HarOptions} options
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   * @example
+   *  const p = new PlaywrightFluent();
+   *  const harFilepath = `${path.join(__dirname, uniqueFilename({ prefix: 'har-', extension: '.json' }))}`;
+   *  await p
+   *    .withBrowser('chromium')
+   *    .withOptions({ headless: true })
+   *    .withCursor()
+   *    .recordNetworkActivity({ path: harFilepath })
+   *    ...
+   *    .close();
+   *
+   *  const harData = p.getRecordedNetworkActivity();
+   *
+   */
+  public recordNetworkActivity(options: HarOptions): PlaywrightFluent {
+    this.contextOptions.recordHar = options;
+    return this;
+  }
+
+  /**
+   * Get HAR data as json data.
+   * Call this method only after the browser is closed.
+   * @param {string} [filepath] optional
+   * @returns {HarContent}
+   * @memberof PlaywrightFluent
+   */
+  public getRecordedNetworkActivity(filepath?: string): HarContent {
+    const harFilePath = filepath || this.contextOptions.recordHar?.path;
+    return readHarFileAsJson(harFilePath);
   }
 
   private async closeBrowser(options: CloseOptions): Promise<void> {
