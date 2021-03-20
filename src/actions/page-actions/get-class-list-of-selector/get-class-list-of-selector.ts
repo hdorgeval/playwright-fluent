@@ -1,11 +1,11 @@
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
 import { getClassListOfHandle } from '../../handle-actions/get-class-list-of-handle';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function getClassListOfSelector(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: WaitUntilOptions,
 ): Promise<string[]> {
   if (!page) {

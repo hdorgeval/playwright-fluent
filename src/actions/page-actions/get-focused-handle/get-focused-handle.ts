@@ -1,8 +1,8 @@
-import { Page, ElementHandle } from 'playwright';
+import { Page, ElementHandle, Frame } from 'playwright';
 declare const window: Window;
 
 export async function getFocusedHandle(
-  page: Page | undefined,
+  page: Page | Frame | undefined,
 ): Promise<ElementHandle<Element> | null> {
   if (!page) {
     throw new Error(`Cannot get focused handle because no browser has been launched`);
