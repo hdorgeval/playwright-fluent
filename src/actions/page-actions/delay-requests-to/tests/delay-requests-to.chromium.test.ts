@@ -25,6 +25,8 @@ describe('delay requests to', (): void => {
   afterEach(
     async (): Promise<void> => {
       if (browser) {
+        const contexts = browser.contexts();
+        await contexts[0].close();
         await browser.close();
       }
     },
@@ -35,7 +37,10 @@ describe('delay requests to', (): void => {
     browser = await chromium.launch({
       headless: true,
     });
-    const context = await browser.newContext({ viewport: null });
+    const context = await browser.newContext({
+      viewport: null,
+      recordHar: { path: `${path.join(__dirname, 'delay-requests-to.test.har')}` },
+    });
     const page = await context.newPage();
 
     const responseBody = {
