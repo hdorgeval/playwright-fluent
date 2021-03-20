@@ -1,5 +1,6 @@
 export * from './check-selector';
 export * from './click-on-selector';
+export * from './delay-requests-to';
 export * from './double-click-on-selector';
 export * from './get-all-options-of-selector';
 export * from './get-attribute-of-selector';
