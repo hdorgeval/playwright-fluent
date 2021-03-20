@@ -1,11 +1,11 @@
 import { CheckOptions, checkHandle } from '../../handle-actions';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions, defaultWaitUntilOptions } from '../../../utils';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function checkSelector(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: CheckOptions,
 ): Promise<void> {
   if (!page) {
