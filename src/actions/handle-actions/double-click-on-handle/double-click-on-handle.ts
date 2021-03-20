@@ -2,7 +2,7 @@ import { hoverOnHandle, HoverOptions, defaultHoverOptions } from '../hover-on-ha
 import { waitUntil, report } from '../../../utils';
 import { isHandleEnabled } from '../is-handle-enabled';
 import { Button, Modifier, Point } from '../click-on-handle';
-import { ElementHandle, Page } from 'playwright';
+import { ElementHandle, Frame, Page } from 'playwright';
 
 export interface DoubleClickOptions {
   button: Button;
@@ -25,7 +25,7 @@ export const defaultDoubleClickOptions: DoubleClickOptions = {
 export async function doubleClickOnHandle(
   selector: ElementHandle<Element> | undefined | null,
   name: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: DoubleClickOptions,
 ): Promise<void> {
   if (!page) {
