@@ -7,7 +7,7 @@ export interface HarPage {
   title: string;
 }
 
-export interface HarEntries {
+export interface HarEntry {
   startedDateTime: string;
   request: {
     method: string;
@@ -34,7 +34,7 @@ export interface HarContent {
       version: string;
     };
     pages: HarPage[];
-    entries: HarEntries[];
+    entries: HarEntry[];
   };
 }
 

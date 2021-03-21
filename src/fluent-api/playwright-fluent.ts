@@ -495,6 +495,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  private async delayRequestsToUrl(partialUrl: string, delayInSeconds: number): Promise<void> {
+    await action.delayRequestsTo(partialUrl, delayInSeconds, this.currentPage());
+  }
+  public delayRequestsTo(partialUrl: string, delayInSeconds: number): PlaywrightFluent {
+    const action = (): Promise<void> => this.delayRequestsToUrl(partialUrl, delayInSeconds);
+    this.actions.push(action);
+    return this;
+  }
+
   private async onRequestToRespondWith<T>(
     partialUrl: string,
     response: Partial<MockResponse<T>> | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
