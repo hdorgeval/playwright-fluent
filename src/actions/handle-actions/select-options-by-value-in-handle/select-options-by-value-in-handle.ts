@@ -5,13 +5,13 @@ import { getAllOptionsOfHandle } from '../get-all-options-of-handle';
 import { SelectOptions } from '../select-options-in-handle';
 import { areOptionsByValueAlreadySelectedInHandle } from '../are-options-by-value-already-selected-in-handle';
 import { areOptionsByValueAvailableInHandle } from '../are-options-by-value-available-in-handle';
-import { ElementHandle, Page } from 'playwright';
+import { ElementHandle, Frame, Page } from 'playwright';
 
 export async function selectOptionsByValueInHandle(
   selector: ElementHandle<Element> | undefined | null,
   name: string,
   values: string[],
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: SelectOptions,
 ): Promise<void> {
   if (!page) {

@@ -3,12 +3,12 @@ import { waitUntil, report } from '../../../utils';
 import { isHandleEnabled } from '../is-handle-enabled';
 import { isHandleChecked } from '../is-handle-checked';
 import { CheckOptions } from '../check-handle';
-import { ElementHandle, Page } from 'playwright';
+import { ElementHandle, Frame, Page } from 'playwright';
 
 export async function uncheckHandle(
   selector: ElementHandle<Element> | undefined | null,
   name: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: CheckOptions,
 ): Promise<void> {
   if (!page) {

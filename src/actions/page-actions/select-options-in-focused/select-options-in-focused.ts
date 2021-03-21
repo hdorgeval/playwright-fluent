@@ -1,11 +1,11 @@
 import { SelectOptions, selectOptionsInHandle } from '../../handle-actions';
 import { WaitUntilOptions, defaultWaitUntilOptions, report, waitUntil } from '../../../utils';
 import { getFocusedHandle } from '../get-focused-handle';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function selectOptionsInFocused(
   labels: string[],
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: SelectOptions,
 ): Promise<void> {
   if (!page) {

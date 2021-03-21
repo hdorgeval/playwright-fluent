@@ -4,7 +4,7 @@ import { report, waitUntil } from '../../../utils';
 import { isHandleEnabled } from '../is-handle-enabled';
 import { areOptionsAvailableInHandle } from '../are-options-available-in-handle';
 import { getAllOptionsOfHandle } from '../get-all-options-of-handle';
-import { ElementHandle, Page } from 'playwright';
+import { ElementHandle, Frame, Page } from 'playwright';
 
 export interface SelectOptions {
   stabilityInMilliseconds: number;
@@ -21,7 +21,7 @@ export async function selectOptionsInHandle(
   selector: ElementHandle<Element> | undefined | null,
   name: string,
   labels: string[],
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: SelectOptions,
 ): Promise<void> {
   if (!page) {

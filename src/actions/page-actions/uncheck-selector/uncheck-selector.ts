@@ -1,11 +1,11 @@
 import { CheckOptions, uncheckHandle } from '../../handle-actions';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions, defaultWaitUntilOptions } from '../../../utils';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function uncheckSelector(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: CheckOptions,
 ): Promise<void> {
   if (!page) {
