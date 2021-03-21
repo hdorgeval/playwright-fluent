@@ -7,11 +7,11 @@ import {
 } from '../../utils';
 import * as action from '../../actions';
 import { AssertOptions, defaultAssertOptions } from '../../fluent-api';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function isUnchecked(
   selector: string | SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
 ): Promise<boolean> {
   const waitOptions: WaitUntilOptions = {
@@ -29,7 +29,7 @@ export async function isUnchecked(
 }
 async function expectThatCssSelectorIsUnchecked(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -55,7 +55,7 @@ async function expectThatCssSelectorIsUnchecked(
 
 async function expectThatSelectorObjectIsUnchecked(
   selector: SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -79,7 +79,7 @@ async function expectThatSelectorObjectIsUnchecked(
 }
 export async function expectThatSelectorIsUnchecked(
   selector: string | SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   if (typeof selector === 'string') {

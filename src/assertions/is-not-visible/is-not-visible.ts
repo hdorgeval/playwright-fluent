@@ -7,11 +7,11 @@ import {
 } from '../../utils';
 import * as action from '../../actions';
 import { AssertOptions, defaultAssertOptions } from '../../fluent-api';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function isNotVisible(
   selector: string | SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
 ): Promise<boolean> {
   const waitOptions: WaitUntilOptions = {
@@ -30,7 +30,7 @@ export async function isNotVisible(
 
 async function expectThatCssSelectorIsNotVisible(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -49,7 +49,7 @@ async function expectThatCssSelectorIsNotVisible(
 
 async function expectThatSelectorObjectIsNotVisible(
   selector: SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -68,7 +68,7 @@ async function expectThatSelectorObjectIsNotVisible(
 
 export async function expectThatSelectorIsNotVisible(
   selector: string | SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   if (typeof selector === 'string') {
