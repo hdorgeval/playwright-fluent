@@ -1,12 +1,12 @@
 import { waitUntil, report } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
 import { SelectOptions, selectOptionsInHandle } from '../../handle-actions';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function selectOptionsInSelectorObject(
   selector: SelectorFluent,
   labels: string[],
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: SelectOptions,
 ): Promise<void> {
   if (!page) {

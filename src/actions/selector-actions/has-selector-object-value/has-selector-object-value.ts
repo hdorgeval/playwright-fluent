@@ -1,12 +1,12 @@
 import { waitUntil, report, WaitUntilOptions } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
 import { hasHandleValue } from '../../handle-actions';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function hasSelectorObjectValue(
   selector: SelectorFluent,
   expectedValue: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: WaitUntilOptions,
 ): Promise<boolean> {
   if (!page) {
