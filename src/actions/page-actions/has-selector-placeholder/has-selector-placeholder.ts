@@ -1,12 +1,12 @@
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
 import { hasHandlePlaceholder } from '../../handle-actions';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function hasSelectorPlaceholder(
   selector: string,
   expectedPlaceholder: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: WaitUntilOptions,
 ): Promise<boolean> {
   if (!page) {

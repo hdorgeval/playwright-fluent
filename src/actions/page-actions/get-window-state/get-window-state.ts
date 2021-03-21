@@ -1,4 +1,4 @@
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 declare const window: Window;
 
@@ -51,7 +51,7 @@ export interface WindowState {
     availHeight: number;
   };
 }
-export async function getWindowState(page: Page | undefined): Promise<WindowState> {
+export async function getWindowState(page: Page | Frame | undefined): Promise<WindowState> {
   if (page) {
     const windowStateSerialized = await page.evaluate((): string => {
       const result = {

@@ -1,10 +1,10 @@
 import { HoverOptions, hoverOnHandle } from '../../handle-actions';
 import { getHandleOf } from '../get-handle-of';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function hoverOnSelector(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: HoverOptions,
 ): Promise<void> {
   if (!page) {

@@ -1,11 +1,11 @@
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
 import { hasHandleFocus } from '../../handle-actions/has-handle-focus';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function hasSelectorFocus(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: WaitUntilOptions,
 ): Promise<boolean> {
   if (!page) {

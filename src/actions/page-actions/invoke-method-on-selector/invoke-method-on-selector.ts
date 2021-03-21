@@ -1,7 +1,7 @@
 import { MethodName, invokeMethodOnHandle } from '../../handle-actions';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions, defaultWaitUntilOptions } from '../../../utils';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export interface InvokeOptions {
   stabilityInMilliseconds: number;
@@ -17,7 +17,7 @@ export const defaultInvokeOptions: InvokeOptions = {
 export async function invokeMethodOnSelector(
   methodName: MethodName,
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: InvokeOptions,
 ): Promise<void> {
   if (!page) {

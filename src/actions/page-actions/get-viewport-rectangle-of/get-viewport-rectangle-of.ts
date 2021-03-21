@@ -1,4 +1,4 @@
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 declare const window: Window;
 
@@ -11,7 +11,9 @@ export interface ViewportRect {
   scale: number;
   width: number;
 }
-export async function getViewportRectangleOf(page: Page | undefined): Promise<ViewportRect | null> {
+export async function getViewportRectangleOf(
+  page: Page | Frame | undefined,
+): Promise<ViewportRect | null> {
   if (!page) {
     throw new Error(`Cannot get the page viewport because no browser has been launched`);
   }

@@ -1,4 +1,4 @@
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 export interface NavigationOptions {
   /**
    * Maximum navigation time in milliseconds,
@@ -16,7 +16,7 @@ export const defaultNavigationOptions: NavigationOptions = {
 export async function navigateTo(
   url: string,
   options: NavigationOptions,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
 ): Promise<void> {
   if (page) {
     await page.goto(url, options);

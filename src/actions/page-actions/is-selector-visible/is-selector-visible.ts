@@ -1,11 +1,11 @@
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
 import { isHandleVisible } from '../../handle-actions';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function isSelectorVisible(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: WaitUntilOptions,
 ): Promise<boolean> {
   if (!page) {

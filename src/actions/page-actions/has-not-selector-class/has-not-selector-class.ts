@@ -1,12 +1,12 @@
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
 import { hasNotHandleClass } from '../../handle-actions/has-not-handle-class';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function hasNotSelectorClass(
   selector: string,
   expectedClass: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: WaitUntilOptions,
 ): Promise<boolean> {
   if (!page) {
