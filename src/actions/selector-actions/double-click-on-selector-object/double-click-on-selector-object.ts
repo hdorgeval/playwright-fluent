@@ -1,11 +1,11 @@
 import { waitUntil, report } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
 import { doubleClickOnHandle, DoubleClickOptions } from '../../handle-actions';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function doubleClickOnSelectorObject(
   selector: SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: DoubleClickOptions,
 ): Promise<void> {
   if (!page) {

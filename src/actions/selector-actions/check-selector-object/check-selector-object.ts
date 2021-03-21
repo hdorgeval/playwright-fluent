@@ -1,11 +1,11 @@
 import { waitUntil, report } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
 import { CheckOptions, checkHandle } from '../../handle-actions';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function checkSelectorObject(
   selector: SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: CheckOptions,
 ): Promise<void> {
   if (!page) {

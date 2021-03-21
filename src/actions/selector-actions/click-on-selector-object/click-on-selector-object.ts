@@ -1,11 +1,11 @@
 import { waitUntil, report } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
 import { clickOnHandle, ClickOptions } from '../../handle-actions';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function clickOnSelectorObject(
   selector: SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: ClickOptions,
 ): Promise<void> {
   if (!page) {
