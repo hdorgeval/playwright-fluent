@@ -19,6 +19,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [doesNotExist()](#doesNotExist)
   - [doesNotHaveClass(className)](#doesNotHaveClassclassName)
   - [exists()](#exists)
+  - [forEach(callback)](#forEachcallback)
   - [getAllHandles()](#getAllHandles)
   - [getHandle()](#getHandle)
   - [hasClass(className)](#hasClassclassName)
@@ -222,6 +223,38 @@ const selector = p
 
 await p.waitUntil(() => selector.isUnchecked());
 // now we are sure that the selector is checked
+```
+
+---
+
+### forEach(callback)
+
+- callback: `(selector: SelectorFluent) => Promise<void>`
+
+Iterate over each found selector.
+
+Example:
+
+```js
+import { PlaywrightFluent } from 'playwright-fluent';
+
+const p = new PlaywrightFluent();
+
+// Given I open The AG Grid demo site
+const url = 'https://www.ag-grid.com/example.php';
+
+// prettier-ignore
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: true })
+  .withCursor()
+  .navigateTo(url);
+
+const rows = p.selector('[role="row"]');
+await rows.forEach(async (row) => {
+  const checkbox = row.find('input[type="checkbox"]');
+  await p.hover(checkbox).check(checkbox);
+});
 ```
 
 ---

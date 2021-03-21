@@ -18,6 +18,8 @@
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordPageErrors()](#recordPageErrors)
   - [recordRequestsTo(url)](#recordRequestsTourl)
+  - [delayRequestsTo(url, durationInSeconds)](#delayRequestsTourl-durationInSeconds)
+  - [recordNetworkActivity(options)](#recordNetworkActivityoptions)
   - [onRequestTo(url).respondWith(response)](#onRequestTourlrespondWithresponse)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [pause()](#pause)
@@ -648,6 +650,64 @@ for (let index = 0; index < failedRequests.length; index++) {
 
 ---
 
+### recordNetworkActivity(options)
+
+- options: `HarOptions`
+
+```js
+export interface HarOptions {
+  /**
+   * Optional setting to control whether to omit request content from the HAR. Defaults to `false`.
+   */
+  omitContent?: boolean;
+
+  /**
+   * Path on the filesystem to write the HAR file to.
+   */
+  path: string;
+}
+```
+
+Enables HAR recording for all pages. Network activity will be saved into options.path file. If not specified, the HAR is not recorded. Make sure to close the browser for the HAR to be saved.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+const harFilepath = `${path.join(__dirname, uniqueFilename({ prefix: 'har-', extension: '.json' }))}`;
+
+// start the browser in headfull mode
+// and emulate an iPhone 6 in landscape mode
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .emulateDevice('iPhone 6 landscape')
+  .recordNetworkActivity({ path: harFilepath })
+  .navigateTo(url)
+  ...
+  .close();
+
+const harData = p.getRecordedNetworkActivity();
+
+```
+
+- use `getRecordedNetworkActivity()` helper method on the fluent API to access the HAR data as a json object.
+
+---
+
+### delayRequestsTo(url, durationInSeconds)
+
+- url: `string`
+- durationInSeconds: `number`
+
+Delay requests whose url contains the input url. This `url` parameter should be seen as a partial url (it is not a regex and not a glob pattern).
+
+Usefull when you need to check how the front behaves when a request is pending during a specific amount of time. This will enable you to test how the front handle internal timeouts and how loading hints are displayed.
+
+---
+
 ### recordRequestsTo(url)
 
 - url: `string`
@@ -858,7 +918,6 @@ await p
   .navigateTo(url)
   .pause()
   .hover(selector);
-
 ```
 
 ---
