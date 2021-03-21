@@ -38,5 +38,6 @@ export * from './select-options-by-value-in-focused';
 export * from './select-options-by-value-in-selector';
 export * from './select-options-in-focused';
 export * from './select-options-in-selector';
+export * from './selector-exists';
 export * from './take-fullpage-screenshot-as-base64';
 export * from './uncheck-selector';

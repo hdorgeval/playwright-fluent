@@ -15,6 +15,7 @@ export * from './get-nth-handle';
 export * from './get-parent-of-handles';
 export * from './get-previous-sibling-of-handles';
 export * from './get-value-of-handle';
+export * from './handle-exists';
 export * from './has-handle-attribute';
 export * from './has-handle-class';
 export * from './has-handle-exact-value';
