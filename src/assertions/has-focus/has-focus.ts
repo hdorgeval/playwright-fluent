@@ -7,11 +7,11 @@ import {
 } from '../../utils';
 import * as action from '../../actions';
 import { AssertOptions, defaultAssertOptions } from '../../fluent-api';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function hasFocus(
   selector: string | SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
 ): Promise<boolean> {
   const waitOptions: WaitUntilOptions = {
@@ -30,7 +30,7 @@ export async function hasFocus(
 
 async function expectThatCssSelectorHasFocus(
   selector: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -55,7 +55,7 @@ async function expectThatCssSelectorHasFocus(
 
 async function expectThatSelectorObjectHasFocus(
   selector: SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -80,7 +80,7 @@ async function expectThatSelectorObjectHasFocus(
 
 export async function expectThatSelectorHasFocus(
   selector: string | SelectorFluent,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   if (typeof selector === 'string') {

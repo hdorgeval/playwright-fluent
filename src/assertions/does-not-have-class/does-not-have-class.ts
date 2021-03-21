@@ -7,12 +7,12 @@ import {
 } from '../../utils';
 import * as action from '../../actions';
 import { AssertOptions, defaultAssertOptions } from '../../fluent-api';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function doesNotHaveClass(
   selector: string | SelectorFluent,
   expectedClass: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
 ): Promise<boolean> {
   const waitOptions: WaitUntilOptions = {
@@ -37,7 +37,7 @@ export async function doesNotHaveClass(
 async function expectThatCssSelectorDoesNotHaveClass(
   selector: string,
   expectedClass: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: AssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -69,7 +69,7 @@ async function expectThatCssSelectorDoesNotHaveClass(
 async function expectThatSelectorObjectDoesNotHaveClass(
   selector: SelectorFluent,
   expectedClass: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: AssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -98,7 +98,7 @@ async function expectThatSelectorObjectDoesNotHaveClass(
 export async function expectThatSelectorDoesNotHaveClass(
   selector: string | SelectorFluent,
   expectedClass: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   const assertOptions: AssertOptions = {

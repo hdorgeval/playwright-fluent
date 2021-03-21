@@ -7,12 +7,12 @@ import {
 } from '../../utils';
 import * as action from '../../actions';
 import { AssertOptions, defaultAssertOptions } from '../../fluent-api';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 
 export async function hasClass(
   selector: string | SelectorFluent,
   expectedClass: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<WaitUntilOptions> = defaultWaitUntilOptions,
 ): Promise<boolean> {
   const waitOptions: WaitUntilOptions = {
@@ -32,7 +32,7 @@ export async function hasClass(
 async function expectThatCssSelectorHasClass(
   selector: string,
   expectedClass: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: AssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -68,7 +68,7 @@ async function expectThatCssSelectorHasClass(
 async function expectThatSelectorObjectHasClass(
   selector: SelectorFluent,
   expectedClass: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: AssertOptions,
 ): Promise<void> {
   const waitOptions: WaitUntilOptions = {
@@ -100,7 +100,7 @@ async function expectThatSelectorObjectHasClass(
 export async function expectThatSelectorHasClass(
   selector: string | SelectorFluent,
   expectedClass: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
   const assertOptions: AssertOptions = {
