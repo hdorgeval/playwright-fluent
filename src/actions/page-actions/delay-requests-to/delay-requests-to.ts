@@ -1,4 +1,3 @@
-import { sleep } from '../../../utils';
 import { Page } from 'playwright';
 
 export async function delayRequestsTo(
@@ -14,9 +13,8 @@ export async function delayRequestsTo(
     (uri) => {
       return uri.toString().includes(url);
     },
-    async (route) => {
-      await sleep(delayInSeconds * 1000);
-      await route.continue();
+    (route) => {
+      setTimeout(() => route.continue(), delayInSeconds * 1000);
     },
   );
 }

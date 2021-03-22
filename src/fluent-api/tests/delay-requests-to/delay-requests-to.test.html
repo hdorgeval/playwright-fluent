@@ -8,14 +8,17 @@
 
   <body>
     <h1>Yo!</h1>
-
+    <input type="checkbox" id="enabled-then-disabled">click me</button>
     <script>
       window.setTimeout(() => {
         const h1 = document.querySelector('h1');
         h1.innerText = 'Yo! request started...';
+        const button = document.querySelector('input[type="checkbox"]');
+        button.setAttribute('disabled', 'disabled');
         fetch('http://localhost:1234/foobar?foo=bar')
           .then(() => {
             h1.innerText = 'Yo! request finished...';
+            button.removeAttribute('disabled');
           })
           .catch(() => {
             h1.innerText = 'Yo! request failed...';

@@ -55,6 +55,7 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
 
     const harFilepath = `${path.join(__dirname, 'delay-requests-to.test.har')}`;
     const expectedDelayInSeconds = 10;
+    const checkbox = 'input[type="checkbox"]';
 
     // When
     await p
@@ -66,7 +67,10 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
       .recordNetworkActivity({ path: harFilepath })
       .navigateTo(url);
 
-    // Then requests to /foobar can be analyzed
+    // Then button should be disabled while resquest is pending
+    await p.hover(checkbox).expectThat(checkbox).isDisabled();
+
+    // And request should still be in pending state
     await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
       stabilityInMilliseconds: 1000,
     });
@@ -74,9 +78,12 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
     expect(Array.isArray(foobarRequests)).toBe(true);
     expect(foobarRequests.length).toBe(0);
 
+    // When I wait for the request to be recorded
     await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
       stabilityInMilliseconds: expectedDelayInSeconds * 1000,
     });
+
+    // Then request should be recorded
     const requests = p.getRecordedRequestsTo('/foobar');
     expect(Array.isArray(requests)).toBe(true);
     expect(requests.length).toBe(1);
@@ -90,7 +97,13 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(sentRequest.response!.payload).toMatchObject(responseBody);
 
+    // And button should be enabled
+    await p.hover(checkbox).expectThat(checkbox).isEnabled().check(checkbox);
+
+    // When I close the browser
     await p.close();
+
+    // then the HAR data should tell that request has lasted 10s
     const harData = p.getRecordedNetworkActivity();
 
     const foobarRequest = harData.log.entries.find((entry) =>
