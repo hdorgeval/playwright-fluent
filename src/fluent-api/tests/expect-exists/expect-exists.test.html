@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      .big {
+        height: 2000px;
+        min-height: 2000px;
+        max-height: 2000px;
+        border-bottom-width: 5;
+        border-style: solid;
+      }
+
+      #hidden,
+      .hidden {
+        width: 20px;
+        display: none;
+      }
+
+      #transparent {
+        opacity: 0;
+        color: black;
+      }
+
+      #out-of-screen {
+        position: absolute;
+        top: -100px;
+      }
+    </style>
+
+    <title>check if selector exists</title>
+  </head>
+
+  <body>
+    <p id="hidden">I am hidden</p>
+    <p id="visible">I am visible</p>
+    <p id="transparent">I am transparent</p>
+    <p id="out-of-screen">I am out of screen</p>
+    <div class="big">Yo!</div>
+    <p id="out-of-viewport">I am out of viewport</p>
+
+    <script>
+      function addParagraphInDom(id) {
+        const paragraph = document.createElement('p');
+        paragraph.setAttribute('id', id);
+        paragraph.setAttribute('data-e2e', 'dynamically-added');
+        paragraph.setAttribute('contenteditable', 'true');
+        paragraph.setAttribute('class', 'hidden');
+        const newContent = document.createTextNode('I am dynamically added in DOM');
+        paragraph.appendChild(newContent);
+
+        const container = document.querySelector('div.big');
+        container.appendChild(paragraph);
+      }
+      function addHiddenInputInDom(id) {
+        const hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('id', id);
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('value', 'foobar');
+        hiddenInput.setAttribute('data-e2e', 'dynamically-added-hidden-input');
+
+        const container = document.querySelector('div.big');
+        container.appendChild(hiddenInput);
+      }
+
+      window.setTimeout(() => {
+        addParagraphInDom('dynamically-added-paragraph');
+      }, 3000);
+
+      window.setTimeout(() => {
+        addHiddenInputInDom('dynamically-added-hidden-input');
+      }, 5000);
+
+      window.setTimeout(() => {
+        const input = document.querySelector('#dynamically-added-paragraph');
+        input.removeAttribute('class');
+      }, 6000);
+    </script>
+  </body>
+</html>
