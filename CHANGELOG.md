@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.24.0] - 2021-03-23
+
+### Added
+
+- feat(assertion): add `expectThatSelector(selector).exists()` to the Assertion API
+- feat(fluent-api): add helper method `exists()` to the Fluent API
+
+### Fixed
+
+- fix(delay-request): delay the request without blocking test execution
+
 ## [1.23.0] - 2021-03-21
 
 ### Added
