@@ -8,6 +8,7 @@ The selector can be either a CSS selector or a selector created with the [Select
 
   - [expectThatAsyncFunc(func).resolvesTo(value,[options])](#expectThatAsyncFuncfuncresolvesTovalueoptions)
   - [expectThatSelector(selector).doesNotHaveClass(className,[options])](#expectThatSelectorselectordoesNotHaveClassclassNameoptions)
+  - [expectThatSelector(selector).exists([options])](#expectThatSelectorselectorexistsoptions)
   - [expectThatSelector(selector).hasAttributeWithValue(attributeName, attributeValue, [options])](#expectThatSelectorselectorhasAttributeWithValueattributeName-attributeValue-options)
   - [expectThatSelector(selector).hasClass(className,[options])](#expectThatSelectorselectorhasclassclassNameoptions)
   - [expectThatSelector(selector).hasExactValue(value,[options])](#expectThatSelectorselectorhasExactvaluevalueoptions)
@@ -210,6 +211,16 @@ Will check if the selector is visible.
 - returns: `PlaywrightFluent`
 
 Will check if the selector is not visible.
+
+---
+
+### expectThatSelector(selector).exists([options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector exists in DOM.
 
 ---
 
