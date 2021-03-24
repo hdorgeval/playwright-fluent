@@ -1,6 +1,7 @@
 export * from './check-selector';
 export * from './click-on-selector';
 export * from './delay-requests-to';
+export * from './do-not-get-handle-of';
 export * from './double-click-on-selector';
 export * from './get-all-options-of-selector';
 export * from './get-attribute-of-selector';
@@ -38,6 +39,7 @@ export * from './select-options-by-value-in-focused';
 export * from './select-options-by-value-in-selector';
 export * from './select-options-in-focused';
 export * from './select-options-in-selector';
+export * from './selector-does-not-exist';
 export * from './selector-exists';
 export * from './take-fullpage-screenshot-as-base64';
 export * from './uncheck-selector';
