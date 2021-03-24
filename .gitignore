@@ -112,3 +112,4 @@ dist
 final-storage-state.json
 *.har
 har-*.json
+*.webm
