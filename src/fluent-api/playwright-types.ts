@@ -180,3 +180,11 @@ export interface HarOptions {
    */
   path: string;
 }
+
+export interface RecordVideoOptions {
+  dir: string;
+  size?: {
+    width: number;
+    height: number;
+  };
+}

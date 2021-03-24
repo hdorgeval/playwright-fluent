@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>page with request</title>
+  </head>
+
+  <body>
+    <h1>Yo!</h1>
+    <input type="checkbox" id="enabled-then-disabled">click me</button>
+    <script>
+      window.setTimeout(() => {
+        const h1 = document.querySelector('h1');
+        h1.innerText = 'Yo! request started...';
+
+        fetch('http://localhost:1234/foobar?foo=bar')
+          .then(() => {
+            h1.innerText = 'Yo! request finished...';
+          })
+          .catch((error) => {
+            h1.innerText = 'Yo! request failed...';
+            console.log(error);
+          });
+      }, 1000);
+
+      window.setTimeout(() => {
+        fetch('http://localhost:1234/yo?foo=baz1');
+      }, 1000);
+
+      window.setTimeout(() => {
+        fetch('http://localhost:1234/yo?foo=baz2');
+      }, 1000);
+    </script>
+  </body>
+</html>
