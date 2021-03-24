@@ -71,7 +71,7 @@ import {
   WaitUntilOptions,
 } from '../utils';
 import { SelectorFluent } from '../selector-api';
-import { Browser, Page, BrowserContext, Request as PlaywrightRequest } from 'playwright';
+import { Browser, Page, BrowserContext, Request as PlaywrightRequest, Frame } from 'playwright';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
 
@@ -245,6 +245,26 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   private page: Page | undefined;
   public currentPage(): Page | undefined {
+    return this.page;
+  }
+
+  private frame: Frame | undefined;
+  public currentFrame(): Frame | undefined {
+    return this.frame;
+  }
+
+  /**
+   * When execution context is a frame it will returns the current playwright Frame object,
+   * otherwise it returns the current playwright Page object
+   *
+   * @returns {(Page | Frame | undefined)}
+   * @memberof PlaywrightFluent
+   */
+  public currentPageOrFrame(): Page | Frame | undefined {
+    if (this.frame) {
+      return this.frame;
+    }
+
     return this.page;
   }
 
