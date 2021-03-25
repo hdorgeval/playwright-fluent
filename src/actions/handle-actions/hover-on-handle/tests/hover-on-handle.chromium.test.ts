@@ -148,7 +148,7 @@ describe('hover on handle', (): void => {
     expect(Math.abs(mouseY - expectedY)).toBeLessThan(3);
   });
 
-  test.only('should hover on a selector that is inside an iframe - chromium', async (): Promise<void> => {
+  test('should hover on a selector that is inside an iframe - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: false });
     const browserContext = await browser.newContext({ viewport: null });
