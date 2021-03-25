@@ -48,7 +48,8 @@ export class SelectorFluent {
   private getActionFrom(actionInfo: ActionInfo): Action {
     switch (actionInfo.name) {
       case 'querySelectorAllInPage':
-        return () => action.querySelectorAllInPage(actionInfo.selector, this.pwf.currentPage());
+        return () =>
+          action.querySelectorAllInPage(actionInfo.selector, this.pwf.currentPageOrFrame());
 
       case 'find':
         return (handles) => action.querySelectorAllFromHandles(actionInfo.selector, [...handles]);
@@ -588,7 +589,12 @@ export class SelectorFluent {
       ...defaultHoverOptions,
       ...options,
     } as HoverOptions;
-    await action.hoverOnHandle(handle, this.toString(), this.pwf.currentPage(), hoverOptions);
+    await action.hoverOnHandle(
+      handle,
+      this.toString(),
+      this.pwf.currentPageOrFrame(),
+      hoverOptions,
+    );
   }
 
   /**
@@ -604,6 +610,11 @@ export class SelectorFluent {
       ...defaultClickOptions,
       ...options,
     } as ClickOptions;
-    await action.clickOnHandle(handle, this.toString(), this.pwf.currentPage(), clickOptions);
+    await action.clickOnHandle(
+      handle,
+      this.toString(),
+      this.pwf.currentPageOrFrame(),
+      clickOptions,
+    );
   }
 }

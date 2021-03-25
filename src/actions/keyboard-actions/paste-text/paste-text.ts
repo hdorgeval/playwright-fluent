@@ -1,6 +1,6 @@
-import { defaultWaitUntilOptions, sleep } from '../../../utils';
+import { defaultWaitUntilOptions, sleep, toPage } from '../../../utils';
 import { ClickOptions } from '../../handle-actions';
-import { Page } from 'playwright';
+import { Frame, Page } from 'playwright';
 declare const window: Window;
 
 export interface PasteTextOptions {
@@ -30,7 +30,7 @@ export const defaultPasteTextOptions: PasteTextOptions = {
 
 export async function pasteText(
   text: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: PasteTextOptions,
 ): Promise<void> {
   if (!page) {
@@ -72,8 +72,8 @@ export async function pasteText(
   };
 
   await handle.click(tripleClickOptions);
-  await sleep(500);
-  await page.keyboard.press('Backspace', { delay: options.delay });
+  await sleep(options.delay * 5);
+  await toPage(page).keyboard.press('Backspace', { delay: options.delay });
 
   await handle.evaluate(
     (node: Node, { content, handlePasteEvent }) => {

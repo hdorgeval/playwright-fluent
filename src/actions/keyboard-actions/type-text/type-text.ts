@@ -1,6 +1,6 @@
 import { ClickOptions } from '../../../fluent-api';
-import { defaultWaitUntilOptions, sleep } from '../../../utils';
-import { Page } from 'playwright';
+import { defaultWaitUntilOptions, sleep, toPage } from '../../../utils';
+import { Frame, Page } from 'playwright';
 declare const window: Window;
 
 export interface TypeTextOptions {
@@ -28,7 +28,7 @@ export const defaultTypeTextOptions: TypeTextOptions = {
 };
 export async function typeText(
   text: string,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: TypeTextOptions,
 ): Promise<void> {
   if (!page) {
@@ -73,10 +73,10 @@ export async function typeText(
       return 0;
     });
     if (selectionRange > 0) {
-      await sleep(500);
-      await page.keyboard.press('Backspace', { delay: options.delay });
+      await sleep(options.delay * 5);
+      await toPage(page).keyboard.press('Backspace', { delay: options.delay });
     }
   }
 
-  await page.keyboard.type(text, options);
+  await toPage(page).keyboard.type(text, options);
 }

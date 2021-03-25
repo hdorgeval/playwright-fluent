@@ -1,6 +1,6 @@
 import { ClickOptions } from '../../../fluent-api';
-import { defaultWaitUntilOptions, sleep } from '../../../utils';
-import { Page } from 'playwright';
+import { defaultWaitUntilOptions, sleep, toPage } from '../../../utils';
+import { Frame, Page } from 'playwright';
 declare const window: Window;
 export interface ClearTextOptions {
   /**
@@ -17,7 +17,10 @@ export const defaultClearTextOptions: ClearTextOptions = {
   delay: 50,
 };
 
-export async function clearText(page: Page | undefined, options: ClearTextOptions): Promise<void> {
+export async function clearText(
+  page: Page | Frame | undefined,
+  options: ClearTextOptions,
+): Promise<void> {
   if (!page) {
     throw new Error(`Cannot clear text because no browser has been launched`);
   }
@@ -57,6 +60,6 @@ export async function clearText(page: Page | undefined, options: ClearTextOption
   };
 
   await handle.click(tripleClickOptions);
-  await sleep(500);
-  await page.keyboard.press('Backspace', { delay: options.delay });
+  await sleep(options.delay * 5);
+  await toPage(page).keyboard.press('Backspace', { delay: options.delay });
 }

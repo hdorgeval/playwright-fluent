@@ -1,4 +1,5 @@
 export * from './filename-generator';
+export * from './frame-to-page';
 export * from './fs';
 export * from './get-chrome-path';
 export * from './get-distance-between-client-rectangles';

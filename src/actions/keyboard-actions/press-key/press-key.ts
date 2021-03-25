@@ -1,4 +1,5 @@
-import { Page } from 'playwright';
+import { toPage } from '../../../utils';
+import { Frame, Page } from 'playwright';
 
 export interface KeyboardPressOptions {
   /**
@@ -83,12 +84,12 @@ export const defaultKeyboardPressOptions: KeyboardPressOptions = {
 };
 export async function pressKey(
   key: KeyboardKey,
-  page: Page | undefined,
+  page: Page | Frame | undefined,
   options: KeyboardPressOptions,
 ): Promise<void> {
   if (!page) {
     throw new Error(`Cannot press key '${key}' because no browser has been launched`);
   }
 
-  await page.keyboard.press(key, options);
+  await toPage(page).keyboard.press(key, options);
 }
