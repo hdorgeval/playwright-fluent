@@ -22,7 +22,7 @@ describe('clear-text', (): void => {
 
   test('should clear text that is inside an iframe - chromium', async (): Promise<void> => {
     // Given
-    browser = await chromium.launch({ headless: false });
+    browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
     const page = await browserContext.newPage();
     await showMousePosition(page);
