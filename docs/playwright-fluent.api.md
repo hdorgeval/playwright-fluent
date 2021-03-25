@@ -18,6 +18,7 @@
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordPageErrors()](#recordPageErrors)
   - [recordRequestsTo(url)](#recordRequestsTourl)
+  - [recordVideo(options)](#recordVideooptions)
   - [delayRequestsTo(url, durationInSeconds)](#delayRequestsTourl-durationInSeconds)
   - [recordNetworkActivity(options)](#recordNetworkActivityoptions)
   - [onRequestTo(url).respondWith(response)](#onRequestTourlrespondWithresponse)
@@ -705,6 +706,46 @@ const harData = p.getRecordedNetworkActivity();
 Delay requests whose url contains the input url. This `url` parameter should be seen as a partial url (it is not a regex and not a glob pattern).
 
 Usefull when you need to check how the front behaves when a request is pending during a specific amount of time. This will enable you to test how the front handle internal timeouts and how loading hints are displayed.
+
+---
+
+### recordVideo(options)
+
+- options: `RecordVideoOptions`
+
+```js
+export interface RecordVideoOptions {
+  dir: string;
+  size?: {
+    width: number,
+    height: number,
+  };
+}
+```
+
+Enables video recording into the `options.dir` directory.
+If not specified videos are not recorded.
+Make sure to await browserContext.close() for videos to be saved.
+
+Example:
+
+```js
+const p = new PlaywrightFluent();
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: true })
+  .withWindowSize(sizeOf._1024x768)
+  .clearVideoFilesOlderThan(__dirname, 60)
+  .recordVideo({ dir: __dirname, size: sizeOf._1024x768 })
+  .navigateTo(url)
+  ...
+  .close();
+
+const videoPath = await p.getRecordedVideoPath();
+
+```
+
+- use `clearVideoFilesOlderThan()` helper method on the fluent API to delete old videos.
 
 ---
 
