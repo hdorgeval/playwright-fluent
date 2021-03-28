@@ -40,4 +40,5 @@ export * from './query-selector-all-from-handles';
 export * from './scroll-to-handle';
 export * from './select-options-by-value-in-handle';
 export * from './select-options-in-handle';
+export * from './switch-from-handle-to-iframe';
 export * from './uncheck-handle';
