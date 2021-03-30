@@ -1485,6 +1485,14 @@ interface PasteTextOptions {
    * @memberof PasteTextOptions
    */
   handlePasteEvent: boolean;
+  /**
+   * Clear any existing content before pasting
+   * Defaults to true
+   *
+   * @type {boolean}
+   * @memberof PasteTextOptions
+   */
+  clearExistingContent: boolean;
 }
 ```
 
