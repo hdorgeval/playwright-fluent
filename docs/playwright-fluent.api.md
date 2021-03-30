@@ -1496,7 +1496,7 @@ interface PasteTextOptions {
 }
 ```
 
-Will paste text in the element that has current focus. This method will automtically empty any existing content before pasting the specified text.
+Will paste text in the element that has current focus. This method will automatically empty any existing content before pasting the specified text. If you want to keep the existing content, set the `clearExistingContent` option to `true`.
 
 ---
 
