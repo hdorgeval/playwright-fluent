@@ -299,7 +299,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
     return fullOptions;
   }
-  private contextOptions: BrowserContextOptions = { viewport: null };
+  private contextOptions: BrowserContextOptions = { viewport: null, acceptDownloads: true };
   private emulatedDevice: Device | undefined = undefined;
   private customWindowSize: WindowSize | undefined = undefined;
   private customWindowSizeOptions: WindowSizeOptions = defaultWindowSizeOptions;

@@ -27,6 +27,7 @@ export type Permission =
   | 'payment-handler';
 
 export interface BrowserContextOptions {
+  acceptDownloads?: boolean;
   bypassCSP?: boolean;
   extraHTTPHeaders?: Record<string, string>;
   geolocation?: Geolocation;
