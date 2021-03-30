@@ -41,5 +41,6 @@ export * from './select-options-in-focused';
 export * from './select-options-in-selector';
 export * from './selector-does-not-exist';
 export * from './selector-exists';
+export * from './switch-from-selector-to-iframe';
 export * from './take-fullpage-screenshot-as-base64';
 export * from './uncheck-selector';

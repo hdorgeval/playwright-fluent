@@ -20,4 +20,5 @@ export * from './is-selector-object-visible';
 export * from './select-options-by-value-in-selector-object';
 export * from './select-options-in-selector-object';
 export * from './selector-object-exists';
+export * from './switch-from-selector-object-to-iframe';
 export * from './uncheck-selector-object';
