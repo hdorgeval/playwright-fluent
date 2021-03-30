@@ -21,11 +21,20 @@ export interface PasteTextOptions {
    * @memberof PasteTextOptions
    */
   handlePasteEvent: boolean;
+  /**
+   * Clear any existing content before pasting
+   * Defaults to true
+   *
+   * @type {boolean}
+   * @memberof PasteTextOptions
+   */
+  clearExistingContent: boolean;
 }
 
 export const defaultPasteTextOptions: PasteTextOptions = {
   delay: 50,
   handlePasteEvent: false,
+  clearExistingContent: true,
 };
 
 export async function pasteText(
@@ -64,16 +73,18 @@ export async function pasteText(
     throw new Error(`You must first click on an editable element before clearing text.`);
   }
 
-  const tripleClickOptions: ClickOptions = {
-    ...defaultWaitUntilOptions,
-    button: 'left',
-    delay: options.delay,
-    clickCount: 3,
-  };
+  if (options.clearExistingContent) {
+    const tripleClickOptions: ClickOptions = {
+      ...defaultWaitUntilOptions,
+      button: 'left',
+      delay: options.delay,
+      clickCount: 3,
+    };
 
-  await handle.click(tripleClickOptions);
-  await sleep(options.delay * 5);
-  await toPage(page).keyboard.press('Backspace', { delay: options.delay });
+    await handle.click(tripleClickOptions);
+    await sleep(options.delay * 5);
+    await toPage(page).keyboard.press('Backspace', { delay: options.delay });
+  }
 
   await handle.evaluate(
     (node: Node, { content, handlePasteEvent }) => {
@@ -85,11 +96,11 @@ export async function pasteText(
           ) as string;
           const input = event.target as HTMLInputElement;
           if (event.target && input && input.tagName === 'INPUT') {
-            input.value = content;
+            input.value += content;
             event.preventDefault();
             return;
           }
-          (event.target as HTMLElement).innerText = content;
+          (event.target as HTMLElement).innerText += content;
           event.preventDefault();
         });
       }
