@@ -32,6 +32,7 @@ export * from './navigate-to';
 export * from './on-request-to-respond-with';
 export * from './pause';
 export * from './query-selector-all-in-page';
+export * from './record-downloads-to';
 export * from './record-failed-requests';
 export * from './record-page-errors';
 export * from './record-requests-to';

@@ -58,4 +58,5 @@ export const ensureDirectoryExists = (directoryPath: string): void => {
   mkdirSync(directoryPath);
 };
 
-export const userHomeDirectory = process.env.HOME || process.env.USERPROFILE;
+export const userHomeDirectory = process.env.HOME || process.env.USERPROFILE || process.cwd();
+export const userDownloadsDirectory = join(userHomeDirectory, 'Downloads');

@@ -581,6 +581,34 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  private async recordDownloadsToDirectory(directory: string): Promise<void> {
+    await action.recordDownloadsTo(directory, this.currentPage());
+  }
+  /**
+   * Save all downloads in directory.
+   *
+   * @param {string} directory
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   *
+   * * @example
+   *  const p = new PlaywrightFluent();
+   *  const expectedDownloadedFilepath = path.join(userDownloadsDirectory, 'download.zip');
+   *  await p
+   *    .withBrowser('chromium')
+   *    .withOptions({ headless: true })
+   *    .withCursor()
+   *    .recordDownloadsTo(userDownloadsDirectory)
+   *    .navigateTo(url)
+   *    .click('a#download-package')
+   *    .waitUntil(async () => fileExists(expectedDownloadedFilepath));
+   */
+  public recordDownloadsTo(directory: string): PlaywrightFluent {
+    const action = (): Promise<void> => this.recordDownloadsToDirectory(directory);
+    this.actions.push(action);
+    return this;
+  }
+
   private async delayRequestsToUrl(partialUrl: string, delayInSeconds: number): Promise<void> {
     await action.delayRequestsTo(partialUrl, delayInSeconds, this.currentPage());
   }
