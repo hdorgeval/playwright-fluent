@@ -17,6 +17,7 @@
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [delayRequestsTo(url, durationInSeconds)](#delayRequestsTourl-durationInSeconds)
   - [onRequestTo(url).respondWith(response)](#onRequestTourlrespondWithresponse)
+  - [recordDownloadsTo(directory)](#recordDownloadsTodirectory)
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordNetworkActivity(options)](#recordNetworkActivityoptions)
   - [recordPageErrors()](#recordPageErrors)
@@ -746,6 +747,30 @@ const videoPath = await p.getRecordedVideoPath();
 ```
 
 - use `clearVideoFilesOlderThan()` helper method on the fluent API to delete old videos.
+
+---
+
+### recordDownloadsTo(directory)
+
+- directory: `string`
+
+Will save all downloads to the specified `directory`.
+
+Example:
+
+```js
+const expectedDownloadedFilepath = path.join(userDownloadsDirectory, 'download.zip');
+deleteFile(expectedDownloadedFilepath);
+
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: true })
+  .withCursor()
+  .recordDownloadsTo(userDownloadsDirectory)
+  .navigateTo(url)
+  .click('a#download-package')
+  .waitUntil(async () => fileExists(expectedDownloadedFilepath));
+```
 
 ---
 
