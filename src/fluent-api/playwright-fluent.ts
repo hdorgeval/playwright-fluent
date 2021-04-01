@@ -28,6 +28,7 @@ import {
   defaultNavigationOptions,
   defaultPasteTextOptions,
   defaultSelectOptions,
+  defaultSwitchToIframeOptions,
   defaultTypeTextOptions,
   DoubleClickOptions,
   Headers,
@@ -44,6 +45,7 @@ import {
   ScreenshotOptions,
   SelectOptionInfo,
   SelectOptions,
+  SwitchToIframeOptions,
   TypeTextOptions,
   WindowState,
 } from '../actions';
@@ -110,6 +112,7 @@ export {
   ScreenshotOptions,
   SelectOptionInfo,
   SelectOptions,
+  SwitchToIframeOptions,
   TypeTextOptions,
   WindowState,
 } from '../actions';
@@ -728,6 +731,53 @@ export class PlaywrightFluent implements PromiseLike<void> {
       return this;
     }
   }
+
+  private async switchFromSelectorToIframe(
+    selector: string,
+    options: SwitchToIframeOptions,
+  ): Promise<void> {
+    this.frame = await action.switchFromSelectorToIframe(selector, this.currentPageOrFrame(), {
+      ...options,
+      injectCursor: this.showMousePosition,
+    });
+  }
+  private async switchFromSelectorObjectToIframe(
+    selector: SelectorFluent,
+    options: SwitchToIframeOptions,
+  ): Promise<void> {
+    this.frame = await action.switchFromSelectorObjectToIframe(
+      selector,
+      this.currentPageOrFrame(),
+      {
+        ...options,
+        injectCursor: this.showMousePosition,
+      },
+    );
+  }
+  public switchToIframe(
+    selector: string | SelectorFluent,
+    options?: Partial<SwitchToIframeOptions>,
+  ): PlaywrightFluent {
+    const switchToIframeOptions: SwitchToIframeOptions = {
+      ...defaultSwitchToIframeOptions,
+      ...this.defaultWaitOptions,
+      ...options,
+    };
+    if (typeof selector === 'string') {
+      const action = (): Promise<void> =>
+        this.switchFromSelectorToIframe(selector, switchToIframeOptions);
+      this.actions.push(action);
+      return this;
+    }
+
+    {
+      const action = (): Promise<void> =>
+        this.switchFromSelectorObjectToIframe(selector, switchToIframeOptions);
+      this.actions.push(action);
+      return this;
+    }
+  }
+
   private async clickOnSelector(selector: string, options: ClickOptions): Promise<void> {
     await action.clickOnSelector(selector, this.currentPageOrFrame(), options);
   }
