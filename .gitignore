@@ -113,3 +113,4 @@ final-storage-state.json
 *.har
 har-*.json
 *.webm
+downloads/

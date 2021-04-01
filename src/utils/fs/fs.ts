@@ -1,4 +1,4 @@
-import { existsSync, PathLike, readdirSync, statSync, unlinkSync } from 'fs';
+import { existsSync, mkdirSync, PathLike, readdirSync, statSync, unlinkSync } from 'fs';
 import { join } from 'path';
 
 const isFile = (path: PathLike) => statSync(path).isFile();
@@ -50,3 +50,12 @@ export const deleteFile = (path: string): void => {
     unlinkSync(path);
   }
 };
+
+export const ensureDirectoryExists = (directoryPath: string): void => {
+  if (existsSync(directoryPath)) {
+    return;
+  }
+  mkdirSync(directoryPath);
+};
+
+export const userHomeDirectory = process.env.HOME || process.env.USERPROFILE;
