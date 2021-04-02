@@ -20,6 +20,7 @@ describe('Playwright Fluent - ctor usage', (): void => {
     // Then
     expect(p.currentBrowser()).toBe(browser);
     expect(p.currentPage()).toBe(page);
+    expect(p.currentFrame()).toBeUndefined();
     await browser.close();
   });
 
@@ -37,6 +38,7 @@ describe('Playwright Fluent - ctor usage', (): void => {
     // Then
     expect(p.currentBrowser()).toBe(browser);
     expect(p.currentPage()).toBe(page);
+    expect(p.currentFrame()).toBeUndefined();
     await browser.close();
   });
 
@@ -54,6 +56,7 @@ describe('Playwright Fluent - ctor usage', (): void => {
     // Then
     expect(p.currentBrowser()).toBe(browser);
     expect(p.currentPage()).toBe(page);
+    expect(p.currentFrame()).toBeUndefined();
     await browser.close();
   });
 
@@ -71,6 +74,7 @@ describe('Playwright Fluent - ctor usage', (): void => {
     // Then
     expect(p.currentBrowser()).toBe(browser);
     expect(p.currentPage()).toBe(page);
+    expect(p.currentFrame()).toBeUndefined();
     await browser.close();
   });
 });

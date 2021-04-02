@@ -6,7 +6,7 @@ describe('Playwright Fluent - ctor usage', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });
-  test('should be called with both a browser and a page instance - chromium case', async (): Promise<void> => {
+  test('should take existing browser and frame instance of chromium', async (): Promise<void> => {
     // Given
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
@@ -14,19 +14,17 @@ describe('Playwright Fluent - ctor usage', (): void => {
     const page = await context.newPage();
     await page.goto(url);
 
+    const frameHandle = await page.$('iframe');
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const frame = await frameHandle!.contentFrame();
     // When
-    const pwc1 = new PlaywrightFluent(browser);
-    const pwc2 = new PlaywrightFluent(undefined, page);
+    const p = new PlaywrightFluent(browser, frame);
 
     // Then
-    expect(pwc1.currentBrowser()).toBe(undefined);
-    expect(pwc1.currentPage()).toBe(undefined);
-    expect(pwc1.currentFrame()).toBe(undefined);
-
-    expect(pwc2.currentBrowser()).toBe(undefined);
-    expect(pwc2.currentPage()).toBe(undefined);
-    expect(pwc2.currentFrame()).toBe(undefined);
-
+    expect(p.currentBrowser()).toBe(browser);
+    expect(p.currentPage()).toBe(page);
+    expect(p.currentFrame()).toBe(frame);
     await browser.close();
   });
 });
