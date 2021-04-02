@@ -85,6 +85,8 @@ export {
   HarContent,
   noWaitNoThrowOptions,
   uniqueFilename,
+  userDownloadsDirectory,
+  userHomeDirectory,
   WaitOptions,
   WaitUntilOptions,
 } from '../utils';
@@ -782,6 +784,32 @@ export class PlaywrightFluent implements PromiseLike<void> {
       },
     );
   }
+  /**
+   * Will switch inside the iframe targeted by the specified selector
+   *
+   * @param {(string | SelectorFluent)} selector
+   * @param {Partial<SwitchToIframeOptions>} [options]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   *
+   * @example
+   *  const p = new PlaywrightFluent();
+   *  const selector = 'iframe';
+   *  const inputInIframe = '#input-inside-iframe';
+   *  const inputInMainPage = '#input-in-main-page';
+   *  await p
+   *    .withBrowser('chromium')
+   *    .withOptions({ headless: false })
+   *    .withCursor()
+   *    .navigateTo(url)
+   *    .hover(selector)
+   *    .switchToIframe(selector)
+   *    .click(inputInIframe)
+   *    .typeText('hey I am in the iframe')
+   *    .switchBackToPage()
+   *    .click(inputInMainPage)
+   *    .typeText('hey I am back in the page!');
+   */
   public switchToIframe(
     selector: string | SelectorFluent,
     options?: Partial<SwitchToIframeOptions>,
@@ -804,6 +832,22 @@ export class PlaywrightFluent implements PromiseLike<void> {
       this.actions.push(action);
       return this;
     }
+  }
+
+  private async switchBackFromIframeToCurrentPage(): Promise<void> {
+    this.frame = undefined;
+  }
+
+  /**
+   * Will switch from the current Iframe back to the current page.
+   *
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public switchBackToPage(): PlaywrightFluent {
+    const action = (): Promise<void> => this.switchBackFromIframeToCurrentPage();
+    this.actions.push(action);
+    return this;
   }
 
   private async clickOnSelector(selector: string, options: ClickOptions): Promise<void> {
