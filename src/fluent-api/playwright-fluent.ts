@@ -70,6 +70,8 @@ import {
   HarContent,
   readHarFileAsJson,
   sleep,
+  toFrame,
+  toPage,
   waitForStabilityOf,
   WaitOptions,
   waitUntil,
@@ -240,10 +242,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
     }
   }
 
-  constructor(browser?: Browser, page?: Page) {
-    if (browser && page) {
+  constructor(browser?: Browser, pageOrFrame?: Page | Frame | null) {
+    if (browser && pageOrFrame) {
       this.browser = browser;
-      this.page = page;
+      this.page = toPage(pageOrFrame);
+      this.frame = toFrame(pageOrFrame);
     }
   }
 
