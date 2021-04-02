@@ -9,18 +9,18 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 
 ###### [Fluent API](/docs/playwright-fluent.api.md) | [Selector API](/docs/selector.api.md) | [Assertion API](/docs/assertion.api.md) | [FAQ](#faq) | [with jest](https://github.com/hdorgeval/playwright-fluent-ts-jest-starter#playwright-fluent-ts-jest-starter) | [with cucumber-js v6](https://github.com/hdorgeval/playwright-fluent-ts-cucumber6-starter) | [with cucumber-js v7](https://github.com/hdorgeval/playwright-fluent-ts-cucumber7-starter)
 
-### Installation
+## Installation
 
-```
+```sh
 npm i --save playwright-fluent
 ```
 
 If not already installed, the `playwright` package should also be installed with a version >= 1.6.0
 
-# Usage
+## Usage
 
 ```js
-import { PlaywrightFluent } from 'playwright-fluent';
+import { PlaywrightFluent, userDownloadsDirectory } from 'playwright-fluent';
 
 const p = new PlaywrightFluent();
 
@@ -30,6 +30,7 @@ await p
   .withCursor()
   .recordPageErrors()
   .recordFailedRequests()
+  .recordDownloadsTo(userDownloadsDirectory)
   .emulateDevice('iPhone 6 landscape')
   .navigateTo('https://reactstrap.github.io/components/form/')
   .click('#exampleEmail')
@@ -59,9 +60,32 @@ const selector = p
 await p.expectThatSelector(selector).hasText('foobar-2');
 ```
 
-# Usage with Stories
+## Usage with Iframes
 
-This packgage provides a way to write tests as functional components called `Story`:
+This fluent API enables to seamlessly navigate inside an iframe and switch back to the page:
+
+```js
+const p = new PlaywrightFluent();
+const selector = 'iframe';
+const inputInIframe = '#input-inside-iframe';
+const inputInMainPage = '#input-in-main-page';
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .navigateTo(url)
+  .hover(selector)
+  .switchToIframe(selector)
+  .click(inputInIframe)
+  .typeText('hey I am in the iframe')
+  .switchBackToPage()
+  .click(inputInMainPage)
+  .typeText('hey I am back in the page!');
+```
+
+## Usage with Stories
+
+This package provides a way to write tests as functional components called `Story`:
 
 `stories.ts`
 
@@ -95,13 +119,13 @@ export const fillForm: Story = async (p) => {
 
 `test.ts`
 
-```
-import {startApp, fillForm} from 'stories';
-import { PlaywrightFluent} from 'playwright-fluent';
+```js
+import { startApp, fillForm } from 'stories';
+import { PlaywrightFluent } from 'playwright-fluent';
 const p = new PlaywrightFluent();
 
 await p
-  .runStory(startApp, {browser: 'chrome', isHeadless: false, url: 'http://example.com'})
+  .runStory(startApp, { browser: 'chrome', isHeadless: false, url: 'http://example.com' })
   .runStory(fillForm)
   .close();
 ```
@@ -135,6 +159,9 @@ import { PlaywrightFluent } from 'playwright-fluent';
 
 // just create a new instance with playwright's browser and page instances
 const p = new PlaywrightFluent(browser, page);
+
+// you can also create a new instance with playwright's browser and frame instances
+const p = new PlaywrightFluent(browser, frame);
 
 // now you can use the fluent API
 ```

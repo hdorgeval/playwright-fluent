@@ -40,6 +40,7 @@
   - [select(labels).inFocused([options])](#selectlabelsinfocusedoptions)
   - [selectByValue(values).in(selector[, options])](#selectByValuevaluesinselector-options)
   - [selectByValue(values).inFocused([options])](#selectByValuevaluesinfocusedoptions)
+  - [switchToIframe(selector[, options])](#switchToIframeselector-options)
   - [switchToPreviousTab()](#switchToPreviousTab)
   - [typeText(text[, options])](#typeTexttext-options)
   - [uncheck(selector[, options])](#uncheckselector-options)
@@ -1174,6 +1175,44 @@ const page = p.currentPage();
 // the browser and page objects are standard playwright objects
 // so now you are ready to go by using the playwright API
 ```
+
+---
+
+### switchToIframe(selector[, options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<SwitchToIframeOptions>`
+
+```js
+export interface SwitchToIframeOptions extends HoverOptions {
+  injectCursor: boolean;
+}
+```
+
+Will switch inside the iframe targeted by the specified selector.
+
+Example:
+
+```js
+const p = new PlaywrightFluent();
+const selector = 'iframe';
+const inputInIframe = '#input-inside-iframe';
+const inputInMainPage = '#input-in-main-page';
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .navigateTo(url)
+  .hover(selector)
+  .switchToIframe(selector)
+  .click(inputInIframe)
+  .typeText('hey I am in the iframe')
+  .switchBackToPage()
+  .click(inputInMainPage)
+  .typeText('hey I am back in the page!');
+```
+
+Once you have switched to an iframe, you must call `switchBackToPage()` to switch back to the current page.
 
 ---
 
