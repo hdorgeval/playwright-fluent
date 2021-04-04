@@ -69,12 +69,10 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     // When
 
     const mockResponseBody: CustomResponseBody = { prop1: 'mocked-prop1', prop2: 'mocked-prop2' };
-    const harFile = path.join(__dirname, 'test.har');
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
-      .recordNetworkActivity({ path: harFile })
       .recordRequestsTo('/foobar')
       .onRequestTo('/foobar')
       .respondWith<CustomResponseBody>({
@@ -139,12 +137,12 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
 
     // When
     const mockResponseBody: CustomResponseBody = { prop1: 'mocked-prop1', prop2: 'mocked-prop2' };
-    const harFile = path.join(__dirname, 'test.har');
+    // const harFile = path.join(__dirname, 'on-request-to-respond-with.har');
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
-      .recordNetworkActivity({ path: harFile })
+      //.recordNetworkActivity({ path: harFile })
       .recordRequestsTo('/foobar')
       .onRequestTo('/foobar?foo=bar')
       .respondWith<CustomResponseBody>((request) => {
@@ -185,7 +183,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     const htmlContent = readFileSync(
       `${path.join(__dirname, 'on-request-to-respond-with.post.test.html')}`,
     );
-    const harFile = path.join(__dirname, 'har-test.json');
+    const harFile = path.join(__dirname, 'on-request-to-respond-with.har');
     const harData = getHarDataFrom(harFile);
     fakeServer &&
       // prettier-ignore

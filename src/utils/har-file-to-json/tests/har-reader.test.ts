@@ -7,7 +7,7 @@ import path from 'path';
 describe('har-reader', (): void => {
   test('should find response for an http GET', async (): Promise<void> => {
     // Given
-    const harFile = path.join(__dirname, 'har-get.har.json');
+    const harFile = path.join(__dirname, 'har-get.har');
     const harData = getHarDataFrom(harFile);
     const request: Request = {
       ...mockRequest,
@@ -24,7 +24,7 @@ describe('har-reader', (): void => {
 
   test('should find response for an http POST', async (): Promise<void> => {
     // Given
-    const harFile = path.join(__dirname, 'har-post.har.json');
+    const harFile = path.join(__dirname, 'har-post.har');
     const harData = getHarDataFrom(harFile);
     const request: Request = {
       ...mockRequest,
@@ -42,7 +42,7 @@ describe('har-reader', (): void => {
 
   test('should not find response for an http POST with unfound postdata', async (): Promise<void> => {
     // Given
-    const harFile = path.join(__dirname, 'har-post.har.json');
+    const harFile = path.join(__dirname, 'har-post.har');
     const harData = getHarDataFrom(harFile);
     const request: Request = {
       ...mockRequest,
