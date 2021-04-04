@@ -7,6 +7,10 @@ const escapeHtml = require('escape-html');
 export interface QueryString {
   [key: string]: string | number | boolean | string[] | number[] | boolean[] | null;
 }
+
+export interface HttpHeaders {
+  [key: string]: string;
+}
 export interface RequestInfo {
   url: string;
   queryString: QueryString;
@@ -14,13 +18,13 @@ export interface RequestInfo {
   error: {
     errorText: string;
   } | null;
-  headers: { [key: string]: string };
+  headers: HttpHeaders;
   postData: string | unknown | undefined;
   response: ResponseInfo | null;
 }
 
 export interface ResponseInfo {
-  headers: { [key: string]: string };
+  headers: HttpHeaders;
   payload: string | unknown | undefined;
   status: number;
   statusText: string;

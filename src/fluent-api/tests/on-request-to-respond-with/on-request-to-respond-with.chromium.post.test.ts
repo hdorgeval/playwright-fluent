@@ -1,5 +1,12 @@
 import * as SUT from '../../playwright-fluent';
-import { stringifyRequest, RequestInfo } from '../../../utils';
+import {
+  stringifyRequest,
+  RequestInfo,
+  getHarResponseFor,
+  getHarDataFrom,
+  getHarResponseContentAs,
+  harHeadersToHttpHeaders,
+} from '../../../utils';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
 import { readFileSync } from 'fs';
@@ -27,10 +34,10 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     },
   );
 
-  test('should intercept GET requests to a rest API', async (): Promise<void> => {
+  test('should intercept POST requests to a rest API', async (): Promise<void> => {
     // Given
     const htmlContent = readFileSync(
-      `${path.join(__dirname, 'on-request-to-respond-with.test.html')}`,
+      `${path.join(__dirname, 'on-request-to-respond-with.post.test.html')}`,
     );
 
     fakeServer &&
@@ -48,34 +55,26 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     const responseBody: CustomResponseBody = {
       prop1: 'foobar',
     };
-    const responseBodyBaz: CustomResponseBody = {
-      prop1: 'foobaz',
-    };
+
     const responseHeaders = {
       'foo-header': 'bar',
     };
     fakeServer &&
       // prettier-ignore
       fakeServer.http
-        .get()
+        .post()
         .to('/foobar')
         .willReturn(responseBody, 200, responseHeaders);
-
-    fakeServer &&
-      // prettier-ignore
-      fakeServer.http
-        .get()
-        .to('/yo')
-        .willReturn(responseBodyBaz, 200, responseHeaders);
 
     // When
 
     const mockResponseBody: CustomResponseBody = { prop1: 'mocked-prop1', prop2: 'mocked-prop2' };
-
+    const harFile = path.join(__dirname, 'test.har');
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
+      .recordNetworkActivity({ path: harFile })
       .recordRequestsTo('/foobar')
       .onRequestTo('/foobar')
       .respondWith<CustomResponseBody>({
@@ -106,10 +105,10 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     expect(sentRequest.response!.payload).toMatchObject(mockResponseBody);
   });
 
-  test('should intercept GET requests to a rest API -functional version', async (): Promise<void> => {
+  test('should intercept POST requests to a rest API - functional version', async (): Promise<void> => {
     // Given
     const htmlContent = readFileSync(
-      `${path.join(__dirname, 'on-request-to-respond-with.test.html')}`,
+      `${path.join(__dirname, 'on-request-to-respond-with.post.test.html')}`,
     );
 
     fakeServer &&
@@ -127,46 +126,36 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     const responseBody: CustomResponseBody = {
       prop1: 'foobar',
     };
-    const responseBodyBaz: CustomResponseBody = {
-      prop1: 'foobaz',
-    };
+
     const responseHeaders = {
       'foo-header': 'bar',
     };
     fakeServer &&
       // prettier-ignore
       fakeServer.http
-        .get()
+        .post()
         .to('/foobar')
         .willReturn(responseBody, 200, responseHeaders);
 
-    fakeServer &&
-      // prettier-ignore
-      fakeServer.http
-        .get()
-        .to('/yo')
-        .willReturn(responseBodyBaz, 200, responseHeaders);
-
     // When
-
     const mockResponseBody: CustomResponseBody = { prop1: 'mocked-prop1', prop2: 'mocked-prop2' };
-
+    const harFile = path.join(__dirname, 'test.har');
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
+      .recordNetworkActivity({ path: harFile })
       .recordRequestsTo('/foobar')
-      .onRequestTo('/foobar')
+      .onRequestTo('/foobar?foo=bar')
       .respondWith<CustomResponseBody>((request) => {
         const url = request.url();
-        if (url.includes('?foo=bar')) {
-          return {
-            status: 200,
-            headers: responseHeaders,
-            body: mockResponseBody,
-          };
-        }
-        throw new Error(`Cannot handle to request '${url}'`);
+        // eslint-disable-next-line no-console
+        console.log(url);
+        return {
+          status: 200,
+          headers: responseHeaders,
+          body: mockResponseBody,
+        };
       })
       .navigateTo('http://localhost:1234/app');
 
@@ -191,12 +180,13 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     expect(sentRequest.response!.payload).toMatchObject(mockResponseBody);
   });
 
-  test('should intercept GET requests to a rest API by responding with HTTP Status 401', async (): Promise<void> => {
+  test('should mock reponse with data coming from a HAR file', async (): Promise<void> => {
     // Given
     const htmlContent = readFileSync(
-      `${path.join(__dirname, 'on-request-to-respond-with.test.html')}`,
+      `${path.join(__dirname, 'on-request-to-respond-with.post.test.html')}`,
     );
-
+    const harFile = path.join(__dirname, 'har-test.json');
+    const harData = getHarDataFrom(harFile);
     fakeServer &&
       // prettier-ignore
       fakeServer.http
@@ -212,25 +202,18 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     const responseBody: CustomResponseBody = {
       prop1: 'foobar',
     };
-    const responseBodyBaz: CustomResponseBody = {
-      prop1: 'foobaz',
-    };
+
     const responseHeaders = {
       'foo-header': 'bar',
     };
+
+    const mockResponseBody: CustomResponseBody = { prop1: 'mocked-prop1', prop2: 'mocked-prop2' };
     fakeServer &&
       // prettier-ignore
       fakeServer.http
-        .get()
+        .post()
         .to('/foobar')
         .willReturn(responseBody, 200, responseHeaders);
-
-    fakeServer &&
-      // prettier-ignore
-      fakeServer.http
-        .get()
-        .to('/yo')
-        .willReturn(responseBodyBaz, 200, responseHeaders);
 
     // When
     await p
@@ -239,9 +222,14 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
       .withCursor()
       .recordRequestsTo('/foobar')
       .onRequestTo('/foobar')
-      .respondWith({
-        status: 401,
-        body: 'sorry, you have no access',
+      .respondWith<CustomResponseBody>((request) => {
+        const harResponse = getHarResponseFor(request, harData);
+        const response = getHarResponseContentAs<CustomResponseBody>(harResponse);
+        return {
+          status: harResponse?.status,
+          headers: harHeadersToHttpHeaders(harResponse?.headers),
+          body: response,
+        };
       })
       .navigateTo('http://localhost:1234/app');
 
@@ -259,14 +247,10 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
 
     expect(sentRequest.url).toContain('?foo=bar');
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(sentRequest.response!.status).toBe(401);
+    expect(sentRequest.response!.status).toBe(200);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(sentRequest.response!.headers['content-type']).toBe('text/plain');
+    expect(sentRequest.response!.headers['foo-header']).toBe(responseHeaders['foo-header']);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(sentRequest.response!.headers['access-control-allow-origin']).toBe('*');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(sentRequest.response!.headers['access-control-allow-credentials']).toBe('true');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(sentRequest.response!.payload).toBe('sorry, you have no access');
+    expect(sentRequest.response!.payload).toMatchObject(mockResponseBody);
   });
 });

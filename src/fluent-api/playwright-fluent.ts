@@ -31,7 +31,6 @@ import {
   defaultSwitchToIframeOptions,
   defaultTypeTextOptions,
   DoubleClickOptions,
-  Headers,
   HoverOptions,
   InvokeOptions,
   KeyboardHoldKey,
@@ -67,8 +66,8 @@ import {
   defaultWaitUntilOptions,
   deleteFile,
   getFilesOlderThanInDirectory,
-  HarContent,
-  readHarFileAsJson,
+  HarData,
+  getHarDataFrom,
   sleep,
   toFrame,
   toPage,
@@ -76,6 +75,7 @@ import {
   WaitOptions,
   waitUntil,
   WaitUntilOptions,
+  HttpHeaders,
 } from '../utils';
 import { SelectorFluent } from '../selector-api';
 import { Browser, Page, BrowserContext, Request as PlaywrightRequest, Frame } from 'playwright';
@@ -84,7 +84,13 @@ const isCI = require('is-ci') as boolean;
 
 export {
   defaultWaitUntilOptions,
-  HarContent,
+  getHarDataFrom,
+  getHarResponseContentAs,
+  getHarResponseFor,
+  HarData,
+  HarEntryParserOptions,
+  harHeadersToHttpHeaders,
+  HttpHeaders,
   noWaitNoThrowOptions,
   uniqueFilename,
   userDownloadsDirectory,
@@ -100,7 +106,6 @@ export {
   ClickOptions,
   CloseOptions,
   DoubleClickOptions,
-  Headers,
   HoverOptions,
   InvokeOptions,
   KeyboardHoldKey,
@@ -432,7 +437,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
-  public withExtraHttpHeaders(headers: Headers): PlaywrightFluent {
+  public withExtraHttpHeaders(headers: HttpHeaders): PlaywrightFluent {
     this.contextOptions.extraHTTPHeaders = headers;
     return this;
   }
@@ -536,12 +541,12 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * Get HAR data as json data.
    * Call this method only after the browser is closed.
    * @param {string} [filepath] optional
-   * @returns {HarContent}
+   * @returns {HarData}
    * @memberof PlaywrightFluent
    */
-  public getRecordedNetworkActivity(filepath?: string): HarContent {
+  public getRecordedNetworkActivity(filepath?: string): HarData {
     const harFilePath = filepath || this.contextOptions.recordHar?.path;
-    return readHarFileAsJson(harFilePath);
+    return getHarDataFrom(harFilePath);
   }
 
   private async closeBrowser(options: CloseOptions): Promise<void> {
@@ -626,8 +631,9 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async onRequestToRespondWith<T>(
     partialUrl: string,
     response: Partial<MockResponse<T>> | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
+    bypassPredicate: (request: PlaywrightRequest) => boolean,
   ): Promise<void> {
-    await action.onRequestToRespondWith(partialUrl, response, this.currentPage());
+    await action.onRequestToRespondWith(partialUrl, response, bypassPredicate, this.currentPage());
   }
   public onRequestTo(
     partialUrl: string,
@@ -636,6 +642,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       response:
         | Partial<MockResponse<T>>
         | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
+      bypassPredicate?: (request: PlaywrightRequest) => boolean,
     ) => PlaywrightFluent;
   } {
     return {
@@ -643,8 +650,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
         response:
           | Partial<MockResponse<T>>
           | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
+        bypassPredicate: (request: PlaywrightRequest) => boolean = () => false,
       ): PlaywrightFluent => {
-        const action = (): Promise<void> => this.onRequestToRespondWith(partialUrl, response);
+        const action = (): Promise<void> =>
+          this.onRequestToRespondWith(partialUrl, response, bypassPredicate);
         this.actions.push(action);
         return this;
       },

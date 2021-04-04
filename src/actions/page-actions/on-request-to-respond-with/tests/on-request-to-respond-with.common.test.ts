@@ -15,7 +15,7 @@ describe('on request to respond with', (): void => {
     const expectedError = new Error(
       "Cannot intercept requests to '/foobar' because no browser has been launched",
     );
-    await SUT.onRequestToRespondWith('/foobar', {}, page).catch((error): void =>
+    await SUT.onRequestToRespondWith('/foobar', {}, () => false, page).catch((error): void =>
       expect(error).toMatchObject(expectedError),
     );
   });

@@ -1,12 +1,9 @@
+import { HttpHeaders } from '../../../utils';
 import { Page, Request } from 'playwright';
-
-export type Headers = {
-  [key: string]: string;
-};
 
 export interface MockResponse<T> {
   status: number;
-  headers: Headers;
+  headers: HttpHeaders;
   contentType: string;
   body: T;
 }
@@ -28,7 +25,7 @@ function buildPlaywrightResponseWith<T>(
   mockedResponse: Partial<MockResponse<T>>,
 ): {
   status: number;
-  headers: Headers;
+  headers: HttpHeaders;
   contentType: string;
   body: string | Buffer;
 } {
@@ -39,7 +36,7 @@ function buildPlaywrightResponseWith<T>(
     body: serializeBody(mockedResponse.body),
   };
 }
-function buildHeadersFrom<T>(mockedResponse: Partial<MockResponse<T>>): Headers {
+function buildHeadersFrom<T>(mockedResponse: Partial<MockResponse<T>>): HttpHeaders {
   const headers = {
     ...mockedResponse.headers,
   };
@@ -54,7 +51,7 @@ function buildHeadersFrom<T>(mockedResponse: Partial<MockResponse<T>>): Headers 
 
   return headers;
 }
-function hasAccessControlAllowCredentialsHeader(headers: Headers): boolean {
+function hasAccessControlAllowCredentialsHeader(headers: HttpHeaders): boolean {
   if (headers['access-control-allow-credentials']) {
     return true;
   }
@@ -66,7 +63,7 @@ function hasAccessControlAllowCredentialsHeader(headers: Headers): boolean {
   return false;
 }
 
-function hasAccessControlAllowOriginHeader(headers: Headers): boolean {
+function hasAccessControlAllowOriginHeader(headers: HttpHeaders): boolean {
   if (headers['access-control-allow-origin']) {
     return true;
   }
@@ -93,6 +90,7 @@ function buildContentTypeFrom<T>(mockedResponse: Partial<MockResponse<T>>): stri
 export async function onRequestToRespondWith<T>(
   url: string,
   response: Partial<MockResponse<T>> | ((request: Request) => Partial<MockResponse<T>>),
+  bypassPredicate: (request: Request) => boolean,
   page: Page | undefined,
 ): Promise<void> {
   if (!page) {
@@ -104,6 +102,10 @@ export async function onRequestToRespondWith<T>(
       return uri.toString().includes(url);
     },
     (route, request) => {
+      if (bypassPredicate(request)) {
+        route.continue();
+        return;
+      }
       const mockedResponse = typeof response === 'function' ? response(request) : response;
       const playwrightResponse = buildPlaywrightResponseWith(mockedResponse);
       route.fulfill(playwrightResponse);

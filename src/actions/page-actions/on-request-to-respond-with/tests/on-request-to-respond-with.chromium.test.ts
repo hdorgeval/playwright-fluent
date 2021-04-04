@@ -75,6 +75,7 @@ describe('on request to respond with', (): void => {
         headers: responseHeaders,
         body: mockResponseBody,
       },
+      () => false,
       page,
     );
 
