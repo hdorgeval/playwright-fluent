@@ -16,7 +16,7 @@
   - [withStorageState(state)](#withStorageStatestate)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [delayRequestsTo(url, durationInSeconds)](#delayRequestsTourl-durationInSeconds)
-  - [onRequestTo(url).respondWith(response)](#onRequestTourlrespondWithresponse)
+  - [onRequestTo(url).respondWith(response[, bypassPredicate])](#onRequestTourlrespondWithresponse-bypassPredicate)
   - [recordDownloadsTo(directory)](#recordDownloadsTodirectory)
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordNetworkActivity(options)](#recordNetworkActivityoptions)
@@ -351,7 +351,7 @@ await p
 
 ### withExtraHttpHeaders(headers)
 
-- headers: `Headers`
+- headers: `HttpHeaders`
 
 Will add specified HTTP headers for each request.
 
@@ -823,12 +823,15 @@ await p
 
 ---
 
-### onRequestTo(url).respondWith(response)
+### onRequestTo(url).respondWith(response[, bypassPredicate])
 
 - url: `string`
 - response: `Partial<MockResponse<T> | ((request: Request) => Partial<MockResponse<T>>)`
+- bypassPredicate: `(request: PlaywrightRequest) => boolean`
 
 Will intercept any request whose url contains the input `url` (this parameter should be seen as a partial url, it is not a regex and not a glob pattern), then will respond with the given `response` object.
+
+You can bypass the interception by setting up the optional `bypassPredicate` parameter.
 
 The main purpose of this feature, is to be able to intercept rest API calls, that gives back a JSON object of type `T`, and then substitute the response by another JSON object of type `T`, or substitute the HTTP response status by another one (for example subsitute an HTTP 200 by an HTTP 500, for chaos testing).
 
@@ -837,7 +840,7 @@ Be careful to call the `onRequestTo(url).respondWith(response)` before navigatin
 ```js
 interface MockResponse<T> {
   status: number;
-  headers: Headers;
+  headers: HttpHeaders;
   contentType: string;
   body: T;
 }
@@ -911,6 +914,32 @@ await p
   .respondWith({
     status: 401,
     body: 'sorry, you have no access',
+  })
+  .navigateTo(url);
+```
+
+You can also build dynamically a mock response by looking the corresponding request/response in a locally stored HAR file :
+
+```js
+const harFile = path.join(__dirname, 'my.har');
+const harData = getHarDataFrom(harFile);
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .emulateDevice('iPhone 6 landscape')
+  // .recordNetworkActivity({ path: harFile }) // uncomment to generate the HAR file
+  .onRequestTo('/api/foobar')
+  .respondWith((request) => {
+    const harResponse = getHarResponseFor(request, harData);
+    // prettier-ignore
+    const response = getHarResponseContentAs<CustomResponseBody>(harResponse);
+    // at this point you can modify the response that will be sent back to the browser
+    return {
+      status: harResponse?.status,
+      headers: harHeadersToHttpHeaders(harResponse?.headers),
+      body: response,
+    };
   })
   .navigateTo(url);
 ```
