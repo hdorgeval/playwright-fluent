@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.30.0] - 2021-04-05
+
+### Breaking changes
+
+- Typescript type :
+  - `Headers` has been renamed to `HttpHeaders`
+  - `HarContent` has been renamed to `HarData`
+  - `readHarFileAsJson` has been renamed to `getHarDataFrom`
+
+### Added
+
+- feat(fluent-api): add optional predicate parameter to `onRequestTo(url).respondWith(response[, bypassPredicate])`
+
+- helper methods on HAR file processing and parsing has been added in order to be able to mock HTTP responses by getting the response data from a given HAR file:
+  - `getHarDataFrom`,
+  - `getHarResponseContentAs`,
+  - `getHarResponseFor`,
+  - `harHeadersToHttpHeaders`,
+
 ## [1.29.0] - 2021-04-02
 
 ### Added
