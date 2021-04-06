@@ -21,7 +21,7 @@
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordNetworkActivity(options)](#recordNetworkActivityoptions)
   - [recordPageErrors()](#recordPageErrors)
-  - [recordRequestsTo(url)](#recordRequestsTourl)
+  - [recordRequestsTo(url[, ignorePredicate])](#recordRequestsTourl-ignorePredicate)
   - [recordVideo(options)](#recordVideooptions)
   - [navigateTo(url[, options])](#navigateTourl-options)
   - [check(selector[, options])](#checkselector-options)
@@ -775,11 +775,14 @@ await p
 
 ---
 
-### recordRequestsTo(url)
+### recordRequestsTo(url[, ignorePredicate])
 
 - url: `string`
+- ignorePredicate: `(request: PlaywrightRequest) => boolean`
 
 Will track and record requests whose url contains the input url. This parameter should be seen as a partial url (it is not a regex and not a glob pattern).
+
+Use the optional `ignorePredicate` predicate to ignore specific requests.
 
 Usefull when you need to check what the front sends to the back and/or what the back sends to the front. Each recorded request is a standard `playwright` request object that contains both the request and the response.
 
