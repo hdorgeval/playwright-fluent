@@ -191,6 +191,7 @@ export interface AsyncFuncExpectAssertion {
 
 export interface ExpectAssertion {
   doesNotHaveClass: (className: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
+  doesNotExist: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   exists: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   hasAttributeWithValue: (
     attrbuteName: string,
@@ -1705,6 +1706,18 @@ export class PlaywrightFluent implements PromiseLike<void> {
     await assertion.expectThatSelectorDoesExist(selector, this.currentPageOrFrame(), fullOptions);
   }
 
+  private async expectThatSelectorDoesNotExist(
+    selector: string | SelectorFluent,
+    options?: Partial<AssertOptions>,
+  ): Promise<void> {
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorDoesNotExist(
+      selector,
+      this.currentPageOrFrame(),
+      fullOptions,
+    );
+  }
+
   public async exists(
     selector: string | SelectorFluent,
     options?: Partial<WaitUntilOptions>,
@@ -1715,6 +1728,18 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
     return await assertion.doesExist(selector, this.currentPageOrFrame(), waitOptions);
+  }
+
+  public async doesNotExist(
+    selector: string | SelectorFluent,
+    options?: Partial<WaitUntilOptions>,
+  ): Promise<boolean> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.doesNotExist(selector, this.currentPageOrFrame(), waitOptions);
   }
 
   private async expectThatSelectorIsVisible(
@@ -1870,6 +1895,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
         );
         return this;
       },
+      doesNotExist: (options?: Partial<AssertOptions>): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorDoesNotExist(selector, options));
+        return this;
+      },
+
       exists: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorExists(selector, options));
         return this;
@@ -1962,6 +1992,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
         this.actions.push(() =>
           this.expectThatSelectorDoesNotHaveClass(selector, className, options),
         );
+        return this;
+      },
+      doesNotExist: (options?: Partial<AssertOptions>): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorDoesNotExist(selector, options));
         return this;
       },
       exists: (options?: Partial<AssertOptions>): PlaywrightFluent => {

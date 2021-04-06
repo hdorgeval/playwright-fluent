@@ -1,5 +1,5 @@
-import { WaitUntilOptions } from '../../../utils';
-import { doNotGetHandleOf } from '../do-not-get-handle-of';
+import { report, waitUntil, WaitUntilOptions } from '../../../utils';
+import { doesNotExist } from '../../dom-actions';
 import { Frame, Page } from 'playwright';
 
 export async function selectorDoesNotExist(
@@ -13,6 +13,13 @@ export async function selectorDoesNotExist(
     );
   }
 
-  const handle = await doNotGetHandleOf(selector, page, options);
-  return handle === null;
+  report('waiting for the selector to disappear from DOM ...', options.verbose);
+  await waitUntil(
+    () => doesNotExist(selector, page),
+    `Selector '${selector}' was found in DOM`,
+    options,
+  );
+
+  const result = await doesNotExist(selector, page);
+  return result;
 }

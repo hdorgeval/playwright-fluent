@@ -322,7 +322,7 @@ export class SelectorFluent {
    * @memberof SelectorFluent
    */
   public async exists(): Promise<boolean> {
-    const handle = await this.getFirstHandleOrNull();
+    const handle = await this.getHandle();
     if (handle === null) {
       return false;
     }
@@ -340,7 +340,7 @@ export class SelectorFluent {
    * @memberof SelectorFluent
    */
   public async doesNotExist(): Promise<boolean> {
-    const handle = await this.getFirstHandleOrNull();
+    const handle = await this.getHandle();
     if (handle === null) {
       return true;
     }

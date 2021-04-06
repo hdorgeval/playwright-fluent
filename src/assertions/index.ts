@@ -1,4 +1,5 @@
 export * from './does-exist';
+export * from './does-not-exist';
 export * from './does-not-have-class';
 export * from './has-attribute-with-value';
 export * from './has-class';
