@@ -64,9 +64,10 @@ describe('delay requests to', (): void => {
         .to('/app')
         .willReturn(htmlContent.toString(), 200);
 
+    const takeAllPredicate = () => false;
     const requests: Request[] = [];
     const callback = (request: Request) => requests.push(request);
-    await recordRequestsTo('/foobar', page, callback);
+    await recordRequestsTo('/foobar', takeAllPredicate, page, callback);
 
     // When
     await SUT.delayRequestsTo('/foobar', 10, page);

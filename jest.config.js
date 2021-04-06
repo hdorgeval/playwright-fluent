@@ -37,6 +37,7 @@ module.exports = {
     '!src/**/is-handle-unchecked.ts',
     '!src/**/is-handle-visible.ts',
     '!src/**/paste-text.ts',
+    '!src/**/playwright-fluent.ts',
     '!src/**/scroll-to-handle.ts',
     '!src/**/select-options-by-value-in-focused.ts',
     '!src/**/select-options-in-focused.ts',

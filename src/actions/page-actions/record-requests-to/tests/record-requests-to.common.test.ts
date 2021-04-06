@@ -11,13 +11,14 @@ describe('record requests to', (): void => {
     const page: Page | undefined = undefined;
     const requests: SUT.Request[] = [];
     const callback = (request: SUT.Request) => requests.push(request);
+    const takeAllPredicate = () => false;
 
     // When
     // Then
     const expectedError = new Error(
       "Cannot record requests to '/foobar' because no browser has been launched",
     );
-    await SUT.recordRequestsTo('/foobar', page, callback).catch((error): void =>
+    await SUT.recordRequestsTo('/foobar', takeAllPredicate, page, callback).catch((error): void =>
       expect(error).toMatchObject(expectedError),
     );
   });

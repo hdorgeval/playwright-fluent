@@ -26,7 +26,7 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     },
   );
 
-  test('should record successfull requests', async (): Promise<void> => {
+  test('should record successfull requests and ignore specific ones', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'record-requests-to.test.html')}`;
 
@@ -49,6 +49,13 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     fakeServer &&
       // prettier-ignore
       fakeServer.http
+        .delete()
+        .to('/foobar')
+        .willReturn(responseBody, 200, responseHeaders);
+
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
         .get()
         .to('/yo')
         .willReturn(responseBodyBaz, 200, responseHeaders);
@@ -58,7 +65,7 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
-      .recordRequestsTo('/foobar')
+      .recordRequestsTo('/foobar', (request) => request.method() === 'DELETE')
       .recordRequestsTo('/yo')
       .navigateTo(url);
 

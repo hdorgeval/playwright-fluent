@@ -49,9 +49,10 @@ describe('record requests to', (): void => {
 
     const requests: SUT.Request[] = [];
     const callback = (request: SUT.Request) => requests.push(request);
+    const takeAllPredicate = () => false;
 
     // When
-    await SUT.recordRequestsTo('/foobar', page, callback);
+    await SUT.recordRequestsTo('/foobar', takeAllPredicate, page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-requests-to.test.html')}`);
     await sleep(3000);
 
@@ -83,9 +84,10 @@ describe('record requests to', (): void => {
 
     const requests: SUT.Request[] = [];
     const callback = (request: SUT.Request) => requests.push(request);
+    const takeAllPredicate = () => false;
 
     // When
-    await SUT.recordRequestsTo('/500', page, callback);
+    await SUT.recordRequestsTo('/500', takeAllPredicate, page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-failed-requests-500.test.html')}`);
     await sleep(3000);
 
@@ -109,9 +111,10 @@ describe('record requests to', (): void => {
 
     const requests: SUT.Request[] = [];
     const callback = (request: SUT.Request) => requests.push(request);
+    const takeAllPredicate = () => false;
 
     // When
-    await SUT.recordRequestsTo('/', page, callback);
+    await SUT.recordRequestsTo('/', takeAllPredicate, page, callback);
     await page.goto(`file:${path.join(__dirname, 'record-requests-to.test.html')}`);
     await sleep(3000);
 
@@ -124,5 +127,40 @@ describe('record requests to', (): void => {
     expect(request.response!.payload).not.toContain('<script>');
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(request.response!.payload).toContain('&lt;script&gt;');
+  });
+
+  test('should record postdata on failed POST requests 502', async (): Promise<void> => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({ viewport: null });
+    const page = await context.newPage();
+
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .post()
+        .to('/502')
+        .willFail(502);
+
+    const requests: SUT.Request[] = [];
+    const callback = (request: SUT.Request) => requests.push(request);
+    const takeAllPredicate = () => false;
+
+    // When
+    await SUT.recordRequestsTo('/502', takeAllPredicate, page, callback);
+    await page.goto(`file:${path.join(__dirname, 'record-failed-requests-502.test.html')}`);
+    await sleep(3000);
+
+    // Then
+    expect(requests.length).toBe(1);
+
+    const stringifiedRequest = await stringifyRequest(requests[0]);
+    const request = JSON.parse(stringifiedRequest) as RequestInfo;
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(request.response!.status).toBe(502);
+    expect(request.postData).toMatchObject({ foo: 'bar' });
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(request.response!.statusText).toBe('Bad Gateway');
   });
 });

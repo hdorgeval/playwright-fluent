@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8" />
+    <title>page with request</title>
+  </head>
 
-  <title>page with request</title>
-</head>
+  <body>
+    <h1>Yo!</h1>
 
-<body>
-  <h1>Yo!</h1>
+    <script>
+      window.setTimeout(() => {
+        fetch('http://localhost:1234/foobar?foo=bar', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ foo: 'bar' }),
+        }).then(
+          (response) => console.log(response),
+          (reason) => console.log(reason),
+        );
+      }, 100);
+      window.setTimeout(() => {
+        fetch('http://localhost:1234/foobar?foo=bar');
+      }, 500);
 
-  <script>
-    window.setTimeout(() => {
-      fetch('http://localhost:1234/foobar?foo=bar');
-    }, 500);
+      window.setTimeout(() => {
+        fetch('http://localhost:1234/yo?foo=baz1');
+      }, 1000);
 
-    window.setTimeout(() => {
-      fetch('http://localhost:1234/yo?foo=baz1');
-    }, 1000);
-
-    window.setTimeout(() => {
-      fetch('http://localhost:1234/yo?foo=baz2');
-    }, 2000);
-
-  </script>
-</body>
-
+      window.setTimeout(() => {
+        fetch('http://localhost:1234/yo?foo=baz2');
+      }, 2000);
+    </script>
+  </body>
 </html>

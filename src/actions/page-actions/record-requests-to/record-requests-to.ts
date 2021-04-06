@@ -1,4 +1,4 @@
-import { Page } from 'playwright';
+import { Page, Request as PlayWrightRequest } from 'playwright';
 
 export interface Request {
   url(): string;
@@ -27,6 +27,7 @@ export interface Response {
 }
 export async function recordRequestsTo(
   partialUrl: string,
+  ignorePredicate: (request: PlayWrightRequest) => boolean,
   page: Page | undefined,
   callback: (request: Request) => void,
 ): Promise<void> {
@@ -38,6 +39,10 @@ export async function recordRequestsTo(
 
   page.on('requestfinished', (request) => {
     const requestedUrl = request.url();
+    const shouldIgnoreRequest = ignorePredicate(request);
+    if (shouldIgnoreRequest) {
+      return;
+    }
     if (requestedUrl && requestedUrl.includes(partialUrl)) {
       const typedRequest = (request as unknown) as Request;
       callback(typedRequest);
@@ -47,6 +52,10 @@ export async function recordRequestsTo(
 
   page.on('requestfailed', (request) => {
     const requestedUrl = request.url();
+    const shouldIgnoreRequest = ignorePredicate(request);
+    if (shouldIgnoreRequest) {
+      return;
+    }
     if (requestedUrl && requestedUrl.includes(partialUrl)) {
       const typedRequest = (request as unknown) as Request;
       callback(typedRequest);

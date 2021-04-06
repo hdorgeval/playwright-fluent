@@ -65,8 +65,9 @@ describe('on request to respond with', (): void => {
         .willReturn(htmlContent.toString(), 200);
 
     const requests: Request[] = [];
+    const takeAllPredicate = () => false;
     const callback = (request: Request) => requests.push(request);
-    await recordRequestsTo('/foobar', page, callback);
+    await recordRequestsTo('/foobar', takeAllPredicate, page, callback);
 
     // When
     await SUT.onRequestToRespondWith(

@@ -581,13 +581,39 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public clearRecordedRequestsTo(url: string): void {
     this.sentRequests = [...this.sentRequests.filter((req) => !req.url().includes(url))];
   }
-  private async recordRequestsToUrl(partialUrl: string): Promise<void> {
-    await action.recordRequestsTo(partialUrl, this.currentPage(), (request) =>
+  private async recordRequestsToUrl(
+    partialUrl: string,
+    ignorePredicate: (request: PlaywrightRequest) => boolean,
+  ): Promise<void> {
+    await action.recordRequestsTo(partialUrl, ignorePredicate, this.currentPage(), (request) =>
       this.sentRequests.push(request),
     );
   }
-  public recordRequestsTo(partialUrl: string): PlaywrightFluent {
-    const action = (): Promise<void> => this.recordRequestsToUrl(partialUrl);
+
+  /**
+   * Will track and record requests whose url contains the input url.
+   * Usefull when you need to check what the front sends to the back and/or what the back sends to the front.
+   * Each recorded request is a standard `playwright` request object that contains both the request and the response.
+   *
+   * @param {string} partialUrl This parameter should be seen as a partial url (it is not a regex and not a glob pattern).
+   * @param {(request: PlaywrightRequest) => boolean} [ignorePredicate=() => false] optional predicate to provide if you want to ignore specific requests
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   * @example
+   *  const p = new PlaywrightFluent();
+   *  await p
+   *    .withBrowser('chromium')
+   *    .withOptions({ headless: true })
+   *    .withCursor()
+   *    .recordRequestsTo('/api/v1/user', (request) => request.method() === 'OPTIONS')
+   *    .recordRequestsTo('/api/v1/books')
+   *    .navigateTo(url);
+   */
+  public recordRequestsTo(
+    partialUrl: string,
+    ignorePredicate: (request: PlaywrightRequest) => boolean = () => false,
+  ): PlaywrightFluent {
+    const action = (): Promise<void> => this.recordRequestsToUrl(partialUrl, ignorePredicate);
     this.actions.push(action);
     return this;
   }
@@ -602,7 +628,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * @returns {PlaywrightFluent}
    * @memberof PlaywrightFluent
    *
-   * * @example
+   * @example
    *  const p = new PlaywrightFluent();
    *  const expectedDownloadedFilepath = path.join(userDownloadsDirectory, 'download.zip');
    *  await p
