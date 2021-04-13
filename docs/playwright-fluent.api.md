@@ -2035,6 +2035,14 @@ interface WaitUntilOptions {
    * @memberof WaitUntilOptions
    */
   verbose: boolean;
+  /**
+   * Prevents the predicate execution to break the wait-until loop.
+   * Defaults to false.
+   * Use this option when the predicate execution might throw an exception (in case for example of a page reload, or when navigating to another page)
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  wrapPredicateExecutionInsideTryCatch: boolean;
 }
 ```
 
@@ -2091,6 +2099,14 @@ interface WaitUntilOptions {
    * @memberof WaitUntilOptions
    */
   verbose: boolean;
+  /**
+   * Prevents the predicate execution to break the wait-until loop.
+   * Defaults to false.
+   * Use this option when the predicate execution might throw an exception (in case for example of a page reload, or when navigating to another page)
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  wrapPredicateExecutionInsideTryCatch: boolean;
 }
 ```
 
@@ -2147,6 +2163,14 @@ interface WaitUntilOptions {
    * @memberof WaitUntilOptions
    */
   verbose: boolean;
+  /**
+   * Prevents the predicate execution to break the wait-until loop.
+   * Defaults to false.
+   * Use this option when the predicate execution might throw an exception (in case for example of a page reload, or when navigating to another page)
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  wrapPredicateExecutionInsideTryCatch: boolean;
 }
 ```
 
@@ -2203,6 +2227,14 @@ interface WaitUntilOptions {
    * @memberof WaitUntilOptions
    */
   verbose: boolean;
+  /**
+   * Prevents the predicate execution to break the wait-until loop.
+   * Defaults to false.
+   * Use this option when the predicate execution might throw an exception (in case for example of a page reload, or when navigating to another page)
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  wrapPredicateExecutionInsideTryCatch: boolean;
 }
 ```
 
