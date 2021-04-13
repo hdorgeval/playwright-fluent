@@ -2,7 +2,7 @@ import * as SUT from '../index';
 import { exists } from '../..';
 import { Browser, webkit } from 'playwright';
 
-describe('inject-cursor', (): void => {
+describe.skip('inject-cursor', (): void => {
   let browser: Browser | undefined = undefined;
   beforeEach((): void => {
     jest.setTimeout(30000);
