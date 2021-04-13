@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.32.0] - 2021-04-13
+
+### Added
+
+- feat(wait-until): add optional parameter `wrapPredicateExecutionInsideTryCatch` to the `WaitUntilOptions` options object.
+
 ## [1.31.0] - 2021-04-06
 
 ### Added
