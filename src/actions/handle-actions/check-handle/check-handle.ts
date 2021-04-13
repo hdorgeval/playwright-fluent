@@ -50,10 +50,9 @@ export async function checkHandle(
     () => isHandleEnabled(selector, { verbose: false }),
     `Cannot check '${name}' because this selector is disabled`,
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds,
-      stabilityInMilliseconds: options.stabilityInMilliseconds,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 

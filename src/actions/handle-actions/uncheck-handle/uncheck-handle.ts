@@ -39,10 +39,9 @@ export async function uncheckHandle(
     () => isHandleEnabled(selector, { verbose: false }),
     `Cannot uncheck '${name}' because this selector is disabled`,
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds,
-      stabilityInMilliseconds: options.stabilityInMilliseconds,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 

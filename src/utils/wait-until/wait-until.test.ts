@@ -32,6 +32,7 @@ describe('wait until', (): void => {
       throwOnTimeout: false,
       timeoutInMilliseconds: 3000,
       verbose: false,
+      wrapPredicateExecutionInsideTryCatch: false,
     };
     const predicate = async (): Promise<boolean> => {
       return false;
@@ -43,6 +44,25 @@ describe('wait until', (): void => {
 
     // Then
     expect(result).toBe(false);
+  });
+
+  test('should wait until timeout is reached then should not throw even when predicate throws', async (): Promise<void> => {
+    // Given
+    const options: WaitUntilOptions = {
+      stabilityInMilliseconds: 300,
+      throwOnTimeout: false,
+      timeoutInMilliseconds: 3000,
+      verbose: false,
+      wrapPredicateExecutionInsideTryCatch: true,
+    };
+    const predicate = async (): Promise<boolean> => {
+      throw new Error('predicate error');
+    };
+
+    // When
+    await SUT.waitUntil(predicate, 'cannot wait any more!', options);
+
+    // Then
   });
 
   test('should not wait and not throw with predicate always false', async (): Promise<void> => {
@@ -100,6 +120,7 @@ describe('wait until', (): void => {
       throwOnTimeout: true,
       timeoutInMilliseconds: 2000,
       verbose: false,
+      wrapPredicateExecutionInsideTryCatch: false,
     };
     const predicate = async (): Promise<boolean> => {
       return false;
@@ -134,5 +155,26 @@ describe('wait until', (): void => {
       () => Promise.resolve('cannot wait any more!'),
       options,
     ).catch((error): void => expect(error).toMatchObject(expectedError));
+  });
+
+  test('should throw when predicate throw', async (): Promise<void> => {
+    // Given
+    const options: WaitUntilOptions = {
+      stabilityInMilliseconds: 300,
+      throwOnTimeout: false,
+      timeoutInMilliseconds: 2000,
+      verbose: false,
+      wrapPredicateExecutionInsideTryCatch: false,
+    };
+    const predicate = async (): Promise<boolean> => {
+      throw new Error('predicate error');
+    };
+
+    // When
+    // Then
+    const expectedError = new Error('predicate error');
+    await SUT.waitUntil(predicate, 'cannot wait any more!', options).catch((error): void =>
+      expect(error).toMatchObject(expectedError),
+    );
   });
 });

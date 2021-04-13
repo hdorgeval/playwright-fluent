@@ -12,10 +12,9 @@ export async function hoverOnSelector(
   }
 
   const handle = await getHandleOf(selector, page, {
-    stabilityInMilliseconds: options.stabilityInMilliseconds,
+    ...options,
     throwOnTimeout: true,
-    timeoutInMilliseconds: options.timeoutInMilliseconds,
-    verbose: options.verbose,
+    wrapPredicateExecutionInsideTryCatch: true,
   });
 
   await hoverOnHandle(handle, selector, page, options);

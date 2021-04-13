@@ -21,6 +21,7 @@ export async function switchFromSelectorObjectToIframe(
     {
       ...options,
       throwOnTimeout: true,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 

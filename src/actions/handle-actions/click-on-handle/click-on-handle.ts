@@ -56,10 +56,9 @@ export async function clickOnHandle(
     () => isHandleEnabled(selector, { verbose: false }),
     `Cannot click on '${name}' because this selector is disabled`,
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds,
-      stabilityInMilliseconds: options.stabilityInMilliseconds,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 

@@ -20,10 +20,9 @@ export async function selectOptionsByValueInSelectorObject(
     () => selector.exists(),
     `Cannot select options '${values}' in '${selector.toString()}' because this selector was not found in DOM`,
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds,
-      stabilityInMilliseconds: options.stabilityInMilliseconds,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 

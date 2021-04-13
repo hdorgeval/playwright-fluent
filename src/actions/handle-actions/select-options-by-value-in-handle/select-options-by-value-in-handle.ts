@@ -46,10 +46,9 @@ export async function selectOptionsByValueInHandle(
     () => isHandleEnabled(selector, { verbose: false }),
     `Cannot select options '${values}' in '${name}' because this selector is disabled`,
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds,
-      stabilityInMilliseconds: options.stabilityInMilliseconds,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 
@@ -62,10 +61,9 @@ export async function selectOptionsByValueInHandle(
       return `Cannot select options '${values}' in '${name}' because this selector has only options '${existingValues}'`;
     },
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds,
-      stabilityInMilliseconds: options.stabilityInMilliseconds,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 

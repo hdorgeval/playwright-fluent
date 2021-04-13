@@ -17,10 +17,9 @@ export async function checkSelectorObject(
     () => selector.exists(),
     `Cannot check '${selector.toString()}' because this selector was not found in DOM`,
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds,
-      stabilityInMilliseconds: options.stabilityInMilliseconds,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 

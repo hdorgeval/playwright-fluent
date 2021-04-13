@@ -49,10 +49,9 @@ export async function doubleClickOnHandle(
     () => isHandleEnabled(selector, { verbose: false }),
     `Cannot double-click on '${name}' because this selector is disabled`,
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds,
-      stabilityInMilliseconds: options.stabilityInMilliseconds,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 

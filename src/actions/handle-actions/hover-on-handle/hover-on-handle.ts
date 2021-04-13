@@ -40,10 +40,9 @@ export async function hoverOnHandle(
     () => isHandleVisible(selector, { verbose: options.verbose }),
     `Cannot hover on '${name}' because this selector is not visible`,
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds,
-      stabilityInMilliseconds: options.stabilityInMilliseconds,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 
@@ -52,10 +51,9 @@ export async function hoverOnHandle(
     async () => (await isHandleMoving(selector)) === false,
     `Cannot hover on '${name}' because this selector is always moving`,
     {
-      timeoutInMilliseconds: options.timeoutInMilliseconds / 2,
-      stabilityInMilliseconds: options.stabilityInMilliseconds / 2,
+      ...options,
       throwOnTimeout: true,
-      verbose: options.verbose,
+      wrapPredicateExecutionInsideTryCatch: true,
     },
   );
 

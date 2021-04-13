@@ -36,6 +36,15 @@ export interface WaitUntilOptions extends WaitOptions {
    * @memberof WaitUntilOptions
    */
   verbose: boolean;
+
+  /**
+   * Prevents the predicate execution to break the wait-until loop.
+   * Defaults to false.
+   * Use this option when the predicate execution might throw an exception (in case for example of a page reload, or when navigating to another page)
+   * @type {boolean}
+   * @memberof WaitUntilOptions
+   */
+  wrapPredicateExecutionInsideTryCatch: boolean;
 }
 
 export const defaultWaitUntilOptions: WaitUntilOptions = {
@@ -43,6 +52,7 @@ export const defaultWaitUntilOptions: WaitUntilOptions = {
   throwOnTimeout: true,
   timeoutInMilliseconds: 30000,
   verbose: false,
+  wrapPredicateExecutionInsideTryCatch: false,
 };
 
 export const noWaitNoThrowOptions: WaitUntilOptions = {
@@ -50,6 +60,7 @@ export const noWaitNoThrowOptions: WaitUntilOptions = {
   throwOnTimeout: false,
   timeoutInMilliseconds: 0,
   verbose: false,
+  wrapPredicateExecutionInsideTryCatch: true,
 };
 
 /**
@@ -79,7 +90,11 @@ export async function waitUntil(
 
   for (let index = 0; index < nbIntervals; index++) {
     await sleep(interval);
-    const result = await predicate();
+    const result = await safeExecutePredicate(
+      predicate,
+      options.wrapPredicateExecutionInsideTryCatch,
+    );
+
     report(
       `predicate returned ${result} after waiting ${(index + 1) * interval} ms`,
       options.verbose,
@@ -118,4 +133,18 @@ export async function waitUntil(
   }
 
   throw new Error(await errorMessage());
+}
+
+async function safeExecutePredicate(
+  predicate: () => Promise<boolean>,
+  noThrow: boolean,
+): Promise<boolean> {
+  try {
+    return await predicate();
+  } catch (error) {
+    if (noThrow) {
+      return false;
+    }
+    throw error;
+  }
 }
