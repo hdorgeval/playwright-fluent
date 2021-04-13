@@ -30,8 +30,8 @@ describe('invoke method on selector object', (): void => {
     }
 
     // Then
-    const expectedErrorMessage =
-      "Cannot query selector 'foobar' because no browser has been launched";
+    const expectedErrorMessage = `Cannot invoke method 'click' on 'selector(foobar)
+  .find(input)' because this selector was not found in DOM`;
     expect(result && result.message).toContain(expectedErrorMessage);
   });
 });
