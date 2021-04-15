@@ -64,6 +64,7 @@
   - [getCurrentUrl()](#getCurrentUrl)
   - [getCurrentWindowState()](#getCurrentWindowState)
   - [getPageErrors()](#getPageErrors)
+  - [getToday(format)](#getTodayformat)
   - [getValueOf(selector[, options])](#getValueOfselector-options)
   - [hasBeenRedirectedToAnotherTab()](#hasBeenRedirectedToAnotherTab)
   - [hasFocus(selector[, options])](#hasFocusselector-options)
@@ -1967,6 +1968,44 @@ const errors: Error[] = p.getPageErrors();
 // analyse errors by iterating on the returned array
 // an empty array means that no error has occurred or that you forgot to call the recordPageErrors() method
 ```
+
+---
+
+### getToday(format)
+
+- format : `DateFormat | DateTimeFormatOptions`
+- returns: `Promise<string>`
+
+Get the today date inside the browser.
+
+```js
+export type DateFormat = 'yyyy-mm-dd' | 'Jun 1, 2021' | 'Jun 01, 2021';
+export interface DateTimeFormatOptions {
+  locale: string;
+  intlOptions: Intl.DateTimeFormatOptions;
+}
+```
+
+Example:
+
+```js
+const p = new PlaywrightFluent();
+// prettier-ignore
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: true })
+  .withCursor()
+  .withTimezone('Asia/Tokyo')
+  .navigateTo(url);
+
+const today = await p.getToday('yyyy-mm-dd'); // => will return the today date in yyyy-mm-dd format
+const todayInCustomFormat = await p.getToday({
+  locale: 'en',
+  intlOptions: { year: 'numeric', month: 'short', day: 'numeric' },
+});
+```
+
+See [Intl.DateTimeFormatOptions details on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#examples) for more details on how to get a custom format
 
 ---
 
