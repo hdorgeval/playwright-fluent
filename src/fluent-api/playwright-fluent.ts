@@ -1496,7 +1496,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * @param {(DateFormat | DateTimeFormatOptions)} [format] see more details for DateTimeFormatOptions: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#examples
    * @returns {Promise<string>}
    * @memberof PlaywrightFluent
-   * 
+   *
    * @example
    * const p = new PlaywrightFluent();
    *  await p
@@ -1509,7 +1509,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    *  const todayInCustomFormat = await p.getToday({
    *    locale: 'en',
    *    intlOptions: { year: 'numeric', month: 'short', day: 'numeric' },
-    })
+   * })
    */
   public async getToday(format?: DateFormat | DateTimeFormatOptions): Promise<string> {
     const page = this.currentPageOrFrame();
