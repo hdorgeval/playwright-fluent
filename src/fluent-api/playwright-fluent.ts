@@ -1503,6 +1503,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    *    .withBrowser('chromium')
    *    .withOptions({ headless: true })
    *    .withCursor()
+   *    .withTimezone('Asia/Tokyo')
    *    .navigateTo(url);
    *
    *  const today = await p.getToday('yyyy-mm-dd');
