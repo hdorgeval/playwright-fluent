@@ -8,6 +8,7 @@ export * from './get-class-list-of-selector';
 export * from './get-current-url';
 export * from './get-focused-handle';
 export * from './get-inner-text-of-selector';
+export * from './get-today';
 export * from './get-value-of-selector';
 export * from './get-viewport-rectangle-of';
 export * from './get-window-state';

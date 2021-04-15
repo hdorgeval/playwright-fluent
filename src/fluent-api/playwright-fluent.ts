@@ -15,6 +15,8 @@ import {
   ClearTextOptions,
   ClickOptions,
   CloseOptions,
+  DateFormat,
+  DateTimeFormatOptions,
   defaultCheckOptions,
   defaultClearTextOptions,
   defaultClickOptions,
@@ -105,6 +107,8 @@ export {
   ClearTextOptions,
   ClickOptions,
   CloseOptions,
+  DateFormat,
+  DateTimeFormatOptions,
   DoubleClickOptions,
   HoverOptions,
   InvokeOptions,
@@ -1484,6 +1488,32 @@ export class PlaywrightFluent implements PromiseLike<void> {
     /* istanbul ignore next */
     const selectedText = await page.evaluate(() => (document.getSelection() || '').toString());
     return selectedText;
+  }
+
+  /**
+   * Get the today date inside the browser
+   *
+   * @param {(DateFormat | DateTimeFormatOptions)} [format] see more details for DateTimeFormatOptions: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#examples
+   * @returns {Promise<string>}
+   * @memberof PlaywrightFluent
+   * 
+   * @example
+   * const p = new PlaywrightFluent();
+   *  await p
+   *    .withBrowser('chromium')
+   *    .withOptions({ headless: true })
+   *    .withCursor()
+   *    .navigateTo(url);
+   *
+   *  const today = await p.getToday('yyyy-mm-dd');
+   *  const todayInCustomFormat = await p.getToday({
+   *    locale: 'en',
+   *    intlOptions: { year: 'numeric', month: 'short', day: 'numeric' },
+    })
+   */
+  public async getToday(format?: DateFormat | DateTimeFormatOptions): Promise<string> {
+    const page = this.currentPageOrFrame();
+    return await action.getToday(page, format);
   }
 
   public async getValueOf(
