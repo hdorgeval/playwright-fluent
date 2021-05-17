@@ -1,78 +1,7 @@
+import { HarData, HarHeader, HarResponse } from '.';
 import { fileDoesNotExist } from '../fs/fs';
 import { HttpHeaders } from '../stringify-request';
 import { readFileSync } from 'fs';
-export type MimeType =
-  | 'application/javascript'
-  | 'application/json'
-  | 'application/json; charset=UTF-8'
-  | 'application/x-www-form-urlencoded; charset=UTF-8'
-  | 'font/woff2'
-  | 'image/gif'
-  | 'image/jpeg'
-  | 'image/png'
-  | 'image/vnd.microsoft.icon'
-  | 'image/webp'
-  | 'text/css'
-  | 'text/html; charset=utf-8'
-  | 'text/html'
-  | 'text/javascript'
-  | 'text/plain';
-
-export interface HarPage {
-  startedDateTime: string;
-  id: string;
-  title: string;
-}
-
-export interface HarEntry {
-  startedDateTime: string;
-  request: HarRequest;
-  response: HarResponse;
-}
-
-export interface HarRequest {
-  method: string;
-  url: string;
-  headers: HarHeader[];
-  postData: {
-    mimeType: MimeType;
-    text: string;
-  };
-}
-
-export interface HarHeader {
-  name: string;
-  value: string;
-}
-
-export interface HarResponse {
-  status: number;
-  statusText: string;
-  httpVersion: string;
-  headers: HarHeader[];
-  content: {
-    mimeType: string;
-    text: string;
-    encoding: 'base64';
-  };
-}
-
-export interface HarData {
-  log: {
-    version: string;
-    creator: {
-      name: string;
-      version: string;
-    };
-    browser: {
-      name: string;
-      version: string;
-    };
-    pages: HarPage[];
-    entries: HarEntry[];
-  };
-}
-
 export function getHarDataFrom(filepath: string | undefined): HarData {
   if (!filepath) {
     throw new Error(

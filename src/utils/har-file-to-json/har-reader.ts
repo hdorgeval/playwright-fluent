@@ -1,4 +1,3 @@
-import { HarData, HarEntry, HarResponse } from './har-file-to-json';
 import { Request } from 'playwright';
 import { URL } from 'url';
 
@@ -12,6 +11,84 @@ export type HttpRequestMethod =
   | 'POST'
   | 'PUT'
   | 'TRACE';
+
+export type MimeType =
+  | 'application/javascript'
+  | 'application/json'
+  | 'application/json; charset=UTF-8'
+  | 'application/x-www-form-urlencoded; charset=UTF-8'
+  | 'font/woff2'
+  | 'image/gif'
+  | 'image/jpeg'
+  | 'image/png'
+  | 'image/vnd.microsoft.icon'
+  | 'image/webp'
+  | 'text/css'
+  | 'text/html; charset=utf-8'
+  | 'text/html'
+  | 'text/javascript'
+  | 'text/plain';
+
+export interface HarPage {
+  startedDateTime: string;
+  id: string;
+  title: string;
+}
+
+export interface HarEntry {
+  startedDateTime: string;
+  request: HarRequest;
+  response: HarResponse;
+}
+
+export interface HarRequest {
+  method: HttpRequestMethod;
+  url: string;
+  headers: HarHeader[];
+  queryString: NameValue[];
+  postData: {
+    mimeType: MimeType;
+    text: string;
+  };
+}
+
+export interface HarHeader {
+  name: string;
+  value: string;
+}
+
+export interface NameValue {
+  name: string;
+  value: string;
+}
+
+export interface HarResponse {
+  status: number;
+  statusText: string;
+  httpVersion: string;
+  headers: HarHeader[];
+  content: {
+    mimeType: MimeType;
+    text: string;
+    encoding: 'base64';
+  };
+}
+
+export interface HarData {
+  log: {
+    version: string;
+    creator: {
+      name: string;
+      version: string;
+    };
+    browser: {
+      name: string;
+      version: string;
+    };
+    pages: HarPage[];
+    entries: HarEntry[];
+  };
+}
 
 export function urlToPath(url: string): string {
   const urlObject = new URL(url);
