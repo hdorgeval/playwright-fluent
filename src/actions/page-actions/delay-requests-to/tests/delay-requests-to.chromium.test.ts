@@ -22,15 +22,13 @@ describe('delay requests to', (): void => {
   beforeEach((): void => {
     jest.setTimeout(120000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        const contexts = browser.contexts();
-        await contexts[0].close();
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      const contexts = browser.contexts();
+      await contexts[0].close();
+      await browser.close();
+    }
+  });
 
   test('should delay request', async (): Promise<void> => {
     // Given

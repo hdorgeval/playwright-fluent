@@ -6,11 +6,9 @@ describe('Playwright Fluent - withExtraHttpHeaders', (): void => {
     jest.setTimeout(70000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should set headers - webkit', async (): Promise<void> => {
     // Given

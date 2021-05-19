@@ -20,13 +20,11 @@ describe('record requests to', (): void => {
   beforeEach((): void => {
     jest.setTimeout(60000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should record successufull requests', async (): Promise<void> => {
     // Given

@@ -9,13 +9,11 @@ describe('handle is not visible', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should return true when selector is hidden - chromium', async (): Promise<void> => {
     // Given

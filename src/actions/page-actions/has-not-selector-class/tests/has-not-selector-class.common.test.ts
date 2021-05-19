@@ -16,11 +16,8 @@ describe('has-not-selector-class', (): void => {
     const expectedError = new Error(
       "Cannot check that 'foobar' does not have class 'yo' because no browser has been launched",
     );
-    await SUT.hasNotSelectorClass(
-      'foobar',
-      'yo',
-      page,
-      defaultWaitUntilOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.hasNotSelectorClass('foobar', 'yo', page, defaultWaitUntilOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 });

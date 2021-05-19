@@ -16,13 +16,11 @@ describe('hover on selector', (): void => {
     jest.setTimeout(30000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should wait for the selector to exists before hovering - webkit', async (): Promise<void> => {
     // Given

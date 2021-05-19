@@ -16,11 +16,8 @@ describe('has-selector-exact-value', (): void => {
     const expectedError = new Error(
       "Cannot check exact value of 'foobar' because no browser has been launched",
     );
-    await SUT.hasSelectorExactValue(
-      'foobar',
-      'value',
-      page,
-      defaultWaitUntilOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.hasSelectorExactValue('foobar', 'value', page, defaultWaitUntilOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 });

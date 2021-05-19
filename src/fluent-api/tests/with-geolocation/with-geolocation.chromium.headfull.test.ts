@@ -5,11 +5,9 @@ describe('Playwright Fluent - withGeolocation', (): void => {
     jest.setTimeout(30000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
   test('should show location - chromium', async (): Promise<void> => {
     // Given
     const browser = 'chromium';

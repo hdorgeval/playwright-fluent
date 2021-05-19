@@ -6,11 +6,9 @@ describe('has selector object exact expected value', (): void => {
     jest.setTimeout(30000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should throw an error when browser has not been launched', async (): Promise<void> => {
     // Given

@@ -13,13 +13,11 @@ describe('invoke method on selector', (): void => {
     jest.setTimeout(30000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should wait for the selector to exist in DOM before invoking method - chromium', async (): Promise<void> => {
     // Given

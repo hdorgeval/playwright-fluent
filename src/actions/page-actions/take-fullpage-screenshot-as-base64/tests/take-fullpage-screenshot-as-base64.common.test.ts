@@ -15,9 +15,8 @@ describe('full page screenshot', (): void => {
     const expectedError = new Error(
       'Cannot take a screenshot of the full page because no browser has been launched',
     );
-    await SUT.takeFullPageScreenshotAsBase64(
-      page,
-      SUT.defaultFullPageScreenshotOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.takeFullPageScreenshotAsBase64(page, SUT.defaultFullPageScreenshotOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 });

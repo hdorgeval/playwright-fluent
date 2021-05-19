@@ -7,11 +7,9 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
     jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should give back an error when selector does not exists', async (): Promise<void> => {
     // Given

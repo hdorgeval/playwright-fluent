@@ -7,11 +7,9 @@ describe.skip('Playwright Fluent - withWindowSize', (): void => {
     jest.setTimeout(30000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should target firefox in headfull mode with window size 800x600', async (): Promise<void> => {
     // Given

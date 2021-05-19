@@ -6,13 +6,11 @@ describe('get client rectangle', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
   test('should return an error when selector is not found - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });

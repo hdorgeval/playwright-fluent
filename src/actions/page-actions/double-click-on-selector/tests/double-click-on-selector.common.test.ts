@@ -16,10 +16,8 @@ describe('double-click on selector', (): void => {
     const expectedError = new Error(
       "Cannot double-click on 'foobar' because no browser has been launched",
     );
-    await SUT.doubleClickOnSelector(
-      'foobar',
-      page,
-      defaultDoubleClickOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.doubleClickOnSelector('foobar', page, defaultDoubleClickOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 });

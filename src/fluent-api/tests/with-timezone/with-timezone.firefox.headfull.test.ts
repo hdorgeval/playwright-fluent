@@ -6,11 +6,9 @@ describe.skip('Playwright Fluent - withTimezone', (): void => {
     jest.setTimeout(60000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should set Timezone - firefox', async (): Promise<void> => {
     // Given

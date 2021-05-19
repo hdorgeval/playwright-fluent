@@ -19,9 +19,9 @@ export const defaultDevice: Device = {
   },
 };
 
-export function getBrowserArgsForDevice(
-  device: Device,
-): { andBrowser: (browsername: BrowserName) => string[] } {
+export function getBrowserArgsForDevice(device: Device): {
+  andBrowser: (browsername: BrowserName) => string[];
+} {
   return {
     andBrowser: (browsername: BrowserName): string[] => {
       switch (browsername) {

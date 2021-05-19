@@ -7,13 +7,11 @@ describe('handle has focus', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
   test('should return true when input selector has focus', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });

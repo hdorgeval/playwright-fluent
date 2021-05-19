@@ -6,11 +6,9 @@ describe('Playwright Fluent - select(label).in(selector)', (): void => {
     jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
   test('should select an existing option - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'select-in.test.html')}`;

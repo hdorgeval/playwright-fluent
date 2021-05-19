@@ -12,13 +12,11 @@ describe('double-click on handle', (): void => {
     jest.setTimeout(70000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should throw when selector is undefined - chromium', async (): Promise<void> => {
     // Given
@@ -34,12 +32,9 @@ describe('double-click on handle', (): void => {
       "Cannot double-click on 'foobar' because selector was not found in DOM",
     );
 
-    await SUT.doubleClickOnHandle(
-      undefined,
-      'foobar',
-      page,
-      defaultDoubleClickOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.doubleClickOnHandle(undefined, 'foobar', page, defaultDoubleClickOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 
   test('should throw when selector is null - chromium', async (): Promise<void> => {
@@ -56,12 +51,9 @@ describe('double-click on handle', (): void => {
       "Cannot double-click on 'foobar' because selector was not found in DOM",
     );
 
-    await SUT.doubleClickOnHandle(
-      null,
-      'foobar',
-      page,
-      defaultDoubleClickOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.doubleClickOnHandle(null, 'foobar', page, defaultDoubleClickOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 
   test('should wait for the selector to be enabled - chromium', async (): Promise<void> => {

@@ -13,13 +13,11 @@ describe('check handle', (): void => {
     jest.setTimeout(70000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should throw when selector is undefined - chromium', async (): Promise<void> => {
     // Given

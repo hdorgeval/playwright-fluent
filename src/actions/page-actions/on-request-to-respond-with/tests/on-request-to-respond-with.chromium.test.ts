@@ -22,13 +22,11 @@ describe('on request to respond with', (): void => {
   beforeEach((): void => {
     jest.setTimeout(120000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should mock response', async (): Promise<void> => {
     // Given

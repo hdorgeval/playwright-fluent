@@ -5,11 +5,9 @@ describe.skip('Playwright Fluent - withGeolocation', (): void => {
     jest.setTimeout(70000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should show location', async (): Promise<void> => {
     // Given

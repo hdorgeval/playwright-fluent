@@ -44,7 +44,7 @@ export async function recordRequestsTo(
       return;
     }
     if (requestedUrl && requestedUrl.includes(partialUrl)) {
-      const typedRequest = (request as unknown) as Request;
+      const typedRequest = request as unknown as Request;
       callback(typedRequest);
       return;
     }
@@ -57,7 +57,7 @@ export async function recordRequestsTo(
       return;
     }
     if (requestedUrl && requestedUrl.includes(partialUrl)) {
-      const typedRequest = (request as unknown) as Request;
+      const typedRequest = request as unknown as Request;
       callback(typedRequest);
       return;
     }

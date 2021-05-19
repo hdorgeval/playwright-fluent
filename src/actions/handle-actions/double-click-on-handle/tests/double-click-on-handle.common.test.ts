@@ -17,11 +17,8 @@ describe('double-click on handle', (): void => {
       "Cannot double-click on 'foobar' because no browser has been launched",
     );
 
-    await SUT.doubleClickOnHandle(
-      handle,
-      'foobar',
-      undefined,
-      defaultDoubleClickOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.doubleClickOnHandle(handle, 'foobar', undefined, defaultDoubleClickOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 });

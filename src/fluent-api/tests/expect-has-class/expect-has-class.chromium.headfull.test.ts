@@ -6,11 +6,9 @@ describe('Playwright Fluent - expect has class', (): void => {
     jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should throw on a non existing selector - chromium', async (): Promise<void> => {
     // Given

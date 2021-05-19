@@ -7,13 +7,11 @@ describe('get viewport rectangle of page', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
   test.skip('should return defaultViewport - firefox', async (): Promise<void> => {
     // Given
     browser = await firefox.launch({ headless: false });

@@ -14,14 +14,12 @@ describe('switch from handle to iframe', (): void => {
     jest.setTimeout(60000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-        browser = undefined;
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+      browser = undefined;
+    }
+  });
 
   test('should throw when selector is undefined - chromium', async (): Promise<void> => {
     // Given

@@ -16,11 +16,8 @@ describe('invoke-method-on-selector', (): void => {
     const expectedError = new Error(
       "Cannot invoke method 'click' on 'foobar' because no browser has been launched",
     );
-    await SUT.invokeMethodOnSelector(
-      'click',
-      'foobar',
-      page,
-      defaultInvokeOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.invokeMethodOnSelector('click', 'foobar', page, defaultInvokeOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 });

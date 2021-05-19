@@ -14,13 +14,11 @@ describe('invoke method on handle', (): void => {
     jest.setTimeout(70000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should invoke method click and focus on checkbox - chromium', async (): Promise<void> => {
     // Given

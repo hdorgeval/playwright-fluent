@@ -16,12 +16,8 @@ describe('has-selector-attribute', (): void => {
     const expectedError = new Error(
       "Cannot check that 'foobar' has attribute 'data-id' with value 'yo' because no browser has been launched",
     );
-    await SUT.hasSelectorAttribute(
-      'foobar',
-      'data-id',
-      'yo',
-      page,
-      defaultWaitUntilOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.hasSelectorAttribute('foobar', 'data-id', 'yo', page, defaultWaitUntilOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 });

@@ -6,11 +6,9 @@ describe.skip('Playwright Fluent - withOptions', (): void => {
     jest.setTimeout(70000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should target webkit in headfull mode', async (): Promise<void> => {
     // Given

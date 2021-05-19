@@ -150,11 +150,9 @@ describe('wait until', (): void => {
     // When
     // Then
     const expectedError = new Error('cannot wait any more!');
-    await SUT.waitUntil(
-      predicate,
-      () => Promise.resolve('cannot wait any more!'),
-      options,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.waitUntil(predicate, () => Promise.resolve('cannot wait any more!'), options).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 
   test('should throw when predicate throw', async (): Promise<void> => {

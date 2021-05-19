@@ -8,11 +8,9 @@ describe('Playwright Fluent - withStorageState', (): void => {
     jest.setTimeout(50000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
   test('should re-hydrate cookies and localStorage from a file - chromium', async (): Promise<void> => {
     // Given
     const browser = 'chromium';

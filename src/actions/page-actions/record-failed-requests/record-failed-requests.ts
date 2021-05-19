@@ -14,21 +14,21 @@ export async function recordFailedRequests(
   page.on('requestfinished', async (request) => {
     const response = await request.response();
     if (response === null) {
-      const typedRequest = (request as unknown) as Request;
+      const typedRequest = request as unknown as Request;
       callback(typedRequest);
       return;
     }
 
     const status = response.status();
     if (failedStatus.includes(status)) {
-      const typedRequest = (request as unknown) as Request;
+      const typedRequest = request as unknown as Request;
       callback(typedRequest);
       return;
     }
   });
 
   page.on('requestfailed', (request) => {
-    const typedRequest = (request as unknown) as Request;
+    const typedRequest = request as unknown as Request;
     callback(typedRequest);
     return;
   });

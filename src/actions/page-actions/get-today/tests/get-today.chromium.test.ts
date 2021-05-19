@@ -6,13 +6,11 @@ describe('get today date of page', (): void => {
   beforeEach((): void => {
     jest.setTimeout(60000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
   test('should return today - chromium', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });

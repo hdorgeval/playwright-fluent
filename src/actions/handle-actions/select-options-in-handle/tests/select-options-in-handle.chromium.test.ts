@@ -11,13 +11,11 @@ describe('are options already selected in handle', (): void => {
     jest.setTimeout(60000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should throw when selector is not a select - chromium', async (): Promise<void> => {
     // Given
@@ -34,13 +32,9 @@ describe('are options already selected in handle', (): void => {
     // Then
     const expectedError = new Error("Cannot find any options in selector '#empty-input'");
 
-    await SUT.selectOptionsInHandle(
-      handle,
-      selector,
-      ['foobar'],
-      page,
-      defaultSelectOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
+    await SUT.selectOptionsInHandle(handle, selector, ['foobar'], page, defaultSelectOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 
   test('should throw when select is disabled - chromium', async (): Promise<void> => {

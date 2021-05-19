@@ -6,11 +6,9 @@ describe('Playwright Fluent - click', (): void => {
     jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
   test('should continue test execution on new opened tab - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'auto-switch-to-opened-tab.test.html')}`;

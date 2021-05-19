@@ -10,13 +10,11 @@ describe('get intersection ratio of handle', (): void => {
     jest.setTimeout(30000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should return 0 when selector is out of viewport - chromium', async (): Promise<void> => {
     // Given

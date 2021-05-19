@@ -9,13 +9,11 @@ describe('get class list of handle', (): void => {
     jest.setTimeout(30000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should return empty array when class attribute is empty - chromium', async (): Promise<void> => {
     // Given

@@ -7,13 +7,11 @@ describe('get-handle-of', (): void => {
   beforeEach((): void => {
     jest.setTimeout(60000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should return null when page has not been initalized', async (): Promise<void> => {
     // Given

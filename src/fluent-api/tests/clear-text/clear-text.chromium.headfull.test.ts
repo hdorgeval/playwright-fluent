@@ -6,11 +6,9 @@ describe('Playwright Fluent - clearText', (): void => {
     jest.setTimeout(120000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should first click on an element - chromium', async (): Promise<void> => {
     // Given

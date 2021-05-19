@@ -16,14 +16,12 @@ function serializeBody<T>(body: T): string | Buffer {
   try {
     return JSON.stringify(body, null, 2);
   } catch (error) {
-    const buffer = (body as unknown) as Buffer;
+    const buffer = body as unknown as Buffer;
     return buffer;
   }
 }
 
-function buildPlaywrightResponseWith<T>(
-  mockedResponse: Partial<MockResponse<T>>,
-): {
+function buildPlaywrightResponseWith<T>(mockedResponse: Partial<MockResponse<T>>): {
   status: number;
   headers: HttpHeaders;
   contentType: string;

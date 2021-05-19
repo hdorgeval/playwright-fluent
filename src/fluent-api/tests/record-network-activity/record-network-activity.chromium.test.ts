@@ -20,11 +20,9 @@ describe('Playwright Fluent - recordNetworkActivity()', (): void => {
     jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should record network activity', async (): Promise<void> => {
     // Given

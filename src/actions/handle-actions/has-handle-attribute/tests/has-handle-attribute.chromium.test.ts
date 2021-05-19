@@ -7,13 +7,11 @@ describe('handle has attribue with expected value', (): void => {
   beforeEach((): void => {
     jest.setTimeout(60000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should return true when selector has attribute with the expected value', async (): Promise<void> => {
     // Given

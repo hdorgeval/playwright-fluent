@@ -6,11 +6,9 @@ describe('Playwright Fluent - invoke method', (): void => {
     jest.setTimeout(30000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should give back an error when browser has not been launched', async (): Promise<void> => {
     // Given

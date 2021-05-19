@@ -6,11 +6,9 @@ describe('Playwright Fluent - invoke method on selector', (): void => {
     jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
   test('should invoke click method on selector - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'invoke-method.test.html')}`;

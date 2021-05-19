@@ -7,11 +7,9 @@ describe('Playwright Fluent - withCursor', (): void => {
     jest.setTimeout(30000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should do nothing when browser is not launched', async (): Promise<void> => {
     // Given

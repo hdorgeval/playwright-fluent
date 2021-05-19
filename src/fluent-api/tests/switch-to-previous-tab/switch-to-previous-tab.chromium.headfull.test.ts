@@ -6,11 +6,9 @@ describe('Playwright Fluent - switchToPreviousTab', (): void => {
     jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
   test('should be able to switch back to previous tab - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'switch-to-previous-tab.test.html')}`;

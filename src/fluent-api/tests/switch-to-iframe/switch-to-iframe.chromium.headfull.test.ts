@@ -6,11 +6,9 @@ describe('Playwright Fluent - switchToIframe', (): void => {
     jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
   test('should switch to iframe - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'switch-to-iframe.test.html')}`;

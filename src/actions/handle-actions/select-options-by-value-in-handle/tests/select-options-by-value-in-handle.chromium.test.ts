@@ -11,13 +11,11 @@ describe('select options by value in handle', (): void => {
     jest.setTimeout(60000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should throw when selector is not a select - chromium', async (): Promise<void> => {
     // Given

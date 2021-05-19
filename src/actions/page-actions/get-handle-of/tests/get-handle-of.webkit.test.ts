@@ -7,13 +7,11 @@ describe('get-handle-of', (): void => {
   beforeEach((): void => {
     jest.setTimeout(60000);
   });
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should return handle when selector exists on the page - webkit', async (): Promise<void> => {
     // Given

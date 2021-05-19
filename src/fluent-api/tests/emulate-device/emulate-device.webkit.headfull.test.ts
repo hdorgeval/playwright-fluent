@@ -8,11 +8,9 @@ describe.skip('Playwright Fluent - emulateDevice', (): void => {
     jest.setTimeout(60000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test('should target webkit in headfull mode with simulated device', async (): Promise<void> => {
     // Given

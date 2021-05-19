@@ -13,13 +13,11 @@ describe('scroll to handle', (): void => {
     jest.setTimeout(30000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+    }
+  });
 
   test('should scroll to a selector that is out of viewport - chromium', async (): Promise<void> => {
     // Given

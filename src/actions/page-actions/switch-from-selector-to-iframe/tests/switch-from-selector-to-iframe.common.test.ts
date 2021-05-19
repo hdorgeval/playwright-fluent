@@ -11,14 +11,12 @@ describe('switch from selector to iframe', (): void => {
     jest.setTimeout(60000);
   });
 
-  afterEach(
-    async (): Promise<void> => {
-      if (browser) {
-        await browser.close();
-        browser = undefined;
-      }
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    if (browser) {
+      await browser.close();
+      browser = undefined;
+    }
+  });
 
   test('should throw when selector is not found - chromium', async (): Promise<void> => {
     // Given

@@ -6,11 +6,9 @@ describe('Selector API - AG Grid samples', (): void => {
     jest.setTimeout(60000);
     p = new PlaywrightFluent();
   });
-  afterEach(
-    async (): Promise<void> => {
-      await p.close();
-    },
-  );
+  afterEach(async (): Promise<void> => {
+    await p.close();
+  });
 
   test.skip('should select a name in the grid', async (): Promise<void> => {
     // Given I open The AG Grid demo site

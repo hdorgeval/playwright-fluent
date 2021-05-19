@@ -666,9 +666,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.onRequestToRespondWith(partialUrl, response, bypassPredicate, this.currentPage());
   }
-  public onRequestTo(
-    partialUrl: string,
-  ): {
+  public onRequestTo(partialUrl: string): {
     respondWith: <T>(
       response:
         | Partial<MockResponse<T>>
@@ -1047,9 +1045,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       options,
     );
   }
-  public select(
-    ...labels: string[]
-  ): {
+  public select(...labels: string[]): {
     in: (selector: string | SelectorFluent, options?: Partial<SelectOptions>) => PlaywrightFluent;
     inFocused: (options?: Partial<SelectOptions>) => PlaywrightFluent;
   } {
@@ -1127,9 +1123,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     );
   }
 
-  public selectByValue(
-    ...values: string[]
-  ): {
+  public selectByValue(...values: string[]): {
     in: (selector: string | SelectorFluent, options?: Partial<SelectOptions>) => PlaywrightFluent;
     inFocused: (options?: Partial<SelectOptions>) => PlaywrightFluent;
   } {
@@ -1420,11 +1414,9 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
     const defaultErrorMessage = `Predicate still resolved to false after ${waitUntilOptions.timeoutInMilliseconds} ms.`;
     const errorMessageOrDefault = errorMessage || defaultErrorMessage;
-    this.actions.push(
-      async (): Promise<void> => {
-        await waitUntil(predicate, errorMessageOrDefault, waitUntilOptions);
-      },
-    );
+    this.actions.push(async (): Promise<void> => {
+      await waitUntil(predicate, errorMessageOrDefault, waitUntilOptions);
+    });
     return this;
   }
 
@@ -1447,12 +1439,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
 
-    this.actions.push(
-      async (): Promise<void> => {
-        const defaultErrorMessage = `Value function could not have a stable result after ${waitUntilOptions.timeoutInMilliseconds} ms. Use verbose option to get more details.`;
-        await waitForStabilityOf(getValue, defaultErrorMessage, waitUntilOptions);
-      },
-    );
+    this.actions.push(async (): Promise<void> => {
+      const defaultErrorMessage = `Value function could not have a stable result after ${waitUntilOptions.timeoutInMilliseconds} ms. Use verbose option to get more details.`;
+      await waitForStabilityOf(getValue, defaultErrorMessage, waitUntilOptions);
+    });
     return this;
   }
 

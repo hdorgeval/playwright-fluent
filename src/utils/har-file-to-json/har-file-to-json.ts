@@ -32,7 +32,7 @@ export function getHarResponseContentAs<T>(harResponse: HarResponse | undefined)
     return JSON.parse(rawContent) as T;
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (rawContent as any) as T;
+    return rawContent as any as T;
   }
 }
 
