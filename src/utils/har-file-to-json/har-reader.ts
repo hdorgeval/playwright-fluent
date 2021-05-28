@@ -46,10 +46,12 @@ export interface HarRequest {
   url: string;
   headers: HarHeader[];
   queryString: NameValue[];
-  postData: {
-    mimeType: MimeType;
-    text: string;
-  };
+  postData: HarPostData;
+}
+
+export interface HarPostData {
+  mimeType: MimeType;
+  text: string;
 }
 
 export interface HarHeader {
