@@ -1,7 +1,7 @@
 import * as SUT from '../../playwright-fluent';
 import * as path from 'path';
 
-describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
+describe('Playwright Fluent - onRequestTo(url).respondFromHar()', (): void => {
   let p: SUT.PlaywrightFluent;
 
   beforeEach((): void => {
@@ -39,8 +39,9 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .onRequestTo('/')
-      .respondFromHar([harFile], options)
-      .navigateTo('https://offline.github.com/');
+      .respondFromHar([harFile], options);
+
+    await p.navigateTo('https://github.com/');
 
     // Then
     const signupButton = p.selector('button').withText('Sign up for GitHub');
@@ -52,12 +53,8 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
       .isEnabled();
 
     // eslint-disable-next-line no-console
-    console.log('Found urls:');
-    // eslint-disable-next-line no-console
     console.log(foundUrls.join('\n'));
 
-    // eslint-disable-next-line no-console
-    console.log('Not found urls:');
     // eslint-disable-next-line no-console
     console.log(notFoundUrls.join('\n'));
   });
