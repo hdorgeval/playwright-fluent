@@ -21,26 +21,83 @@ function getAllHarEntries(harFiles: string[]): HarEntry[] {
 }
 
 export interface HarRequestResponseOptions {
+  /**
+   * Optional filter to take only a subset of all available HAR entries
+   * By default all HAR entries found in the provided HAR files are taken
+   * @memberof HarRequestResponseOptions
+   */
   filterAllHarEntriesBeforeProcessing: (entry: HarEntry, index: number) => boolean;
+
+  /**
+   * Optional Predicate used to bypass request interception for specific requests.
+   * By default all requests that match the given url are intercepted.
+   * @memberof HarRequestResponseOptions
+   */
   bypassRequestPredicate: (request: Request) => boolean;
+
+  /**
+   * Optional filter that enables you to select the HAR entries for the given requested Url
+   * By default entries are filtered by comparing the urls without the hostname
+   * @memberof HarRequestResponseOptions
+   */
   filterHarEntryByRequestUrl: (requestUrl: string, harRequestUrl: string, index: number) => boolean;
+
+  /**
+   * Optional filter that enables you to select the HAR entries for the given requested postdata
+   * By default entries are filtered by checking equality of postdata
+   * @memberof HarRequestResponseOptions
+   */
   filterHarEntryByRequestPostData: (
     requestPostData: string | null,
     harRequestPostData: HarPostData,
     index: number,
   ) => boolean;
+
+  /**
+   * Optional filter that enables you to select the HAR entries with a specific response status
+   *
+   * @memberof HarRequestResponseOptions
+   */
   filterHarEntryByResponseStatus: (status: number) => boolean;
+
+  /**
+   * Optional selector to let you select one HAR entry when several HAR entries have been found.
+   * By default the last HAR entry is taken.
+   *
+   * @memberof HarRequestResponseOptions
+   */
   selectEntryFromFoundHarEntries: (entries: HarEntry[], requestedUrl: string) => HarEntry;
+
+  /**
+   * Optional callback that will enable you to diagnose why no HAR entry has been found regarding a specific request url.
+   * You should not mutate any given parameters
+   *
+   * @memberof HarRequestResponseOptions
+   */
   onHarEntryNotFoundForRequestedUrl: (
     allEntries: HarEntry[],
     requestedUrl: string,
     requestedMethod: HttpRequestMethod,
   ) => void;
+
+  /**
+   * Optional callback that will enable you to check the correct HAR entry has been selected regarding a specific request url.
+   * You should not mutate any given parameters
+   *
+   * @memberof HarRequestResponseOptions
+   */
   onHarEntryFoundForRequestedUrl: (
     foundEntry: HarEntry,
     requestedUrl: string,
     requestedMethod: HttpRequestMethod,
   ) => void;
+
+  /**
+   * Optional callback that will enable you to add/remove/update the headers that will be provided in the response object
+   * By default all headers found in the HAR entry will be used to serve the response.
+   *
+   * @memberof HarRequestResponseOptions
+   */
   enrichResponseHeaders: (headers: HttpHeaders) => HttpHeaders;
 }
 

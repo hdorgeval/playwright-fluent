@@ -29,6 +29,7 @@ export * from './is-selector-not-visible';
 export * from './is-selector-unchecked';
 export * from './is-selector-visible';
 export * from './navigate-to';
+export * from './on-request-to-respond-from-har';
 export * from './on-request-to-respond-with';
 export * from './pause';
 export * from './query-selector-all-in-page';

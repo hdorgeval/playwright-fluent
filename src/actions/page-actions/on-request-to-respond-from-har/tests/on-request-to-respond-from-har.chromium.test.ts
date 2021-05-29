@@ -73,15 +73,15 @@ describe('on request to respond from HAR files', (): void => {
 
     const harFile = path.join(__dirname, 'on-request-to-respond-with.har');
     const harFiles = [harFile];
+    const foundUrls: string[] = [];
+    const notFoundUrls: string[] = [];
     const options: HarRequestResponseOptions = {
       ...defaultHarRequestResponseOptions,
       onHarEntryFoundForRequestedUrl: (_foundEntry, requestedUrl, requestedMethod) => {
-        // eslint-disable-next-line no-console
-        console.log(`found entry for url : '${requestedMethod}' ${requestedUrl}`);
+        foundUrls.push(`found entry for url : '${requestedMethod}' ${requestedUrl}`);
       },
       onHarEntryNotFoundForRequestedUrl: (_allEntries, requestedUrl, requestedMethod) => {
-        // eslint-disable-next-line no-console
-        console.log(`not found entry for url :  '${requestedMethod}' ${requestedUrl}`);
+        notFoundUrls.push(`not found entry for url :  '${requestedMethod}' ${requestedUrl}`);
       },
     };
     // When

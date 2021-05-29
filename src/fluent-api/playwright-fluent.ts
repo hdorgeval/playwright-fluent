@@ -23,6 +23,7 @@ import {
   defaultCloseOptions,
   defaultDoubleClickOptions,
   defaultFullPageScreenshotOptions,
+  defaultHarRequestResponseOptions,
   defaultHoverOptions,
   defaultInvokeOptions,
   defaultKeyboardPressOptions,
@@ -33,6 +34,7 @@ import {
   defaultSwitchToIframeOptions,
   defaultTypeTextOptions,
   DoubleClickOptions,
+  HarRequestResponseOptions,
   HoverOptions,
   InvokeOptions,
   KeyboardHoldKey,
@@ -110,6 +112,7 @@ export {
   DateFormat,
   DateTimeFormatOptions,
   DoubleClickOptions,
+  HarRequestResponseOptions,
   HoverOptions,
   InvokeOptions,
   KeyboardHoldKey,
@@ -666,12 +669,24 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.onRequestToRespondWith(partialUrl, response, bypassPredicate, this.currentPage());
   }
+
+  private async onRequestToRespondFromHar(
+    partialUrl: string,
+    harFiles: string[],
+    options: HarRequestResponseOptions,
+  ): Promise<void> {
+    await action.onRequestToRespondFromHar(partialUrl, harFiles, this.currentPage(), options);
+  }
   public onRequestTo(partialUrl: string): {
     respondWith: <T>(
       response:
         | Partial<MockResponse<T>>
         | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
       bypassPredicate?: (request: PlaywrightRequest) => boolean,
+    ) => PlaywrightFluent;
+    respondFromHar: (
+      harFiles: string[],
+      options?: Partial<HarRequestResponseOptions>,
     ) => PlaywrightFluent;
   } {
     return {
@@ -683,6 +698,19 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ): PlaywrightFluent => {
         const action = (): Promise<void> =>
           this.onRequestToRespondWith(partialUrl, response, bypassPredicate);
+        this.actions.push(action);
+        return this;
+      },
+      respondFromHar: (
+        harFiles: string[],
+        options?: Partial<HarRequestResponseOptions>,
+      ): PlaywrightFluent => {
+        const harOptions: HarRequestResponseOptions = {
+          ...defaultHarRequestResponseOptions,
+          ...options,
+        };
+        const action = (): Promise<void> =>
+          this.onRequestToRespondFromHar(partialUrl, harFiles, harOptions);
         this.actions.push(action);
         return this;
       },
