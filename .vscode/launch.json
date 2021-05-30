@@ -5,6 +5,9 @@
   "version": "0.2.0",
   "configurations": [{
     "type": "node",
+    "env": {
+      "_DEBUG": "pw:api"
+    },
     "name": "jest-current-file",
     "request": "launch",
     "args": [
