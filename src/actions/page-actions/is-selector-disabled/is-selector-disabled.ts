@@ -1,6 +1,6 @@
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
-import { isHandleDisabled } from '../../handle-actions';
+import { isHandleDisabled, isHandleReadOnly } from '../../handle-actions';
 import { Frame, Page } from 'playwright';
 
 export async function isSelectorDisabled(
@@ -15,6 +15,8 @@ export async function isSelectorDisabled(
   }
 
   const handle = await getHandleOf(selector, page, options);
-  const result = await isHandleDisabled(handle, { verbose: options.verbose });
+  const isDisabled = await isHandleDisabled(handle, { verbose: options.verbose });
+  const isReadOnly = await isHandleReadOnly(handle, { verbose: options.verbose });
+  const result = isDisabled || isReadOnly;
   return result;
 }

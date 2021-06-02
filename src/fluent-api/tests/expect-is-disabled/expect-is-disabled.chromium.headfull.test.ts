@@ -92,4 +92,41 @@ describe('Playwright Fluent - expectThat isDisabled', (): void => {
     const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
     expect(isDisabled).toBe(true);
   });
+  test('should wait until selector exists and is readOnly - chromium', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'expect-is-disabled.test.html')}`;
+    const selector = '#dynamically-added-readonly-input';
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .navigateTo(url)
+      .expectThatSelector(selector)
+      .isDisabled();
+
+    // Then
+    const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
+    expect(isDisabled).toBe(true);
+  });
+
+  test('should wait until selector object exists and is read-only - chromium', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'expect-is-disabled.test.html')}`;
+    const selector = p.selector('input').withValue('dynamically added readonly input');
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .navigateTo(url)
+      .expectThatSelector(selector)
+      .isDisabled();
+
+    // Then
+    const isDisabled = await p.isDisabled(selector, noWaitNoThrowOptions);
+    expect(isDisabled).toBe(true);
+  });
 });

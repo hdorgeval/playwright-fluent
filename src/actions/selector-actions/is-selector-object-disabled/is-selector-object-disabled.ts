@@ -1,6 +1,6 @@
 import { waitUntil, report, WaitUntilOptions } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
-import { isHandleDisabled } from '../../handle-actions';
+import { isHandleDisabled, isHandleReadOnly } from '../../handle-actions';
 import { Frame, Page } from 'playwright';
 
 export async function isSelectorObjectDisabled(
@@ -22,5 +22,8 @@ export async function isSelectorObjectDisabled(
   );
 
   const handle = await selector.getHandle();
-  return await isHandleDisabled(handle, { verbose: options.verbose });
+  const isDisabled = await isHandleDisabled(handle, { verbose: options.verbose });
+  const isReadOnly = await isHandleReadOnly(handle, { verbose: options.verbose });
+  const result = isDisabled || isReadOnly;
+  return result;
 }

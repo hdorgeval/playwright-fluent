@@ -32,6 +32,7 @@ module.exports = {
     '!src/**/invoke-method-on-handle.ts',
     '!src/**/is-handle-checked.ts',
     '!src/**/is-handle-disabled.ts',
+    '!src/**/is-handle-read-only.ts',
     '!src/**/is-handle-enabled.ts',
     '!src/**/is-handle-not-visible.ts',
     '!src/**/is-handle-unchecked.ts',
