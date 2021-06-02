@@ -17,6 +17,7 @@
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [delayRequestsTo(url, durationInSeconds)](#delayRequestsTourl-durationInSeconds)
   - [onRequestTo(url).respondWith(response[, bypassPredicate])](#onRequestTourlrespondWithresponse-bypassPredicate)
+  - [onRequestTo(url).respondFromHar(harFiles[, options])](#onRequestTourlrespondFromHarharFiles-options)
   - [recordDownloadsTo(directory)](#recordDownloadsTodirectory)
   - [recordFailedRequests()](#recordFailedRequests)
   - [recordNetworkActivity(options)](#recordNetworkActivityoptions)
@@ -946,6 +947,123 @@ await p
     };
   })
   .navigateTo(url);
+```
+
+---
+
+### onRequestTo(url).respondFromHar(harFiles[, options])
+
+- url: `string`
+- harFiles: `string[]`
+- options: `Partial<HarRequestResponseOptions>`
+
+Will intercept any request whose url contains the input `url` (this parameter should be seen as a partial url, it is not a regex and not a glob pattern), then will automatically respond with a `response` object that match input request inside HAR files.
+
+This feature is experimental and might not work as you expect!
+The main purpose of this feature, is to be able to run and test a website in complete isolation from the backend (HTTP requests only).
+
+Be careful to call the `onRequestTo(url).respondFromHar()` before navigating to the first page of the website under test.
+
+The options object enables you to override some or all of the internal implementation.
+
+```js
+export interface HarRequestResponseOptions {
+  /**
+   * Optional filter to take only a subset of all available HAR entries
+   * By default all HAR entries found in the provided HAR files are taken
+   * @memberof HarRequestResponseOptions
+   */
+  filterAllHarEntriesBeforeProcessing: (entry: HarEntry, index: number) => boolean;
+
+  /**
+   * Optional Predicate used to bypass request interception on for specific request.
+   * By default all requests that match the given url are intercepted.
+   * @memberof HarRequestResponseOptions
+   */
+  bypassRequestPredicate: (request: Request) => boolean;
+
+  /**
+   * Optional filter that enables you to select the HAR entries for the given requested Url
+   * By default entries are filtered by comparing the urls without the hostname
+   * @memberof HarRequestResponseOptions
+   */
+  filterHarEntryByRequestUrl: (requestUrl: string, harRequestUrl: string, index: number) => boolean;
+
+  /**
+   * Optional filter that enables you to select the HAR entries for the given requested postdata
+   * By default entries are filtered by checking equality of postdata
+   * @memberof HarRequestResponseOptions
+   */
+  filterHarEntryByRequestPostData: (
+    requestPostData: string | null,
+    harRequestPostData: HarPostData,
+    index: number,
+  ) => boolean;
+
+  /**
+   * Optional filter that enables you to select the HAR entries with a specific response status
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  filterHarEntryByResponseStatus: (status: number) => boolean;
+
+  /**
+   * Optional selector to let you select one HAR entry when several HAR entries have been found.
+   * By default the last HAR entry is taken.
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  selectEntryFromFoundHarEntries: (entries: HarEntry[], requestedUrl: string) => HarEntry;
+
+  /**
+   * Optional callback that will enable you to diagnose why no HAR entry has been found regarding a specific request url.
+   * You should not mutate any given parameters
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  onHarEntryNotFoundForRequestedUrl: (
+    allEntries: HarEntry[],
+    requestedUrl: string,
+    requestedMethod: HttpRequestMethod,
+  ) => void;
+
+  /**
+   * Optional callback that will enable you to check the correct HAR entry has been selected regarding a specific request url.
+   * You should not mutate any given parameters
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  onHarEntryFoundForRequestedUrl: (
+    foundEntry: HarEntry,
+    requestedUrl: string,
+    requestedMethod: HttpRequestMethod,
+  ) => void;
+
+  /**
+   * Optional callback that will enable you to add/remove/update the headers that will be provided in the response object
+   * By default all headers found in the HAR entry will be used to serve the response.
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  enrichResponseHeaders: (headers: HttpHeaders) => HttpHeaders;
+}
+```
+
+Example:
+
+```js
+const p = new PlaywrightFluent();
+const harFile = path.join(__dirname, 'github.com.har');
+
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .onRequestTo('/')
+  .respondFromHar([harFile])
+  .navigateTo('https://github.com/');
+
+// The github website should open with the full UI even if the network is offine.
 ```
 
 ---
