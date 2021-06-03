@@ -1,6 +1,6 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { LaunchOptions } from '../../../actions';
-import { sizeOf, Viewport } from '../../../devices';
+import { sizeOf, ViewportSize } from '../../../devices';
 describe('Playwright Fluent - withViewPort', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
@@ -17,7 +17,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
       headless: true,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const viewport: Viewport = {
+    const viewport: ViewportSize = {
       ...sizeOf._800x600,
     };
 
@@ -42,7 +42,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
       headless: true,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const viewport: Viewport = {
+    const viewport: ViewportSize = {
       ...sizeOf._1280x720,
     };
 
@@ -67,7 +67,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
       headless: true,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const viewport: Viewport = {
+    const viewport: ViewportSize = {
       ...sizeOf._1600x900,
     };
 

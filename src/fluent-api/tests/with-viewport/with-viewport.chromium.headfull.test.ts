@@ -1,6 +1,6 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { LaunchOptions } from '../../../actions';
-import { sizeOf, Viewport } from '../../../devices';
+import { sizeOf, ViewportSize } from '../../../devices';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
 describe('Playwright Fluent - withViewPort', (): void => {
@@ -19,7 +19,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
       headless: false,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const viewport: Viewport = {
+    const viewport: ViewportSize = {
       ...sizeOf._800x600,
     };
 
@@ -44,7 +44,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
       headless: false,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const viewport: Viewport = {
+    const viewport: ViewportSize = {
       ...sizeOf._1280x720,
     };
 
@@ -74,7 +74,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
       headless: false,
     };
     const url = 'https://reactstrap.github.io/components/form';
-    const viewport: Viewport = {
+    const viewport: ViewportSize = {
       ...sizeOf._1600x900,
     };
     // When

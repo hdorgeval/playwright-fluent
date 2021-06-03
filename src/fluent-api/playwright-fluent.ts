@@ -62,7 +62,7 @@ import {
   WindowSize,
   WindowSizeOptions,
   getBrowserArgsForWindowSize,
-  Viewport,
+  ViewportSize,
   ViewportOptions,
   defaultViewportOptions,
 } from '../devices';
@@ -140,6 +140,7 @@ export {
   sizeOf,
   Viewport,
   ViewportOptions,
+  ViewportSize,
   WindowSize,
   WindowSizeOptions,
 } from '../devices';
@@ -331,6 +332,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
     if (this.emulatedDevice) {
       contextOptions.viewport = this.emulatedDevice.viewport;
       contextOptions.userAgent = this.emulatedDevice.userAgent;
+      contextOptions.hasTouch = this.emulatedDevice.hasTouch;
+      contextOptions.isMobile = this.emulatedDevice.isMobile;
+      contextOptions.screen = this.emulatedDevice.screen;
+
       this.launchOptions.args = this.launchOptions.args || [];
       this.launchOptions.args.push(
         ...getBrowserArgsForDevice(this.emulatedDevice).andBrowser(name),
@@ -415,7 +420,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
-  public withViewport(viewport: Viewport, options?: Partial<ViewportOptions>): PlaywrightFluent {
+  public withViewport(
+    viewport: ViewportSize,
+    options?: Partial<ViewportOptions>,
+  ): PlaywrightFluent {
     const viewportOptions: ViewportOptions = {
       ...defaultViewportOptions,
       ...options,

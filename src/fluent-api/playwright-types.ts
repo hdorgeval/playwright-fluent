@@ -1,5 +1,6 @@
+import { WindowSize } from '.';
 import { TimeZoneId } from './timezone-ids';
-import { Viewport } from '../devices';
+import { ViewportSize } from '../devices';
 
 export interface Geolocation {
   longitude: number;
@@ -37,7 +38,14 @@ export interface BrowserContextOptions {
   permissions?: Permission[];
   timezoneId?: TimeZoneId;
   userAgent?: string;
-  viewport?: Viewport | null;
+  viewport?: ViewportSize | null;
+
+  /**
+   * Emulates consistent window screen size available inside web page via `window.screen`. Is only used when the `viewport`
+   * is set.
+   */
+  screen?: WindowSize;
+
   proxy?: {
     /**
      * Proxy to be used for all requests. HTTP and SOCKS proxies are supported, for example `http://myproxy.com:3128` or `socks5://myproxy.com:3128`. Short form `myproxy.com:3128` is considered an HTTP proxy.
@@ -100,6 +108,17 @@ export interface BrowserContextOptions {
     };
   };
   storageState?: StorageState | string;
+
+  /**
+   * Whether the `meta viewport` tag is taken into account and touch events are enabled. Defaults to `false`. Not supported
+   * in Firefox.
+   */
+  isMobile?: boolean;
+
+  /**
+   * Specifies if viewport supports touch events. Defaults to false.
+   */
+  hasTouch?: boolean;
 }
 
 /**

@@ -14,9 +14,10 @@ export const defaultDevice: Device = {
   viewport: {
     width: 812,
     height: 375,
-    deviceScaleFactor: 3,
-    isMobile: true,
   },
+  deviceScaleFactor: 3,
+  isMobile: true,
+  hasTouch: true,
 };
 
 export function getBrowserArgsForDevice(device: Device): {
