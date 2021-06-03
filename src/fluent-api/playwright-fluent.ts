@@ -333,7 +333,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       contextOptions.viewport = this.emulatedDevice.viewport;
       contextOptions.userAgent = this.emulatedDevice.userAgent;
       contextOptions.hasTouch = this.emulatedDevice.hasTouch;
-      contextOptions.isMobile = this.emulatedDevice.isMobile;
+      contextOptions.isMobile = name !== 'firefox' && this.emulatedDevice.isMobile;
       contextOptions.screen = this.emulatedDevice.screen;
 
       this.launchOptions.args = this.launchOptions.args || [];
