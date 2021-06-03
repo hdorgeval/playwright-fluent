@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "build-device-names": "ts-node ./src/devices/device-names-builder.ts",
+    "build-device-descriptors": "ts-node ./src/devices/device-descriptors-builder.ts",
     "build": "rimraf lib && npm run format && npm run lint && tsc",
     "check-format": "prettier --list-different \"src/**/*.ts\" ",
     "format": "prettier --write \"src/**/*.ts\" ",
