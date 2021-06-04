@@ -13,5 +13,6 @@ export * from './is-checked';
 export * from './is-disabled';
 export * from './is-enabled';
 export * from './is-not-visible';
+export * from './is-read-only';
 export * from './is-unchecked';
 export * from './is-visible';
