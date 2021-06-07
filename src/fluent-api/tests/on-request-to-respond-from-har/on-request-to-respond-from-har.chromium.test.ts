@@ -18,13 +18,13 @@ describe('Playwright Fluent - onRequestTo(url).respondFromHar()', (): void => {
     const foundUrls: string[] = [];
     const notFoundUrls: string[] = [];
     const options: Partial<SUT.HarRequestResponseOptions> = {
-      onHarEntryNotFoundForRequestedUrl: (_allEntries, requestedUrl, requestedMethod) => {
+      onHarEntryNotFound: (_allEntries, requestedUrl, requestedMethod) => {
         notFoundUrls.push(`not found url : ${requestedMethod} '${requestedUrl}'`);
       },
-      onHarEntryFoundForRequestedUrl: (_foundEntry, requestedUrl, requestedMethod) => {
+      onHarEntryFound: (_foundEntry, requestedUrl, requestedMethod) => {
         foundUrls.push(`found url : ${requestedMethod} '${requestedUrl}'`);
       },
-      filterHarEntryByRequestPostData: (requestPostData, harRequestPostData) => {
+      filterHarEntryByPostData: (requestPostData, harRequestPostData) => {
         if (requestPostData === harRequestPostData.text) {
           return true;
         }

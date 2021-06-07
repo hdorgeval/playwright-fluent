@@ -9,5 +9,6 @@ export * from './report';
 export * from './safe-to-string';
 export * from './sleep';
 export * from './stringify-request';
+export * from './url';
 export * from './wait-for-stability-of';
 export * from './wait-until';

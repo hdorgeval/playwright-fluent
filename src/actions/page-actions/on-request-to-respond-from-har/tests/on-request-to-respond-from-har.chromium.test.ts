@@ -77,10 +77,10 @@ describe('on request to respond from HAR files', (): void => {
     const notFoundUrls: string[] = [];
     const options: HarRequestResponseOptions = {
       ...defaultHarRequestResponseOptions,
-      onHarEntryFoundForRequestedUrl: (_foundEntry, requestedUrl, requestedMethod) => {
+      onHarEntryFound: (_foundEntry, requestedUrl, requestedMethod) => {
         foundUrls.push(`found entry for url : '${requestedMethod}' ${requestedUrl}`);
       },
-      onHarEntryNotFoundForRequestedUrl: (_allEntries, requestedUrl, requestedMethod) => {
+      onHarEntryNotFound: (_allEntries, requestedUrl, requestedMethod) => {
         notFoundUrls.push(`not found entry for url :  '${requestedMethod}' ${requestedUrl}`);
       },
     };

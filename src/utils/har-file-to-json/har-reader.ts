@@ -1,5 +1,5 @@
+import { urlToPath } from '../url';
 import { Request } from 'playwright';
-import { URL } from 'url';
 
 export type HttpRequestMethod =
   | 'CONNECT'
@@ -92,10 +92,18 @@ export interface HarData {
   };
 }
 
-export function urlToPath(url: string): string {
-  const urlObject = new URL(url);
-  const fullPath = `${urlObject.pathname}${urlObject.search}`;
-  return fullPath;
+export function extractQueryStringObjectFromHarQueryString(harQueryString: NameValue[]): {
+  [key: string]: string;
+} {
+  const result: { [key: string]: string } = {};
+  harQueryString.forEach((keyValue) => {
+    if (keyValue.value) {
+      const params = new URLSearchParams(`${keyValue.name}=${keyValue.value}`);
+      result[keyValue.name] = params.get(keyValue.name) ?? keyValue.value;
+    }
+  });
+
+  return result;
 }
 
 export function areUrlEquals(url1: string, url2: string): boolean {

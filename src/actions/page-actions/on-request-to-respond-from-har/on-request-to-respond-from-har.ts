@@ -1,14 +1,16 @@
 import {
+  areQueryStringSimilar,
   getHarDataFrom,
   HarEntry,
   HarHeader,
   harHeadersToHttpHeaders,
   HarPostData,
+  hasQueryString,
   HttpHeaders,
   HttpRequestMethod,
-  urlToPath,
+  urlToPathWithoutQueryString,
 } from '../../../utils';
-import { Page, Request } from 'playwright';
+import { Page, Request, Route } from 'playwright';
 
 function getAllHarEntries(harFiles: string[]): HarEntry[] {
   const entries: HarEntry[] = [];
@@ -40,16 +42,27 @@ export interface HarRequestResponseOptions {
    * By default entries are filtered by comparing the urls without the hostname
    * @memberof HarRequestResponseOptions
    */
-  filterHarEntryByRequestUrl: (requestUrl: string, harRequestUrl: string, index: number) => boolean;
+  filterHarEntryByUrl: (requestUrl: string, harRequestUrl: string, index: number) => boolean;
 
   /**
    * Optional filter that enables you to select the HAR entries for the given requested postdata
    * By default entries are filtered by checking equality of postdata
    * @memberof HarRequestResponseOptions
    */
-  filterHarEntryByRequestPostData: (
+  filterHarEntryByPostData: (
     requestPostData: string | null,
     harRequestPostData: HarPostData,
+    index: number,
+  ) => boolean;
+
+  /**
+   * Optional filter that enables you to select the HAR entries for the given requested url and query string
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  filterHarEntryByQueryString: (
+    requestUrl: string,
+    harRequestUrl: string,
     index: number,
   ) => boolean;
 
@@ -74,7 +87,7 @@ export interface HarRequestResponseOptions {
    *
    * @memberof HarRequestResponseOptions
    */
-  onHarEntryNotFoundForRequestedUrl: (
+  onHarEntryNotFound: (
     allEntries: HarEntry[],
     requestedUrl: string,
     requestedMethod: HttpRequestMethod,
@@ -86,7 +99,7 @@ export interface HarRequestResponseOptions {
    *
    * @memberof HarRequestResponseOptions
    */
-  onHarEntryFoundForRequestedUrl: (
+  onHarEntryFound: (
     foundEntry: HarEntry,
     requestedUrl: string,
     requestedMethod: HttpRequestMethod,
@@ -99,23 +112,34 @@ export interface HarRequestResponseOptions {
    * @memberof HarRequestResponseOptions
    */
   enrichResponseHeaders: (headers: HttpHeaders) => HttpHeaders;
+
+  /**
+   * Optional callback that will enable you to handle yourself the request interception
+   * in case the internal implementation did not found any entry in the provided HAR files.
+   * By default route.continue() will be called.
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  handleRouteOnHarEntryNotFound: (route: Route, request: Request, entries: HarEntry[]) => void;
 }
 
 export const defaultHarRequestResponseOptions: HarRequestResponseOptions = {
   filterAllHarEntriesBeforeProcessing: () => true,
   bypassRequestPredicate: () => false,
-  filterHarEntryByRequestUrl: (requestUrl, harRequestUrl) =>
-    urlToPath(requestUrl) === urlToPath(harRequestUrl),
+  filterHarEntryByUrl: (requestUrl, harRequestUrl) =>
+    urlToPathWithoutQueryString(requestUrl) === urlToPathWithoutQueryString(harRequestUrl),
   filterHarEntryByResponseStatus: (status) => status >= 200 && status < 300,
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   selectEntryFromFoundHarEntries: (entries) => entries.pop()!,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onHarEntryNotFoundForRequestedUrl: () => {},
+  onHarEntryNotFound: () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onHarEntryFoundForRequestedUrl: () => {},
+  onHarEntryFound: () => {},
   enrichResponseHeaders: (headers) => headers,
-  filterHarEntryByRequestPostData: (requestPostData, harPostData) =>
-    requestPostData === harPostData.text,
+  filterHarEntryByPostData: (requestPostData, harPostData) => requestPostData === harPostData.text,
+  filterHarEntryByQueryString: (requestUrl, harRequestUrl) =>
+    areQueryStringSimilar(requestUrl, harRequestUrl),
+  handleRouteOnHarEntryNotFound: (route) => route.continue(),
 };
 
 export async function onRequestToRespondFromHar(
@@ -159,17 +183,23 @@ export async function onRequestToRespondFromHar(
       const entries = allEntries
         .filter((entry) => entry.request.method === httpMethod)
         .filter((entry, index) =>
-          options.filterHarEntryByRequestUrl(entry.request.url, requestedUrl, index),
+          options.filterHarEntryByUrl(entry.request.url, requestedUrl, index),
         )
         .filter((entry) => entry.response)
         .filter((entry) => options.filterHarEntryByResponseStatus(entry.response.status))
+        .filter((entry, index) => {
+          if (hasQueryString(requestedUrl) && hasQueryString(entry.request.url)) {
+            return options.filterHarEntryByQueryString(requestedUrl, entry.request.url, index);
+          }
+          return true;
+        })
         .filter((entry, index) => {
           if (!entry.request.postData && !requestedPostData) {
             return true;
           }
 
           if (entry.request.postData && requestedPostData !== null) {
-            return options.filterHarEntryByRequestPostData(
+            return options.filterHarEntryByPostData(
               requestedPostData,
               entry.request.postData,
               index,
@@ -190,8 +220,8 @@ export async function onRequestToRespondFromHar(
         });
 
       if (entries.length === 0) {
-        options.onHarEntryNotFoundForRequestedUrl(allEntries, requestedUrl, httpMethod);
-        route.continue();
+        options.onHarEntryNotFound(allEntries, requestedUrl, httpMethod);
+        options.handleRouteOnHarEntryNotFound(route, request, allEntries);
         return;
       }
 
@@ -200,7 +230,7 @@ export async function onRequestToRespondFromHar(
         foundEntry = options.selectEntryFromFoundHarEntries(entries, requestedUrl);
       }
 
-      options.onHarEntryFoundForRequestedUrl(foundEntry, requestedUrl, httpMethod);
+      options.onHarEntryFound(foundEntry, requestedUrl, httpMethod);
 
       const headers = buildHeadersFrom(foundEntry.response.headers);
       const enrichedHeaders = options.enrichResponseHeaders(headers);
