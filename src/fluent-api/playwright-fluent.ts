@@ -217,6 +217,7 @@ export interface ExpectAssertion {
   isDisabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isEnabled: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isNotVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
+  isReadOnly: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isUnchecked: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
 }
@@ -1946,6 +1947,24 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
     return await assertion.isDisabled(selector, this.currentPageOrFrame(), assertOptions);
   }
+  private async expectThatSelectorIsReadOnly(
+    selector: string | SelectorFluent,
+    options?: Partial<AssertOptions>,
+  ): Promise<void> {
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorIsReadOnly(selector, this.currentPageOrFrame(), fullOptions);
+  }
+  public async isReadOnly(
+    selector: string | SelectorFluent,
+    options?: Partial<WaitUntilOptions>,
+  ): Promise<boolean> {
+    const assertOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.isReadOnly(selector, this.currentPageOrFrame(), assertOptions);
+  }
 
   private async expectThatAsyncFuncHasResult(
     func: AsyncFunc,
@@ -2051,6 +2070,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
         this.actions.push(() => this.expectThatSelectorIsEnabled(selector, options));
         return this;
       },
+
+      isReadOnly: (options?: Partial<AssertOptions>): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorIsReadOnly(selector, options));
+        return this;
+      },
       isVisible: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsVisible(selector, options));
         return this;
@@ -2147,6 +2171,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
       },
       isEnabled: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsEnabled(selector, options));
+        return this;
+      },
+      isReadOnly: (options?: Partial<AssertOptions>): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorIsReadOnly(selector, options));
         return this;
       },
       isVisible: (options?: Partial<AssertOptions>): PlaywrightFluent => {
