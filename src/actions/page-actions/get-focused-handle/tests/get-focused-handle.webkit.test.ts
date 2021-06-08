@@ -1,7 +1,7 @@
 import * as SUT from '..';
 import { Browser, webkit } from 'playwright';
 
-describe('get-focused-handle', (): void => {
+describe.skip('get-focused-handle', (): void => {
   let browser: Browser | undefined = undefined;
   beforeEach((): void => {
     jest.setTimeout(60000);
