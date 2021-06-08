@@ -39,7 +39,7 @@ export interface HarRequestResponseOptions {
 
   /**
    * Optional filter that enables you to select the HAR entries for the given requested Url
-   * By default entries are filtered by comparing the urls without the hostname
+   * By default entries are filtered by comparing the urls without the hostname and without the query string
    * @memberof HarRequestResponseOptions
    */
   filterHarEntryByUrl: (requestUrl: string, harRequestUrl: string, index: number) => boolean;

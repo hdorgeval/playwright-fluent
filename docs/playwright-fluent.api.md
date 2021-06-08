@@ -976,7 +976,7 @@ export interface HarRequestResponseOptions {
   filterAllHarEntriesBeforeProcessing: (entry: HarEntry, index: number) => boolean;
 
   /**
-   * Optional Predicate used to bypass request interception on for specific request.
+   * Optional Predicate used to bypass request interception for specific requests.
    * By default all requests that match the given url are intercepted.
    * @memberof HarRequestResponseOptions
    */
@@ -984,19 +984,30 @@ export interface HarRequestResponseOptions {
 
   /**
    * Optional filter that enables you to select the HAR entries for the given requested Url
-   * By default entries are filtered by comparing the urls without the hostname
+   * By default entries are filtered by comparing the urls without the hostname and without the query string
    * @memberof HarRequestResponseOptions
    */
-  filterHarEntryByRequestUrl: (requestUrl: string, harRequestUrl: string, index: number) => boolean;
+  filterHarEntryByUrl: (requestUrl: string, harRequestUrl: string, index: number) => boolean;
 
   /**
    * Optional filter that enables you to select the HAR entries for the given requested postdata
    * By default entries are filtered by checking equality of postdata
    * @memberof HarRequestResponseOptions
    */
-  filterHarEntryByRequestPostData: (
+  filterHarEntryByPostData: (
     requestPostData: string | null,
     harRequestPostData: HarPostData,
+    index: number,
+  ) => boolean;
+
+  /**
+   * Optional filter that enables you to select the HAR entries for the given requested url and query string
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  filterHarEntryByQueryString: (
+    requestUrl: string,
+    harRequestUrl: string,
     index: number,
   ) => boolean;
 
@@ -1021,7 +1032,7 @@ export interface HarRequestResponseOptions {
    *
    * @memberof HarRequestResponseOptions
    */
-  onHarEntryNotFoundForRequestedUrl: (
+  onHarEntryNotFound: (
     allEntries: HarEntry[],
     requestedUrl: string,
     requestedMethod: HttpRequestMethod,
@@ -1033,7 +1044,7 @@ export interface HarRequestResponseOptions {
    *
    * @memberof HarRequestResponseOptions
    */
-  onHarEntryFoundForRequestedUrl: (
+  onHarEntryFound: (
     foundEntry: HarEntry,
     requestedUrl: string,
     requestedMethod: HttpRequestMethod,
@@ -1046,6 +1057,15 @@ export interface HarRequestResponseOptions {
    * @memberof HarRequestResponseOptions
    */
   enrichResponseHeaders: (headers: HttpHeaders) => HttpHeaders;
+
+  /**
+   * Optional callback that will enable you to handle yourself the request interception
+   * in case the internal implementation did not found any entry in the provided HAR files.
+   * By default route.continue() will be called.
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  handleRouteOnHarEntryNotFound: (route: Route, request: Request, entries: HarEntry[]) => void;
 }
 ```
 
