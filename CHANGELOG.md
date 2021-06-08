@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.35.0] - 2021-06-08
+
+### Breaking change
+
+- `Viewport` type is deprecated in favor of `ViewportSize`
+
+- some options properties have been renamed in `onRequestTo(url).respondFromHar(harFiles [, options])`. See the [HarRequestResponseOptions documentation](https://github.com/hdorgeval/playwright-fluent/blob/master/docs/playwright-fluent.api.md#onrequesttourlrespondfromharharfiles-options).
+
+### Added
+
+- new devices can be emulated : `Galaxy S8`, `Galaxy S9+`, `Galaxy Tab S4`, `iPhone 12`, `Pixel 3`, `Pixel 4`, `Pixel 5`, `Moto G4`
+
+- feat(fluent-api): enhance options in `onRequestTo(url).respondFromHar(harFiles [, options])`
+
 ## [1.34.0] - 2021-06-02
 
 ### Added
