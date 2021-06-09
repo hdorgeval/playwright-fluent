@@ -36,7 +36,11 @@ export function areQueryStringSimilar(url1: string, url2: string): boolean {
   const queryStringObject2 = extractQueryStringObjectFromUrl(url2);
 
   for (const key in queryStringObject1) {
-    if (['id', 'date', 'time'].some((keyword) => key.toLowerCase().includes(keyword))) {
+    if (
+      ['id', 'date', 'time', 'nonce', 'state'].some((keyword) =>
+        key.toLowerCase().includes(keyword),
+      )
+    ) {
       continue;
     }
 

@@ -31,6 +31,38 @@ describe('Playwright Fluent - onRequestTo(url).respondFromHar()', (): void => {
 
         return false;
       },
+      provideEntryOnHarEntryNotFound: (request, allEntries) => {
+        const requestedUrl = request.url();
+        if (requestedUrl.includes('/browser/stats')) {
+          // eslint-disable-next-line no-console
+          console.log(`manually select entry for POST ${requestedUrl}`);
+          return (
+            allEntries
+              .filter((entry) => entry.request.method === 'POST')
+              .filter((entry) => entry.request.url === requestedUrl)
+              .pop() || null
+          );
+        }
+
+        if (
+          requestedUrl.startsWith('https://collector.githubapp.com/github/page_view?dimensions')
+        ) {
+          // eslint-disable-next-line no-console
+          console.log(`manually select entry for GET ${requestedUrl}`);
+          return (
+            allEntries
+              .filter((entry) => entry.request.method === 'GET')
+              .filter((entry) =>
+                entry.request.url.startsWith(
+                  'https://collector.githubapp.com/github/page_view?dimensions',
+                ),
+              )
+              .pop() || null
+          );
+        }
+
+        return null;
+      },
     };
 
     // When

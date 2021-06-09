@@ -121,6 +121,14 @@ export interface HarRequestResponseOptions {
    * @memberof HarRequestResponseOptions
    */
   handleRouteOnHarEntryNotFound: (route: Route, request: Request, entries: HarEntry[]) => void;
+
+  /**
+   * Optional callback that enables you to provide yourself an HAR entry for the given requested
+   * when the internal implementation did not found any entry.
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  provideEntryOnHarEntryNotFound: (request: Request, entries: HarEntry[]) => HarEntry | null;
 }
 
 export const defaultHarRequestResponseOptions: HarRequestResponseOptions = {
@@ -140,6 +148,7 @@ export const defaultHarRequestResponseOptions: HarRequestResponseOptions = {
   filterHarEntryByQueryString: (requestUrl, harRequestUrl) =>
     areQueryStringSimilar(requestUrl, harRequestUrl),
   handleRouteOnHarEntryNotFound: (route) => route.continue(),
+  provideEntryOnHarEntryNotFound: () => null,
 };
 
 export async function onRequestToRespondFromHar(
@@ -218,6 +227,13 @@ export async function onRequestToRespondFromHar(
               return false;
           }
         });
+
+      if (entries.length === 0) {
+        const providedEntry = options.provideEntryOnHarEntryNotFound(request, allEntries);
+        if (providedEntry) {
+          entries.push(providedEntry);
+        }
+      }
 
       if (entries.length === 0) {
         options.onHarEntryNotFound(allEntries, requestedUrl, httpMethod);
