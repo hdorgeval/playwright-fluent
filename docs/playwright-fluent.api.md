@@ -1066,6 +1066,14 @@ export interface HarRequestResponseOptions {
    * @memberof HarRequestResponseOptions
    */
   handleRouteOnHarEntryNotFound: (route: Route, request: Request, entries: HarEntry[]) => void;
+
+  /**
+   * Optional callback that enables you to provide yourself an HAR entry for the given requested
+   * when the internal implementation did not found any entry.
+   *
+   * @memberof HarRequestResponseOptions
+   */
+  provideEntryOnHarEntryNotFound: (request: Request, entries: HarEntry[]) => HarEntry | null;
 }
 ```
 
