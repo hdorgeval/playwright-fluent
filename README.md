@@ -2,7 +2,7 @@
 
 Fluent API around [Playwright](https://github.com/microsoft/playwright)
 
-[![Build Status](https://travis-ci.org/hdorgeval/playwright-fluent.svg?branch=master)](https://travis-ci.org/hdorgeval/playwright-fluent)
+![Build Status linux](https://github.com/hdorgeval/playwright-fluent/actions/workflows/linux.yml/badge.svg)
 [![Build status](https://ci.appveyor.com/api/projects/status/5gtetagv1onhhn7l?svg=true)](https://ci.appveyor.com/project/hdorgeval/playwright-fluent)
 [![npm version](https://img.shields.io/npm/v/playwright-fluent.svg)](https://www.npmjs.com/package/playwright-fluent)
 [![Mentioned in Awesome](https://awesome.re/mentioned-badge.svg)](https://awesome.re)
