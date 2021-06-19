@@ -18,7 +18,7 @@ export async function isHandleReadOnly(
     return false;
   });
 
-  report(`handle is ${result ? 'read-only' : 'editable'}`, options.verbose);
+  report(`handle is ${result ? 'read-only' : 'not read-only'}`, options.verbose);
 
   return result;
 }
