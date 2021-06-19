@@ -460,6 +460,24 @@ export class SelectorFluent {
     return isElementReadOnly;
   }
 
+  /**
+   * Checks if the selector is not read-only.
+   * If the selector targets multiple DOM elements, this check is done only on the first one found.
+   * The result may differ from one execution to another
+   * especially if targeted element is rendered lately because its data is based on some backend response.
+   * So the disability status is the one known when executing this method.
+   *
+   * @param {Partial<VerboseOptions>} [options=defaultVerboseOptions]
+   * @returns {Promise<boolean>}
+   * @memberof SelectorFluent
+   */
+  public async isNotReadOnly(
+    options: Partial<VerboseOptions> = defaultVerboseOptions,
+  ): Promise<boolean> {
+    const isReadOnly = await this.isReadOnly(options);
+    return !isReadOnly;
+  }
+
   public async innerText(): Promise<string | undefined | null> {
     const handle = await this.getHandle();
     const innerText = await action.getInnerTextOfHandle(handle);
