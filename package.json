@@ -14,7 +14,7 @@
     "build-device-descriptors": "ts-node ./src/devices/device-descriptors-builder.ts",
     "build": "rimraf lib && npm run format && npm run lint && tsc",
     "check-format": "prettier --list-different \"src/**/*.ts\" ",
-    "format": "prettier --write \"src/**/*.ts\" ",
+    "format": "prettier --loglevel warn --list-different --write \"src/**/*.ts\" ",
     "install-peers": "npm install --no-save playwright@latest",
     "jest-init": "jest --init",
     "lint-fix": "npm run lint -- --fix",
