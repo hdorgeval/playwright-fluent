@@ -25,7 +25,9 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [hasClass(className)](#hasClassclassName)
   - [innerText()](#innerText)
   - [isChecked()](#isChecked)
+  - [isNotReadOnly()](#isNotReadOnly)
   - [isNotVisible()](#isNotVisible)
+  - [isReadOnly()](#isReadOnly)
   - [isUnchecked()](#isUnchecked)
   - [isVisible()](#isVisible)
   - [options()](#options)
@@ -223,6 +225,44 @@ const selector = p
 
 await p.waitUntil(() => selector.isUnchecked());
 // now we are sure that the selector is checked
+```
+
+---
+
+### isReadOnly()
+
+- returns: `Promise<boolean>`
+
+Checks if the selector is read-only.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+In order to call this method in an unflaky way, you should do the following:
+
+```js
+const selector = p.selector('label').withText('Turn on this custom switch').parent().find('input');
+
+await p.waitUntil(async () => await selector.isReadOnly());
+// now we are sure that the selector is read-only
+```
+
+---
+
+### isNotReadOnly()
+
+- returns: `Promise<boolean>`
+
+Checks if the selector is not read-only.
+
+The result may differ from one execution to another especially if targeted element is rendered lately because its data is based on some backend response.
+
+In order to call this method in an unflaky way, you should do the following:
+
+```js
+const selector = p.selector('label').withText('Turn on this custom switch').parent().find('input');
+
+await p.waitUntil(async () => await selector.isNotReadOnly());
+// now we are sure that the selector is not read-only
 ```
 
 ---

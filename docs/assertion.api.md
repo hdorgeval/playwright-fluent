@@ -21,6 +21,7 @@ The selector can be either a CSS selector or a selector created with the [Select
   - [expectThatSelector(selector).isDisabled([options])](#expectThatSelectorselectorisDisabledoptions)
   - [expectThatSelector(selector).isEnabled([options])](#expectThatSelectorselectorisEnabledoptions)
   - [expectThatSelector(selector).isNotVisible([options])](#expectThatSelectorselectorisNotVisibleoptions)
+  - [expectThatSelector(selector).isReadOnly([options])](#expectThatSelectorselectorisReadOnlyoptions)
   - [expectThatSelector(selector).isUnchecked([options])](#expectThatSelectorselectorisUncheckedoptions)
   - [expectThatSelector(selector).isVisible([options])](#expectThatSelectorselectorisVisibleoptions)
 
@@ -272,5 +273,15 @@ Will check if the selector is enabled.
 - returns: `PlaywrightFluent`
 
 Will check if the selector is disabled.
+
+---
+
+### expectThatSelector(selector).isReadOnly([options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector is read-only.
 
 ---
