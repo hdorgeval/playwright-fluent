@@ -12,13 +12,13 @@ jobs:
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: Setup node version
-      - uses: actions/setup-node@v2
+        uses: actions/setup-node@v2
         with:
           node-version: 14
       - run: node --version
       - run: npm --version
       - name: Install playwright peer dependency
-      - run: npm install --no-save playwright@1.12.2
+        run: npm install --no-save playwright@1.12.2
       - name: Install playwrigh-fluent
-      - run: npm ci
+        run: npm ci
       - run: echo "🍏 This job's status is ${{ job.status }}."
