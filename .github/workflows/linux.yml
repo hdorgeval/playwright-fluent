@@ -36,7 +36,7 @@ jobs:
           node-version: 14
       - run: node --version
       - run: npm --version
-      - name: Install playwrigh-fluent with playwright v1.12.2
+      - name: Install playwrigh-fluent
         run: npm ci
       - name: Install playwright v1.12.2
         run: npm install --no-save playwright@1.12.2
