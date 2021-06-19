@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.37.0] - 2021-06-19
+
+### Added
+
+- feat(assertion): add `expectThat(selector).isReadOnly()` to the Assertion API
+- feat(selector): add helper method `isReadOnly()` to the Selector API
+- feat(selector): add helper method `isNotReadOnly()` to the Selector API
+
 ## [1.36.0] - 2021-06-09
 
 ### Added
