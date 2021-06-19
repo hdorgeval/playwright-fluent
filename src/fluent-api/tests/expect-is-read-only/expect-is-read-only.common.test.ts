@@ -1,6 +1,6 @@
 import * as SUT from '../../playwright-fluent';
 
-describe.skip('Playwright Fluent - expect is read-only', (): void => {
+describe('Playwright Fluent - expect is read-only', (): void => {
   let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
     jest.setTimeout(30000);
@@ -23,7 +23,7 @@ describe.skip('Playwright Fluent - expect is read-only', (): void => {
 
     // Then
     expect(result && result.message).toContain(
-      "Cannot get disabled status of 'foobar' because no browser has been launched",
+      "Cannot get readOnly status of 'foobar' because no browser has been launched",
     );
   });
 });
