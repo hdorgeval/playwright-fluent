@@ -11,14 +11,18 @@ jobs:
         uses: actions/checkout@v2
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: Setup node version
+      - name: Setup node 14
         uses: actions/setup-node@v2
         with:
           node-version: 14
       - run: node --version
       - run: npm --version
-      - name: Install playwright peer dependency
+      - name: Install playwright v1.12.2 peer dependency
         run: npm install --no-save playwright@1.12.2
       - name: Install playwrigh-fluent
         run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Run tests
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm test
       - run: echo "🍏 This job's status is ${{ job.status }}."
