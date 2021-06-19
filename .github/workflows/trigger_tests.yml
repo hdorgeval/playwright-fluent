@@ -17,10 +17,9 @@ jobs:
           node-version: 14
       - run: node --version
       - run: npm --version
-      - name: Install playwright v1.12.2 peer dependency
-        run: npm install --no-save playwright@1.12.2
-      - name: Install playwrigh-fluent
+      - name: Install playwrigh-fluent with playwright v1.12.2
         run: npm ci
+        run: npm install --no-save playwright@1.12.2
       - name: Build
         run: npm run build
       - name: Run tests
