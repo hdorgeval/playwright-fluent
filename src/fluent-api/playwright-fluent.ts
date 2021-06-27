@@ -42,9 +42,10 @@ import {
   KeyboardPressOptions,
   LaunchOptions,
   MethodName,
-  MockResponse,
+  MockedResponse,
   NavigationOptions,
   PasteTextOptions,
+  RequestInterceptionFilterOptions,
   ScreenshotOptions,
   SelectOptionInfo,
   SelectOptions,
@@ -120,10 +121,11 @@ export {
   KeyboardPressOptions,
   LaunchOptions,
   MethodName,
-  MockResponse,
+  MockedResponse,
   NavigationOptions,
   PasteTextOptions,
   Request,
+  RequestInterceptionFilterOptions,
   Response,
   ScreenshotOptions,
   SelectOptionInfo,
@@ -673,10 +675,12 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private async onRequestToRespondWith<T>(
     partialUrl: string,
-    response: Partial<MockResponse<T>> | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
-    bypassPredicate: (request: PlaywrightRequest) => boolean,
+    options: Partial<RequestInterceptionFilterOptions>,
+    response:
+      | Partial<MockedResponse<T>>
+      | ((request: PlaywrightRequest) => Partial<MockedResponse<T>>),
   ): Promise<void> {
-    await action.onRequestToRespondWith(partialUrl, response, bypassPredicate, this.currentPage());
+    await action.onRequestToRespondWith(partialUrl, options, response, this.currentPage());
   }
 
   private async onRequestToRespondFromHar(
@@ -686,12 +690,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.onRequestToRespondFromHar(partialUrl, harFiles, this.currentPage(), options);
   }
-  public onRequestTo(partialUrl: string): {
+  public onRequestTo(
+    partialUrl: string,
+    options: Partial<RequestInterceptionFilterOptions> = {},
+  ): {
     respondWith: <T>(
       response:
-        | Partial<MockResponse<T>>
-        | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
-      bypassPredicate?: (request: PlaywrightRequest) => boolean,
+        | Partial<MockedResponse<T>>
+        | ((request: PlaywrightRequest) => Partial<MockedResponse<T>>),
     ) => PlaywrightFluent;
     respondFromHar: (
       harFiles: string[],
@@ -701,12 +707,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return {
       respondWith: <T>(
         response:
-          | Partial<MockResponse<T>>
-          | ((request: PlaywrightRequest) => Partial<MockResponse<T>>),
-        bypassPredicate: (request: PlaywrightRequest) => boolean = () => false,
+          | Partial<MockedResponse<T>>
+          | ((request: PlaywrightRequest) => Partial<MockedResponse<T>>),
       ): PlaywrightFluent => {
         const action = (): Promise<void> =>
-          this.onRequestToRespondWith(partialUrl, response, bypassPredicate);
+          this.onRequestToRespondWith(partialUrl, options, response);
         this.actions.push(action);
         return this;
       },

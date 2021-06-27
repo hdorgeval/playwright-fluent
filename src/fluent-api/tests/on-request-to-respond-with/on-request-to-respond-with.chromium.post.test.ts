@@ -32,7 +32,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     await p.close();
   });
 
-  test('should intercept POST requests to a rest API', async (): Promise<void> => {
+  test('should intercept only POST requests to a rest API', async (): Promise<void> => {
     // Given
     const htmlContent = readFileSync(
       `${path.join(__dirname, 'on-request-to-respond-with.post.test.html')}`,
@@ -72,7 +72,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
       .withOptions({ headless: true })
       .withCursor()
       .recordRequestsTo('/foobar')
-      .onRequestTo('/foobar')
+      .onRequestTo('/foobar', { method: 'POST' })
       .respondWith<CustomResponseBody>({
         status: 200,
         headers: responseHeaders,
@@ -87,9 +87,9 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     });
     const foobarRequests = p.getRecordedRequestsTo('/foobar');
     expect(Array.isArray(foobarRequests)).toBe(true);
-    expect(foobarRequests.length).toBe(1);
+    expect(foobarRequests.length).toBe(2);
 
-    const stringifiedSentRequest = await stringifyRequest(foobarRequests[0]);
+    const stringifiedSentRequest = await stringifyRequest(foobarRequests[1]);
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
 
     expect(sentRequest.url).toContain('?foo=bar');
@@ -101,7 +101,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     expect(sentRequest.response!.payload).toMatchObject(mockResponseBody);
   });
 
-  test('should intercept POST requests to a rest API - functional version', async (): Promise<void> => {
+  test('should intercept only POST requests to a rest API - functional version', async (): Promise<void> => {
     // Given
     const htmlContent = readFileSync(
       `${path.join(__dirname, 'on-request-to-respond-with.post.test.html')}`,
@@ -142,7 +142,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
       .withCursor()
       //.recordNetworkActivity({ path: harFile })
       .recordRequestsTo('/foobar')
-      .onRequestTo('/foobar?foo=bar')
+      .onRequestTo('/foobar', { method: 'POST' })
       .respondWith<CustomResponseBody>((request) => {
         const url = request.url();
         // eslint-disable-next-line no-console
@@ -162,9 +162,9 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     });
     const foobarRequests = p.getRecordedRequestsTo('/foobar');
     expect(Array.isArray(foobarRequests)).toBe(true);
-    expect(foobarRequests.length).toBe(1);
+    expect(foobarRequests.length).toBe(2);
 
-    const stringifiedSentRequest = await stringifyRequest(foobarRequests[0]);
+    const stringifiedSentRequest = await stringifyRequest(foobarRequests[1]);
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
 
     expect(sentRequest.url).toContain('?foo=bar');
@@ -211,13 +211,20 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
         .to('/foobar')
         .willReturn(responseBody, 200, responseHeaders);
 
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/foobar')
+        .willReturn(responseBody, 200, responseHeaders);
+
     // When
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
       .withCursor()
       .recordRequestsTo('/foobar')
-      .onRequestTo('/foobar')
+      .onRequestTo('/foobar', { method: 'POST' })
       .respondWith<CustomResponseBody>((request) => {
         const harResponse = getHarResponseFor(request, harData);
         const response = getHarResponseContentAs<CustomResponseBody>(harResponse);
@@ -236,9 +243,9 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     });
     const foobarRequests = p.getRecordedRequestsTo('/foobar');
     expect(Array.isArray(foobarRequests)).toBe(true);
-    expect(foobarRequests.length).toBe(1);
+    expect(foobarRequests.length).toBe(2);
 
-    const stringifiedSentRequest = await stringifyRequest(foobarRequests[0]);
+    const stringifiedSentRequest = await stringifyRequest(foobarRequests[1]);
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
 
     expect(sentRequest.url).toContain('?foo=bar');

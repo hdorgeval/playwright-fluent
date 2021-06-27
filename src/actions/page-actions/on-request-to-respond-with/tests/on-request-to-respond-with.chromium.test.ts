@@ -70,11 +70,11 @@ describe('on request to respond with', (): void => {
     // When
     await SUT.onRequestToRespondWith(
       '/foobar',
+      { method: 'GET', bypassPredicate: () => false },
       {
         headers: responseHeaders,
         body: mockResponseBody,
       },
-      () => false,
       page,
     );
 

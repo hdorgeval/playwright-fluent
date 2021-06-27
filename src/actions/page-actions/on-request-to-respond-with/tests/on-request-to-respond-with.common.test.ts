@@ -9,13 +9,15 @@ describe('on request to respond with', (): void => {
   test('should return an error when browser has not been launched', async (): Promise<void> => {
     // Given
     const page: Page | undefined = undefined;
-
+    const options: SUT.RequestInterceptionFilterOptions = {};
+    const response: Partial<SUT.MockedResponse<Record<string, unknown>>> = {};
     // When
     // Then
     const expectedError = new Error(
       "Cannot intercept requests to '/foobar' because no browser has been launched",
     );
-    await SUT.onRequestToRespondWith('/foobar', {}, () => false, page).catch((error): void =>
+
+    await SUT.onRequestToRespondWith('/foobar', options, response, page).catch((error): void =>
       expect(error).toMatchObject(expectedError),
     );
   });

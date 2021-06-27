@@ -11,6 +11,13 @@
 
     <script>
       window.setTimeout(() => {
+        fetch('http://localhost:1234/foobar?foo=get').then(
+          (response) => console.log(response),
+          (reason) => console.log(reason),
+        );
+      }, 500);
+
+      window.setTimeout(() => {
         fetch('http://localhost:1234/foobar?foo=bar', {
           method: 'POST',
           headers: {
@@ -21,7 +28,7 @@
           (response) => console.log(response),
           (reason) => console.log(reason),
         );
-      }, 500);
+      }, 600);
     </script>
   </body>
 </html>

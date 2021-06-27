@@ -1,7 +1,7 @@
-import { HttpHeaders } from '../../../utils';
+import { HttpHeaders, HttpRequestMethod } from '../../../utils';
 import { Page, Request } from 'playwright';
 
-export interface MockResponse<T> {
+export interface MockedResponse<T> {
   status: number;
   headers: HttpHeaders;
   contentType: string;
@@ -21,7 +21,7 @@ function serializeBody<T>(body: T): string | Buffer {
   }
 }
 
-function buildPlaywrightResponseWith<T>(mockedResponse: Partial<MockResponse<T>>): {
+function buildPlaywrightResponseWith<T>(mockedResponse: Partial<MockedResponse<T>>): {
   status: number;
   headers: HttpHeaders;
   contentType: string;
@@ -34,7 +34,7 @@ function buildPlaywrightResponseWith<T>(mockedResponse: Partial<MockResponse<T>>
     body: serializeBody(mockedResponse.body),
   };
 }
-function buildHeadersFrom<T>(mockedResponse: Partial<MockResponse<T>>): HttpHeaders {
+function buildHeadersFrom<T>(mockedResponse: Partial<MockedResponse<T>>): HttpHeaders {
   const headers = {
     ...mockedResponse.headers,
   };
@@ -60,7 +60,6 @@ function hasAccessControlAllowCredentialsHeader(headers: HttpHeaders): boolean {
 
   return false;
 }
-
 function hasAccessControlAllowOriginHeader(headers: HttpHeaders): boolean {
   if (headers['access-control-allow-origin']) {
     return true;
@@ -73,7 +72,7 @@ function hasAccessControlAllowOriginHeader(headers: HttpHeaders): boolean {
   return false;
 }
 
-function buildContentTypeFrom<T>(mockedResponse: Partial<MockResponse<T>>): string {
+function buildContentTypeFrom<T>(mockedResponse: Partial<MockedResponse<T>>): string {
   if (mockedResponse.contentType) {
     return mockedResponse.contentType;
   }
@@ -85,10 +84,27 @@ function buildContentTypeFrom<T>(mockedResponse: Partial<MockResponse<T>>): stri
   return 'application/json';
 }
 
+export interface RequestInterceptionFilterOptions {
+  /**
+   * Intercepts only requests with the given method (GET, POST, ...).
+   * By default all requests to the given url are intercepted for every HTTP verbs
+   *
+   * @type {HttpRequestMethod}
+   * @memberof RequestInterceptionFilterOptions
+   */
+  method?: HttpRequestMethod;
+  /**
+   * Predicate that will enable you to bypass request interception on custom conditions
+   *
+   * @memberof RequestInterceptionFilterOptions
+   */
+  bypassPredicate?: (request: Request) => boolean;
+}
+
 export async function onRequestToRespondWith<T>(
   url: string,
-  response: Partial<MockResponse<T>> | ((request: Request) => Partial<MockResponse<T>>),
-  bypassPredicate: (request: Request) => boolean,
+  options: Partial<RequestInterceptionFilterOptions>,
+  response: Partial<MockedResponse<T>> | ((request: Request) => Partial<MockedResponse<T>>),
   page: Page | undefined,
 ): Promise<void> {
   if (!page) {
@@ -100,10 +116,21 @@ export async function onRequestToRespondWith<T>(
       return uri.toString().includes(url);
     },
     (route, request) => {
-      if (bypassPredicate(request)) {
+      const requestMethod = request.method();
+      if (options && typeof options.method === 'string' && options.method !== requestMethod) {
         route.continue();
         return;
       }
+
+      if (
+        options &&
+        typeof options.bypassPredicate === 'function' &&
+        options.bypassPredicate(request)
+      ) {
+        route.continue();
+        return;
+      }
+
       const mockedResponse = typeof response === 'function' ? response(request) : response;
       const playwrightResponse = buildPlaywrightResponseWith(mockedResponse);
       route.fulfill(playwrightResponse);
