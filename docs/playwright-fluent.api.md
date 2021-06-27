@@ -16,7 +16,7 @@
   - [withStorageState(state)](#withStorageStatestate)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [delayRequestsTo(url, durationInSeconds)](#delayRequestsTourl-durationInSeconds)
-  - [onRequestTo(url).respondWith(response[, bypassPredicate])](#onRequestTourlrespondWithresponse-bypassPredicate)
+  - [onRequestTo(url[, options]).respondWith(response)](#onRequestTourl-optionsrespondWithresponse)
   - [onRequestTo(url).respondFromHar(harFiles[, options])](#onRequestTourlrespondFromHarharFiles-options)
   - [recordDownloadsTo(directory)](#recordDownloadsTodirectory)
   - [recordFailedRequests()](#recordFailedRequests)
@@ -828,15 +828,18 @@ await p
 
 ---
 
-### onRequestTo(url).respondWith(response[, bypassPredicate])
+### onRequestTo(url[, options]).respondWith(response)
 
 - url: `string`
+- options: `Partial<RequestInterceptionFilterOptions>`
 - response: `Partial<MockResponse<T> | ((request: Request) => Partial<MockResponse<T>>)`
 - bypassPredicate: `(request: PlaywrightRequest) => boolean`
 
 Will intercept any request whose url contains the input `url` (this parameter should be seen as a partial url, it is not a regex and not a glob pattern), then will respond with the given `response` object.
 
-You can bypass the interception by setting up the optional `bypassPredicate` parameter.
+You can bypass the interception by setting up the optional `bypassPredicate` parameter in the options object.
+
+By default, all verbs for the same request `url` are intercepted. If you want to intercept only specific verb for the given `url`, you should setup the `method` in the options object.
 
 The main purpose of this feature, is to be able to intercept rest API calls, that gives back a JSON object of type `T`, and then substitute the response by another JSON object of type `T`, or substitute the HTTP response status by another one (for example subsitute an HTTP 200 by an HTTP 500, for chaos testing).
 
@@ -848,6 +851,25 @@ interface MockResponse<T> {
   headers: HttpHeaders;
   contentType: string;
   body: T;
+}
+```
+
+```js
+interface RequestInterceptionFilterOptions {
+  /**
+   * Intercepts only requests with the given method (GET, POST, ...).
+   * By default all requests to the given url are intercepted for every HTTP verbs
+   *
+   * @type {HttpRequestMethod}
+   * @memberof RequestInterceptionFilterOptions
+   */
+  method?: HttpRequestMethod;
+  /**
+   * Predicate that will enable you to bypass request interception on custom conditions
+   *
+   * @memberof RequestInterceptionFilterOptions
+   */
+  bypassPredicate?: (request: Request) => boolean;
 }
 ```
 
@@ -870,7 +892,7 @@ await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .emulateDevice('iPhone 6 landscape')
-  .onRequestTo('/api/foobar')
+  .onRequestTo('/api/foobar', {method: 'POST'})
   .respondWith({
     status: 200,
     headers: responseHeaders,
@@ -887,7 +909,7 @@ await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .emulateDevice('iPhone 6 landscape')
-  .onRequestTo('/api/foobar')
+  .onRequestTo('/api/foobar', , {method: 'GET'})
   .respondWith((request) => {
     const url = request.url();
     if (url.includes('?foo=bar')) {
@@ -934,7 +956,7 @@ await p
   .withOptions({ headless: false })
   .emulateDevice('iPhone 6 landscape')
   // .recordNetworkActivity({ path: harFile }) // uncomment to generate the HAR file
-  .onRequestTo('/api/foobar')
+  .onRequestTo('/api/foobar', { method: 'POST' })
   .respondWith((request) => {
     const harResponse = getHarResponseFor(request, harData);
     // prettier-ignore
