@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.38.0] - 2021-06-27
+
+### Added
+
+- feat(fluent-api): add options parameter to `onRequestTo(url).respondWith(response)`
+
+Examples:
+
+```ts
+// intercept all requests to url with the 'POST' verb
+onRequestTo(url, { method: 'POST' }).respondWith(response);
+
+// intercept all requests to url with the 'GET' verb
+onRequestTo(url, { method: 'GET' }).respondWith(response);
+
+// intercept all requests to url for all verbs
+onRequestTo(url).respondWith(response);
+```
+
+### Breaking change
+
+- Request interceptions using the `bypassPredicate` parameter must now be done like this:
+
+```ts
+onRequestTo(url, { bypassPredicate }).respondWith(response);
+```
+
 ## [1.37.0] - 2021-06-20
 
 ### Added
