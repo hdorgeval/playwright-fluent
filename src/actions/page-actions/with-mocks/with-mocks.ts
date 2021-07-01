@@ -5,6 +5,7 @@ import {
   MimeType,
 } from '../../../utils';
 import { Page, Request } from 'playwright';
+export type ResponseData = Record<string, unknown> | Record<string, never> | string | undefined;
 export type PostData = Record<string, unknown> | string | undefined;
 export type QueryString = Record<string, string>;
 
@@ -13,16 +14,16 @@ export interface FluentMock {
   urlMatcher: (url: string) => boolean;
   methodMatcher: (method: HttpRequestMethod) => boolean;
   queryStringMatcher: (queryString: QueryString) => boolean;
-  postDataMatcher: <P>(postData: P) => boolean;
+  postDataMatcher: (postData: PostData) => boolean;
   enrichResponseHeaders: (headers: HttpHeaders) => HttpHeaders;
-  responseType: 'json' | 'string' | 'continue';
+  responseType: 'json' | 'string' | 'empty' | 'continue';
   status: number;
 
-  jsonResponse: <T>(requestInfos: {
+  jsonResponse: (requestInfos: {
     request: Request;
     queryString: QueryString;
     postData: PostData;
-  }) => T | Record<string, never>;
+  }) => ResponseData;
   rawResponse: (requestInfos: {
     request: Request;
     queryString: QueryString;
@@ -68,6 +69,47 @@ export const defaultMocksOptions: WithMocksOptions = {
   onMockFound: () => {},
 };
 
+function inferMockResponseTypeIfNeeded(mock: Partial<FluentMock>): Partial<FluentMock> {
+  if (mock.responseType) {
+    return mock;
+  }
+
+  if (typeof mock.jsonResponse === 'function' && typeof mock.rawResponse !== 'function') {
+    return {
+      ...mock,
+      responseType: 'json',
+    };
+  }
+
+  if (typeof mock.rawResponse === 'function' && typeof mock.jsonResponse !== 'function') {
+    return {
+      ...mock,
+      responseType: 'string',
+    };
+  }
+
+  if (typeof mock.rawResponse !== 'function' && typeof mock.jsonResponse !== 'function') {
+    return {
+      ...mock,
+      responseType: 'empty',
+    };
+  }
+
+  return mock;
+}
+
+function validate(mock: Partial<FluentMock>): void {
+  if (typeof mock.rawResponse === 'function' && typeof mock.jsonResponse === 'function') {
+    throw new Error(
+      `mock named '${mock.displayName}' should either implement a json response or a raw response but not both.`,
+    );
+  }
+}
+
+function spreadMissingProperties(mock: Partial<FluentMock>): FluentMock {
+  return { ...passthroughMock, displayName: 'not set', ...mock };
+}
+
 export async function withMocks(
   allMocks: () => Partial<FluentMock>[],
   options: Partial<WithMocksOptions>,
@@ -83,10 +125,12 @@ export async function withMocks(
   };
   await page.route(
     (uri) => {
-      const mockExists = allMocks()
-        .map((mock) => {
-          return { ...passthroughMock, displayName: 'not set', ...mock };
-        })
+      const mocks = allMocks();
+      mocks.forEach(validate);
+
+      const mockExists = mocks
+        .map(inferMockResponseTypeIfNeeded)
+        .map(spreadMissingProperties)
         .map((mock) => mock.urlMatcher(uri.toString()))
         .some((match) => match === true);
       return mockExists;
@@ -96,10 +140,11 @@ export async function withMocks(
       const url = request.url();
       const queryString = extractQueryStringObjectFromUrl(url) as QueryString;
       const postData = request.postDataJSON();
-      const mock = allMocks()
-        .map((mock) => {
-          return { ...passthroughMock, displayName: 'not set', ...mock };
-        })
+      const mocks = allMocks();
+      mocks.forEach(validate);
+      const mock = mocks
+        .map(inferMockResponseTypeIfNeeded)
+        .map(spreadMissingProperties)
         .filter((mock) => mock.urlMatcher(url))
         .filter((mock) => mock.methodMatcher(requestMethod))
         .filter((mock) => mock.queryStringMatcher(queryString))
