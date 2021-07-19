@@ -28,12 +28,14 @@ import {
   defaultInvokeOptions,
   defaultKeyboardPressOptions,
   defaultLaunchOptions,
+  defaultMocksOptions,
   defaultNavigationOptions,
   defaultPasteTextOptions,
   defaultSelectOptions,
   defaultSwitchToIframeOptions,
   defaultTypeTextOptions,
   DoubleClickOptions,
+  FluentMock,
   HarRequestResponseOptions,
   HoverOptions,
   InvokeOptions,
@@ -52,6 +54,7 @@ import {
   SwitchToIframeOptions,
   TypeTextOptions,
   WindowState,
+  WithMocksOptions,
 } from '../actions';
 import {
   allKnownDevices,
@@ -133,6 +136,8 @@ export {
   SwitchToIframeOptions,
   TypeTextOptions,
   WindowState,
+  ResponseData,
+  FluentMock,
 } from '../actions';
 
 export {
@@ -798,6 +803,31 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public pause(): PlaywrightFluent {
     const action = (): Promise<void> => this.pauseExecution();
     this.actions.push(action);
+    return this;
+  }
+
+  private _allMocks: Partial<FluentMock>[] = [];
+  private async registerMocks(options: Partial<WithMocksOptions>): Promise<void> {
+    await action.withMocks(this._allMocks, options, this.currentPage());
+  }
+
+  /**
+   * Provide a set of mocks in order to automatically handle request interceptions
+   *
+   * @param {() => Partial<FluentMock>[]} mocks
+   * @param {Partial<WithMocksOptions>} [options=defaultMocksOptions]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public withMocks(
+    mocks: Partial<FluentMock>[],
+    options: Partial<WithMocksOptions> = defaultMocksOptions,
+  ): PlaywrightFluent {
+    if (this._allMocks.length === 0) {
+      const action = (): Promise<void> => this.registerMocks(options);
+      this.actions.push(action);
+    }
+    this._allMocks = this._allMocks.concat(mocks);
     return this;
   }
 

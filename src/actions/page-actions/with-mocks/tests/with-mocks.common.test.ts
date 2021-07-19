@@ -11,7 +11,7 @@ describe('with mocks', (): void => {
     // Given
     const page: Page | undefined = undefined;
     const options: Partial<SUT.WithMocksOptions> = {};
-    const allMocks = (): FluentMock[] => [];
+    const mocks: FluentMock[] = [];
 
     // When
     // Then
@@ -19,7 +19,7 @@ describe('with mocks', (): void => {
       'Cannot intercept requests with mocks because no browser has been launched',
     );
 
-    await SUT.withMocks(allMocks, options, page).catch((error): void =>
+    await SUT.withMocks(mocks, options, page).catch((error): void =>
       expect(error).toMatchObject(expectedError),
     );
   });

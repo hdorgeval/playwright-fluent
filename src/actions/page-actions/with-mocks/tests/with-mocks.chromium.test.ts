@@ -93,10 +93,10 @@ describe('with mocks', (): void => {
     const callback = (request: Request) => requests.push(request);
     await recordRequestsTo('/foobar', ignorePredicate, page, callback);
 
-    const allMocks = () => [mock];
+    const mocks = [mock];
 
     // When
-    await SUT.withMocks(allMocks, mockOptions, page);
+    await SUT.withMocks(mocks, mockOptions, page);
 
     await page.goto('http://localhost:1234/app');
     await sleep(3000);
