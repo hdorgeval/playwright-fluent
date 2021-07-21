@@ -14,6 +14,7 @@
   - [withExtraHttpHeaders(headers)](#withExtraHttpHeadersheaders)
   - [withTimezone(timezoneId)](#withTimezonetimezoneId)
   - [withStorageState(state)](#withStorageStatestate)
+  - [withMocks(mocks[, options])](#withMocksmocks-options)
   - [emulateDevice(deviceName)](#emulateDevicedeviceName)
   - [delayRequestsTo(url, durationInSeconds)](#delayRequestsTourl-durationInSeconds)
   - [onRequestTo(url[, options]).respondWith(response)](#onRequestTourl-optionsrespondWithresponse)
@@ -467,6 +468,16 @@ await p
 ```
 
 ---
+
+### withMocks(mocks[, options])
+
+- mocks: `Partial<FluentMock>[]`
+- options: `Partial<WithMocksOptions>`
+
+Provide a set of mocks in order to automatically handle request interceptions.
+!!! only for beta testers !!!
+
+## You can call `withMocks` multiple times with different set of mocks. In this case, all mocks are agregated in an internal array and are all registered only once to request interception from `playwright`
 
 ### withStorageState(state)
 
