@@ -97,6 +97,8 @@ export interface FluentMock {
     queryString: QueryString;
     postData: PostData;
   }) => string;
+
+  delayInMilliseconds: number;
 }
 
 export const passthroughMock: FluentMock = {
@@ -112,6 +114,7 @@ export const passthroughMock: FluentMock = {
     return {};
   },
   rawResponse: () => '',
+  delayInMilliseconds: 0,
 };
 
 export interface WithMocksOptions {
@@ -166,10 +169,30 @@ function inferMockResponseTypeIfNeeded(mock: Partial<FluentMock>): Partial<Fluen
   return mock;
 }
 
-function validate(mock: Partial<FluentMock>): void {
+export function validateMock(mock: Partial<FluentMock>): void {
   if (typeof mock.rawResponse === 'function' && typeof mock.jsonResponse === 'function') {
     throw new Error(
       `mock named '${mock.displayName}' should either implement a json response or a raw response but not both.`,
+    );
+  }
+
+  if (
+    typeof mock.rawResponse === 'function' &&
+    typeof mock.responseType === 'string' &&
+    mock.responseType === 'json'
+  ) {
+    throw new Error(
+      `mock named '${mock.displayName}' should implement a json response instead of a raw response, because you explicitely set the response type to be json.`,
+    );
+  }
+
+  if (
+    typeof mock.jsonResponse === 'function' &&
+    typeof mock.responseType === 'string' &&
+    mock.responseType === 'string'
+  ) {
+    throw new Error(
+      `mock named '${mock.displayName}' should implement a raw response instead of a json response, because you explicitely set the response type to be a string.`,
     );
   }
 }
@@ -191,6 +214,9 @@ export async function withMocks(
     ...defaultMocksOptions,
     ...options,
   };
+
+  mocks.forEach(validateMock);
+
   await page.route(
     (uri) => {
       if (!Array.isArray(mocks)) {
@@ -200,8 +226,6 @@ export async function withMocks(
       if (mocks.length === 0) {
         return false;
       }
-
-      mocks.forEach(validate);
 
       const mockExists = mocks
         .map(inferMockResponseTypeIfNeeded)
@@ -215,7 +239,7 @@ export async function withMocks(
       const url = request.url();
       const queryString = extractQueryStringObjectFromUrl(url) as QueryString;
       const postData = request.postDataJSON();
-      mocks.forEach(validate);
+
       const mock = mocks
         .map(inferMockResponseTypeIfNeeded)
         .map(spreadMissingProperties)
@@ -231,8 +255,13 @@ export async function withMocks(
         return;
       }
 
-      if (mock.responseType === 'continue') {
+      if (mock.responseType === 'continue' && mock.delayInMilliseconds === 0) {
         route.continue();
+        return;
+      }
+
+      if (mock.responseType === 'continue' && mock.delayInMilliseconds > 0) {
+        setTimeout(() => route.continue(), mock.delayInMilliseconds);
         return;
       }
 
@@ -246,6 +275,20 @@ export async function withMocks(
         const body = JSON.stringify(responseObject);
         const contentType: MimeType = 'application/json';
         mockOptions.onMockFound(mock, { request, queryString, postData });
+        if (mock.delayInMilliseconds > 0) {
+          setTimeout(
+            () =>
+              route.fulfill({
+                status,
+                headers,
+                contentType,
+                body,
+              }),
+            mock.delayInMilliseconds,
+          );
+          return;
+        }
+
         route.fulfill({
           status,
           headers,
@@ -264,6 +307,19 @@ export async function withMocks(
         const body = mock.rawResponse({ request, queryString, postData });
         const contentType: MimeType = 'text/plain';
         mockOptions.onMockFound(mock, { request, queryString, postData });
+        if (mock.delayInMilliseconds > 0) {
+          setTimeout(
+            () =>
+              route.fulfill({
+                status,
+                headers,
+                contentType,
+                body,
+              }),
+            mock.delayInMilliseconds,
+          );
+          return;
+        }
         route.fulfill({
           status,
           headers,

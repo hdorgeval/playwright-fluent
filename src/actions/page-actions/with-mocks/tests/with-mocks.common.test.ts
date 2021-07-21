@@ -23,4 +23,22 @@ describe('with mocks', (): void => {
       expect(error).toMatchObject(expectedError),
     );
   });
+  test('should return an error when mock response type is string but a json provider is given', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock for GET /foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      responseType: 'string',
+      jsonResponse: () => {
+        return { foo: 'bar' };
+      },
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock for GET /foobar' should implement a raw response instead of a json response, because you explicitely set the response type to be a string.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
 });

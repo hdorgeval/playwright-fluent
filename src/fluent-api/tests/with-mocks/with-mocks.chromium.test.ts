@@ -110,7 +110,7 @@ describe('Playwright Fluent - withMocks()', (): void => {
     expect(sentRequest.response!.payload).toMatchObject(mockedResponseBody);
   });
 
-  test('should intercept GET requests to a rest API by responding with HTTP Status 401', async (): Promise<void> => {
+  test('should intercept GET requests to a rest API by responding with HTTP Status 401 with a 10s delay', async (): Promise<void> => {
     // Given
     const htmlContent = readFileSync(`${path.join(__dirname, 'with-mocks.test.html')}`);
 
@@ -156,10 +156,12 @@ describe('Playwright Fluent - withMocks()', (): void => {
       responseType: 'string',
       rawResponse: () => 'sorry, you have no access',
       status: 401,
+      delayInMilliseconds: 10000,
     };
     const mocks = [mock1];
 
     // When
+    const startTime = new Date();
     await p
       .withBrowser('chromium')
       .withOptions({ headless: true })
@@ -170,9 +172,14 @@ describe('Playwright Fluent - withMocks()', (): void => {
 
     // Then requests to /foobar should be intercepted
     // And response should be mocked
-    await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
+    await p.waitUntil(async () => p.getRecordedRequestsTo('/foobar').length >= 1, {
       stabilityInMilliseconds: 1000,
     });
+
+    const endTime = new Date();
+    const elapsedInMilliseconds = endTime.getTime() - startTime.getTime();
+    expect(Math.abs(elapsedInMilliseconds)).toBeGreaterThanOrEqual(10000);
+
     const foobarRequests = p.getRecordedRequestsTo('/foobar');
     expect(Array.isArray(foobarRequests)).toBe(true);
     expect(foobarRequests.length).toBe(1);
