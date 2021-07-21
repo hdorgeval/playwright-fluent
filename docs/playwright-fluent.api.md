@@ -475,9 +475,10 @@ await p
 - options: `Partial<WithMocksOptions>`
 
 Provide a set of mocks in order to automatically handle request interceptions.
+
 !!! only for beta testers !!!
 
-## You can call `withMocks` multiple times with different set of mocks. In this case, all mocks are agregated in an internal array and are all registered only once to request interception from `playwright`
+You can call `withMocks` multiple times with different set of mocks. In this case, all mocks are agregated in an internal array and are all registered only once to request interception from `playwright`
 
 ### withStorageState(state)
 
