@@ -53,6 +53,7 @@ import {
   SelectOptions,
   SwitchToIframeOptions,
   TypeTextOptions,
+  validateMock,
   WindowState,
   WithMocksOptions,
 } from '../actions';
@@ -823,6 +824,8 @@ export class PlaywrightFluent implements PromiseLike<void> {
     mocks: Partial<FluentMock>[],
     options: Partial<WithMocksOptions> = defaultMocksOptions,
   ): PlaywrightFluent {
+    mocks.forEach(validateMock);
+
     if (this._allMocks.length === 0) {
       const action = (): Promise<void> => this.registerMocks(options);
       this.actions.push(action);
