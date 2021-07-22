@@ -73,7 +73,20 @@ export interface FluentMock {
    */
   enrichResponseHeaders: (headers: HttpHeaders) => HttpHeaders;
   responseType: 'json' | 'string' | 'empty' | 'continue';
-  status: number;
+
+  /**
+   * Http response status. Can be a function that returns a number.
+   * defaults to 200.
+   *
+   * @memberof FluentMock
+   */
+  status:
+    | number
+    | ((requestInfos: {
+        request: Request;
+        queryString: QueryString;
+        postData: PostData;
+      }) => number);
 
   /**
    * Build your own json response.
@@ -98,6 +111,13 @@ export interface FluentMock {
     postData: PostData;
   }) => string;
 
+  /**
+   * Delay the response by the given number of milliseconds.
+   * Defaults to 0.
+   *
+   * @type {number}
+   * @memberof FluentMock
+   */
   delayInMilliseconds: number;
 }
 
@@ -139,6 +159,24 @@ export const defaultMocksOptions: WithMocksOptions = {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onMockFound: () => {},
 };
+
+function getMockStatus(
+  mock: Partial<FluentMock>,
+  requestInfos: {
+    request: Request;
+    queryString: QueryString;
+    postData: PostData;
+  },
+): number {
+  if (typeof mock.status === 'function') {
+    return mock.status(requestInfos);
+  }
+  if (typeof mock.status === 'number') {
+    return mock.status;
+  }
+
+  return 200;
+}
 
 function inferMockResponseTypeIfNeeded(mock: Partial<FluentMock>): Partial<FluentMock> {
   if (mock.responseType) {
@@ -271,7 +309,7 @@ export async function withMocks(
           'Access-Control-Allow-Credentials': 'true',
           'Access-Control-Allow-Origin': '*',
         });
-        const status = mock.status;
+        const status = getMockStatus(mock, { request, queryString, postData });
         const body = JSON.stringify(responseObject);
         const contentType: MimeType = 'application/json';
         mockOptions.onMockFound(mock, { request, queryString, postData });
@@ -303,7 +341,7 @@ export async function withMocks(
           'Access-Control-Allow-Credentials': 'true',
           'Access-Control-Allow-Origin': '*',
         });
-        const status = mock.status;
+        const status = getMockStatus(mock, { request, queryString, postData });
         const body = mock.rawResponse({ request, queryString, postData });
         const contentType: MimeType = 'text/plain';
         mockOptions.onMockFound(mock, { request, queryString, postData });
