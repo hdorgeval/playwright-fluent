@@ -208,6 +208,10 @@ function inferMockResponseTypeIfNeeded(mock: Partial<FluentMock>): Partial<Fluen
 }
 
 export function validateMock(mock: Partial<FluentMock>): void {
+  if (mock.displayName === 'passthroughMock') {
+    return;
+  }
+
   if (typeof mock.rawResponse === 'function' && typeof mock.jsonResponse === 'function') {
     throw new Error(
       `mock named '${mock.displayName}' should either implement a json response or a raw response but not both.`,
