@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.39.2] - 2021-07-23
+
+### Added
+
+- feat(mocks): be able to dynamically build the response HTTP status.
+
+  - The `withMocks(mocks)` feature enables you to provide a set of mocks in order to automatically handle many request interceptions.
+  - It's an experimental feature.
+    The purpose of that feature is to provide a generic and simple infrastructure for massive request interception and response mocking.
+    The ultimate goal is to be able to mock all HTTP requests in order to test the front in complete isolation from the backend.
+
 ## [1.39.1] - 2021-07-22
 
 ### Added
