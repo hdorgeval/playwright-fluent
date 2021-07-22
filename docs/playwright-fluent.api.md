@@ -478,7 +478,160 @@ Provide a set of mocks in order to automatically handle request interceptions.
 
 !!! only for beta testers !!!
 
-You can call `withMocks` multiple times with different set of mocks. In this case, all mocks are agregated in an internal array and are all registered only once to request interception from `playwright`
+You can call `withMocks` multiple times with different set of mocks. In this case, all mocks are agregated in an internal array and are all registered only once to request interception from `playwright`.
+
+```js
+/**
+ * Be able to intercept a given http request url and provide a mocked response.
+ * The mock will be selected only if all provided matchers return true.
+ * When a matcher is not provided, it always default to true.
+ * When multiple mocks are selected, the last one is taken (like in CSS):
+ *  this enables you to override existing mocks on specific conditions.
+ * @export
+ * @interface FluentMock
+ */
+export interface FluentMock {
+  /**
+   * Mock friendly name. Useful when you are debugging your mocks.
+   * By default it will be set to 'not set' if you forgot to give your mock a name.
+   * @type {string}
+   * @memberof FluentMock
+   */
+  displayName: string;
+
+  /**
+   * Predicate acting on the http request url.
+   * If you return true for the input url, then the request will be mocked accordingly to the responseType.
+   * If you return false, the the request will never be mocked and other matchers will never be called.
+   * @memberof FluentMock
+   */
+  urlMatcher: (url: string) => boolean;
+
+  /**
+   * Optional predicate acting on the http request method.
+   * This predicate will be called only if the predicate urlMatcher returns true.
+   * If you do not set a methodMatcher, a default one that always returns true is provided.
+   * @memberof FluentMock
+   */
+  methodMatcher: (method: HttpRequestMethod) => boolean;
+
+  /**
+   * Optional predicate acting on the query string.
+   * This predicate will be called only if the predicate urlMatcher returns true.
+   * If you do not set a queryStringMatcher, a default one that always returns true is provided.
+   *
+   * @memberof FluentMock
+   */
+  queryStringMatcher: (queryString: QueryString) => boolean;
+
+  /**
+   * Optional predicate acting on the post data sent by the http request.
+   * This predicate will be called only if the predicate urlMatcher returns true.
+   * If you do not set a postDataMatcher, a default one that always returns true is provided.
+   *
+   * @memberof FluentMock
+   */
+  postDataMatcher: (postData: PostData) => boolean;
+
+  /**
+   * Add or modify the headers that will be sent with the mocked response.
+   *
+   * @memberof FluentMock
+   */
+  enrichResponseHeaders: (headers: HttpHeaders) => HttpHeaders;
+  responseType: 'json' | 'string' | 'empty' | 'continue';
+
+  /**
+   * Http response status. Can be a function that returns a number.
+   * defaults to 200.
+   *
+   * @memberof FluentMock
+   */
+  status:
+    | number
+    | ((requestInfos: {
+        request: Request,
+        queryString: QueryString,
+        postData: PostData,
+      }) => number);
+
+  /**
+   * Build your own json response.
+   * This method will be called only if responseType is 'json'.
+   * @memberof FluentMock
+   */
+  jsonResponse: (requestInfos: {
+    request: Request,
+    queryString: QueryString,
+    postData: PostData,
+  }) => ResponseData;
+
+  /**
+   * Build your own string response.
+   * This method will be called only if responseType is 'string'.
+   *
+   * @memberof FluentMock
+   */
+  rawResponse: (requestInfos: {
+    request: Request,
+    queryString: QueryString,
+    postData: PostData,
+  }) => string;
+
+  /**
+   * Delay the response by the given number of milliseconds.
+   * Defaults to 0.
+   *
+   * @type {number}
+   * @memberof FluentMock
+   */
+  delayInMilliseconds: number;
+}
+```
+
+Example:
+
+```js
+const browser = 'chromium';
+const p = new PlaywrightFluent();
+const storageStateFile = join(__dirname, 'storage-state.json');
+
+const mock1: Partial<FluentMock> = {
+  displayName: 'return HTTP 401 on GET /foobar requests after delaying the response by 10s',
+  urlMatcher: (url) => url.includes('/foobar'),
+  methodMatcher: (method) => method === 'GET',
+  responseType: 'string',
+  rawResponse: () => 'sorry, you have no access',
+  status: 401,
+  delayInMilliseconds: 10000,
+};
+
+const mockedResponseBody = { foo: 'bar' }; // you custom mocked response
+const mock2: Partial<FluentMock> = {
+  displayName: 'mock for GET /api/baz?foo=bar',
+  urlMatcher: (url) => url.includes('/api'),
+  queryStringMatcher: (queryString) => queryString.foo === 'bar',
+  methodMatcher: (method) => method === 'GET',
+  enrichResponseHeaders: (headers) => {
+    return {
+      ...headers,
+      'foo-header': 'bar',
+    };
+  },
+  jsonResponse: () => mockedResponseBody,
+  status: 200,
+};
+
+const mocks = [mock1, mock2];
+
+// prettier-ignore
+await p
+  .withBrowser(browser)
+  .withMocks(mocks)
+  .navigateTo('example.com');
+```
+
+---
 
 ### withStorageState(state)
 
