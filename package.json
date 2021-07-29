@@ -1,6 +1,6 @@
 {
   "name": "playwright-fluent",
-  "version": "1.39.2",
+  "version": "1.39.3",
   "description": "Fluent API around playwright",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
