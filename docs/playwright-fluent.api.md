@@ -476,9 +476,11 @@ await p
 
 Provide a set of mocks in order to automatically handle request interceptions.
 
-!!! only for beta testers !!!
+!!! Only for beta testing !!!
 
-You can call `withMocks` multiple times with different set of mocks. In this case, all mocks are agregated in an internal array and are all registered only once to request interception from `playwright`.
+You can call `withMocks` multiple times with different set of mocks. In this case, all mocks are aggregated in an internal array and are all registered only once to request interception from `playwright`.
+
+`FluentMock`:
 
 ```js
 /**
@@ -589,6 +591,26 @@ export interface FluentMock {
 }
 ```
 
+`WithMocksOptions`:
+
+```js
+export interface WithMocksOptions {
+  onMockNotFound: (requestInfos: {
+    request: Request,
+    queryString: QueryString,
+    postData: PostData,
+  }) => void;
+  onMockFound: (
+    mock: Partial<FluentMock>,
+    requestInfos: {
+      request: Request,
+      queryString: QueryString,
+      postData: PostData,
+    },
+  ) => void;
+}
+```
+
 Example:
 
 ```js
@@ -630,6 +652,13 @@ await p
   .withMocks(mocks)
   .navigateTo('example.com');
 ```
+
+A mock is just a literal object whose `xxxResponse` property will be called automatically when each provided matchers return true for any given request sent by the front.
+
+Helpers are provided to handle simple mock creation:
+
+- [mockGetWithJsonResponse](../src/actions/page-actions/with-mocks/mock-creators.ts)
+- [mockGetWithJsonResponseDependingOnQueryString](../src/actions/page-actions/with-mocks/mock-creators.ts)
 
 ---
 
