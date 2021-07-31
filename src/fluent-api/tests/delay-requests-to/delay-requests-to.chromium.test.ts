@@ -2,6 +2,7 @@ import * as SUT from '../../playwright-fluent';
 import { stringifyRequest, RequestInfo } from '../../../utils';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
+import { readFileSync } from 'fs';
 
 describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
   let p: SUT.PlaywrightFluent;
@@ -26,7 +27,14 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
 
   test('should delay request', async (): Promise<void> => {
     // Given
-    const url = `file:${path.join(__dirname, 'delay-requests-to.test.html')}`;
+    const htmlContent = readFileSync(`${path.join(__dirname, 'delay-requests-to.test.html')}`);
+
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/app')
+        .willReturn(htmlContent.toString(), 200);
 
     const responseBody = {
       prop1: 'foobar',
@@ -63,7 +71,7 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
       .delayRequestsTo('/foobar', expectedDelayInSeconds)
       .recordRequestsTo('/foobar')
       .recordNetworkActivity({ path: harFilepath })
-      .navigateTo(url);
+      .navigateTo('http://localhost:1234/app');
 
     // Then button should be disabled while resquest is pending
     await p.hover(checkbox).expectThat(checkbox).isDisabled();
