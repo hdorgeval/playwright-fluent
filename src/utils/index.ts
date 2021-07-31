@@ -1,3 +1,4 @@
+export * from './are-same-type';
 export * from './filename-generator';
 export * from './frame-to-page';
 export * from './fs';
