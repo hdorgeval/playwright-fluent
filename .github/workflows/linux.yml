@@ -29,6 +29,7 @@ jobs:
               libenchant1c2a\
               libhyphen0\
               libgles2\
+              libevdev2\
               gstreamer1.0-libav
       - name: Setup node 14
         uses: actions/setup-node@v2
