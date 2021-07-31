@@ -1,7 +1,7 @@
 import * as SUT from '../index';
-import { recordRequestsTo, Request } from '../../record-requests-to';
+import { recordRequestsTo } from '../../record-requests-to';
 import { stringifyRequest, RequestInfo, sleep } from '../../../../utils';
-import { Browser, chromium } from 'playwright';
+import { Browser, chromium, Request } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
 import { readFileSync } from 'fs';

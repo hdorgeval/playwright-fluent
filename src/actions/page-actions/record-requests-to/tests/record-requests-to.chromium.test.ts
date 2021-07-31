@@ -1,6 +1,6 @@
 import * as SUT from '../index';
 import { stringifyRequest, RequestInfo, sleep } from '../../../../utils';
-import { Browser, chromium } from 'playwright';
+import { Browser, chromium, Request } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
 
@@ -45,8 +45,8 @@ describe('record requests to', (): void => {
         .to('/foobar')
         .willReturn(responseBody, 200, responseHeaders);
 
-    const requests: SUT.Request[] = [];
-    const callback = (request: SUT.Request) => requests.push(request);
+    const requests: Request[] = [];
+    const callback = (request: Request) => requests.push(request);
     const takeAllPredicate = () => false;
 
     // When
@@ -80,8 +80,8 @@ describe('record requests to', (): void => {
         .to('/500')
         .willFail(500);
 
-    const requests: SUT.Request[] = [];
-    const callback = (request: SUT.Request) => requests.push(request);
+    const requests: Request[] = [];
+    const callback = (request: Request) => requests.push(request);
     const takeAllPredicate = () => false;
 
     // When
@@ -107,8 +107,8 @@ describe('record requests to', (): void => {
     const context = await browser.newContext({ viewport: null });
     const page = await context.newPage();
 
-    const requests: SUT.Request[] = [];
-    const callback = (request: SUT.Request) => requests.push(request);
+    const requests: Request[] = [];
+    const callback = (request: Request) => requests.push(request);
     const takeAllPredicate = () => false;
 
     // When
@@ -140,8 +140,8 @@ describe('record requests to', (): void => {
         .to('/502')
         .willFail(502);
 
-    const requests: SUT.Request[] = [];
-    const callback = (request: SUT.Request) => requests.push(request);
+    const requests: Request[] = [];
+    const callback = (request: Request) => requests.push(request);
     const takeAllPredicate = () => false;
 
     // When

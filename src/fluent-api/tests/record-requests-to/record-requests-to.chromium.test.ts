@@ -1,5 +1,6 @@
 import * as SUT from '../../playwright-fluent';
 import { stringifyRequest, RequestInfo } from '../../../utils';
+import { mockGetWithJsonResponse } from '../../../actions';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
 
@@ -215,5 +216,67 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     expect(sentRequest.response!.status).toBe(500);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(sentRequest.response!.statusText).toBe('Internal Server Error');
+  });
+
+  test('should get outdated mocks', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'record-requests-to.test.html')}`;
+
+    const responseBody = {
+      prop1: 'foobar',
+    };
+    const responseBodyBaz = {
+      prop1: 'foobaz',
+    };
+    const responseHeaders = {
+      'foo-header': 'bar',
+    };
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/foobar')
+        .willReturn(responseBody, 200, responseHeaders);
+
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .delete()
+        .to('/foobar')
+        .willReturn(responseBody, 200, responseHeaders);
+
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/yo')
+        .willReturn(responseBodyBaz, 200, responseHeaders);
+
+    const mock = mockGetWithJsonResponse('/foobar', { ...responseBody, prop2: 'yo' });
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: true })
+      .withCursor()
+      .recordRequestsTo('/foobar', (request) => request.method() === 'DELETE')
+      .recordRequestsTo('/yo')
+      .navigateTo(url);
+
+    // Then requests to /foobar can be analyzed
+    await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
+      stabilityInMilliseconds: 1000,
+    });
+    const foobarRequests = p.getRecordedRequestsTo('/foobar');
+    expect(Array.isArray(foobarRequests)).toBe(true);
+    expect(foobarRequests.length).toBe(1);
+
+    const outdatedMocks = await SUT.getOutdatedMocks(
+      [mock],
+      foobarRequests,
+      SUT.defaultMocksOptions,
+    );
+
+    expect(outdatedMocks.length).toBe(1);
   });
 });

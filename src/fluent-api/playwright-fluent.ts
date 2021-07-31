@@ -87,7 +87,8 @@ import {
   HttpHeaders,
 } from '../utils';
 import { SelectorFluent } from '../selector-api';
-import { Browser, Page, BrowserContext, Request as PlaywrightRequest, Frame } from 'playwright';
+import { Request, Browser, Page, BrowserContext, Frame } from 'playwright';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
 
@@ -116,8 +117,10 @@ export {
   CloseOptions,
   DateFormat,
   DateTimeFormatOptions,
+  defaultMocksOptions,
   DoubleClickOptions,
   FluentMock,
+  getOutdatedMocks,
   HarRequestResponseOptions,
   HoverOptions,
   InvokeOptions,
@@ -131,9 +134,7 @@ export {
   mockGetWithJsonResponseDependingOnQueryString,
   NavigationOptions,
   PasteTextOptions,
-  Request,
   RequestInterceptionFilterOptions,
-  Response,
   ResponseData,
   ScreenshotOptions,
   SelectOptionInfo,
@@ -596,11 +597,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
-  private sentRequests: action.Request[] = [];
-  public getRecordedRequestsTo(url: string): action.Request[] {
+  private sentRequests: Request[] = [];
+  public getRecordedRequestsTo(url: string): Request[] {
     return [...this.sentRequests.filter((req) => req.url().includes(url))];
   }
-  public getLastRecordedRequestTo(url: string): action.Request | undefined {
+  public getLastRecordedRequestTo(url: string): Request | undefined {
     return this.sentRequests.filter((req) => req.url().includes(url)).pop();
   }
 
@@ -609,7 +610,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   private async recordRequestsToUrl(
     partialUrl: string,
-    ignorePredicate: (request: PlaywrightRequest) => boolean,
+    ignorePredicate: (request: Request) => boolean,
   ): Promise<void> {
     await action.recordRequestsTo(partialUrl, ignorePredicate, this.currentPage(), (request) =>
       this.sentRequests.push(request),
@@ -622,7 +623,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * Each recorded request is a standard `playwright` request object that contains both the request and the response.
    *
    * @param {string} partialUrl This parameter should be seen as a partial url (it is not a regex and not a glob pattern).
-   * @param {(request: PlaywrightRequest) => boolean} [ignorePredicate=() => false] optional predicate to provide if you want to ignore specific requests
+   * @param {(request: Request) => boolean} [ignorePredicate=() => false] optional predicate to provide if you want to ignore specific requests
    * @returns {PlaywrightFluent}
    * @memberof PlaywrightFluent
    * @example
@@ -637,7 +638,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
    */
   public recordRequestsTo(
     partialUrl: string,
-    ignorePredicate: (request: PlaywrightRequest) => boolean = () => false,
+    ignorePredicate: (request: Request) => boolean = () => false,
   ): PlaywrightFluent {
     const action = (): Promise<void> => this.recordRequestsToUrl(partialUrl, ignorePredicate);
     this.actions.push(action);
@@ -684,9 +685,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async onRequestToRespondWith<T>(
     partialUrl: string,
     options: Partial<RequestInterceptionFilterOptions>,
-    response:
-      | Partial<MockedResponse<T>>
-      | ((request: PlaywrightRequest) => Partial<MockedResponse<T>>),
+    response: Partial<MockedResponse<T>> | ((request: Request) => Partial<MockedResponse<T>>),
   ): Promise<void> {
     await action.onRequestToRespondWith(partialUrl, options, response, this.currentPage());
   }
@@ -703,9 +702,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     options: Partial<RequestInterceptionFilterOptions> = {},
   ): {
     respondWith: <T>(
-      response:
-        | Partial<MockedResponse<T>>
-        | ((request: PlaywrightRequest) => Partial<MockedResponse<T>>),
+      response: Partial<MockedResponse<T>> | ((request: Request) => Partial<MockedResponse<T>>),
     ) => PlaywrightFluent;
     respondFromHar: (
       harFiles: string[],
@@ -714,9 +711,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   } {
     return {
       respondWith: <T>(
-        response:
-          | Partial<MockedResponse<T>>
-          | ((request: PlaywrightRequest) => Partial<MockedResponse<T>>),
+        response: Partial<MockedResponse<T>> | ((request: Request) => Partial<MockedResponse<T>>),
       ): PlaywrightFluent => {
         const action = (): Promise<void> =>
           this.onRequestToRespondWith(partialUrl, options, response);
@@ -739,8 +734,8 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
   }
 
-  private failedRequests: action.Request[] = [];
-  public getFailedRequests(): action.Request[] {
+  private failedRequests: Request[] = [];
+  public getFailedRequests(): Request[] {
     return [...this.failedRequests];
   }
   public clearFailedRequests(): void {

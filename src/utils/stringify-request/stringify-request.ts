@@ -1,4 +1,4 @@
-import { Request, Response } from '../../actions';
+import { Request, Response } from 'playwright';
 import { URL } from 'url';
 import * as querystring from 'querystring';
 // eslint-disable-next-line @typescript-eslint/no-var-requires

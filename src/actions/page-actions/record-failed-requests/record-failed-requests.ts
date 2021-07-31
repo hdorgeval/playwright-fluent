@@ -1,5 +1,4 @@
-import { Request } from '../record-requests-to';
-import { Page } from 'playwright';
+import { Page, Request } from 'playwright';
 
 const failedStatus = [500, 503, 400, 401, 403, 307];
 

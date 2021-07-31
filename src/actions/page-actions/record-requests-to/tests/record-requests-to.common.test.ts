@@ -1,5 +1,5 @@
 import * as SUT from '../index';
-import { Page } from 'playwright';
+import { Request, Page } from 'playwright';
 
 describe('record requests to', (): void => {
   beforeEach((): void => {
@@ -9,8 +9,8 @@ describe('record requests to', (): void => {
   test('should return an error when browser has not been launched', async (): Promise<void> => {
     // Given
     const page: Page | undefined = undefined;
-    const requests: SUT.Request[] = [];
-    const callback = (request: SUT.Request) => requests.push(request);
+    const requests: Request[] = [];
+    const callback = (request: Request) => requests.push(request);
     const takeAllPredicate = () => false;
 
     // When

@@ -1,6 +1,5 @@
 import * as SUT from '../index';
-import { Request } from '../../record-requests-to';
-import { Page } from 'playwright';
+import { Page, Request } from 'playwright';
 describe('record failed requests', (): void => {
   beforeEach((): void => {
     jest.setTimeout(30000);
