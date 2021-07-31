@@ -160,7 +160,7 @@ export const defaultMocksOptions: WithMocksOptions = {
   onMockFound: () => {},
 };
 
-function getMockStatus(
+export function getMockStatus(
   mock: Partial<FluentMock>,
   requestInfos: {
     request: Request;
@@ -178,7 +178,7 @@ function getMockStatus(
   return 200;
 }
 
-function inferMockResponseTypeIfNeeded(mock: Partial<FluentMock>): Partial<FluentMock> {
+export function inferMockResponseTypeIfNeeded(mock: Partial<FluentMock>): Partial<FluentMock> {
   if (mock.responseType) {
     return mock;
   }
@@ -239,7 +239,7 @@ export function validateMock(mock: Partial<FluentMock>): void {
   }
 }
 
-function spreadMissingProperties(mock: Partial<FluentMock>): FluentMock {
+export function spreadMissingProperties(mock: Partial<FluentMock>): FluentMock {
   return { ...passthroughMock, displayName: 'not set', ...mock };
 }
 
