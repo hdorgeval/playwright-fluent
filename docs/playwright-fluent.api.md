@@ -660,6 +660,27 @@ Helpers are provided to handle simple mock creation:
 - [mockGetWithJsonResponse](../src/actions/page-actions/with-mocks/mock-creators.ts)
 - [mockGetWithJsonResponseDependingOnQueryString](../src/actions/page-actions/with-mocks/mock-creators.ts)
 
+Mocks are great until they are outdated. Being able to detect that a mock is outdated is essential.
+
+You can automatically pinpoint outdated mocks in the following way:
+
+```ts
+import { getOutdatedMocks } from 'playwright-fluent';
+
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: true })
+  .recordRequestsTo('/')
+  .navigateTo(url);
+
+await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/').length, {
+  stabilityInMilliseconds: 1000,
+});
+
+const allRequests = p.getRecordedRequestsTo('/');
+const outdatedMocks = await getOutdatedMocks(mocks, allRequests, defaultMocksOptions);
+```
+
 ---
 
 ### withStorageState(state)
