@@ -57,4 +57,20 @@ describe('mock creators', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mock.urlMatcher!(`https://yo.com/api/yo?foo=baz`)).toBe(true);
   });
+
+  test('should return a mock for GET javascript', async (): Promise<void> => {
+    // Given
+    const response = `window.foo = 'bar';`;
+
+    // When
+    const mock = SUT.mockGetWithJavascriptResponse('/api/foo.js', response);
+
+    // Then
+    expect(mock.displayName).toBe('GET /api/foo.js');
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(mock.urlMatcher!(`https://yo.com/api/foo.js`)).toBe(true);
+    expect(mock.responseType).toBe('javascript');
+    expect(typeof mock.rawResponse).toBe('function');
+  });
 });

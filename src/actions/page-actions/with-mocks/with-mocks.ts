@@ -4,7 +4,8 @@ import {
   HttpRequestMethod,
   MimeType,
 } from '../../../utils';
-import { Page, Request } from 'playwright';
+import { Page, Request, Route } from 'playwright';
+
 export type ResponseData =
   | Record<string, unknown>
   | Record<string, never>
@@ -72,7 +73,15 @@ export interface FluentMock {
    * @memberof FluentMock
    */
   enrichResponseHeaders: (headers: HttpHeaders) => HttpHeaders;
-  responseType: 'json' | 'string' | 'empty' | 'continue';
+
+  /**
+   * Define the response type of the mocked request.
+   * If you do not set a responseType, a default one will be infered from the provided jsonResponse or rawResponse.
+   *
+   * @type {('json' | 'string' | 'javascript' | 'empty' | 'continue')}
+   * @memberof FluentMock
+   */
+  responseType: 'json' | 'string' | 'javascript' | 'empty' | 'continue';
 
   /**
    * Http response status. Can be a function that returns a number.
@@ -101,7 +110,7 @@ export interface FluentMock {
 
   /**
    * Build your own string response.
-   * This method will be called only if responseType is 'string'.
+   * This method will be called only if responseType is 'string' or 'javascript'.
    *
    * @memberof FluentMock
    */
@@ -243,6 +252,47 @@ export function spreadMissingProperties(mock: Partial<FluentMock>): FluentMock {
   return { ...passthroughMock, displayName: 'not set', ...mock };
 }
 
+export interface RouteOptions {
+  /**
+   * Response body.
+   */
+  body: string | Buffer;
+
+  /**
+   * If set, equals to setting `Content-Type` response header.
+   */
+  contentType: string;
+
+  /**
+   * Response headers. Header values will be converted to a string.
+   */
+  headers: { [key: string]: string };
+
+  /**
+   * File path to respond with. The content type will be inferred from file extension. If `path` is a relative path, then it
+   * is resolved relative to the current working directory.
+   */
+  path: string;
+
+  /**
+   * Response status code, defaults to `200`.
+   */
+  status: number;
+}
+
+async function fullfillRouteWithMock(
+  mock: FluentMock,
+  route: Route,
+  options: Partial<RouteOptions>,
+): Promise<void> {
+  if (mock.delayInMilliseconds > 0) {
+    setTimeout(() => route.fulfill(options), mock.delayInMilliseconds);
+    return;
+  }
+
+  route.fulfill(options);
+}
+
 export async function withMocks(
   mocks: Partial<FluentMock>[],
   options: Partial<WithMocksOptions>,
@@ -317,26 +367,7 @@ export async function withMocks(
         const body = JSON.stringify(responseObject);
         const contentType: MimeType = 'application/json';
         mockOptions.onMockFound(mock, { request, queryString, postData });
-        if (mock.delayInMilliseconds > 0) {
-          setTimeout(
-            () =>
-              route.fulfill({
-                status,
-                headers,
-                contentType,
-                body,
-              }),
-            mock.delayInMilliseconds,
-          );
-          return;
-        }
-
-        route.fulfill({
-          status,
-          headers,
-          contentType,
-          body,
-        });
+        fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
         return;
       }
 
@@ -349,25 +380,34 @@ export async function withMocks(
         const body = mock.rawResponse({ request, queryString, postData });
         const contentType: MimeType = 'text/plain';
         mockOptions.onMockFound(mock, { request, queryString, postData });
-        if (mock.delayInMilliseconds > 0) {
-          setTimeout(
-            () =>
-              route.fulfill({
-                status,
-                headers,
-                contentType,
-                body,
-              }),
-            mock.delayInMilliseconds,
-          );
-          return;
-        }
-        route.fulfill({
-          status,
-          headers,
-          contentType,
-          body,
+        fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
+        return;
+      }
+
+      if (mock.responseType === 'empty') {
+        const headers = mock.enrichResponseHeaders({
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Origin': '*',
         });
+        const status = getMockStatus(mock, { request, queryString, postData });
+        const body = '';
+        const contentType: MimeType = 'text/plain';
+        mockOptions.onMockFound(mock, { request, queryString, postData });
+        fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
+        return;
+      }
+
+      if (mock.responseType === 'javascript') {
+        const headers = mock.enrichResponseHeaders({
+          'access-control-allow-methods': '*',
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Origin': '*',
+        });
+        const status = getMockStatus(mock, { request, queryString, postData });
+        const body = mock.rawResponse({ request, queryString, postData });
+        const contentType: MimeType = 'application/javascript';
+        mockOptions.onMockFound(mock, { request, queryString, postData });
+        fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
         return;
       }
 

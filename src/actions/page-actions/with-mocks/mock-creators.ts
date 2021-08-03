@@ -8,6 +8,19 @@ export function mockGetWithJsonResponse<T>(relativeUrl: string, response: T): Pa
   };
 }
 
+export function mockGetWithJavascriptResponse(
+  relativeUrl: string,
+  response: string,
+): Partial<FluentMock> {
+  return {
+    displayName: `GET ${relativeUrl}`,
+    urlMatcher: (url) => url.includes(relativeUrl),
+    methodMatcher: (m) => m === 'GET',
+    responseType: 'javascript',
+    rawResponse: () => response,
+  };
+}
+
 export function mockGetWithJsonResponseDependingOnQueryString<T>(
   relativeUrl: string,
   queryString: QueryString,
