@@ -8,6 +8,24 @@ export function mockGetWithJsonResponse<T>(relativeUrl: string, response: T): Pa
   };
 }
 
+/**
+ * Ceate a mock for a GET request to the specified url that returns a JavaScript response.
+ *
+ * @export
+ * @param {string} relativeUrl
+ * @param {string} response
+ * @returns {Partial<FluentMock>}
+ * @example
+ * It will return this mock:
+ * {
+ *   displayName: `GET ${relativeUrl}`,
+ *   urlMatcher: (url) => url.includes(relativeUrl),
+ *   methodMatcher: (m) => m === 'GET',
+ *   responseType: 'javascript',
+ *   rawResponse: () => response,
+ * }
+ *
+ */
 export function mockGetWithJavascriptResponse(
   relativeUrl: string,
   response: string,
@@ -18,6 +36,84 @@ export function mockGetWithJavascriptResponse(
     methodMatcher: (m) => m === 'GET',
     responseType: 'javascript',
     rawResponse: () => response,
+  };
+}
+
+export function mockGetWithEmptyResponseAndStatus(
+  relativeUrl: string,
+  status = 200,
+): Partial<FluentMock> {
+  return {
+    displayName: `GET ${relativeUrl}`,
+    urlMatcher: (url) => url.includes(relativeUrl),
+    methodMatcher: (m) => m === 'GET',
+    responseType: 'empty',
+    status,
+  };
+}
+
+/**
+ * Ceate a mock for a GET request to the specified url that returns an HTTP 401 status.
+ *
+ * @export
+ * @param {string} relativeUrl
+ * @returns {Partial<FluentMock>}
+ * * @example
+ * It will return this mock:
+ * {
+ *  displayName: `GET ${relativeUrl}`,
+ *  urlMatcher: (url) => url.includes(relativeUrl),
+ *  methodMatcher: (m) => m === 'GET',
+ *  responseType: 'empty',
+ *  status: 401,
+ * }
+ */
+export function mockGetWithUnauthorizedResponse(relativeUrl: string): Partial<FluentMock> {
+  return {
+    displayName: `GET ${relativeUrl}`,
+    urlMatcher: (url) => url.includes(relativeUrl),
+    methodMatcher: (m) => m === 'GET',
+    responseType: 'empty',
+    status: 401,
+  };
+}
+
+/**
+ * Ceate a mock for a GET request to the specified url that returns an HTTP 403 status.
+ *
+ * @export
+ * @param {string} relativeUrl
+ * @returns {Partial<FluentMock>}
+ * * @example
+ * It will return this mock:
+ * {
+ *  displayName: `GET ${relativeUrl}`,
+ *  urlMatcher: (url) => url.includes(relativeUrl),
+ *  methodMatcher: (m) => m === 'GET',
+ *  responseType: 'empty',
+ *  status: 403,
+ * }
+ */
+export function mockGetWithForbiddenResponse(relativeUrl: string): Partial<FluentMock> {
+  return {
+    displayName: `GET ${relativeUrl}`,
+    urlMatcher: (url) => url.includes(relativeUrl),
+    methodMatcher: (m) => m === 'GET',
+    responseType: 'empty',
+    status: 403,
+  };
+}
+
+export function mockPostWithEmptyResponseAndStatus(
+  relativeUrl: string,
+  status = 200,
+): Partial<FluentMock> {
+  return {
+    displayName: `POST ${relativeUrl}`,
+    urlMatcher: (url) => url.includes(relativeUrl),
+    methodMatcher: (m) => m === 'POST',
+    responseType: 'empty',
+    status,
   };
 }
 
