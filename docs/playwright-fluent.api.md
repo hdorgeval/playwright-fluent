@@ -655,10 +655,15 @@ await p
 
 A mock is just a literal object whose `xxxResponse` property will be called automatically when each provided matchers return true for any given request sent by the front.
 
-Helpers are provided to handle simple mock creation:
+[Helpers](../src/actions/page-actions/with-mocks/mock-creators.ts) are provided to handle simple mock creation:
 
-- [mockGetWithJsonResponse](../src/actions/page-actions/with-mocks/mock-creators.ts)
-- [mockGetWithJsonResponseDependingOnQueryString](../src/actions/page-actions/with-mocks/mock-creators.ts)
+- `mockGetWithJsonResponse`
+- `mockGetWithJsonResponseDependingOnQueryString`
+- `mockGetWithJavascriptResponse`
+- `mockGetWithEmptyResponseAndStatus`
+- `mockPostWithEmptyResponseAndStatus`
+- `mockGetWithUnauthorizedResponse`
+- `mockGetWithForbiddenResponse`
 
 Mocks are great until they are outdated. Being able to detect that a mock is outdated is essential.
 
