@@ -11,7 +11,7 @@ describe('with mocks', (): void => {
     // Given
     const page: Page | undefined = undefined;
     const options: Partial<SUT.WithMocksOptions> = {};
-    const mocks: FluentMock[] = [];
+    const mocks: () => FluentMock[] = () => [];
 
     // When
     // Then
@@ -23,6 +23,41 @@ describe('with mocks', (): void => {
       expect(error).toMatchObject(expectedError),
     );
   });
+
+  test('should return an error when mocks is not a function', async (): Promise<void> => {
+    // Given
+    const page: Page | undefined = undefined;
+    const options: Partial<SUT.WithMocksOptions> = {};
+    const mocks: Partial<SUT.WithMocksOptions>[] = [];
+
+    // When
+    // Then
+    const expectedError = new Error(
+      'mocks must be a function that returns an array of FluentMock objects.',
+    );
+
+    await SUT.withMocks(mocks as unknown as () => Partial<FluentMock>[], options, page).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
+  });
+
+  test('should return an error when mocks() is not an array', async (): Promise<void> => {
+    // Given
+    const page: Page | undefined = undefined;
+    const options: Partial<SUT.WithMocksOptions> = {};
+    const mocks: () => string = () => 'foo';
+
+    // When
+    // Then
+    const expectedError = new Error(
+      'mocks must be a function that returns an array of FluentMock objects.',
+    );
+
+    await SUT.withMocks(mocks as unknown as () => Partial<FluentMock>[], options, page).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
+  });
+
   test('should return an error when mock response type is string but a json provider is given', async (): Promise<void> => {
     // Given
     const mock: Partial<FluentMock> = {

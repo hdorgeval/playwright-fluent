@@ -93,7 +93,7 @@ describe('with mocks', (): void => {
     const callback = (request: Request) => requests.push(request);
     await recordRequestsTo('/foobar', ignorePredicate, page, callback);
 
-    const mocks = [mock];
+    const mocks = () => [mock];
 
     // When
     await SUT.withMocks(mocks, mockOptions, page);

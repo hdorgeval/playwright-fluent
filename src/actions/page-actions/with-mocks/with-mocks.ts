@@ -294,10 +294,18 @@ async function fullfillRouteWithMock(
 }
 
 export async function withMocks(
-  mocks: Partial<FluentMock>[],
+  mocks: () => Partial<FluentMock>[],
   options: Partial<WithMocksOptions>,
   page: Page | undefined,
 ): Promise<void> {
+  if (typeof mocks !== 'function') {
+    throw new Error(`mocks must be a function that returns an array of FluentMock objects.`);
+  }
+
+  if (!Array.isArray(mocks())) {
+    throw new Error(`mocks must be a function that returns an array of FluentMock objects.`);
+  }
+
   if (!page) {
     throw new Error(`Cannot intercept requests with mocks because no browser has been launched`);
   }
@@ -307,19 +315,15 @@ export async function withMocks(
     ...options,
   };
 
-  mocks.forEach(validateMock);
+  mocks().forEach(validateMock);
 
   await page.route(
     (uri) => {
-      if (!Array.isArray(mocks)) {
+      if (mocks().length === 0) {
         return false;
       }
 
-      if (mocks.length === 0) {
-        return false;
-      }
-
-      const mockExists = mocks
+      const mockExists = mocks()
         .map(inferMockResponseTypeIfNeeded)
         .map(spreadMissingProperties)
         .map((mock) => mock.urlMatcher(uri.toString()))
@@ -332,7 +336,7 @@ export async function withMocks(
       const queryString = extractQueryStringObjectFromUrl(url) as QueryString;
       const postData = request.postDataJSON();
 
-      const mock = mocks
+      const mock = mocks()
         .map(inferMockResponseTypeIfNeeded)
         .map(spreadMissingProperties)
         .filter((mock) => mock.urlMatcher(url))

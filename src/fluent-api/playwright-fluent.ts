@@ -811,11 +811,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private _allMocks: Partial<FluentMock>[] = [];
   private async registerMocks(options: Partial<WithMocksOptions>): Promise<void> {
-    await action.withMocks(this._allMocks, options, this.currentPage());
+    await action.withMocks(() => this._allMocks, options, this.currentPage());
   }
 
   /**
    * Provide a set of mocks in order to automatically handle request interceptions
+   * This method can be called multiple times with different set of mocks:
+   * in this case all mocks are concatenated in a single internal array.
    *
    * @param {() => Partial<FluentMock>[]} mocks
    * @param {Partial<WithMocksOptions>} [options=defaultMocksOptions]
