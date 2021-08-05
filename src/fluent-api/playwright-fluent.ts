@@ -146,6 +146,7 @@ export {
   SelectOptions,
   SwitchToIframeOptions,
   TypeTextOptions,
+  validateMock,
   WindowState,
 } from '../actions';
 

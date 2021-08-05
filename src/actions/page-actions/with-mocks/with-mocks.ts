@@ -315,8 +315,6 @@ export async function withMocks(
     ...options,
   };
 
-  mocks().forEach(validateMock);
-
   await page.route(
     (uri) => {
       if (mocks().length === 0) {
