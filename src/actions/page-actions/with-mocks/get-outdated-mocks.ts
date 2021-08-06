@@ -72,7 +72,7 @@ export async function getOutdatedMocks(
       continue;
     }
 
-    if (mock.responseType === 'continue' && mock.delayInMilliseconds === 0) {
+    if (mock.responseType === 'continue') {
       continue;
     }
 
@@ -97,7 +97,11 @@ export async function getOutdatedMocks(
       continue;
     }
 
-    if (mock.responseType === 'string') {
+    if (
+      mock.responseType === 'string' ||
+      mock.responseType === 'empty' ||
+      mock.responseType === 'javascript'
+    ) {
       const mockedBody = mock.rawResponse({ request, queryString, postData });
       const actualBody = await requestResponse.text();
       mockOptions.onMockFound(mock, { request, queryString, postData });
@@ -113,8 +117,6 @@ export async function getOutdatedMocks(
       } catch (error) {}
       continue;
     }
-
-    throw new Error(`mock with response type '${mock.responseType}' is not yet implemented`);
   }
 
   return result;
