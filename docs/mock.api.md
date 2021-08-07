@@ -32,7 +32,7 @@ Basically, a mock is a literal object of type `Partial<FluentMock>`.
 Example of a mock that will enable you to test HTTP 401 scenario on some specific requests:
 
 ```ts
-import { FluentMock } from 'playwright-fluent';
+import { FluentMock, mockGetWithUnauthorizedResponse } from 'playwright-fluent';
 
 const mock: Partial<FluentMock> = {
   displayName: 'return HTTP 401 on GET /foobar requests after delaying the response to 10s',
@@ -42,6 +42,49 @@ const mock: Partial<FluentMock> = {
   status: 401,
   delayInMilliseconds: 10000,
 };
+
+// you could also create the same mock in one line of code:
+const mock = mockGetWithUnauthorizedResponse('/foobar');
+```
+
+Example of a mock that will enable you to provide your own javascript:
+
+```ts
+import { FluentMock, mockGetWithJavascriptResponse } from 'playwright-fluent';
+
+const mock: Partial<FluentMock> = {
+  displayName: `GET /api/foo.js`,
+  urlMatcher: (url) => url.includes('/api/foo.js'),
+  methodMatcher: (m) => m === 'GET',
+  responseType: 'javascript',
+  rawResponse: () => `window.foo = 'bar';`,
+};
+
+// you could also create the same mock in one line of code:
+const mock = mockGetWithJavascriptResponse('/api/foo.js', `window.foo = 'bar';`);
+```
+
+Example of a mock that provides a JSON object on specific URL and specific query string:
+
+```ts
+import { FluentMock, mockGetWithJsonResponseDependingOnQueryString } from 'playwright-fluent';
+
+const response = {
+  prop1: 'value1',
+  prop2: 'value2',
+};
+
+const mock: Partial<FluentMock> = {
+  displayName: `GET /api/yo?foo=bar`,
+  urlMatcher: (url) => url.includes('/api/yo'),
+  methodMatcher: (m) => m === 'GET',
+  queryStringMatcher: (q) => q['foo'] === 'bar',
+  responseType: 'json',
+  jsonResponse: () => response,
+};
+
+// you could also create the same mock in one line of code:
+const mock = mockGetWithJsonResponseDependingOnQueryString('/api/yo', { foo: 'bar' }, response);
 ```
 
 ## Chainable Methods
