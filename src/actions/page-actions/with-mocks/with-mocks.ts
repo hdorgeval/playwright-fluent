@@ -15,6 +15,12 @@ export type ResponseData =
 export type PostData = Record<string, unknown> | string | undefined;
 export type QueryString = Record<string, string>;
 
+export interface RequestInfos {
+  request: Request;
+  queryString: QueryString;
+  postData: PostData;
+}
+
 /**
  * Be able to intercept a given http request url and provide a mocked response.
  * The mock will be selected only if all provided matchers return true.
@@ -89,24 +95,14 @@ export interface FluentMock {
    *
    * @memberof FluentMock
    */
-  status:
-    | number
-    | ((requestInfos: {
-        request: Request;
-        queryString: QueryString;
-        postData: PostData;
-      }) => number);
+  status: number | ((requestInfos: RequestInfos) => number);
 
   /**
    * Build your own json response.
    * This method will be called only if responseType is 'json'.
    * @memberof FluentMock
    */
-  jsonResponse: (requestInfos: {
-    request: Request;
-    queryString: QueryString;
-    postData: PostData;
-  }) => ResponseData;
+  jsonResponse: (requestInfos: RequestInfos) => ResponseData;
 
   /**
    * Build your own string response.
@@ -114,11 +110,7 @@ export interface FluentMock {
    *
    * @memberof FluentMock
    */
-  rawResponse: (requestInfos: {
-    request: Request;
-    queryString: QueryString;
-    postData: PostData;
-  }) => string;
+  rawResponse: (requestInfos: RequestInfos) => string;
 
   /**
    * Delay the response by the given number of milliseconds.
@@ -128,6 +120,17 @@ export interface FluentMock {
    * @memberof FluentMock
    */
   delayInMilliseconds: number;
+
+  /**
+   * Optional callback to update the data source of the mocked response.
+   * When provided, this method will be called automatically when the mock is found to be outdated by the helper (see `getOutdatedMocks`).
+   * @memberof FluentMock
+   */
+  updateData: (requestInfos: RequestInfos, response: ResponseData) => void;
+}
+
+export function noopVoidFunc(): void {
+  // do nothing
 }
 
 export const passthroughMock: FluentMock = {
@@ -144,22 +147,12 @@ export const passthroughMock: FluentMock = {
   },
   rawResponse: () => '',
   delayInMilliseconds: 0,
+  updateData: noopVoidFunc,
 };
 
 export interface WithMocksOptions {
-  onMockNotFound: (requestInfos: {
-    request: Request;
-    queryString: QueryString;
-    postData: PostData;
-  }) => void;
-  onMockFound: (
-    mock: Partial<FluentMock>,
-    requestInfos: {
-      request: Request;
-      queryString: QueryString;
-      postData: PostData;
-    },
-  ) => void;
+  onMockFound: (mock: Partial<FluentMock>, requestInfos: RequestInfos) => void;
+  onMockNotFound: (requestInfos: RequestInfos) => void;
 }
 
 export const defaultMocksOptions: WithMocksOptions = {
@@ -169,14 +162,7 @@ export const defaultMocksOptions: WithMocksOptions = {
   onMockFound: () => {},
 };
 
-export function getMockStatus(
-  mock: Partial<FluentMock>,
-  requestInfos: {
-    request: Request;
-    queryString: QueryString;
-    postData: PostData;
-  },
-): number {
+export function getMockStatus(mock: Partial<FluentMock>, requestInfos: RequestInfos): number {
   if (typeof mock.status === 'function') {
     return mock.status(requestInfos);
   }
@@ -214,38 +200,6 @@ export function inferMockResponseTypeIfNeeded(mock: Partial<FluentMock>): Partia
   }
 
   return mock;
-}
-
-export function validateMock(mock: Partial<FluentMock>): void {
-  if (mock.displayName === 'passthroughMock') {
-    return;
-  }
-
-  if (typeof mock.rawResponse === 'function' && typeof mock.jsonResponse === 'function') {
-    throw new Error(
-      `mock named '${mock.displayName}' should either implement a json response or a raw response but not both.`,
-    );
-  }
-
-  if (
-    typeof mock.rawResponse === 'function' &&
-    typeof mock.responseType === 'string' &&
-    mock.responseType === 'json'
-  ) {
-    throw new Error(
-      `mock named '${mock.displayName}' should implement a json response instead of a raw response, because you explicitely set the response type to be json.`,
-    );
-  }
-
-  if (
-    typeof mock.jsonResponse === 'function' &&
-    typeof mock.responseType === 'string' &&
-    mock.responseType === 'string'
-  ) {
-    throw new Error(
-      `mock named '${mock.displayName}' should implement a raw response instead of a json response, because you explicitely set the response type to be a string.`,
-    );
-  }
 }
 
 export function spreadMissingProperties(mock: Partial<FluentMock>): FluentMock {

@@ -73,4 +73,38 @@ describe('mock creators', (): void => {
     expect(mock.responseType).toBe('javascript');
     expect(typeof mock.rawResponse).toBe('function');
   });
+
+  test('should return a mock for GET that returns a 401', async (): Promise<void> => {
+    // Given
+
+    // When
+    const mock = SUT.mockGetWithUnauthorizedResponse('/api/foo.js');
+
+    // Then
+    expect(mock.displayName).toBe('GET /api/foo.js');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(mock.urlMatcher!(`https://yo.com/api/foo.js`)).toBe(true);
+    expect(mock.responseType).toBe('empty');
+    expect(typeof mock.methodMatcher).toBe('function');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(mock.methodMatcher!(`GET`)).toBe(true);
+    expect(mock.status).toBe(401);
+  });
+
+  test('should return a mock for GET that returns a 403', async (): Promise<void> => {
+    // Given
+
+    // When
+    const mock = SUT.mockGetWithForbiddenResponse('/api/foo.js');
+
+    // Then
+    expect(mock.displayName).toBe('GET /api/foo.js');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(mock.urlMatcher!(`https://yo.com/api/foo.js`)).toBe(true);
+    expect(mock.responseType).toBe('empty');
+    expect(typeof mock.methodMatcher).toBe('function');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(mock.methodMatcher!(`GET`)).toBe(true);
+    expect(mock.status).toBe(403);
+  });
 });

@@ -5,9 +5,9 @@ import {
   inferMockResponseTypeIfNeeded,
   QueryString,
   spreadMissingProperties,
-  validateMock,
   WithMocksOptions,
 } from './with-mocks';
+import { validateMock } from './validate-mock';
 import { areSameType, extractQueryStringObjectFromUrl, HttpRequestMethod } from '../../../utils';
 import { Request } from 'playwright';
 
@@ -17,6 +17,16 @@ export interface OutdatedMock {
   actualResponse: string | unknown;
   mockedResponse: string | unknown;
 }
+/**
+ * Get outdated mocks from the given unintercepted requests.
+ * If a mock is found to be outdated and has provided a method to update its data source,
+ * then the update method will be called, so that the mock can update itself the data source of the mocked response.
+ * @export
+ * @param {Partial<FluentMock>[]} mocks
+ * @param {Request[]} requests
+ * @param {Partial<WithMocksOptions>} options
+ * @returns {Promise<OutdatedMock[]>}
+ */
 export async function getOutdatedMocks(
   mocks: Partial<FluentMock>[],
   requests: Request[],
@@ -41,6 +51,7 @@ export async function getOutdatedMocks(
   }
 
   mocks.forEach(validateMock);
+
   for (let index = 0; index < requests.length; index++) {
     const request = requests[index];
     const requestMethod = request.method() as HttpRequestMethod;
@@ -93,15 +104,13 @@ export async function getOutdatedMocks(
           actualResponse,
           mockedResponse,
         });
+        mock.updateData({ request, queryString, postData }, actualResponse);
       }
+
       continue;
     }
 
-    if (
-      mock.responseType === 'string' ||
-      mock.responseType === 'empty' ||
-      mock.responseType === 'javascript'
-    ) {
+    if (mock.responseType === 'string' || mock.responseType === 'empty') {
       const mockedBody = mock.rawResponse({ request, queryString, postData });
       const actualBody = await requestResponse.text();
       mockOptions.onMockFound(mock, { request, queryString, postData });
@@ -113,8 +122,26 @@ export async function getOutdatedMocks(
           actualResponse: actualBody,
           mockedResponse: mockedBody,
         });
+        mock.updateData({ request, queryString, postData }, actualBody);
         // eslint-disable-next-line no-empty
       } catch (error) {}
+      continue;
+    }
+
+    if (mock.responseType === 'javascript') {
+      const mockedBody = mock.rawResponse({ request, queryString, postData });
+      const actualBody = await requestResponse.text();
+      mockOptions.onMockFound(mock, { request, queryString, postData });
+      const isOutdated = mockedBody !== actualBody;
+      if (isOutdated) {
+        result.push({
+          url,
+          mock,
+          actualResponse: actualBody,
+          mockedResponse: mockedBody,
+        });
+        mock.updateData({ request, queryString, postData }, actualBody);
+      }
       continue;
     }
   }

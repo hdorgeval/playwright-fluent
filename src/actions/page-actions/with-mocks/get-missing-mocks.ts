@@ -4,8 +4,8 @@ import {
   PostData,
   QueryString,
   spreadMissingProperties,
-  validateMock,
 } from './with-mocks';
+import { validateMock } from './validate-mock';
 import { extractQueryStringObjectFromUrl, HttpRequestMethod, MimeType } from '../../../utils';
 import { Request } from 'playwright';
 
@@ -29,6 +29,7 @@ export async function getMissingMocks(
   }
 
   mocks.forEach(validateMock);
+
   for (let index = 0; index < requests.length; index++) {
     const request = requests[index];
     const method = request.method() as HttpRequestMethod;
