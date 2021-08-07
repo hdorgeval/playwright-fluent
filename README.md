@@ -130,6 +130,14 @@ await p
   .close();
 ```
 
+## Usage with mocks
+
+This fluent API provides a generic and simple infrastructure for massive request interception and response mocking.
+
+This Mock API leverages the `Playwright` request interception infrastructure and will enable you to mock all HTTP requests in order to test the front in complete isolation from the backend.
+
+[Read more about the Fluent Mock API](./docs/mock.api.md)
+
 This API is still a draft and is in early development, but stay tuned!
 
 ## Contributing
@@ -141,6 +149,7 @@ Check out our [contributing guide](./CONTRIBUTING.md).
 - [Playwright Fluent API documentation](/docs/playwright-fluent.api.md)
 - [Selector API documentation](/docs/selector.api.md)
 - [Assertion API documentation](/docs/assertion.api.md)
+- [Mock API documentation](/docs/mock.api.md)
 
 ## FAQ
 

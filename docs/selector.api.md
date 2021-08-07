@@ -1,4 +1,4 @@
-# Playwright Selector API
+# Playwright Fluent Selector API
 
 The Selector API enables to find and target a DOM element or a collection of DOM elements embedded in a complex DOM Hierarchy.
 
