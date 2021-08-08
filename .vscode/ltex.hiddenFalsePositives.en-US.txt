@@ -1,0 +1,2 @@
+{"rule":"DT_JJ_NO_NOUN","sentence":"^\\QBasically, a mock is a literal object of type \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q:\\E$"}
+{"rule":"DT_JJ_NO_NOUN","sentence":"^\\QBasically, a mock is a literal object of type \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
