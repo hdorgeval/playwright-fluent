@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.39.8] - 2021-08-08
+
+### Added
+
+- feat(mocks): be able to infer missing mocks from existing mocks
+- feat(mocks): let mock updates itself its data source when it is found to be outdated
+
+### Fixed
+
+- fix(mocks): detect outdated mocks for all type of mocks
+
 ## [1.39.7] - 2021-08-05
 
 ### Added
