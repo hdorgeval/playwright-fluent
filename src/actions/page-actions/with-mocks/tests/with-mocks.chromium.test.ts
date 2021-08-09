@@ -79,6 +79,10 @@ describe('with mocks', (): void => {
         // eslint-disable-next-line no-console
         console.log(`mock not found for ${requestInfo.request.url()}`);
       },
+      onInternalError: (error) => {
+        // eslint-disable-next-line no-console
+        console.log(`internal error: ${error}`);
+      },
     };
     const htmlContent = readFileSync(`${path.join(__dirname, 'with-mocks.test.html')}`);
     fakeServer &&

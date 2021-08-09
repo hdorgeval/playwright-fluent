@@ -15,7 +15,7 @@ export interface MissingMock {
   queryString: QueryString;
   postData: PostData;
   mimeType: MimeType;
-  response: string | unknown;
+  response: string | unknown | null;
   status: number;
 }
 export async function getMissingMocks(
@@ -62,12 +62,36 @@ export async function getMissingMocks(
 
     const mimeType = requestResponse.headers()['content-type'] as MimeType;
     const status = requestResponse.status();
-    let response: string | unknown = '';
+
     try {
-      response = await requestResponse.json();
-    } catch (error) {
-      response = await requestResponse.text();
-    }
+      const response = await requestResponse.json();
+      result.push({
+        url,
+        method,
+        mimeType,
+        postData,
+        queryString,
+        status,
+        response,
+      });
+      continue;
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
+
+    try {
+      const response = await requestResponse.text();
+      result.push({
+        url,
+        method,
+        mimeType,
+        postData,
+        queryString,
+        status,
+        response,
+      });
+      continue;
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
 
     result.push({
       url,
@@ -76,7 +100,7 @@ export async function getMissingMocks(
       postData,
       queryString,
       status,
-      response,
+      response: null,
     });
   }
 

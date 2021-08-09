@@ -153,6 +153,7 @@ export const passthroughMock: FluentMock = {
 export interface WithMocksOptions {
   onMockFound: (mock: Partial<FluentMock>, requestInfos: RequestInfos) => void;
   onMockNotFound: (requestInfos: RequestInfos) => void;
+  onInternalError: (error: Error, mock: Partial<FluentMock>, requestInfos: RequestInfos) => void;
 }
 
 export const defaultMocksOptions: WithMocksOptions = {
@@ -160,6 +161,8 @@ export const defaultMocksOptions: WithMocksOptions = {
   onMockNotFound: () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onMockFound: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onInternalError: () => {},
 };
 
 export function getMockStatus(mock: Partial<FluentMock>, requestInfos: RequestInfos): number {

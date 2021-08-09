@@ -11,6 +11,15 @@ import { validateMock } from './validate-mock';
 import { areSameType, extractQueryStringObjectFromUrl, HttpRequestMethod } from '../../../utils';
 import { Request } from 'playwright';
 
+function isJson(content: string): boolean {
+  try {
+    JSON.parse(content);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 export interface OutdatedMock {
   url: string;
   mock: Partial<FluentMock>;
@@ -93,55 +102,67 @@ export async function getOutdatedMocks(
     }
 
     if (mock.responseType === 'json') {
-      const mockedResponse = mock.jsonResponse({ request, queryString, postData });
-      const actualResponse = await requestResponse.json();
-      mockOptions.onMockFound(mock, { request, queryString, postData });
-      const isOutdated = !areSameType(mockedResponse, actualResponse);
-      if (isOutdated) {
-        result.push({
-          url,
-          mock,
-          actualResponse,
-          mockedResponse,
-        });
-        mock.updateData({ request, queryString, postData }, actualResponse);
+      try {
+        const mockedResponse = mock.jsonResponse({ request, queryString, postData });
+        const actualResponse = await requestResponse.json();
+        mockOptions.onMockFound(mock, { request, queryString, postData });
+        const isOutdated = !areSameType(mockedResponse, actualResponse);
+        if (isOutdated) {
+          result.push({
+            url,
+            mock,
+            actualResponse,
+            mockedResponse,
+          });
+          mock.updateData({ request, queryString, postData }, actualResponse);
+        }
+      } catch (error) {
+        mockOptions.onInternalError(error, mock, { request, queryString, postData });
       }
 
       continue;
     }
 
     if (mock.responseType === 'string' || mock.responseType === 'empty') {
-      const mockedBody = mock.rawResponse({ request, queryString, postData });
-      const actualBody = await requestResponse.text();
-      mockOptions.onMockFound(mock, { request, queryString, postData });
       try {
-        JSON.parse(actualBody);
-        result.push({
-          url,
-          mock,
-          actualResponse: actualBody,
-          mockedResponse: mockedBody,
-        });
-        mock.updateData({ request, queryString, postData }, actualBody);
-        // eslint-disable-next-line no-empty
-      } catch (error) {}
+        const mockedBody = mock.rawResponse({ request, queryString, postData });
+        const actualBody = await requestResponse.text();
+        mockOptions.onMockFound(mock, { request, queryString, postData });
+        if (isJson(actualBody)) {
+          result.push({
+            url,
+            mock,
+            actualResponse: actualBody,
+            mockedResponse: mockedBody,
+          });
+          mock.updateData({ request, queryString, postData }, actualBody);
+        }
+      } catch (error) {
+        mockOptions.onInternalError(error, mock, { request, queryString, postData });
+      }
+
       continue;
     }
 
     if (mock.responseType === 'javascript') {
-      const mockedBody = mock.rawResponse({ request, queryString, postData });
-      const actualBody = await requestResponse.text();
-      mockOptions.onMockFound(mock, { request, queryString, postData });
-      const isOutdated = mockedBody !== actualBody;
-      if (isOutdated) {
-        result.push({
-          url,
-          mock,
-          actualResponse: actualBody,
-          mockedResponse: mockedBody,
-        });
-        mock.updateData({ request, queryString, postData }, actualBody);
+      try {
+        const mockedBody = mock.rawResponse({ request, queryString, postData });
+        const actualBody = await requestResponse.text();
+        mockOptions.onMockFound(mock, { request, queryString, postData });
+        const isOutdated = mockedBody !== actualBody;
+        if (isOutdated) {
+          result.push({
+            url,
+            mock,
+            actualResponse: actualBody,
+            mockedResponse: mockedBody,
+          });
+          mock.updateData({ request, queryString, postData }, actualBody);
+        }
+      } catch (error) {
+        mockOptions.onInternalError(error, mock, { request, queryString, postData });
       }
+
       continue;
     }
   }
