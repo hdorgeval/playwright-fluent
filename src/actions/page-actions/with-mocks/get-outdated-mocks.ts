@@ -2,6 +2,7 @@ import {
   defaultMocksOptions,
   FluentMock,
   getMockStatus,
+  getPostDataOf,
   inferMockResponseTypeIfNeeded,
   QueryString,
   spreadMissingProperties,
@@ -66,7 +67,8 @@ export async function getOutdatedMocks(
     const requestMethod = request.method() as HttpRequestMethod;
     const url = request.url();
     const queryString = extractQueryStringObjectFromUrl(url) as QueryString;
-    const postData = request.postDataJSON();
+    const postData = getPostDataOf(request);
+
     const requestResponse = await request.response();
 
     if (!requestResponse) {

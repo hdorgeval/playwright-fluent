@@ -12,7 +12,7 @@ export type ResponseData =
   | string
   | undefined
   | unknown;
-export type PostData = Record<string, unknown> | string | undefined;
+export type PostData = Record<string, unknown> | string | undefined | null;
 export type QueryString = Record<string, string>;
 
 export interface RequestInfos {
@@ -131,6 +131,14 @@ export interface FluentMock {
 
 export function noopVoidFunc(): void {
   // do nothing
+}
+
+export function getPostDataOf(request: Request): PostData {
+  try {
+    return request.postDataJSON();
+  } catch (error) {
+    return request.postData();
+  }
 }
 
 export const passthroughMock: FluentMock = {
@@ -289,7 +297,7 @@ export async function withMocks(
       const requestMethod = request.method() as HttpRequestMethod;
       const url = request.url();
       const queryString = extractQueryStringObjectFromUrl(url) as QueryString;
-      const postData = request.postDataJSON();
+      const postData = getPostDataOf(request);
 
       const mock = mocks()
         .map(inferMockResponseTypeIfNeeded)
