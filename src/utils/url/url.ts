@@ -3,6 +3,16 @@ export function urlToPath(url: string): string {
   const fullPath = `${urlObject.pathname}${urlObject.search}`;
   return fullPath;
 }
+export function urlToShortPath(url: string): string {
+  const urlObject = new URL(url);
+  const fullPath = `${urlObject.pathname}${urlObject.search}`;
+  const parts = fullPath.split('/');
+  if (parts.length <= 2) {
+    return fullPath;
+  }
+  const shortPath = ['', parts[parts.length - 2], parts[parts.length - 1]].join('/');
+  return shortPath;
+}
 
 export function urlToPathWithoutQueryString(url: string): string {
   const urlObject = new URL(url);
@@ -17,6 +27,10 @@ export function hasQueryString(url: string): boolean {
     return true;
   }
   return false;
+}
+
+export function hasNoQueryString(url: string): boolean {
+  return !hasQueryString(url);
 }
 
 export function extractQueryStringObjectFromUrl(url: string): { [key: string]: string } {

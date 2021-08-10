@@ -1,5 +1,8 @@
 import { FluentMock, noopVoidFunc, QueryString, RequestInfos, ResponseData } from './with-mocks';
-
+import { MissingMock } from './get-missing-mocks';
+import { ensureDirectoryExists, hasNoQueryString, urlToShortPath } from '../../../utils';
+import path from 'path';
+import { writeFileSync } from 'fs';
 /**
  * Ceate a mock for a GET request to the specified url that returns a JSON response.
  *
@@ -189,4 +192,44 @@ export function mockGetWithJsonResponseDependingOnQueryString<T>(
     jsonResponse: () => response,
     updateData: onOutdated,
   };
+}
+export function generateCodeForMissingMock(
+  missingMock: MissingMock,
+  targetDirectory: string,
+): void {
+  ensureDirectoryExists(targetDirectory);
+  const targetFolderName = urlToShortPath(missingMock.url).replace(/\//g, '_').replace(/\?/g, '#');
+  const targetSubDirectory = path.join(targetDirectory, targetFolderName);
+  ensureDirectoryExists(targetSubDirectory);
+  switch (missingMock.mimeType) {
+    case 'application/json':
+      {
+        const dataFileName = `${targetFolderName}.json`;
+        const dataFilePath = path.join(targetSubDirectory, dataFileName);
+        writeFileSync(dataFilePath, JSON.stringify(missingMock.response, null, 2));
+        const mockSourceCode = generateMockCodeOf(missingMock, dataFileName);
+        writeFileSync(path.join(targetSubDirectory, `${targetFolderName}.ts`), mockSourceCode);
+      }
+      break;
+
+    default:
+      // eslint-disable-next-line no-console
+      console.log(`Unsupported mime type: ${missingMock.mimeType}`);
+      break;
+  }
+}
+
+export function generateMockCodeOf(missingMock: MissingMock, dataFileName: string): string {
+  if (
+    missingMock.mimeType === 'application/json' &&
+    missingMock.method === 'GET' &&
+    hasNoQueryString(missingMock.url)
+  ) {
+    return `
+    import response from './${dataFileName}';
+    export const mock = mockGetWithJsonResponse('${missingMock.url}', response)
+    `;
+  }
+
+  return `Unsupported mime type: ${missingMock.mimeType}`;
 }

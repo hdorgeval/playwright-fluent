@@ -120,6 +120,7 @@ export {
   defaultMocksOptions,
   DoubleClickOptions,
   FluentMock,
+  generateCodeForMissingMock,
   getMissingMocks,
   getOutdatedMocks,
   HarRequestResponseOptions,
