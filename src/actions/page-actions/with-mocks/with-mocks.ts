@@ -12,7 +12,7 @@ export type ResponseData =
   | string
   | undefined
   | unknown;
-export type PostData = Record<string, unknown> | string | undefined | null;
+export type PostData = Record<string, unknown> | string | undefined | null | unknown;
 export type QueryString = Record<string, string>;
 
 export interface RequestInfos {
