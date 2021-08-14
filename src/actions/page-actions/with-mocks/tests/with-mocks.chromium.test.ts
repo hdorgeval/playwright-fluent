@@ -98,9 +98,10 @@ describe('with mocks', (): void => {
     await recordRequestsTo('/foobar', ignorePredicate, page, callback);
 
     const mocks = () => [mock];
+    const sharedContext = {};
 
     // When
-    await SUT.withMocks(mocks, mockOptions, page);
+    await SUT.withMocks(mocks, () => sharedContext, mockOptions, page);
 
     await page.goto('http://localhost:1234/app');
     await sleep(3000);

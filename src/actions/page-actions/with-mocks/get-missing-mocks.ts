@@ -22,6 +22,7 @@ export interface MissingMock {
 export async function getMissingMocks(
   mocks: Partial<FluentMock>[],
   requests: Request[],
+  sharedContext: unknown = {},
 ): Promise<MissingMock[]> {
   const result: MissingMock[] = [];
 
@@ -55,9 +56,11 @@ export async function getMissingMocks(
       .filter((mock) => mock.methodMatcher(method))
       .filter((mock) => mock.queryStringMatcher(queryString))
       .filter((mock) => mock.postDataMatcher(postData))
+      .filter((mock) => mock.contextMatcher(sharedContext))
       .pop();
 
     if (mock) {
+      // TODO : get the response from the mock because it might change the shared context
       continue;
     }
 

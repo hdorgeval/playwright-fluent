@@ -12,14 +12,14 @@ describe('with mocks', (): void => {
     const page: Page | undefined = undefined;
     const options: Partial<SUT.WithMocksOptions> = {};
     const mocks: () => FluentMock[] = () => [];
-
+    const sharedContext = {};
     // When
     // Then
     const expectedError = new Error(
       'Cannot intercept requests with mocks because no browser has been launched',
     );
 
-    await SUT.withMocks(mocks, options, page).catch((error): void =>
+    await SUT.withMocks(mocks, () => sharedContext, options, page).catch((error): void =>
       expect(error).toMatchObject(expectedError),
     );
   });
@@ -29,16 +29,19 @@ describe('with mocks', (): void => {
     const page: Page | undefined = undefined;
     const options: Partial<SUT.WithMocksOptions> = {};
     const mocks: Partial<SUT.WithMocksOptions>[] = [];
-
+    const sharedContext = {};
     // When
     // Then
     const expectedError = new Error(
       'mocks must be a function that returns an array of FluentMock objects.',
     );
 
-    await SUT.withMocks(mocks as unknown as () => Partial<FluentMock>[], options, page).catch(
-      (error): void => expect(error).toMatchObject(expectedError),
-    );
+    await SUT.withMocks(
+      mocks as unknown as () => Partial<FluentMock>[],
+      () => sharedContext,
+      options,
+      page,
+    ).catch((error): void => expect(error).toMatchObject(expectedError));
   });
 
   test('should return an error when mocks() is not an array', async (): Promise<void> => {
@@ -46,16 +49,19 @@ describe('with mocks', (): void => {
     const page: Page | undefined = undefined;
     const options: Partial<SUT.WithMocksOptions> = {};
     const mocks: () => string = () => 'foo';
-
+    const sharedContext = {};
     // When
     // Then
     const expectedError = new Error(
       'mocks must be a function that returns an array of FluentMock objects.',
     );
 
-    await SUT.withMocks(mocks as unknown as () => Partial<FluentMock>[], options, page).catch(
-      (error): void => expect(error).toMatchObject(expectedError),
-    );
+    await SUT.withMocks(
+      mocks as unknown as () => Partial<FluentMock>[],
+      () => sharedContext,
+      options,
+      page,
+    ).catch((error): void => expect(error).toMatchObject(expectedError));
   });
 
   test('should return an error when mock response type is string but a json provider is given', async (): Promise<void> => {

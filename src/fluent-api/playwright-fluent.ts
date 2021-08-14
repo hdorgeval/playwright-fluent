@@ -814,9 +814,19 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  private _mocksContext: unknown = {};
+  public get mocksContext(): unknown {
+    return this._mocksContext;
+  }
+
   private _allMocks: Partial<FluentMock>[] = [];
   private async registerMocks(options: Partial<WithMocksOptions>): Promise<void> {
-    await action.withMocks(() => this._allMocks, options, this.currentPage());
+    await action.withMocks(
+      () => this._allMocks,
+      () => this._mocksContext,
+      options,
+      this.currentPage(),
+    );
   }
 
   /**
