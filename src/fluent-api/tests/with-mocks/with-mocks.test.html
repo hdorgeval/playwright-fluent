@@ -11,6 +11,10 @@
 
     <script>
       window.setTimeout(() => {
+        fetch('http://localhost:1234/yo?foo=baz1');
+      }, 500);
+
+      window.setTimeout(() => {
         fetch('http://localhost:1234/foobar?foo=bar').then(
           (response) => console.log(response),
           (reason) => console.log(reason),
@@ -20,6 +24,10 @@
       window.setTimeout(() => {
         fetch('http://localhost:1234/yo?foo=baz1');
       }, 1000);
+
+      window.setTimeout(() => {
+        fetch('http://localhost:1234/yo?foo=baz1');
+      }, 1500);
 
       window.setTimeout(() => {
         fetch('http://localhost:1234/yo?foo=baz2');

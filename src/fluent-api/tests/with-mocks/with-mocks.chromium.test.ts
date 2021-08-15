@@ -1,5 +1,5 @@
 import * as SUT from '../../playwright-fluent';
-import { stringifyRequest, RequestInfo } from '../../../utils';
+import { stringifyRequest, RequestInfo, toRequestInfo } from '../../../utils';
 import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
 import { readFileSync } from 'fs';
@@ -108,6 +108,100 @@ describe('Playwright Fluent - withMocks()', (): void => {
     expect(sentRequest.response!.headers['foo-header']).toBe(responseHeaders['foo-header']);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(sentRequest.response!.payload).toMatchObject(mockedResponseBody);
+  });
+
+  test('should intercept GET requests to a rest API only for the second request', async (): Promise<void> => {
+    // Given
+    const htmlContent = readFileSync(`${path.join(__dirname, 'with-mocks.test.html')}`);
+
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/app')
+        .willReturn(htmlContent.toString(), 200);
+
+    interface CustomResponseBody {
+      prop1: string;
+      prop2?: string;
+    }
+
+    const responseBody: CustomResponseBody = {
+      prop1: 'foobar',
+    };
+    const responseBodyBaz: CustomResponseBody = {
+      prop1: 'foobaz',
+    };
+    const responseHeaders = {
+      'foo-header': 'bar',
+    };
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/foobar')
+        .willReturn(responseBody, 200, responseHeaders);
+
+    fakeServer &&
+      // prettier-ignore
+      fakeServer.http
+        .get()
+        .to('/yo')
+        .willReturn(responseBodyBaz, 200, responseHeaders);
+
+    interface MyContext {
+      callIndex: number;
+    }
+
+    let numberOfCall = 0;
+
+    const mock1: Partial<SUT.FluentMock> = {
+      displayName: 'GET /yo?foo=baz1 requests - simulate throttling',
+      urlMatcher: (url) => url.includes('/yo'),
+      methodMatcher: (method) => method === 'GET',
+      queryStringMatcher: (q) => q.foo === 'baz1',
+      contextMatcher: (ctx) => {
+        numberOfCall += 1;
+        const context = ctx as MyContext;
+        if (typeof context.callIndex !== 'number') {
+          context.callIndex = 0;
+        }
+        context.callIndex += 1;
+        return context.callIndex === 2;
+      },
+      responseType: 'string',
+      rawResponse: () => 'sorry, tow many requests',
+      status: 429,
+    };
+    const mocks = [mock1];
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: true })
+      .withCursor()
+      .recordRequestsTo('/yo')
+      .withMocks(mocks)
+      .navigateTo('http://localhost:1234/app');
+
+    // Then requests to /foobar should be intercepted
+    // And response should be mocked
+    await p.waitUntil(async () => p.getRecordedRequestsTo('/yo').length >= 3, {
+      stabilityInMilliseconds: 1000,
+    });
+    const yoRequests = p.getRecordedRequestsTo('yo?foo=baz1');
+    expect(Array.isArray(yoRequests)).toBe(true);
+    expect(yoRequests.length).toBe(3);
+    expect(numberOfCall).toBe(3);
+    const firstRequest = await toRequestInfo(yoRequests[0]);
+    const secondRequest = await toRequestInfo(yoRequests[1]);
+    const thirdRequest = await toRequestInfo(yoRequests[2]);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(firstRequest.response!.status).toBe(200);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(secondRequest.response!.status).toBe(429);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(thirdRequest.response!.status).toBe(200);
   });
 
   test('should intercept GET requests to a rest API by responding with HTTP Status 401 with a 10s delay', async (): Promise<void> => {
