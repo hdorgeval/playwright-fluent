@@ -76,7 +76,7 @@ export interface FluentMock {
 
   /**
    * Optional predicate acting on the shared context.
-   * This predicate will be called only if the predicate urlMatcher returns true.
+   * This predicate will be called only if all predicates {@link urlMatcher}, {@link queryStringMatcher}, {@link postDataMatcher}, returns true.
    * If you do not set a contextMatcher, a default one that always returns true is provided.
    * A mock can update the shared context on any method passing a {@link RequestInfos} object.
    * A context matcher should be used when the mock response depends on the requests history,
@@ -136,7 +136,7 @@ export interface FluentMock {
 
   /**
    * Optional callback to update the data source of the mocked response.
-   * When provided, this method will be called automatically when the mock is found to be outdated by the helper (see `getOutdatedMocks`).
+   * When provided, this method will be called automatically when the mock is found to be outdated by the helper {@link getOutdatedMocks}).
    * @memberof FluentMock
    */
   updateData: (requestInfos: RequestInfos, response: ResponseData) => void;

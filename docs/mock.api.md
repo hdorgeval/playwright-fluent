@@ -87,6 +87,32 @@ const mock: Partial<FluentMock> = {
 const mock = mockGetWithJsonResponseDependingOnQueryString('/api/yo', { foo: 'bar' }, response);
 ```
 
+Example of a mock that provides a JSON object on specific URL but only on the third request:
+
+```ts
+import { FluentMock } from 'playwright-fluent';
+
+const response = {
+  prop1: 'value1',
+  prop2: 'value2',
+};
+
+const mock: Partial<FluentMock> = {
+  displayName: `GET /api/foo/bar - third request only`,
+  urlMatcher: (url) => url.includes('/api/foo/bar'),
+  methodMatcher: (m) => m === 'GET',
+  contextMatcher: (context) => {
+    if (typeof context.fooBarCallIndex !== 'number') {
+      context.fooBarCallIndex = 0;
+    }
+    context.fooBarCallIndex += 1;
+    return context.foobarCallIndex === 3;
+  },
+  responseType: 'json',
+  jsonResponse: () => response,
+};
+```
+
 ## Chainable Methods
 
 ---
@@ -154,6 +180,18 @@ export interface FluentMock {
    * @memberof FluentMock
    */
   postDataMatcher: (postData: PostData) => boolean;
+
+  /**
+   * Optional predicate acting on the shared context.
+   * This predicate will be called only if all predicates {@link urlMatcher}, {@link queryStringMatcher}, {@link postDataMatcher}, returns true.
+   * If you do not set a contextMatcher, a default one that always returns true is provided.
+   * A mock can update the shared context on any method passing a {@link RequestInfos} object.
+   * A context matcher should be used when the mock response depends on the requests history,
+   * for example when the mock must respond only to the nth request given by the urlMatcher.
+   *
+   * @memberof FluentMock
+   */
+  contextMatcher: (context: unknown) => boolean;
 
   /**
    * Add or modify the headers that will be sent with the mocked response.
@@ -286,7 +324,11 @@ A mock is just a literal object whose `xxxResponse` property will be called auto
 - `mockGetWithUnauthorizedResponse`
 - `mockGetWithForbiddenResponse`
 
-Mocks are great until they are outdated. Being able to detect that a mock is outdated is essential.
+## How to keep mocks up-to-date
+
+Mocks are great until they are outdated.
+
+Being able to detect that a mock is outdated is essential.
 
 You can automatically pinpoint outdated mocks in the following way:
 
@@ -298,15 +340,23 @@ await p
   .withOptions({ headless: true })
   .recordRequestsTo('/')
   .navigateTo(url);
+// ... do all interactions on the real web site without doing any interception
 
 await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/').length, {
   stabilityInMilliseconds: 1000,
 });
 
 const allRequests = p.getRecordedRequestsTo('/');
+
+// now replay all real requests against the mocks
+// and compare the response given by the mock with the real one
 const outdatedMocks = await getOutdatedMocks(mocks, allRequests, defaultMocksOptions);
 ```
 
----
+If you provide an `updateData` callback in your mocks, then the `getOutdatedMocks` will call this method for all mocks that have been detected as outdated.
+
+The net effect of this is that each mock will update its own data source and therefore will always stay up-to-date !
 
 ## Helper Methods
+
+TBD
