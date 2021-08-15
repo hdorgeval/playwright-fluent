@@ -1,2 +1,3 @@
 {"rule":"DT_JJ_NO_NOUN","sentence":"^\\QBasically, a mock is a literal object of type \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q:\\E$"}
 {"rule":"DT_JJ_NO_NOUN","sentence":"^\\QBasically, a mock is a literal object of type \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"EN_A_VS_AN","sentence":"^\\QIf you provide an \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q callback in your mocks, then the \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q will call this method for all mocks that have been detected as outdated\\E$"}
