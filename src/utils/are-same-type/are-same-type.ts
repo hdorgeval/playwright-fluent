@@ -30,7 +30,8 @@ export function areEquivalentArray(obj1: unknown[], obj2: unknown[] | unknown): 
   const length2 = obj2.length;
   const length = Math.min(length1, length2);
   for (let i = 0; i < length; i++) {
-    if (!areSameType(obj1[i], obj2[i])) {
+    const isItemTypeFoundInSecondArray = obj2.some((item) => areSameType(obj1[i], item));
+    if (!isItemTypeFoundInSecondArray) {
       return false;
     }
   }

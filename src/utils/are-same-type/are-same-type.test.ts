@@ -10,6 +10,16 @@ describe('are same type of objects', (): void => {
     { obj1: ['1', '2', '3'], obj2: ['4', '5'] },
     { obj1: [true, false, true], obj2: [false, true] },
     { obj1: [{ prop1: 1 }], obj2: [{ prop1: 2 }] },
+    { obj1: [{ prop1: 1 }], obj2: [] },
+    { obj1: [], obj2: [{ prop1: 2 }] },
+    {
+      obj1: [{ prop1: 1 }, { prop1: 1, prop2: true }],
+      obj2: [{ prop1: 2, prop2: false }, { prop1: 2 }],
+    },
+    {
+      obj1: [{ prop1: 1, prop2: true }, { prop1: 1 }],
+      obj2: [{ prop1: 2 }, { prop1: 2, prop2: false }],
+    },
   ].forEach(({ obj1, obj2 }) => {
     test(`should detect that array '${JSON.stringify(obj1)}' is equivalent to '${JSON.stringify(
       obj2,
