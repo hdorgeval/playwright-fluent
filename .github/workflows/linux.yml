@@ -39,8 +39,8 @@ jobs:
       - run: npm --version
       - name: Install playwrigh-fluent
         run: npm ci
-      - name: Install playwright v1.13.1
-        run: npm install --no-save playwright@1.13.1
+      - name: Install playwright v1.14.0
+        run: npm install --no-save playwright@11.14.0
       - name: Build
         run: npm run build
       - name: Run tests
