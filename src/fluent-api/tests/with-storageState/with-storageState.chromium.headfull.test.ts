@@ -27,6 +27,7 @@ describe('Playwright Fluent - withStorageState', (): void => {
 
     // Then the foo=bar cookie should be re-hydrated
     const currentStorageState = await p.currentStorageState();
+    // await p.saveStorageStateTo(storageStateFile);
     expect(currentStorageState).toBeDefined();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(currentStorageState!.cookies).toBeDefined();

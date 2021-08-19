@@ -1,20 +1,25 @@
 {
   "cookies": [
     {
-      "sameSite": "None",
+      "sameSite": "Lax",
       "name": "foo",
       "value": "bar",
-      "domain": "www.foobar.com",
+      "domain": ".reactstrap.github.io",
       "path": "/",
+      "expires": -1,
       "httpOnly": false,
-      "secure": false,
-      "expires": -1
+      "secure": false
     }
   ],
   "origins": [
     {
       "origin": "https://reactstrap.github.io",
-      "localStorage": [{ "name": "foo-localStorage", "value": "bar-localStorage" }]
+      "localStorage": [
+        {
+          "name": "foo-localStorage",
+          "value": "bar-localStorage"
+        }
+      ]
     }
   ]
 }
