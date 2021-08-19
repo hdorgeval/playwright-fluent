@@ -552,7 +552,7 @@ export type StorageState = {
 };
 ```
 
-This method can be used to initialize context with logged-in information obtained via `saveStorageStateToFile(file)` or via `currentStorageState()` methods available on the PlaywrightFluent instance.
+This method can be used to initialize context with logged-in information obtained via `saveStorageStateTo(file)` or via `currentStorageState()` methods available on the PlaywrightFluent instance.
 
 Example:
 
