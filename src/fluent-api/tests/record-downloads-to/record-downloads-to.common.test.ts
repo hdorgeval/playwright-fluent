@@ -4,7 +4,6 @@ import * as SUT from '../../playwright-fluent';
 describe('Playwright Fluent - recordDownloadsTo(directory)', (): void => {
   let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(30000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

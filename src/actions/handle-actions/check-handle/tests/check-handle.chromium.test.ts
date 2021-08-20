@@ -9,9 +9,8 @@ import * as path from 'path';
 describe('check handle', (): void => {
   let browser: Browser | undefined = undefined;
 
-  beforeEach((): void => {
-    jest.setTimeout(70000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {
     if (browser) {

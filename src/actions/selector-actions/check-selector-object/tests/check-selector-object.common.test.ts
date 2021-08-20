@@ -4,7 +4,6 @@ import { defaultClickOptions } from '../../../handle-actions';
 describe('check selector object', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(30000);
     p = new PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

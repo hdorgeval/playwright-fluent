@@ -3,9 +3,8 @@ import { defaultSelectOptions } from '../select-options-in-handle';
 import { ElementHandle } from 'playwright';
 
 describe('select options in handle', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
   test('should throw an error when selector is undefined', async (): Promise<void> => {
     // Given
     const handle: ElementHandle<Element> | undefined = undefined;

@@ -2,9 +2,8 @@ import * as SUT from '../index';
 import { ElementHandle } from 'playwright';
 
 describe('get client rectangle of an element handle', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should return null when selector is null', async (): Promise<void> => {
     // Given

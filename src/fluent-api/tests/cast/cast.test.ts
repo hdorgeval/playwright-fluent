@@ -1,9 +1,8 @@
 import { PlaywrightFluent, cast } from '../../playwright-fluent';
 
 describe('Playwright Fluent - cast', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
   test('should cast', async (): Promise<void> => {
     // Given
     const p = new PlaywrightFluent();

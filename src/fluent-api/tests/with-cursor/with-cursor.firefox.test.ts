@@ -4,7 +4,6 @@ import * as action from '../../../actions';
 describe('Playwright Fluent - withCursor', (): void => {
   let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(30000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

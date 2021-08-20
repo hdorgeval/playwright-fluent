@@ -2,9 +2,8 @@ import { PlaywrightFluent } from '../../playwright-fluent';
 import { BrowserName } from '../../../actions';
 declare const window: Window;
 describe('Playwright Fluent - withBrowser', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test.skip('should target chrome', async (): Promise<void> => {
     // Given

@@ -3,7 +3,6 @@ declare const window: Window;
 describe('Playwright Fluent - withOptions', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(60000);
     p = new PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

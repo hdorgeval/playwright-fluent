@@ -3,9 +3,8 @@ import { chromium } from 'playwright';
 import * as path from 'path';
 
 describe('Playwright Fluent - ctor usage', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
   test('should take existing browser and frame instance of chromium', async (): Promise<void> => {
     // Given
     const browser = await chromium.launch({ headless: true });

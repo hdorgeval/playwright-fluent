@@ -5,7 +5,6 @@ describe('Playwright Fluent - onRequestTo(url).respondFromHar()', (): void => {
   let p: SUT.PlaywrightFluent;
 
   beforeEach((): void => {
-    jest.setTimeout(180000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

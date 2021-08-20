@@ -2,9 +2,8 @@ import * as SUT from '../index';
 import { ElementHandle } from 'playwright';
 
 describe('invoke method on handle', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should throw an error when the selector is undefined', async (): Promise<void> => {
     // Given

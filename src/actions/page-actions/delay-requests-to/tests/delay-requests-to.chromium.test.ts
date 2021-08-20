@@ -19,9 +19,8 @@ describe('delay requests to', (): void => {
       fakeServer.stop();
     }
   });
-  beforeEach((): void => {
-    jest.setTimeout(120000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
       const contexts = browser.contexts();

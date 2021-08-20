@@ -3,7 +3,6 @@ import * as path from 'path';
 describe.skip('Playwright Fluent - hover', (): void => {
   let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

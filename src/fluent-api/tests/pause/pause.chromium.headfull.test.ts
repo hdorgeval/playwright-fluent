@@ -3,7 +3,6 @@ import * as path from 'path';
 describe('Playwright Fluent - pause', (): void => {
   let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

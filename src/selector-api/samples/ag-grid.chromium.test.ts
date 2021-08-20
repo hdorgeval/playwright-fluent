@@ -3,7 +3,6 @@ import { PlaywrightFluent } from '../../fluent-api';
 describe('Selector API - AG Grid samples', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(60000);
     p = new PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

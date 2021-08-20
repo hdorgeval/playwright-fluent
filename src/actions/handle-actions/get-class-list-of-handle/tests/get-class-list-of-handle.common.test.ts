@@ -2,9 +2,8 @@ import * as SUT from '../index';
 import { ElementHandle } from 'playwright';
 
 describe('get class list of handle', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should return an empty array when handle is undefined', async (): Promise<void> => {
     // Given

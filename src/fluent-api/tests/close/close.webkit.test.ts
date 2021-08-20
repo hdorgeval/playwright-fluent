@@ -1,9 +1,8 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { sleep } from '../../../utils/sleep';
 describe('Playwright Fluent - close', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should close webkit', async (): Promise<void> => {
     // Given

@@ -5,7 +5,6 @@ import { getDevice, defaultDevice } from '../../../devices';
 describe.skip('Playwright Fluent - emulateDevice', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(60000);
     p = new PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

@@ -1,9 +1,8 @@
 import * as SUT from '../index';
 import { ElementHandle } from 'playwright';
 describe('handle has placeholder', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should return false when handle is undefined', async (): Promise<void> => {
     // Given

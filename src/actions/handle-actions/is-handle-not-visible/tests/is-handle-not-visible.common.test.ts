@@ -3,9 +3,8 @@ import { defaultVerboseOptions } from '../../is-handle-visible';
 import { ElementHandle } from 'playwright';
 
 describe('handle is not visible', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should return true when handle is undefined', async (): Promise<void> => {
     // Given

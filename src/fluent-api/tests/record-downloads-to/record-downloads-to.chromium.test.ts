@@ -6,7 +6,6 @@ describe('Playwright Fluent - recordDownloadsTo(directory)', (): void => {
   let p: SUT.PlaywrightFluent;
 
   beforeEach((): void => {
-    jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

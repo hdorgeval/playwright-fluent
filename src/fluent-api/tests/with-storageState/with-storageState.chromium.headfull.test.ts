@@ -5,7 +5,6 @@ import { readFileSync } from 'fs';
 describe('Playwright Fluent - withStorageState', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(50000);
     p = new PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

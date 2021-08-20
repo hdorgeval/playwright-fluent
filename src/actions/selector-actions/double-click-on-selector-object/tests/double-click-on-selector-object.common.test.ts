@@ -4,7 +4,6 @@ import { defaultDoubleClickOptions } from '../../../handle-actions';
 describe('double-click on selector object', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(30000);
     p = new PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

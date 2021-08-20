@@ -17,7 +17,6 @@ describe('Playwright Fluent - recordFailedRequests(url)', (): void => {
     }
   });
   beforeEach((): void => {
-    jest.setTimeout(60000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

@@ -5,9 +5,8 @@ import * as path from 'path';
 
 describe('query selector all from handles', (): void => {
   let browser: Browser | undefined = undefined;
-  beforeEach((): void => {
-    jest.setTimeout(60000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
       await browser.close();

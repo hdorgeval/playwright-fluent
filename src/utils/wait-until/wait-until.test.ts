@@ -2,9 +2,8 @@ import * as SUT from './index';
 import { WaitUntilOptions, defaultWaitUntilOptions, noWaitNoThrowOptions } from './wait-until';
 
 describe('wait until', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
   test('should wait', async (): Promise<void> => {
     // Given
     const wait = 3000;

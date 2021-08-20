@@ -1,9 +1,8 @@
 import * as SUT from '../index';
 import { Page, Request } from 'playwright';
 describe('record failed requests', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should return an error when browser has not been launched', async (): Promise<void> => {
     // Given

@@ -4,7 +4,6 @@ import * as path from 'path';
 describe('Playwright Fluent - expectThat isChecked', (): void => {
   let p: SUT.PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(120000);
     p = new SUT.PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

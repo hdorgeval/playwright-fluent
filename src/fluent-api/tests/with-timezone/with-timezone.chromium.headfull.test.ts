@@ -3,7 +3,6 @@ import path from 'path';
 describe('Playwright Fluent - withTimezone', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(50000);
     p = new PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

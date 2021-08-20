@@ -3,9 +3,8 @@ import { FluentMock } from '../with-mocks';
 import { Page } from 'playwright';
 
 describe('with mocks', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should return an error when browser has not been launched', async (): Promise<void> => {
     // Given

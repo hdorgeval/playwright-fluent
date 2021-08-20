@@ -3,7 +3,6 @@ import * as SUT from '../index';
 describe('selector object does not have expected class', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(30000);
     p = new PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

@@ -1,9 +1,8 @@
 import * as SUT from '../index';
 
 describe('mock creators', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(30000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should return a mock for GET json depending on query string', async (): Promise<void> => {
     // Given

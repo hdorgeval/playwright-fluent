@@ -3,7 +3,6 @@ import { toRequestInfo } from '../../../utils';
 describe('Playwright Fluent - withExtraHttpHeaders', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {
-    jest.setTimeout(60000);
     p = new PlaywrightFluent();
   });
   afterEach(async (): Promise<void> => {

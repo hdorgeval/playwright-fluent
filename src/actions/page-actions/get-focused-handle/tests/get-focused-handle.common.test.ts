@@ -2,9 +2,8 @@ import * as SUT from '../index';
 import { Page } from 'playwright';
 
 describe('get-focused-handle', (): void => {
-  beforeEach((): void => {
-    jest.setTimeout(60000);
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach((): void => {});
 
   test('should return an error when browser has not been launched', async (): Promise<void> => {
     // Given
