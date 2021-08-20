@@ -104,8 +104,8 @@ export class SelectorFluent {
 
   /**
    * Iterate over each found selector
-   *
-   * @param {(selector: SelectorFluent) => Promise<void>} func
+   * The index is the 1-based index of the selector in the list of selectors
+   * @param {(selector: SelectorFluent, index: number) => Promise<void>} func
    * @returns {Promise<void>}
    * @memberof SelectorFluent
    * @example
@@ -115,22 +115,25 @@ export class SelectorFluent {
    *    await p.hover(checkbox).check(checkbox);
    *  });
    */
-  public async forEach(func: (selector: SelectorFluent) => Promise<void>): Promise<void> {
+  public async forEach(
+    func: (selector: SelectorFluent, index: number) => Promise<void>,
+  ): Promise<void> {
     const selectorsCount = await this.count();
-    for (let index = 1; index <= selectorsCount; index++) {
-      const selectorItem = this.nth(index);
-      await func(selectorItem);
+    for (let i = 1; i <= selectorsCount; i++) {
+      const selectorItem = this.nth(i);
+      await func(selectorItem, i);
     }
   }
 
   /**
-   * Obsolete: please use the getHandle() method
+   * Obsolete: please use the getHandle() method.
    * Executes the search and returns the first found element.
    * The result may differ from one execution to another
    * especially if targeted element is rendered lately because its data is based on some backend response.
    *
    * @returns {Promise<ElementHandle<Element> | null>} will return null if no elements are found, will return first found element otherwise.
    * @memberof SelectorFluent
+   * @obsolete
    */
   public async getFirstHandleOrNull(): Promise<ElementHandle<Element> | null> {
     const handles = await this.executeActions();

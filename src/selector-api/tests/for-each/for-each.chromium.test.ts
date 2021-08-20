@@ -61,12 +61,18 @@ describe('Selector API - forEach', (): void => {
 
     // When
     const rows = p.selector('[role="row"]');
-    await rows.forEach(async (row) => {
+    let count = 0;
+    await rows.forEach(async (row, index) => {
+      // eslint-disable-next-line no-console
+      console.log(`processing row #${index}`);
+
       const checkbox = row.find('input[type="checkbox"]');
       await p.hover(checkbox).check(checkbox);
+      count = index;
     });
 
     // Then
+    expect(count).toBe(3);
     await rows.forEach(async (row) => {
       const checkbox = row.find('input[type="checkbox"]');
       await p.hover(checkbox).expectThat(checkbox).isChecked();
