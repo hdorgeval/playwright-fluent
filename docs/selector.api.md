@@ -10,6 +10,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [parent()](#parent)
   - [previousSibling()](#previousSibling)
   - [withPlaceholder(text)](#withPlaceholdertext)
+  - [withExactText(text)](#withExactTexttext)
   - [withText(text)](#withTexttext)
   - [withValue(text)](#withValuetext)
 
@@ -83,6 +84,14 @@ Finds all `selector` elements starting from previous found elements.
 - text: `string`
 
 Take, from previous search, only the elements whose innerText contains the specified text.
+
+---
+
+### withExactText(text)
+
+- text: `string`
+
+Take, from previous search, only the elements whose innerText matches exactly the specified text.
 
 ---
 

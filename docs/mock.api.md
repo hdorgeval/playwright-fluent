@@ -1,7 +1,5 @@
 # Playwright Fluent Mock API
 
-!!! Still in beta testing !!!
-
 The Mock API provides a generic and simple infrastructure for massive request interception and response mocking.
 
 This Mock API leverages the `Playwright` request interception infrastructure and will enable you to mock all HTTP requests in order to test the front in complete isolation from the backend.
@@ -9,6 +7,9 @@ This Mock API leverages the `Playwright` request interception infrastructure and
 - Chainable Methods
 
   - [withMocks(mocks[, options])](#withMocksmocks-options)
+
+- [How to initialize the shared context](#How-to-initialize-the-shared-context)
+- [How to keep mocks up-to-date](#How-to-keep-mocks-up-to-date)
 
 - Helper Methods
 
@@ -42,9 +43,6 @@ const mock: Partial<FluentMock> = {
   status: 401,
   delayInMilliseconds: 10000,
 };
-
-// you could also create the same mock in one line of code:
-const mock = mockGetWithUnauthorizedResponse('/foobar');
 ```
 
 Example of a mock that will enable you to provide your own javascript:
@@ -357,6 +355,41 @@ If you provide an `updateData` callback in your mocks, then the `getOutdatedMock
 
 The net effect of this is that each mock will update its own data source and therefore will always stay up-to-date !
 
+## How to initialize and update the shared context
+
+At runtime, mocks can use a shared context.
+
+The `playwright-fluent` instance exposes a literal object named `mocksContext` that is initialized as `{}`;
+
+This context can be setup before navigating to the first page like this:
+
+```ts
+const p = new PlaywrightFluent();
+p.mocksContext.foo = 'bar';
+```
+
+The context can then be read and/or updated by any mock like in this example:
+
+```ts
+const mockA: Partial<FluentMock> = {
+  displayName: `GET /api/foo/bar - mock only once`,
+  urlMatcher: (url) => url.includes('/api/foo/bar'),
+  methodMatcher: (m) => m === 'GET',
+  contextMatcher: (context) => context.foo === 'bar',
+  responseType: 'json',
+  jsonResponse: ({context}) => {
+    context.foo = 'baz';
+    return response};
+};
+
+const mocks = [mock1, mock2, mockN, mockA];
+
+
+
+
+p.withMocks(mocks);
+```
+
 ## Helper Methods
 
-TBD
+This section is still a work in progress
