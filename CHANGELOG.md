@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.40.0] - 2021-08-24
+
+### Added
+
+- feat(fluent-api): provide custom context to store and share data at runtime
+- feat(selector-api): add `withExactText()` to the selector API
+- feat(mock-api): first release of the [mock API](./docs/mock.api.md)
+
+### Fixed
+
+- fix(selector-api): add missing index parameter in `forEach()` callback
+
 ## [1.39.12] - 2021-08-17
 
 ### Fixed
