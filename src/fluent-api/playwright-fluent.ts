@@ -326,6 +326,30 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this._hasBeenRedirectedToAnotherTab;
   }
 
+  private _context: unknown = {};
+
+  /**
+   * Private context object you can use to store data shared between any steps at runtime
+   *
+   * @readonly
+   * @type {unknown}
+   * @memberof PlaywrightFluent
+   */
+  public get context(): unknown {
+    return this._context;
+  }
+
+  /**
+   * Private typed context object you can use to store data shared between any steps at runtime
+   *
+   * @readonly
+   * @type {unknown}
+   * @memberof PlaywrightFluent
+   */
+  public contextAs<T>(): T {
+    return this._context as T;
+  }
+
   private actions: (() => Promise<void>)[] = [];
 
   private launchOptions: LaunchOptions = defaultLaunchOptions;
