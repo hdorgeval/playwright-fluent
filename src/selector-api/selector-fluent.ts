@@ -20,7 +20,7 @@ interface ActionInfoWithSelector {
   selector: string;
 }
 interface ActionInfoWithText {
-  name: 'withText' | 'withValue' | 'withPlaceholder';
+  name: 'withText' | 'withExactText' | 'withValue' | 'withPlaceholder';
   text: string;
 }
 interface ActionInfoWithIndex {
@@ -68,6 +68,9 @@ export class SelectorFluent {
 
       case 'withText':
         return (handles) => action.getHandlesWithText(actionInfo.text, [...handles]);
+
+      case 'withExactText':
+        return (handles) => action.getHandlesWithExactText(actionInfo.text, [...handles]);
 
       case 'withValue':
         return (handles) => action.getHandlesWithValue(actionInfo.text, [...handles]);
@@ -228,6 +231,23 @@ export class SelectorFluent {
 
     const chainingHistory = `${this.chainingHistory}
   .withText(${text})`;
+
+    return this.createSelectorFrom(text, actions, chainingHistory);
+  }
+
+  /**
+   * Finds, from previous search, all elements whose innerText match exactly the specified text.
+   * Use that method when you need to find elements with empty content.
+   * @param {string} text
+   * @returns {SelectorFluent}
+   * @memberof SelectorFluent
+   */
+  public withExactText(text: string): SelectorFluent {
+    const actions = [...this.actionInfos];
+    actions.push({ name: 'withExactText', text });
+
+    const chainingHistory = `${this.chainingHistory}
+  .withExactText(${text})`;
 
     return this.createSelectorFrom(text, actions, chainingHistory);
   }
