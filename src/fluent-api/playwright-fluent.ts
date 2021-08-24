@@ -839,8 +839,26 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private _mocksContext: unknown = {};
+  /**
+   * context shared between all mocks.
+   *
+   * @readonly
+   * @type {unknown}
+   * @memberof PlaywrightFluent
+   */
   public get mocksContext(): unknown {
     return this._mocksContext;
+  }
+
+  /**
+   * typed context shared between all mocks.
+   *
+   * @template T
+   * @returns {T}
+   * @memberof PlaywrightFluent
+   */
+  public mocksContextAs<T>(): T {
+    return this._mocksContext as T;
   }
 
   private _allMocks: Partial<FluentMock>[] = [];
