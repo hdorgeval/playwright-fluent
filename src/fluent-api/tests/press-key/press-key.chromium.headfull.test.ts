@@ -28,4 +28,28 @@ describe('Playwright Fluent - pressKey', (): void => {
       .expectThatSelector('#field3')
       .hasFocus();
   });
+
+  test('should enter a number with decimal digits - chromium', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'press-key.test.html')}`;
+
+    // When
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .navigateTo(url)
+      .click('#fieldNumber')
+      .expectThatSelector('#fieldNumber')
+      .hasFocus()
+      .clearText()
+      .pressKey('1')
+      .pressKey('2')
+      .pressKey('3')
+      .pressKey('.')
+      .pressKey('4')
+      .pressKey('5')
+      .expectThatSelector('#fieldNumber')
+      .hasValue('123.45');
+  });
 });
