@@ -27,7 +27,7 @@ describe('show-mouse-position', (): void => {
     expect(cursorExists).toBe(true);
   });
 
-  test.only('should show cursor on navigating to another page on webkit', async (): Promise<void> => {
+  test('should show cursor on navigating to another page on webkit', async (): Promise<void> => {
     // Given
     const url = 'https://reactstrap.github.io/components/form';
     browser = await webkit.launch({ headless: true });
@@ -38,7 +38,7 @@ describe('show-mouse-position', (): void => {
     await SUT.showMousePosition(page);
     await page.goto(url);
     await page.waitForTimeout(3000);
-    await page.goto('https://google.com');
+    await page.goto('https://github.com/');
 
     // Then
     const cursorExists = await exists('playwright-mouse-pointer', page);
