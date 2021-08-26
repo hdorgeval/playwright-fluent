@@ -37,6 +37,7 @@ describe('show-mouse-position', (): void => {
     // When
     await SUT.showMousePosition(page);
     await page.goto(url);
+    await page.waitForEvent('load');
     await page.goto('https://google.com');
 
     // Then
