@@ -27,7 +27,7 @@ describe('show-mouse-position', (): void => {
     expect(cursorExists).toBe(true);
   });
 
-  test('should show cursor on navigating to another page on webkit', async (): Promise<void> => {
+  test.skip('should show cursor on navigating to another page on webkit', async (): Promise<void> => {
     // Given
     const url = 'https://reactstrap.github.io/components/form';
     browser = await webkit.launch({ headless: true });
