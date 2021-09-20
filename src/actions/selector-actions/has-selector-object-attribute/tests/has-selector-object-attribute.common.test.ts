@@ -24,7 +24,7 @@ describe('has selector object attribute with expected value', (): void => {
         defaultWaitUntilOptions,
       );
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -17,7 +17,7 @@ describe('Playwright Fluent - selectByValue(value).inFocused()', (): void => {
     try {
       await p.selectByValue('foo').inFocused();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

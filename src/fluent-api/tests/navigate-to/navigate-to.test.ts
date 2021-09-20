@@ -17,7 +17,7 @@ describe('Playwright Fluent - navigateTo', (): void => {
     try {
       await p.navigateTo('https://www.google.fr');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -79,7 +79,7 @@ describe.skip('uncheck handle', (): void => {
     try {
       await SUT.uncheckHandle(handle, selector, page, checkOptions);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -19,7 +19,7 @@ describe('check selector object', (): void => {
       const selector = p.selector('foobar');
       await SUT.checkSelectorObject(selector, p.currentPage(), defaultClickOptions);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

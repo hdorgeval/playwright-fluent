@@ -17,7 +17,7 @@ describe('Playwright Fluent - pasteText', (): void => {
     try {
       await p.pasteText('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

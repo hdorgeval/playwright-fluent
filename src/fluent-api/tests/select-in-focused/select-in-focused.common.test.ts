@@ -17,7 +17,7 @@ describe('Playwright Fluent - select(label).inFocused()', (): void => {
     try {
       await p.select('foo').inFocused();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -24,7 +24,7 @@ describe('Playwright Fluent - pasteText', (): void => {
         .navigateTo(url)
         .pasteText('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -49,7 +49,7 @@ describe('Playwright Fluent - pasteText', (): void => {
         .click(selector)
         .pasteText('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

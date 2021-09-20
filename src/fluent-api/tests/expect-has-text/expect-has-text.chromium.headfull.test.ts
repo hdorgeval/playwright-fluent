@@ -62,7 +62,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .expectThatSelector(selector)
         .hasText('yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -85,7 +85,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .expectThatSelector(selector)
         .hasText('yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -108,7 +108,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .expectThatSelector(selector)
         .hasText('yo', { timeoutInMilliseconds: 4000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -133,7 +133,7 @@ describe('Playwright Fluent - expect has text', (): void => {
         .expectThatSelector(selector)
         .hasText('yo', { timeoutInMilliseconds: 4000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -23,7 +23,7 @@ describe('has selector object expected placeholder', (): void => {
         defaultWaitUntilOptions,
       );
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

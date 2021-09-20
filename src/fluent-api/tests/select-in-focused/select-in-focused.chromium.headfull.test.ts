@@ -24,7 +24,7 @@ describe('Playwright Fluent - select(label).inFocused()', (): void => {
         .select('label 2')
         .inFocused({ timeoutInMilliseconds: 1000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

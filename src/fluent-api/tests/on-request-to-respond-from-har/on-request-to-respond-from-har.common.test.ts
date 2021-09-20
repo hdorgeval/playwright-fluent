@@ -20,7 +20,7 @@ describe('Playwright Fluent - onRequestTo(url).respondFromHar()', (): void => {
         .onRequestTo('/foobar')
         .respondFromHar(['foo.har', 'bar.har']);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

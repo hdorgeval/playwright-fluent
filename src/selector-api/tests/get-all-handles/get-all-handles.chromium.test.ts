@@ -19,7 +19,7 @@ describe('Selector API - getAllHandles', (): void => {
       const selector = p.selector('foobar');
       await selector.getAllHandles();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -122,7 +122,12 @@ export async function getOutdatedMocks(
           mock.updateData({ request, queryString, postData, sharedContext }, actualResponse);
         }
       } catch (error) {
-        mockOptions.onInternalError(error, mock, { request, queryString, postData, sharedContext });
+        mockOptions.onInternalError(error as Error, mock, {
+          request,
+          queryString,
+          postData,
+          sharedContext,
+        });
       }
 
       continue;
@@ -143,7 +148,12 @@ export async function getOutdatedMocks(
           mock.updateData({ request, queryString, postData, sharedContext }, actualBody);
         }
       } catch (error) {
-        mockOptions.onInternalError(error, mock, { request, queryString, postData, sharedContext });
+        mockOptions.onInternalError(error as Error, mock, {
+          request,
+          queryString,
+          postData,
+          sharedContext,
+        });
       }
 
       continue;
@@ -165,7 +175,12 @@ export async function getOutdatedMocks(
           mock.updateData({ request, queryString, postData, sharedContext }, actualBody);
         }
       } catch (error) {
-        mockOptions.onInternalError(error, mock, { request, queryString, postData, sharedContext });
+        mockOptions.onInternalError(error as Error, mock, {
+          request,
+          queryString,
+          postData,
+          sharedContext,
+        });
       }
 
       continue;

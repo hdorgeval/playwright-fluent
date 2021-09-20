@@ -20,7 +20,7 @@ describe('Playwright Fluent - recordNetworkActivity()', (): void => {
       await p.recordNetworkActivity({ path: '' });
       p.getRecordedNetworkActivity();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -41,7 +41,7 @@ describe('Playwright Fluent - recordNetworkActivity()', (): void => {
       await p.recordNetworkActivity({ path: harFilepath });
       p.getRecordedNetworkActivity();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

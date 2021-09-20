@@ -19,7 +19,7 @@ describe('hover on selector object', (): void => {
       const selector = p.selector('foobar');
       await SUT.hoverOnSelectorObject(selector, p.currentPage(), defaultHoverOptions);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

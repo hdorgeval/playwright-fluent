@@ -23,7 +23,7 @@ describe('switch to iframe from selector object', (): void => {
         defaultSwitchToIframeOptions,
       );
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

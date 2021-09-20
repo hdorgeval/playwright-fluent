@@ -17,7 +17,7 @@ describe('Playwright Fluent - uncheck', (): void => {
     try {
       await p.uncheck('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

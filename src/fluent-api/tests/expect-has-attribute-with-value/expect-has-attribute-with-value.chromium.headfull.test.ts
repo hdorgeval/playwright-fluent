@@ -25,7 +25,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
         .expectThatSelector(selector)
         .hasAttributeWithValue('data-id', 'yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -48,7 +48,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
         .expectThatSelector(selector)
         .hasAttributeWithValue('data-id', 'yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -71,7 +71,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
         .expectThatSelector(selector)
         .hasAttributeWithValue('data-id', 'yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -96,7 +96,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
         .expectThatSelector(selector)
         .hasAttributeWithValue('data-id', 'yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -122,7 +122,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
         .expectThatSelector(selector)
         .hasAttributeWithValue('data-id', 'foobar', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -147,7 +147,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
         .expectThatSelector(selector)
         .hasAttributeWithValue('data-id', 'foobar', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

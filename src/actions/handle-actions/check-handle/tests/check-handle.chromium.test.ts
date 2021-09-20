@@ -74,7 +74,7 @@ describe('check handle', (): void => {
     try {
       await SUT.checkHandle(handle, selector, page, checkOptions);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

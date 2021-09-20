@@ -20,7 +20,7 @@ describe('Selector API - forEach', (): void => {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       await selectors.forEach(async () => {});
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

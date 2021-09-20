@@ -17,7 +17,7 @@ describe('Playwright Fluent - expect does not have class', (): void => {
     try {
       await p.expectThatSelector('foo').doesNotHaveClass('bar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

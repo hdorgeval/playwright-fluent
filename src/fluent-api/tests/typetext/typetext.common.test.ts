@@ -17,7 +17,7 @@ describe('Playwright Fluent - typeText', (): void => {
     try {
       await p.typeText('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

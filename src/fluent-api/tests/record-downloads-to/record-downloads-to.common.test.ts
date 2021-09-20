@@ -20,7 +20,7 @@ describe('Playwright Fluent - recordDownloadsTo(directory)', (): void => {
       console.log(`User downloads directory : '${userDownloadsDirectory}'`);
       await p.recordDownloadsTo(userDownloadsDirectory);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -17,7 +17,7 @@ describe('Playwright Fluent - expect has attribute with value', (): void => {
     try {
       await p.expectThatSelector('foo').hasAttributeWithValue('bar', 'baz');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

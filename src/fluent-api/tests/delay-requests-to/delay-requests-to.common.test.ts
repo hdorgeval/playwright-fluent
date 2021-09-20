@@ -17,7 +17,7 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
     try {
       await p.delayRequestsTo('/foobar', 10);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

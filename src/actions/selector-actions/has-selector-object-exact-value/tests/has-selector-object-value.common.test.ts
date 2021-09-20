@@ -23,7 +23,7 @@ describe('has selector object exact expected value', (): void => {
         defaultWaitUntilOptions,
       );
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

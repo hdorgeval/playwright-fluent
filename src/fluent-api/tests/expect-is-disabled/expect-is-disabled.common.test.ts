@@ -17,7 +17,7 @@ describe('Playwright Fluent - expect is disabled', (): void => {
     try {
       await p.expectThatSelector('foobar').isDisabled();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

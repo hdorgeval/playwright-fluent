@@ -17,7 +17,7 @@ describe('Playwright Fluent - expect is unchecked', (): void => {
     try {
       await p.expectThatSelector('foobar').isUnchecked();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

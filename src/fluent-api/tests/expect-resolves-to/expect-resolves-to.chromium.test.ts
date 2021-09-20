@@ -62,7 +62,7 @@ describe('Playwright Fluent - expect func resolves to', (): void => {
         .expectThatAsyncFunc(() => selector.count())
         .resolvesTo(1, { timeoutInMilliseconds: 1000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

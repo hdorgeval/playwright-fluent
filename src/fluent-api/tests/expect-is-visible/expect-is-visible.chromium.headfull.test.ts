@@ -25,7 +25,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .expectThatSelector(selector)
         .isVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -48,7 +48,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .expectThatSelector(selector)
         .isVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -108,7 +108,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .expectThatSelector(selector)
         .isVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -133,7 +133,7 @@ describe('Playwright Fluent - expectThat isVisible', (): void => {
         .expectThatSelector(selector)
         .isVisible({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -17,7 +17,7 @@ describe('Playwright Fluent - expect does not exist', (): void => {
     try {
       await p.expectThatSelector('foobar').doesNotExist();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

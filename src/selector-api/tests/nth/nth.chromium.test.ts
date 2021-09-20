@@ -25,7 +25,7 @@ describe('Selector API - nth', (): void => {
     try {
       await selector.getFirstHandleOrNull();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -17,7 +17,7 @@ describe('Playwright Fluent - expect has placeholder', (): void => {
     try {
       await p.expectThatSelector('foo').hasPlaceholder('bar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

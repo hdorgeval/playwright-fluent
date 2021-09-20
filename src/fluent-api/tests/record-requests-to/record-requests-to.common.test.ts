@@ -17,7 +17,7 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     try {
       await p.recordRequestsTo('/foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

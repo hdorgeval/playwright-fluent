@@ -17,7 +17,7 @@ describe('Playwright Fluent - pause', (): void => {
     try {
       await p.pause();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

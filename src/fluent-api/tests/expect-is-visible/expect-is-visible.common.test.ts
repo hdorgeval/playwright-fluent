@@ -17,7 +17,7 @@ describe('Playwright Fluent - expect is visible', (): void => {
     try {
       await p.expectThatSelector('foobar').isVisible();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

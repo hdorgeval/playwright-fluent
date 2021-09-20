@@ -17,7 +17,7 @@ describe('Playwright Fluent - check', (): void => {
     try {
       await p.check('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

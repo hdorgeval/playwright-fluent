@@ -17,7 +17,7 @@ describe('Playwright Fluent - hover', (): void => {
     try {
       await p.hover('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

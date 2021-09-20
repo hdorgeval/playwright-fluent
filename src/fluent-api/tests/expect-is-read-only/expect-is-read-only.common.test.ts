@@ -17,7 +17,7 @@ describe('Playwright Fluent - expect is read-only', (): void => {
     try {
       await p.expectThatSelector('foobar').isReadOnly();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

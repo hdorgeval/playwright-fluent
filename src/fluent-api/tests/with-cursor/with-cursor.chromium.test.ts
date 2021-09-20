@@ -18,7 +18,7 @@ describe('Playwright Fluent - withCursor', (): void => {
     try {
       await p.withCursor();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

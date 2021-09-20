@@ -94,7 +94,7 @@ describe('Playwright Fluent - withBrowser', (): void => {
     try {
       await p.withBrowser(browser as BrowserName);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

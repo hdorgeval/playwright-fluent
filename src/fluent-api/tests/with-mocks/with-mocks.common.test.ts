@@ -19,7 +19,7 @@ describe('Playwright Fluent - withMocks()', (): void => {
       // prettier-ignore
       await p.withMocks(mocks);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

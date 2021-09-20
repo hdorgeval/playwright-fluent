@@ -25,7 +25,7 @@ describe('Playwright Fluent - expectThat does not exist', (): void => {
         .expectThatSelector(selector)
         .doesNotExist({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -48,7 +48,7 @@ describe('Playwright Fluent - expectThat does not exist', (): void => {
         .expectThat(selector)
         .doesNotExist({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -17,7 +17,7 @@ describe('Playwright Fluent - expect has focus', (): void => {
     try {
       await p.expectThatSelector('foobar').hasFocus();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

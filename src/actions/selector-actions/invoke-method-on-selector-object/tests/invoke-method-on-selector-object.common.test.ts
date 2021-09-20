@@ -23,7 +23,7 @@ describe('invoke method on selector object', (): void => {
       const selector = p.selector('foobar').find('input');
       await SUT.invokeMethodOnSelectorObject('click', selector, options);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

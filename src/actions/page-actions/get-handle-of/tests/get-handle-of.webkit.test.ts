@@ -40,7 +40,7 @@ describe('get-handle-of', (): void => {
     try {
       await SUT.getHandleOf('foobar', page, options);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

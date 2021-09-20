@@ -25,7 +25,7 @@ describe('Playwright Fluent - expect does not have class', (): void => {
         .expectThatSelector(selector)
         .doesNotHaveClass('yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -48,7 +48,7 @@ describe('Playwright Fluent - expect does not have class', (): void => {
         .expectThatSelector(selector)
         .doesNotHaveClass('yo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -71,7 +71,7 @@ describe('Playwright Fluent - expect does not have class', (): void => {
         .expectThatSelector(selector)
         .doesNotHaveClass('foo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -96,7 +96,7 @@ describe('Playwright Fluent - expect does not have class', (): void => {
         .expectThatSelector(selector)
         .doesNotHaveClass('foo', { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -122,7 +122,7 @@ describe('Playwright Fluent - expect does not have class', (): void => {
         .expectThatSelector(selector)
         .doesNotHaveClass('foo', { timeoutInMilliseconds: 5000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -149,7 +149,7 @@ describe('Playwright Fluent - expect does not have class', (): void => {
         .expectThatSelector(selector)
         .doesNotHaveClass('foo', { timeoutInMilliseconds: 5000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

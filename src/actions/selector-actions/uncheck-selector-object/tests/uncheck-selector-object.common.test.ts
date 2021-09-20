@@ -19,7 +19,7 @@ describe('uncheck selector object', (): void => {
       const selector = p.selector('foobar');
       await SUT.uncheckSelectorObject(selector, p.currentPage(), defaultClickOptions);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

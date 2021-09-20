@@ -24,7 +24,7 @@ describe('Playwright Fluent - typeText', (): void => {
         .navigateTo(url)
         .typeText('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -49,7 +49,7 @@ describe('Playwright Fluent - typeText', (): void => {
         .click(selector)
         .typeText('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

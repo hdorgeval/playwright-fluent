@@ -17,7 +17,7 @@ describe('Playwright Fluent - select(label).in(selector)', (): void => {
     try {
       await p.select('foo').in('bar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

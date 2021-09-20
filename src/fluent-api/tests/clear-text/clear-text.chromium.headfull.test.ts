@@ -24,7 +24,7 @@ describe('Playwright Fluent - clearText', (): void => {
         .navigateTo(url)
         .clearText();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -49,7 +49,7 @@ describe('Playwright Fluent - clearText', (): void => {
         .click(selector)
         .clearText();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -73,7 +73,7 @@ describe('Playwright Fluent - clearText', (): void => {
         .click(selector)
         .clearText();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

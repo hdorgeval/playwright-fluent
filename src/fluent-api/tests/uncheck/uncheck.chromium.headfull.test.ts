@@ -106,7 +106,7 @@ describe('Playwright Fluent - uncheck', (): void => {
         .navigateTo(url)
         .uncheck(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -128,7 +128,7 @@ describe('Playwright Fluent - uncheck', (): void => {
         .navigateTo(url)
         .uncheck(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -151,7 +151,7 @@ describe('Playwright Fluent - uncheck', (): void => {
         .navigateTo(url)
         .uncheck(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -175,7 +175,7 @@ describe('Playwright Fluent - uncheck', (): void => {
         .navigateTo(url)
         .uncheck(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -199,7 +199,7 @@ describe('Playwright Fluent - uncheck', (): void => {
         .navigateTo(url)
         .uncheck(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

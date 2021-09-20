@@ -17,7 +17,7 @@ describe('Playwright Fluent - click', (): void => {
     try {
       await p.click('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

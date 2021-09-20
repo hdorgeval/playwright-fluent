@@ -65,7 +65,7 @@ describe('Playwright Fluent - click with custom default wait options', (): void 
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 1000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -88,7 +88,7 @@ describe('Playwright Fluent - click with custom default wait options', (): void 
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 1000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -112,7 +112,7 @@ describe('Playwright Fluent - click with custom default wait options', (): void 
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 1000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -137,7 +137,7 @@ describe('Playwright Fluent - click with custom default wait options', (): void 
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 1000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -162,7 +162,7 @@ describe('Playwright Fluent - click with custom default wait options', (): void 
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 1000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

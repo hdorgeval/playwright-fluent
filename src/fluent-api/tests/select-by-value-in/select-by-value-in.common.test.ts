@@ -17,7 +17,7 @@ describe('Playwright Fluent - selectByValue(values).in(selector)', (): void => {
     try {
       await p.selectByValue('foo').in('bar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

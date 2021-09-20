@@ -17,7 +17,7 @@ describe('Playwright Fluent - clearText', (): void => {
     try {
       await p.clearText();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -24,7 +24,7 @@ describe('select options in selector object', (): void => {
         defaultSelectOptions,
       );
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

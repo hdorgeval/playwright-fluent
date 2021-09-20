@@ -17,7 +17,7 @@ describe('Playwright Fluent - pressKey', (): void => {
     try {
       await p.pressKey('Tab');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

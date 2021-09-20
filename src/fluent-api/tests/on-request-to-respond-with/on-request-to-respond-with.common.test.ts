@@ -20,7 +20,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
         .onRequestTo('/foobar')
         .respondWith({status: 500});
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -18,7 +18,7 @@ describe('selector object does not have expected class', (): void => {
       const selector = p.selector('foobar');
       await SUT.hasNotSelectorObjectClass(selector, 'yo', p.currentPage(), defaultWaitUntilOptions);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

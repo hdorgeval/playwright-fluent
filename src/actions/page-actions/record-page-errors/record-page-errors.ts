@@ -36,7 +36,7 @@ export async function recordPageErrors(
         callback(err);
       }
     } catch (error) {
-      callback(error);
+      callback(error as Error);
     }
   });
 }

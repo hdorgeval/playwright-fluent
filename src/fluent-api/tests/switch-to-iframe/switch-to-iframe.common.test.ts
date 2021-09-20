@@ -17,7 +17,7 @@ describe('Playwright Fluent - switchToIframe', (): void => {
     try {
       await p.switchToIframe('foobar');
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

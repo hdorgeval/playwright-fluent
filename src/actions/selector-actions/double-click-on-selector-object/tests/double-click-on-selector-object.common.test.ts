@@ -19,7 +19,7 @@ describe('double-click on selector object', (): void => {
       const selector = p.selector('foobar');
       await SUT.doubleClickOnSelectorObject(selector, p.currentPage(), defaultDoubleClickOptions);
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

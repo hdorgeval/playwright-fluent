@@ -17,7 +17,7 @@ describe('Playwright Fluent - recordFailedRequests()', (): void => {
     try {
       await p.recordFailedRequests();
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

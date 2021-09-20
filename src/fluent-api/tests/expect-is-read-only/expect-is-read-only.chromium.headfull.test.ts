@@ -25,7 +25,7 @@ describe('Playwright Fluent - expectThat isReadOnly', (): void => {
         .expectThatSelector(selector)
         .isReadOnly({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -48,7 +48,7 @@ describe('Playwright Fluent - expectThat isReadOnly', (): void => {
         .expectThat(selector)
         .isReadOnly({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -107,7 +107,7 @@ describe('Playwright Fluent - expectThat isReadOnly', (): void => {
         .expectThatSelector(selector)
         .isReadOnly({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -130,7 +130,7 @@ describe('Playwright Fluent - expectThat isReadOnly', (): void => {
         .expectThatSelector(selector)
         .isReadOnly({ timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then

@@ -62,7 +62,7 @@ describe('Playwright Fluent - click', (): void => {
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -84,7 +84,7 @@ describe('Playwright Fluent - click', (): void => {
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -107,7 +107,7 @@ describe('Playwright Fluent - click', (): void => {
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -131,7 +131,7 @@ describe('Playwright Fluent - click', (): void => {
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
@@ -155,7 +155,7 @@ describe('Playwright Fluent - click', (): void => {
         .navigateTo(url)
         .click(selector, { timeoutInMilliseconds: 2000 });
     } catch (error) {
-      result = error;
+      result = error as Error;
     }
 
     // Then
