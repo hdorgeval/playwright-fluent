@@ -1,5 +1,6 @@
 import * as SUT from '../index';
 import { sleep } from '../../../../utils';
+import { SerializableDOMRect } from '../../../dom-actions';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -27,13 +28,15 @@ describe('get client rectangle of an element handle', (): void => {
     const result = await SUT.getClientRectangleOfHandle(handle);
 
     // Then
-    const expectedClientRectangle: ClientRect = {
+    const expectedClientRectangle: SerializableDOMRect = {
       bottom: 32,
       height: 21,
       left: 12,
       right: 32,
       top: 11,
       width: 20,
+      x: 12, // left
+      y: 11, // top
     };
     expect(result).not.toBe(null);
     expect(result).toMatchObject(expectedClientRectangle);

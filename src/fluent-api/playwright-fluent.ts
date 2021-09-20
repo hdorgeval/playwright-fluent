@@ -148,6 +148,7 @@ export {
   ScreenshotOptions,
   SelectOptionInfo,
   SelectOptions,
+  SerializableDOMRect,
   SwitchToIframeOptions,
   TypeTextOptions,
   validateMock,
@@ -270,7 +271,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
         action && (await action());
       }
     } catch (error) {
-      this._lastError = error;
+      this._lastError = error as Error;
       this.actions = [];
       throw error;
     } finally {

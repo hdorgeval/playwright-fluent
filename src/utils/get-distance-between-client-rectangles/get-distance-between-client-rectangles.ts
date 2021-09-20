@@ -1,4 +1,9 @@
-export function getDistanceBetweenClientRectangles(rect1: ClientRect, rect2: ClientRect): number {
+import { SerializableDOMRect } from '../../actions';
+
+export function getDistanceBetweenClientRectangles(
+  rect1: SerializableDOMRect,
+  rect2: SerializableDOMRect,
+): number {
   const x1 = rect1.left + rect1.width / 2;
   const y1 = rect1.top + rect1.height / 2;
 
