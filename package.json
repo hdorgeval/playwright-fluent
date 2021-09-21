@@ -48,7 +48,7 @@
   "devDependencies": {
     "@types/debug": "4.1.7",
     "@types/jest": "27.0.2",
-    "@types/node": "16.9.4",
+    "@types/node": "16.9.6",
     "@types/web": "0.0.36",
     "@typescript-eslint/eslint-plugin": "4.31.2",
     "@typescript-eslint/parser": "4.31.2",
