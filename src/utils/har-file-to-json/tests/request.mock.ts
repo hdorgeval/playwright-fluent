@@ -14,4 +14,8 @@ export const mockRequest: Request = {
   resourceType: jest.fn(),
   timing: jest.fn(),
   response: jest.fn(),
+  allHeaders: jest.fn(),
+  headersArray: jest.fn(),
+  headerValue: jest.fn(),
+  sizes: jest.fn(),
 };
