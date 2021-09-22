@@ -1,9 +1,14 @@
+import { toDays, UpdatePolicy } from '../dates';
 import { existsSync, mkdirSync, PathLike, readdirSync, statSync, unlinkSync } from 'fs';
 import { join } from 'path';
+
+export const userHomeDirectory = process.env.HOME || process.env.USERPROFILE || process.cwd();
+export const userDownloadsDirectory = join(userHomeDirectory, 'Downloads');
 
 const isFile = (path: PathLike) => statSync(path).isFile();
 const isDirectory = (path: PathLike) => statSync(path).isDirectory();
 const lastModifiedDate = (path: PathLike) => statSync(path).mtime;
+const lastChangedDate = (path: PathLike) => statSync(path).ctime;
 const ignoreNodeModule = (path: string) => path.indexOf('node_modules') < 0;
 const ignoreDotDir = (path: string) => path.startsWith('.') === false;
 
@@ -58,5 +63,28 @@ export const ensureDirectoryExists = (directoryPath: string): void => {
   mkdirSync(directoryPath);
 };
 
-export const userHomeDirectory = process.env.HOME || process.env.USERPROFILE || process.cwd();
-export const userDownloadsDirectory = join(userHomeDirectory, 'Downloads');
+export const lastUpdateOf = (filePath: string): Date => {
+  if (fileDoesNotExist(filePath)) {
+    throw new Error(`File '${filePath}' does not exist.`);
+  }
+  const modified = lastModifiedDate(filePath);
+  const changed = lastChangedDate(filePath);
+  const result = modified.getTime() > changed.getTime() ? modified : changed;
+  return result;
+};
+
+export function shouldUpdateFile(filePath: string, policy: UpdatePolicy): boolean {
+  if (policy === 'never') {
+    return false;
+  }
+
+  if (policy === 'always') {
+    return true;
+  }
+
+  const lastUpdate = lastUpdateOf(filePath);
+  const now = new Date();
+  const elapsedTimeInDays = (now.getTime() - lastUpdate.getTime()) / (1000 * 60 * 60 * 24);
+  const days = toDays(policy);
+  return elapsedTimeInDays > days;
+}

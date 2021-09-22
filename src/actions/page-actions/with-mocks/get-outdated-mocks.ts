@@ -9,7 +9,12 @@ import {
   WithMocksOptions,
 } from './with-mocks';
 import { validateMock } from './validate-mock';
-import { areSameType, extractQueryStringObjectFromUrl, HttpRequestMethod } from '../../../utils';
+import {
+  areSameType,
+  extractQueryStringObjectFromUrl,
+  HttpRequestMethod,
+  shouldUpdate,
+} from '../../../utils';
 import { Request } from 'playwright';
 
 function isJson(content: string): boolean {
@@ -19,6 +24,12 @@ function isJson(content: string): boolean {
   } catch (e) {
     return false;
   }
+}
+
+function shouldUpdateMock(mock: FluentMock): boolean {
+  const lastUpdated = mock.lastUpdated();
+  const updatePolicy = mock.updatePolicy;
+  return shouldUpdate(lastUpdated, updatePolicy);
 }
 
 export interface OutdatedMock {
@@ -112,7 +123,7 @@ export async function getOutdatedMocks(
         const actualResponse = await requestResponse.json();
         mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
         const isOutdated = !areSameType(mockedResponse, actualResponse);
-        if (isOutdated) {
+        if (isOutdated && shouldUpdateMock(mock)) {
           result.push({
             url,
             mock,
@@ -165,7 +176,7 @@ export async function getOutdatedMocks(
         const actualBody = await requestResponse.text();
         mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
         const isOutdated = mockedBody !== actualBody;
-        if (isOutdated) {
+        if (isOutdated && shouldUpdateMock(mock)) {
           result.push({
             url,
             mock,

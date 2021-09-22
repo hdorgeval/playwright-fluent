@@ -50,4 +50,22 @@ export function validateMock(mock: Partial<FluentMock>): void {
       `mock named '${mock.displayName}' should not implement a raw response, because you explicitely set the response type to be empty.`,
     );
   }
+
+  if (mock.updatePolicy === '1/d' && typeof mock.lastUpdated !== 'function') {
+    throw new Error(
+      `mock named '${mock.displayName}' should implement a lastUpdated callback when and updatePolicy of '${mock.updatePolicy}' is set.`,
+    );
+  }
+
+  if (mock.updatePolicy === '1/m' && typeof mock.lastUpdated !== 'function') {
+    throw new Error(
+      `mock named '${mock.displayName}' should implement a lastUpdated callback when and updatePolicy of '${mock.updatePolicy}' is set.`,
+    );
+  }
+
+  if (mock.updatePolicy === '1/w' && typeof mock.lastUpdated !== 'function') {
+    throw new Error(
+      `mock named '${mock.displayName}' should implement a lastUpdated callback when and updatePolicy of '${mock.updatePolicy}' is set.`,
+    );
+  }
 }

@@ -81,4 +81,64 @@ describe('with mocks', (): void => {
 
     expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
   });
+
+  test('should return an error when mock update policy is 1/d but no lastUpdated callback is given', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock for GET /foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      responseType: 'json',
+      jsonResponse: () => {
+        return { foo: 'bar' };
+      },
+      updatePolicy: '1/d',
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock for GET /foobar' should implement a lastUpdated callback when and updatePolicy of '1/d' is set.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
+
+  test('should return an error when mock update policy is 1/w but no lastUpdated callback is given', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock for GET /foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      responseType: 'json',
+      jsonResponse: () => {
+        return { foo: 'bar' };
+      },
+      updatePolicy: '1/w',
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock for GET /foobar' should implement a lastUpdated callback when and updatePolicy of '1/w' is set.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
+
+  test('should return an error when mock update policy is 1/m but no lastUpdated callback is given', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock for GET /foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      responseType: 'json',
+      jsonResponse: () => {
+        return { foo: 'bar' };
+      },
+      updatePolicy: '1/m',
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock for GET /foobar' should implement a lastUpdated callback when and updatePolicy of '1/m' is set.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
 });

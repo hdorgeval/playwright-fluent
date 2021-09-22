@@ -1,5 +1,6 @@
 import {
   extractQueryStringObjectFromUrl,
+  UpdatePolicy,
   HttpHeaders,
   HttpRequestMethod,
   MimeType,
@@ -136,10 +137,31 @@ export interface FluentMock {
 
   /**
    * Optional callback to update the data source of the mocked response.
-   * When provided, this method will be called automatically when the mock is found to be outdated by the helper {@link getOutdatedMocks}).
+   * When provided, this method will be called automatically when
+   *  1°) the mock is found to be outdated by the helper {@link getOutdatedMocks})
+   *  2°) and the call to {@link lastUpdated} gives a date that is older than the {@link updatePolicy}
    * @memberof FluentMock
    */
   updateData: (requestInfos: RequestInfos, response: ResponseData) => void;
+
+  /**
+   * Optional callback to get the last update of the data source used to mock the response.
+   * This method will be called automatically when the mock is found to be outdated by the helper {@link getOutdatedMocks})
+   * Defaults to the current date.
+   *
+   * @type {Date}
+   * @memberof FluentMock
+   */
+  lastUpdated: () => Date;
+
+  /**
+   * Update policy for the data source of the mocked response.
+   * Defaults to 'always'.
+   *
+   * @type {UpdatePolicy}
+   * @memberof FluentMock
+   */
+  updatePolicy: UpdatePolicy;
 }
 
 export function noopVoidFunc(): void {
@@ -170,6 +192,8 @@ export const passthroughMock: FluentMock = {
   rawResponse: () => '',
   delayInMilliseconds: 0,
   updateData: noopVoidFunc,
+  lastUpdated: () => new Date(),
+  updatePolicy: 'always',
 };
 
 export interface WithMocksOptions {
