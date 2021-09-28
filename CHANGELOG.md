@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.41.0] - 2021-09-28
+
+### Breaking changes
+
+- `ClientRect` type is replaced by `SerializableDOMRect`
+
+### Added
+
+- feat(mocks): be able to set up an update policy to prevent a mock to be updated too often.
+
+  To set up an update policy just add these two properties to the mock declaration:
+
+  ```js
+  const mock = {
+    // other properties omited for brevity
+    lastUpdated: () => Date;
+    updatePolicy: 'always' | 'never' | '1/d' | '1/w' | '1/m';
+  }
+
+  // 1/d => update only once per day
+  // 1/w => update only once per week
+  // 1/m => update only once per month
+  ```
+
 ## [1.40.1] - 2021-08-30
 
 ### Fixed
