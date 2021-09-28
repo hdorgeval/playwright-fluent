@@ -4,12 +4,14 @@ The Mock API provides a generic and simple infrastructure for massive request in
 
 This Mock API leverages the `Playwright` request interception infrastructure and will enable you to mock all HTTP requests in order to test the front in complete isolation from the backend.
 
+- [Usage](#Usage)
+- [How to keep mocks up-to-date](#How-to-keep-mocks-up-to-date)
+- [How to apply an update policy to a mock](#How-to-apply-an-update-policy-to-a-mock)
+- [How to initialize and update the shared context](#How-to-initialize-and-update-the-shared-context)
+
 - Chainable Methods
 
   - [withMocks(mocks[, options])](#withMocksmocks-options)
-
-- [How to initialize the shared context](#How-to-initialize-the-shared-context)
-- [How to keep mocks up-to-date](#How-to-keep-mocks-up-to-date)
 
 - Helper Methods
 
@@ -45,7 +47,7 @@ const mock: Partial<FluentMock> = {
 };
 ```
 
-Example of a mock that will enable you to provide your own javascript:
+Example of a mock that will enable you to provide your own JavaScript:
 
 ```ts
 import { FluentMock, mockGetWithJavascriptResponse } from 'playwright-fluent';
@@ -241,10 +243,31 @@ export interface FluentMock {
 
   /**
    * Optional callback to update the data source of the mocked response.
-   * When provided, this method will be called automatically when the mock is found to be outdated by the helper (see `getOutdatedMocks`).
+   * When provided, this method will be called automatically when
+   *  1°) the mock is found to be outdated by the helper {@link getOutdatedMocks})
+   *  2°) and the call to {@link lastUpdated} gives a date that is older than the {@link updatePolicy}
    * @memberof FluentMock
    */
   updateData: (requestInfos: RequestInfos, response: ResponseData) => void;
+
+  /**
+   * Optional callback to get the last update of the data source used to mock the response.
+   * This method will be called automatically when the mock is found to be outdated by the helper {@link getOutdatedMocks})
+   * Defaults to the current date.
+   *
+   * @type {Date}
+   * @memberof FluentMock
+   */
+  lastUpdated: () => Date;
+
+  /**
+   * Update policy for the data source of the mocked response.
+   * Defaults to 'always'.
+   *
+   * @type {UpdatePolicy}
+   * @memberof FluentMock
+   */
+  updatePolicy: UpdatePolicy;
 }
 ```
 
@@ -354,6 +377,29 @@ const outdatedMocks = await getOutdatedMocks(mocks, allRequests, defaultMocksOpt
 If you provide an `updateData` callback in your mocks, then the `getOutdatedMocks` will call this method for all mocks that have been detected as outdated.
 
 The net effect of this is that each mock will update its own data source and therefore will always stay up-to-date !
+
+## How to apply an update policy to a mock
+
+By default, a mock will be updated as soon as it is detected as outdated.
+In the case the `getOutdatedMocks` helper method is launched multiple times in a day or in a week, a mock may appear as always outdated due to fast changes in the real data.
+
+Therefore, keeping a mock up to date may be a tedious and overwhelming job.
+
+To solve this problem, you can configure the mock with an update policy.
+
+To set up an update policy just add these two properties to the mock declaration:
+
+```js
+const mock = {
+  // other properties omited for brevity
+  lastUpdated: () => Date;
+  updatePolicy: 'always' | 'never' | '1/d' | '1/w' | '1/m';
+}
+
+// 1/d => update only once per day
+// 1/w => update only once per week
+// 1/m => update only once per month
+```
 
 ## How to initialize and update the shared context
 
