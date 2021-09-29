@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.41.1] - 2021-09-29
+
+### Fixed
+
+- Unplug `@types/web` and re-plug the `dom` lib.
+
+  The `@types/web` has a side effect on `playwright-fluent` package consumers, because it forces them to upgrade their own typescript version to v4.4 or later.
+
 ## [1.41.0] - 2021-09-28
 
 ### Breaking changes
