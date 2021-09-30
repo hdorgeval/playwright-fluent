@@ -1,8 +1,44 @@
-import { FluentMock, noopVoidFunc, QueryString, RequestInfos, ResponseData } from './with-mocks';
+import { FluentMock, QueryString, RequestInfos, ResponseData } from './with-mocks';
 import { MissingMock } from './get-missing-mocks';
-import { ensureDirectoryExists, hasNoQueryString, urlToShortPath } from '../../../utils';
+import {
+  ensureDirectoryExists,
+  hasNoQueryString,
+  UpdatePolicy,
+  urlToShortPath,
+} from '../../../utils';
 import path from 'path';
 import { writeFileSync } from 'fs';
+
+export interface UpdatePolicyOptions {
+  /**
+   * callback to update the data source of the mocked response.
+   * When provided, this method will be called automatically when
+   *  1°) the mock is found to be outdated by the helper {@link getOutdatedMocks})
+   *  2°) and the call to {@link lastUpdated} gives a date that is older than the {@link updatePolicy}
+   * @memberof FluentMock
+   */
+  updateData: (requestInfos: RequestInfos, response: ResponseData) => void;
+
+  /**
+   * Optional callback to get the last update of the data source used to mock the response.
+   * This method will be called automatically when the mock is found to be outdated by the helper {@link getOutdatedMocks})
+   * Defaults to the current date.
+   *
+   * @type {Date}
+   * @memberof FluentMock
+   */
+  lastUpdated?: () => Date;
+
+  /**
+   * Update policy for the data source of the mocked response.
+   * Defaults to 'always'.
+   *
+   * @type {UpdatePolicy}
+   * @memberof FluentMock
+   */
+  updatePolicy?: UpdatePolicy;
+}
+
 /**
  * Ceate a mock for a GET request to the specified url that returns a JSON response.
  *
@@ -10,8 +46,7 @@ import { writeFileSync } from 'fs';
  * @template T
  * @param {string} relativeUrl
  * @param {T} response - The JSON response to return.
- * @param {(requestInfos: RequestInfos, response: ResponseData) => void} [onOutdated=noopVoidFunc] - Optional callback to update the data source of the mocked response.
- * When provided, this method will be called automatically when the mock is found to be outdated by the helper (see `getOutdatedMocks`).
+ * @param {UpdatePolicyOptions} [updatePolicy]
  * @returns {Partial<FluentMock>}
  * @example
  * It will return this mock:
@@ -25,14 +60,14 @@ import { writeFileSync } from 'fs';
 export function mockGetWithJsonResponse<T>(
   relativeUrl: string,
   response: T,
-  onOutdated: (requestInfos: RequestInfos, response: ResponseData) => void = noopVoidFunc,
+  updatePolicy?: UpdatePolicyOptions,
 ): Partial<FluentMock> {
   return {
     displayName: `GET ${relativeUrl}`,
     urlMatcher: (url) => url.includes(relativeUrl),
     methodMatcher: (m) => m === 'GET',
     jsonResponse: () => response,
-    updateData: onOutdated,
+    ...updatePolicy,
   };
 }
 
@@ -42,8 +77,7 @@ export function mockGetWithJsonResponse<T>(
  * @export
  * @param {string} relativeUrl
  * @param {string} response - The JavaScript response to return.
- * @param {(requestInfos: RequestInfos, response: ResponseData) => void} onOutdated - Optional callback to update the data source of the mocked response.
- * When provided, this method will be called automatically when the mock is found to be outdated by the helper (see `getOutdatedMocks`).
+ * @param {UpdatePolicyOptions} [updatePolicy]
  * @returns {Partial<FluentMock>}
  * @example
  * It will return this mock:
@@ -59,7 +93,7 @@ export function mockGetWithJsonResponse<T>(
 export function mockGetWithJavascriptResponse(
   relativeUrl: string,
   response: string,
-  onOutdated: (requestInfos: RequestInfos, response: ResponseData) => void = noopVoidFunc,
+  updatePolicy?: UpdatePolicyOptions,
 ): Partial<FluentMock> {
   return {
     displayName: `GET ${relativeUrl}`,
@@ -67,7 +101,7 @@ export function mockGetWithJavascriptResponse(
     methodMatcher: (m) => m === 'GET',
     responseType: 'javascript',
     rawResponse: () => response,
-    updateData: onOutdated,
+    ...updatePolicy,
   };
 }
 
@@ -157,8 +191,7 @@ export function mockPostWithEmptyResponseAndStatus(
  * @param {string} relativeUrl - The url to mock
  * @param {QueryString} queryString - The query string to match against the url.
  * @param {T} response - The JSON response to return.
- * @param {(requestInfos: RequestInfos, response: ResponseData) => void} [onOutdated=noopVoidFunc] - Optional callback to update the data source of the mocked response.
- * When provided, this method will be called automatically when the mock is found to be outdated by the helper (see `getOutdatedMocks`).
+ * @param {UpdatePolicyOptions} [updatePolicy]
  * @returns {Partial<FluentMock>}
  * @example
  * const mock = mockGetWithJsonResponseDependingOnQueryString('/api/v1/yo', { foo: 'bar' }, response);
@@ -168,7 +201,7 @@ export function mockGetWithJsonResponseDependingOnQueryString<T>(
   relativeUrl: string,
   queryString: QueryString,
   response: T,
-  onOutdated: (requestInfos: RequestInfos, response: ResponseData) => void = noopVoidFunc,
+  updatePolicy?: UpdatePolicyOptions,
 ): Partial<FluentMock> {
   const searchParams = new URLSearchParams(queryString);
   return {
@@ -190,7 +223,7 @@ export function mockGetWithJsonResponseDependingOnQueryString<T>(
       return match;
     },
     jsonResponse: () => response,
-    updateData: onOutdated,
+    ...updatePolicy,
   };
 }
 export function generateCodeForMissingMock(
