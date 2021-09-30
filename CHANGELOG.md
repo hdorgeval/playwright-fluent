@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.41.2] - 2021-09-30
+
+### Fixed (might be a breaking change for early adopters of the mocks API)
+
+- fix(mocks): be able to configure the update policy through the mock creators.
+
+  This might be a breaking change for those who are using mock creators
+
+  Before:
+
+  ```js
+  mockGetWithJsonResponse('/api/foo', response, onOutdated);
+  ```
+
+  Must be rewritten as:
+
+  ```js
+  mockGetWithJsonResponse('/api/foo', response, { updateData: onOutdated });
+  ```
+
 ## [1.41.1] - 2021-09-29
 
 ### Fixed
