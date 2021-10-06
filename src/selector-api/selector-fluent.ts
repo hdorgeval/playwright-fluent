@@ -6,7 +6,9 @@ import {
   defaultHoverOptions,
   defaultVerboseOptions,
   HoverOptions,
+  Point,
   SelectOptionInfo,
+  SerializableDOMRect,
   VerboseOptions,
 } from '../actions';
 import { ElementHandle } from 'playwright';
@@ -533,6 +535,78 @@ export class SelectorFluent {
    */
   public async placeholder(): Promise<string | null> {
     return this.getAttribute('placeholder');
+  }
+
+  /**
+   * Get the client rectangle of the selector
+   *
+   * @returns {(Promise<SerializableDOMRect | null>)}
+   * @memberof SelectorFluent
+   */
+  public async clientRectangle(): Promise<SerializableDOMRect | null> {
+    const handle = await this.getHandle();
+    const result = await action.getClientRectangleOfHandle(handle);
+    return result;
+  }
+
+  /**
+   * Get the position of the center of selector's bounding box.
+   *
+   * @returns {(Promise<Point | null>)}
+   * @memberof SelectorFluent
+   */
+  public async position(): Promise<Point | null> {
+    const handle = await this.getHandle();
+    const result = await action.getClientRectangleOfHandle(handle);
+    if (result) {
+      const x = result.left + result.width / 2;
+      const y = result.top + result.height / 2;
+      return {
+        x,
+        y,
+      };
+    }
+    return null;
+  }
+
+  /**
+   * Get the position of the left centered point of the selector's bounding box.
+   *
+   * @returns {(Promise<Point | null>)}
+   * @memberof SelectorFluent
+   */
+  public async leftPosition(): Promise<Point | null> {
+    const handle = await this.getHandle();
+    const result = await action.getClientRectangleOfHandle(handle);
+    if (result) {
+      const x = result.left;
+      const y = result.top + result.height / 2;
+      return {
+        x,
+        y,
+      };
+    }
+    return null;
+  }
+
+  /**
+   * Get the position of the right centered point of the selector's bounding box.
+   *
+   * @returns {(Promise<Point | null>)}
+   * @memberof SelectorFluent
+   */
+  public async rightPosition(): Promise<Point | null> {
+    const handle = await this.getHandle();
+    const result = await action.getClientRectangleOfHandle(handle);
+    if (result) {
+      const x = result.left + result.width;
+      const y = result.top + result.height / 2;
+      return {
+        x,
+        y,
+      };
+    }
+    return null;
   }
 
   /**
