@@ -149,7 +149,7 @@ export async function getOutdatedMocks(
         const mockedBody = mock.rawResponse({ request, queryString, postData, sharedContext });
         const actualBody = await requestResponse.text();
         mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
-        if (isJson(actualBody)) {
+        if (isJson(actualBody) && shouldUpdateMock(mock)) {
           result.push({
             url,
             mock,
