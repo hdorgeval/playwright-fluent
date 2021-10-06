@@ -2,7 +2,7 @@ import * as SUT from './index';
 import { exists } from '..';
 import { Browser, webkit } from 'playwright';
 
-describe('show-mouse-position', (): void => {
+describe.skip('show-mouse-position', (): void => {
   let browser: Browser | undefined = undefined;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
@@ -27,7 +27,7 @@ describe('show-mouse-position', (): void => {
     expect(cursorExists).toBe(true);
   });
 
-  test.skip('should show cursor on navigating to another page on webkit', async (): Promise<void> => {
+  test('should show cursor on navigating to another page on webkit', async (): Promise<void> => {
     // Given
     const url = 'https://reactstrap.github.io/components/form';
     browser = await webkit.launch({ headless: true });
