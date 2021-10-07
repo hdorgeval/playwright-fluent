@@ -1,3 +1,4 @@
+export * from './accept-dialog';
 export * from './cancel-dialog';
 export * from './check-selector';
 export * from './click-on-selector';
