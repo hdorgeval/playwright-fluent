@@ -85,7 +85,7 @@ export async function waitUntil(
   const timeout = options.timeoutInMilliseconds;
   const interval = options.stabilityInMilliseconds <= 3 ? 1 : options.stabilityInMilliseconds / 3;
   const nbIntervals = timeout <= 0 ? 1 : timeout / interval;
-  const stabilityCounterMaxValue = options.stabilityInMilliseconds / interval;
+  const stabilityCounterMaxValue = timeout <= 0 ? 1 : options.stabilityInMilliseconds / interval;
   let stabilityCounterCurrentValue = 0;
 
   for (let index = 0; index < nbIntervals; index++) {
