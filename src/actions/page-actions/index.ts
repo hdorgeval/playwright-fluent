@@ -1,3 +1,4 @@
+export * from './cancel-dialog';
 export * from './check-selector';
 export * from './click-on-selector';
 export * from './delay-requests-to';
@@ -36,6 +37,7 @@ export * from './pause';
 export * from './query-selector-all-in-page';
 export * from './record-downloads-to';
 export * from './record-failed-requests';
+export * from './record-page-dialogs';
 export * from './record-page-errors';
 export * from './record-requests-to';
 export * from './select-options-by-value-in-focused';

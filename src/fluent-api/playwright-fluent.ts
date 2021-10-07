@@ -87,7 +87,7 @@ import {
   HttpHeaders,
 } from '../utils';
 import { SelectorFluent } from '../selector-api';
-import { Request, Browser, Page, BrowserContext, Frame } from 'playwright';
+import { Request, Browser, Page, BrowserContext, Frame, Dialog } from 'playwright';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
@@ -142,6 +142,7 @@ export {
   mockPostWithEmptyResponseAndStatus,
   NavigationOptions,
   PasteTextOptions,
+  Point,
   RequestInfos,
   RequestInterceptionFilterOptions,
   ResponseData,
@@ -244,6 +245,12 @@ export interface ExpectAssertion {
   isVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
 }
 
+export type DialogType = 'alert' | 'confirm' | 'prompt' | 'beforeunload';
+
+export interface ExpectDialogAssertion {
+  isOfType: (dialogType: DialogType, options?: Partial<AssertOptions>) => PlaywrightFluent;
+}
+
 export class PlaywrightFluent implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
     onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined,
@@ -292,6 +299,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public currentBrowser(): Browser | undefined {
     return this.browser;
   }
+
+  private dialog: Dialog | undefined;
+  private isDialogOpened = false;
+  private isDialogClosed = true;
+  public currentDialog(): Dialog | undefined {
+    return this.dialog;
+  }
+
   private page: Page | undefined;
   public currentPage(): Page | undefined {
     return this.page;
@@ -373,6 +388,8 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private customWindowSize: WindowSize | undefined = undefined;
   private customWindowSizeOptions: WindowSizeOptions = defaultWindowSizeOptions;
   private showMousePosition = false;
+  private handleDialogs = false;
+
   private async launchBrowser(name: BrowserName): Promise<void> {
     const contextOptions: BrowserContextOptions = { ...this.contextOptions };
 
@@ -415,6 +432,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
     this.page = await this.browserContext.newPage();
     if (this.showMousePosition) {
       await action.showMousePosition(this.page);
+    }
+    if (this.handleDialogs) {
+      await action.recordPageDialogs(this.page, (dialog) => {
+        this.dialog = dialog;
+        this.isDialogOpened = true;
+        this.isDialogClosed = false;
+        // eslint-disable-next-line no-console
+        console.log(this.isDialogOpened, this.isDialogClosed);
+      });
     }
   }
 
@@ -1333,6 +1359,17 @@ export class PlaywrightFluent implements PromiseLike<void> {
    */
   public withCursor(): PlaywrightFluent {
     this.showMousePosition = true;
+    return this;
+  }
+
+  /**
+   * Subscribe to page Dialogs events, so that you can act and assert on opened dialogs.
+   *
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public WithDialogs(): PlaywrightFluent {
+    this.handleDialogs = true;
     return this;
   }
 
@@ -2283,6 +2320,22 @@ export class PlaywrightFluent implements PromiseLike<void> {
       },
       isNotVisible: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsNotVisible(selector, options));
+        return this;
+      },
+    };
+  }
+
+  private async expectThatDialogIsOfType(
+    dialogType: DialogType,
+    options?: Partial<AssertOptions>,
+  ): Promise<void> {
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatDialogIsOfType(() => this.dialog, dialogType, fullOptions);
+  }
+  public expectThatDialog(): ExpectDialogAssertion {
+    return {
+      isOfType: (dialogType: DialogType, options?: Partial<AssertOptions>): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatDialogIsOfType(dialogType, options));
         return this;
       },
     };

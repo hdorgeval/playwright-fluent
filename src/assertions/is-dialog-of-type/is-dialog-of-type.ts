@@ -1,11 +1,8 @@
 import { WaitUntilOptions, defaultWaitUntilOptions, waitUntil } from '../../utils';
-import { AssertOptions, defaultAssertOptions } from '../../fluent-api';
+import { AssertOptions, defaultAssertOptions, DialogType } from '../../fluent-api';
 import { Dialog } from 'playwright';
-
-export type DialogType = 'alert' | 'confirm' | 'prompt' | 'beforeunload';
-
 export async function expectThatDialogIsOfType(
-  dialog: () => Dialog,
+  dialog: () => Dialog | undefined,
   dialogType: DialogType,
   options: Partial<AssertOptions> = defaultAssertOptions,
 ): Promise<void> {
@@ -31,6 +28,9 @@ export async function expectThatDialogIsOfType(
   await waitUntil(
     async () => {
       const currentDialog = dialog();
+      if (!currentDialog) {
+        return false;
+      }
       return currentDialog && currentDialog.type() === dialogType;
     },
     async (): Promise<string> => {
