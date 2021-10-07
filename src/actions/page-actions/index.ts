@@ -49,4 +49,5 @@ export * from './selector-exists';
 export * from './switch-from-selector-to-iframe';
 export * from './take-fullpage-screenshot-as-base64';
 export * from './uncheck-selector';
+export * from './wait-for-dialog';
 export * from './with-mocks';

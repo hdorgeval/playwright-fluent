@@ -542,6 +542,28 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   /**
+   * Show mouse position with a non intrusive cursor
+   *
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public withCursor(): PlaywrightFluent {
+    this.showMousePosition = true;
+    return this;
+  }
+
+  /**
+   * Subscribe to page Dialogs events, so that you can act and assert on opened dialogs.
+   *
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public WithDialogs(): PlaywrightFluent {
+    this.handleDialogs = true;
+    return this;
+  }
+
+  /**
    * Enables HAR recording for all pages.
    * Network activity will be saved into options.path file.
    * If not specified, the HAR is not recorded.
@@ -861,6 +883,27 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
   public pause(): PlaywrightFluent {
     const action = (): Promise<void> => this.pauseExecution();
+    this.actions.push(action);
+    return this;
+  }
+
+  private async waitForDialogToOpen(options: WaitUntilOptions): Promise<void> {
+    await action.waitForDialog(() => this.dialog, this.currentPage(), options);
+  }
+  /**
+   * Wait for a dialog to open.
+   *
+   * @param {Partial<WaitUntilOptions>} [options={}]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   */
+  public waitForDialog(options: Partial<WaitUntilOptions> = {}): PlaywrightFluent {
+    const waitUntilOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultWaitOptions,
+      ...options,
+    };
+    const action = (): Promise<void> => this.waitForDialogToOpen(waitUntilOptions);
     this.actions.push(action);
     return this;
   }
@@ -1348,28 +1391,6 @@ export class PlaywrightFluent implements PromiseLike<void> {
       );
     }
     this.emulatedDevice = device;
-    return this;
-  }
-
-  /**
-   * Show mouse position with a non intrusive cursor
-   *
-   * @returns {PlaywrightFluent}
-   * @memberof PlaywrightFluent
-   */
-  public withCursor(): PlaywrightFluent {
-    this.showMousePosition = true;
-    return this;
-  }
-
-  /**
-   * Subscribe to page Dialogs events, so that you can act and assert on opened dialogs.
-   *
-   * @returns {PlaywrightFluent}
-   * @memberof PlaywrightFluent
-   */
-  public WithDialogs(): PlaywrightFluent {
-    this.handleDialogs = true;
     return this;
   }
 
