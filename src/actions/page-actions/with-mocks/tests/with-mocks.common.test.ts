@@ -82,6 +82,97 @@ describe('with mocks', (): void => {
     expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
   });
 
+  test('should return an error when mock provides both a raw response and a json response', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      jsonResponse: () => {
+        return { foo: 'bar' };
+      },
+      rawResponse: () => 'foo',
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock foobar' should either implement a json response or a raw response but not both.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
+
+  test('should return an error when mock provides a raw response but response type is set to json', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      responseType: 'json',
+      rawResponse: () => 'foo',
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock foobar' should implement a json response instead of a raw response, because you explicitely set the response type to be json.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
+
+  test('should return an error when mock provides a json response but response type is set to string', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      responseType: 'string',
+      jsonResponse: () => {
+        return { foo: 'bar' };
+      },
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock foobar' should implement a raw response instead of a json response, because you explicitely set the response type to be a string.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
+
+  test('should return an error when mock provides a json response but response type is set to empty', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      responseType: 'empty',
+      jsonResponse: () => {
+        return { foo: 'bar' };
+      },
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock foobar' should not implement a json response, because you explicitely set the response type to be empty.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
+
+  test('should return an error when mock provides a raw response but response type is set to empty', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      responseType: 'empty',
+      rawResponse: () => 'foo',
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock foobar' should not implement a raw response, because you explicitely set the response type to be empty.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
+
   test('should return an error when mock update policy is 1/d but no lastUpdated callback is given', async (): Promise<void> => {
     // Given
     const mock: Partial<FluentMock> = {
