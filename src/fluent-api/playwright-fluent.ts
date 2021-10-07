@@ -908,6 +908,19 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  private async cancelCurrentDialog(): Promise<void> {
+    await action.cancelDialog(this.dialog, this.currentPage(), () => {
+      this.dialog = undefined;
+      this.isDialogClosed = true;
+      this.isDialogOpened = false;
+    });
+  }
+  public cancelDialog(): PlaywrightFluent {
+    const action = (): Promise<void> => this.cancelCurrentDialog();
+    this.actions.push(action);
+    return this;
+  }
+
   private _mocksContext: unknown = {};
   /**
    * context shared between all mocks.
