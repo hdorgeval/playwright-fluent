@@ -1,2 +1,3 @@
 Chainable
 withMocks
+cancelDialog
