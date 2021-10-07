@@ -82,4 +82,56 @@ describe('Playwright Fluent - expectThatDialog().isOfType(type)', (): void => {
       "Unknown dialog type: 'foobar'. It should be 'alert', 'confirm', 'prompt' or 'beforeunload'",
     );
   });
+
+  test('should assert wrong type on opened dialog - chromium', async (): Promise<void> => {
+    // Given
+    const browser = 'chromium';
+    const url = `file:${path.join(__dirname, 'expect-dialog-is-of-type-prompt.test.html')}`;
+
+    // When
+    let result: Error | undefined = undefined;
+    try {
+      await p
+        .withBrowser(browser)
+        .withOptions({ headless: false })
+        .WithDialogs()
+        .navigateTo(url)
+        // Then
+        .expectThatDialog()
+        .isOfType('alert');
+    } catch (error) {
+      result = error as Error;
+    }
+
+    // Then
+    expect(result && result.message).toContain(
+      "Current dialog is of type 'prompt' but it should be 'alert'",
+    );
+  });
+
+  test('should assert that no subscription to page dialog events has been done - chromium', async (): Promise<void> => {
+    // Given
+    const browser = 'chromium';
+    const url = `file:${path.join(__dirname, 'expect-dialog-is-of-type-prompt.test.html')}`;
+
+    // When
+    let result: Error | undefined = undefined;
+    try {
+      await p
+        .withBrowser(browser)
+        .withOptions({ headless: false })
+        //.WithDialogs() => withDialogs() is mandatory to use expectThatDialog()
+        .navigateTo(url)
+        // Then
+        .expectThatDialog()
+        .isOfType('prompt', { timeoutInMilliseconds: 1000 });
+    } catch (error) {
+      result = error as Error;
+    }
+
+    // Then
+    expect(result && result.message).toContain(
+      "No dialog has been opened. Maybe you forgot to call the '.withDialogs()' on the playwright-fluent instance.",
+    );
+  });
 });
