@@ -5,6 +5,7 @@ export * from './has-attribute-with-value';
 export * from './has-class';
 export * from './has-exact-value';
 export * from './has-focus';
+export * from './has-message';
 export * from './has-placeholder';
 export * from './has-result';
 export * from './has-text';

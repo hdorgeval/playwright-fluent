@@ -248,6 +248,7 @@ export interface ExpectAssertion {
 export type DialogType = 'alert' | 'confirm' | 'prompt' | 'beforeunload';
 
 export interface ExpectDialogAssertion {
+  hasMessage: (message: string, options?: Partial<AssertOptions>) => PlaywrightFluent;
   isOfType: (dialogType: DialogType, options?: Partial<AssertOptions>) => PlaywrightFluent;
 }
 
@@ -2379,8 +2380,19 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatDialogIsOfType(() => this.dialog, dialogType, fullOptions);
   }
+  private async expectThatDialogHasMessage(
+    message: string,
+    options?: Partial<AssertOptions>,
+  ): Promise<void> {
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatDialogHasMessage(() => this.dialog, message, fullOptions);
+  }
   public expectThatDialog(): ExpectDialogAssertion {
     return {
+      hasMessage: (message: string, options?: Partial<AssertOptions>): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatDialogHasMessage(message, options));
+        return this;
+      },
       isOfType: (dialogType: DialogType, options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatDialogIsOfType(dialogType, options));
         return this;
