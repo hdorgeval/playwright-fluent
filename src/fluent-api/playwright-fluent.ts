@@ -47,6 +47,7 @@ import {
   MockedResponse,
   NavigationOptions,
   PasteTextOptions,
+  Point,
   RequestInterceptionFilterOptions,
   ScreenshotOptions,
   SelectOptionInfo,
@@ -1209,6 +1210,20 @@ export class PlaywrightFluent implements PromiseLike<void> {
       this.actions.push(action);
       return this;
     }
+  }
+
+  private async clickAtPositionOnPage(position: Point, options: ClickOptions): Promise<void> {
+    await action.clickAtPosition(position, this.currentPage(), options);
+  }
+  public clickAtPosition(position: Point, options?: Partial<ClickOptions>): PlaywrightFluent {
+    const clickOptions: ClickOptions = {
+      ...defaultClickOptions,
+      ...this.defaultWaitOptions,
+      ...options,
+    };
+    const action = (): Promise<void> => this.clickAtPositionOnPage(position, clickOptions);
+    this.actions.push(action);
+    return this;
   }
 
   private async checkSelector(selector: string, options: CheckOptions): Promise<void> {

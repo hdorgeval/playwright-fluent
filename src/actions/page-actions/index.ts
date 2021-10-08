@@ -1,6 +1,7 @@
 export * from './accept-dialog';
 export * from './cancel-dialog';
 export * from './check-selector';
+export * from './click-at-position';
 export * from './click-on-selector';
 export * from './delay-requests-to';
 export * from './double-click-on-selector';
