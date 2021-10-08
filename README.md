@@ -15,7 +15,7 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 npm i --save playwright-fluent
 ```
 
-If not already installed, the `playwright` package should also be installed with a version >= 1.6.0
+If not already installed, the `playwright` package should also be installed with a version >= 1.9.0
 
 ## Usage
 
@@ -28,6 +28,7 @@ await p
   .withBrowser('chromium')
   .withOptions({ headless: false })
   .withCursor()
+  .withDialogs()
   .recordPageErrors()
   .recordFailedRequests()
   .recordDownloadsTo(userDownloadsDirectory)
@@ -81,6 +82,29 @@ await p
   .switchBackToPage()
   .click(inputInMainPage)
   .typeText('hey I am back in the page!');
+```
+
+## Usage with Dialogs
+
+This fluent API enables to handle `alert`, `prompt` and `confirm` dialogs:
+
+```js
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: true })
+  .WithDialogs()
+  .navigateTo(url)
+  // do some stuff that will open a dialog
+  .waitForDialog()
+  .expectThatDialog()
+  .isOfType('prompt')
+  .expectThatDialog()
+  .hasMessage('Please say yes or no')
+  .expectThatDialog()
+  .hasValue('yes')
+  .typeTextInDialogAndSubmit('foobar');
 ```
 
 ## Usage with Stories
@@ -204,6 +228,7 @@ The documentations:
 - [Playwright Fluent API documentation](/docs/playwright-fluent.api.md)
 - [Selector API documentation](/docs/selector.api.md)
 - [Assertion API documentation](/docs/assertion.api.md)
+- [Mock API documentation](/docs/mock.api.md)
 
 reflect the current status of the development and are inline with the published package.
 

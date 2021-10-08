@@ -9,6 +9,7 @@
   - [withWindowSize(size[, options])](#withWindowSizesize-options)
   - [withViewport(viewport[, options])](#withViewportviewport-options)
   - [withCursor()](#withCursor)
+  - [withDialogs()](#withDialogs)
   - [withGeolocation(location)](#withGeolocationlocation)
   - [withPermissions(permissions)](#withPermissionspermissions)
   - [withExtraHttpHeaders(headers)](#withExtraHttpHeadersheaders)
@@ -26,9 +27,12 @@
   - [recordRequestsTo(url[, ignorePredicate])](#recordRequestsTourl-ignorePredicate)
   - [recordVideo(options)](#recordVideooptions)
   - [navigateTo(url[, options])](#navigateTourl-options)
+  - [acceptDialog()](#acceptDialog)
+  - [cancelDialog()](#cancelDialog)
   - [check(selector[, options])](#checkselector-options)
   - [clearText([options])](#clearTextoptions)
   - [click(selector[, options])](#clickselector-options)
+  - [clickAtPosition(position[, options])](#clickAtPositionposition-options)
   - [doubleClick(selector[, options])](#doubleClickselector-options)
   - [holdDownKey(key)](#holdDownKeykey)
   - [hover(selector[, options])](#hoverselector-options)
@@ -47,6 +51,7 @@
   - [typeText(text[, options])](#typeTexttext-options)
   - [uncheck(selector[, options])](#uncheckselector-options)
   - [wait(duration)](#waitduration)
+  - [waitForDialog([waitOptions])](#waitForDialogwaitOptions)
   - [waitForStabilityOf(func[, waitOptions])](#waitForStabilityOffunc-waitOptions)
   - [waitUntil(predicate[, waitOptions, errorMessage])](#waitUntilpredicate-waitOptions-errorMessage)
   - [close([options])](#closeoptions)
@@ -70,6 +75,8 @@
   - [getValueOf(selector[, options])](#getValueOfselector-options)
   - [hasBeenRedirectedToAnotherTab()](#hasBeenRedirectedToAnotherTab)
   - [hasFocus(selector[, options])](#hasFocusselector-options)
+  - [isDialogOpened()](#isDialogOpened)
+  - [isDialogClosed()](#isDialogClosed)
   - [isChecked(selector[, options])](#isCheckedselector-options)
   - [isUnchecked(selector[, options])](#isUncheckedselector-options)
   - [isDisabled(selector[, options])](#isDisabledselector-options)
@@ -269,6 +276,126 @@ await p.withBrowser(browser).withOptions({ headless: false }).withCursor().navig
 ```
 
 ![demo cursor](../images/demo-cursor.gif)
+
+---
+
+### withDialogs()
+
+Will subscribe to the page event dialogs, so that you can act and assert on opened dialogs.
+
+`playwright` dependency should be >= `v1.9.0`.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url);
+```
+
+---
+
+### waitForDialog([waitOptions])
+
+- waitOptions: `Partial<WaitUntilOptions>`
+
+Wait until a dialog opens.
+
+`playwright` dependency should be >= `v1.9.0`.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url);
+  // do some stuff that will open in near future a dialog
+  .waitForDialog()
+  // now it is safe to act on the opened dialog
+
+```
+
+---
+
+### acceptDialog()
+
+Will accept any opened dialog.
+
+`playwright` dependency should be >= `v1.9.0`.
+
+There is no internal waiting mechanism for this action.
+
+If no dialog is opened when `acceptDialog()` is called an exception will be raised.
+
+To ensure that a dialog is opened, you should call the `waitForDialog()` method on the playwright-fluent instance before calling the `acceptDialog()` method.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url);
+  // do some stuff that will open in near future a dialog
+  .waitForDialog()
+  // now it is safe to act on the opened dialog
+  .acceptDialog()
+
+```
+
+---
+
+### cancelDialog()
+
+Will cancel any opened dialog.
+
+`playwright` dependency should be >= `v1.9.0`.
+
+There is no internal waiting mechanism for this action.
+
+If no dialog is opened when `cancelDialog()` is called an exception will be raised.
+
+To ensure that a dialog is opened, you should call the `waitForDialog()` method on the playwright-fluent instance before calling the `cancelDialog()` method.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url);
+  // do some stuff that will open in near future a dialog
+  .waitForDialog()
+  // now it is safe to act on the opened dialog
+  .cancelDialog()
+
+```
 
 ---
 
@@ -1480,6 +1607,57 @@ const page = p.currentPage();
 
 ---
 
+### clickAtPosition(position[, options])
+
+- position: `Point`
+- options: `Partial<ClickOptions>`
+
+```js
+interface ClickOptions {
+  button: 'left' | 'right' | 'middle';
+  clickCount: number;
+  delay: number;
+  modifiers?: Modifier[];
+  stabilityInMilliseconds: number;
+  timeoutInMilliseconds: number;
+  verbose: boolean;
+}
+
+type Modifier = 'Alt' | 'Control' | 'Meta' | 'Shift';
+type Point = {
+  x: number,
+  y: number,
+};
+```
+
+Will click at the specified position on the page.
+
+This is useful when you want to click on some element (typically a checkbox or a switch without a label) that has been designed by using bootstrap 4 or 5 together with some flex box and CSS grid rules. In some tricky cases the center of the client rectangle of such elements is visually offset from its real place on the page, so a traditional click will click outside the element.
+
+Example:
+
+```js
+const switchContainer = p.selector('#switch-container');
+
+// When
+await p
+  .withBrowser('chromium')
+  .withOptions({ headless: false })
+  .withCursor()
+  .navigateTo(url)
+  .hover(switchContainer) // => unfortunately the switch itself is not under the cursor so a click on the switch container will not click on the switch itself
+  .expectThat(switchContainer.find('input'))
+  .isUnchecked();
+
+const leftPointOfContainer = await switchContainer.leftPosition();
+await p.clickAtPosition({ x: leftPointOfContainer.x + 10, y: leftPointOfContainer.y });
+
+// Then
+await p.expectThat(switchContainer.find('input')).isChecked();
+```
+
+---
+
 ### doubleClick(selector[, options])
 
 - selector: `string | SelectorFluent`
@@ -2532,6 +2710,75 @@ Checks if selector is enabled.
 Checks if selector is visible.
 
 > The Fluent API waits until the selector appears in the DOM. This waiting mechanism can be customized through the `options` parameter.
+
+---
+
+### isDialogOpened()
+
+- returns: `boolean`
+
+Checks if a page dialog is opened.
+
+There is no waiting mechanism behind this method.
+This method could be used in a context where a dialog might open or not depending on custom rules.
+
+Example:
+
+```ts
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url);
+  // do some stuff that might open a dialog
+  .waitForDialog({ timeoutInMilliseconds: 10000, throwOnTimeout: false });
+
+if (p.isDialogOpened()) {
+  // act and assert on the opened dialog
+  return;
+}
+
+// smartly handle the case where the dialog has not opened
+```
+
+---
+
+### isDialogClosed()
+
+- returns: `boolean`
+
+Checks if a page dialog is closed.
+
+There is no waiting mechanism behind this method.
+This method could be used in a context where a dialog might close or not depending on custom rules.
+
+Example:
+
+```ts
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url);
+  // do some stuff that will open a dialog
+  .waitForDialog()
+  .acceptDialog();
+
+if (p.isDialogClosed()) {
+  // run code only when the dialog has closed.
+}
+
+```
 
 ---
 

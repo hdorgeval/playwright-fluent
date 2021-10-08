@@ -7,6 +7,10 @@ The selector can be either a CSS selector or a selector created with the [Select
 - Chainable Methods
 
   - [expectThatAsyncFunc(func).resolvesTo(value,[options])](#expectThatAsyncFuncfuncresolvesTovalueoptions)
+  - [expectThatDialog().isOfType(dialogType,[options])](#expectThatDialogisOfTypedialogTypeoptions)
+  - [expectThatDialog().hasMessage(message,[options])](#expectThatDialoghasMessagemessageoptions)
+  - [expectThatDialog().hasValue(value,[options])](#expectThatDialoghasValuevalueoptions)
+  - [expectThatDialog().hasExactValue(value,[options])](#expectThatDialoghasExactValuevalueoptions)
   - [expectThatSelector(selector).doesNotExist([options])](#expectThatSelectorselectordoesNotExistoptions)
   - [expectThatSelector(selector).doesNotHaveClass(className,[options])](#expectThatSelectorselectordoesNotHaveClassclassNameoptions)
   - [expectThatSelector(selector).exists([options])](#expectThatSelectorselectorexistsoptions)
@@ -54,6 +58,138 @@ await p
 ```
 
 ## Chainable Methods
+
+### expectThatDialog().isOfType(dialogType,[options])
+
+- dialogType: `'alert' | 'confirm' | 'prompt' | 'beforeunload'`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check the type of the opened dialog.
+It will automatically wait until a dialog with the corresponding type is opened.
+The waiting mechanism can be customized through the optional `options` parameter.
+
+Note that, before asserting on opened dialogs, you must call the `.withDialogs()` before navigating to the website.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url)
+  // do some stuff that will open a dialog
+  .expectThatDialog()
+  .isOfType('alert');
+```
+
+---
+
+### expectThatDialog().hasMessage(message,[options])
+
+- message: `string`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check that the opened dialog contains the given `message`.
+It will automatically wait until a dialog is opened.
+The waiting mechanism can be customized through the optional `options` parameter.
+
+Note that, before asserting on opened dialogs, you must call the `.withDialogs()` before navigating to the website.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url)
+  // do some stuff that will open a dialog
+  .expectThatDialog()
+  .hasMessage('foobar');
+```
+
+---
+
+### expectThatDialog().hasValue(value,[options])
+
+- value: `string`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check that the opened dialog contains the given prompt `value`.
+It will automatically wait until a dialog is opened.
+The waiting mechanism can be customized through the optional `options` parameter.
+
+Note that, before asserting on opened dialogs, you must call the `.withDialogs()` before navigating to the website.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url)
+  // do some stuff that will open a dialog
+  .expectThatDialog()
+  .hasMessage('Please enter your id')
+  .expectThatDialog()
+  .hasValue('my-id');
+```
+
+---
+
+### expectThatDialog().hasExactValue(value,[options])
+
+- value: `string`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check that the opened dialog contains exactly the given prompt `value`.
+It will automatically wait until a dialog is opened.
+The waiting mechanism can be customized through the optional `options` parameter.
+
+Note that, before asserting on opened dialogs, you must call the `.withDialogs()` before navigating to the website.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'https://reactstrap.github.io/components/form';
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .withCursor()
+  .withDialogs()
+  .navigateTo(url)
+  // do some stuff that will open a dialog
+  .expectThatDialog()
+  .hasMessage('Please enter your id')
+  .expectThatDialog()
+  .hasExactValue('my-id');
+```
+
+---
 
 ### expectThatSelector(selector).hasFocus([options])
 
