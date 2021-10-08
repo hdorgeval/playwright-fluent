@@ -3,6 +3,7 @@ export * from './does-not-exist';
 export * from './does-not-have-class';
 export * from './has-attribute-with-value';
 export * from './has-class';
+export * from './has-dialog-exact-value';
 export * from './has-dialog-value';
 export * from './has-exact-value';
 export * from './has-focus';
