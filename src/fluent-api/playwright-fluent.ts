@@ -302,8 +302,16 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private dialog: Dialog | undefined;
-  private isDialogOpened = false;
-  private isDialogClosed = true;
+  private _isDialogOpened = false;
+  public isDialogOpened(): boolean {
+    return this._isDialogOpened;
+  }
+
+  private _isDialogClosed = true;
+  public isDialogClosed(): boolean {
+    return this._isDialogClosed;
+  }
+
   public currentDialog(): Dialog | undefined {
     return this.dialog;
   }
@@ -437,10 +445,8 @@ export class PlaywrightFluent implements PromiseLike<void> {
     if (this.handleDialogs) {
       await action.recordPageDialogs(this.page, (dialog) => {
         this.dialog = dialog;
-        this.isDialogOpened = true;
-        this.isDialogClosed = false;
-        // eslint-disable-next-line no-console
-        console.log(this.isDialogOpened, this.isDialogClosed);
+        this._isDialogOpened = true;
+        this._isDialogClosed = false;
       });
     }
   }
@@ -912,8 +918,8 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async cancelCurrentDialog(): Promise<void> {
     await action.cancelDialog(this.dialog, this.currentPage(), () => {
       this.dialog = undefined;
-      this.isDialogClosed = true;
-      this.isDialogOpened = false;
+      this._isDialogClosed = true;
+      this._isDialogOpened = false;
     });
   }
   public cancelDialog(): PlaywrightFluent {
@@ -925,8 +931,8 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async acceptCurrentDialog(): Promise<void> {
     await action.acceptDialog(this.dialog, undefined, this.currentPage(), () => {
       this.dialog = undefined;
-      this.isDialogClosed = true;
-      this.isDialogOpened = false;
+      this._isDialogClosed = true;
+      this._isDialogOpened = false;
     });
   }
   public acceptDialog(): PlaywrightFluent {

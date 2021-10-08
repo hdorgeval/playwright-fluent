@@ -83,4 +83,22 @@ describe('Playwright Fluent - waitForDialog()', (): void => {
       "No dialog has been opened. Maybe you forgot to call the '.withDialogs()' on the playwright-fluent instance.",
     );
   });
+
+  test('should wait for dialog prompt without throwing - chromium', async (): Promise<void> => {
+    // Given
+    const browser = 'chromium';
+    const url = `file:${path.join(__dirname, 'wait-for-dialog-prompt.test.html')}`;
+
+    // When
+    await p
+      .withBrowser(browser)
+      .withOptions({ headless: false })
+      // .WithDialogs() => no dialog will be opened because no subscription to page dialog events has been done
+      .navigateTo(url)
+      .waitForDialog({ timeoutInMilliseconds: 1000, throwOnTimeout: false });
+
+    // Then
+    expect(p.isDialogOpened()).toBe(false);
+    expect(p.isDialogClosed()).toBe(true);
+  });
 });
