@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.42.0] - 2021-10-08
+
+### Breaking changes
+
+- `playwright` dependency must be >= `v1.9.0`
+
+### Added
+
+Add a way to click at a given position on the page. This is useful when you want to click on some element (typically a checkbox or a switch without a label) that has been designed by using bootstrap 4 or 5 together with some flex box and CSS grid rules. In some tricky cases the center of the client rectangle of such elements is visually offset from its real place on the page, so a traditional click will click outside the element.
+
+- feat(fluent-api): add `clickAtPosition(position)` to the fluent API
+- feat(selector-api): add helper method `clientRectangle()` to the Selector API
+- feat(selector-api): add helper method `position()` to the Selector API
+- feat(selector-api): add helper method `leftPosition()` to the Selector API
+- feat(selector-api): add helper method `rightPosition()` to the Selector API
+
+New API to handle page dialogs :
+
+- feat(fluent-api): add `withDialogs()` to the fluent API
+- feat(fluent-api): add `waitForDialog()` to the fluent API
+- feat(fluent-api): add `expectThatDialog().isOfType(dialogType,[options])` to the fluent API
+- feat(fluent-api): add `expectThatDialog().hasMessage(message,[options])` to the fluent API
+- feat(fluent-api): add `expectThatDialog().hasValue(value,[options])` to the fluent API
+- feat(fluent-api): add `expectThatDialog().hasExactValue(value,[options])` to the fluent API
+- feat(fluent-api): add `acceptDialog()` to the fluent API
+- feat(fluent-api): add `cancelDialog()` to the fluent API
+- feat(fluent-api): add `typeTextInDialogAndSubmit(text)` to the fluent API
+- feat(fluent-api): add helper method `isDialogOpened()` to the fluent API
+- feat(fluent-api): add helper method `isDialogClosed()` to the fluent API
+
+### Fixed
+
+- fix(mock): apply update policy on mock with empty response
+- fix(wait-until): prevent false negative when `timeoutInMilliseconds` option = 0
+
 ## [1.41.2] - 2021-09-30
 
 ### Fixed (might be a breaking change for early adopters of the mocks API)
