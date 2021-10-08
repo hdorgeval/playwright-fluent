@@ -23,8 +23,10 @@ describe('Playwright Fluent - acceptDialog()', (): void => {
       .expectThatDialog()
       .isOfType('alert')
       .acceptDialog();
+
     // Then
-    // TODO: check if dialog is closed
+    expect(p.isDialogOpened()).toBe(false);
+    expect(p.isDialogClosed()).toBe(true);
   });
 
   test('should accept dialog confirm - chromium', async (): Promise<void> => {
@@ -42,8 +44,10 @@ describe('Playwright Fluent - acceptDialog()', (): void => {
       .expectThatDialog()
       .isOfType('confirm')
       .acceptDialog();
+
     // Then
-    // TODO: check if dialog is closed
+    expect(p.isDialogOpened()).toBe(false);
+    expect(p.isDialogClosed()).toBe(true);
   });
 
   test('should accept dialog prompt - chromium', async (): Promise<void> => {
@@ -61,8 +65,10 @@ describe('Playwright Fluent - acceptDialog()', (): void => {
       .expectThatDialog()
       .isOfType('prompt')
       .acceptDialog();
+
     // Then
-    // TODO: check if dialog is closed
+    expect(p.isDialogOpened()).toBe(false);
+    expect(p.isDialogClosed()).toBe(true);
   });
 
   test('should assert that no dialog has been opened - chromium', async (): Promise<void> => {

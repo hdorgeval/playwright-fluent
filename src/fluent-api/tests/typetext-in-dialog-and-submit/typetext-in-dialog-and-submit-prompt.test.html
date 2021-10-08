@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>page with prompt dialog</title>
+  </head>
+
+  <body>
+    <h1>Yo!</h1>
+    <input id="answer" type="text" value="waiting for your answer ..." />
+
+    <script>
+      window.setTimeout(() => {
+        var answer = prompt('yo?', 'yes');
+        document.getElementById('answer').value = answer;
+      }, 10000);
+    </script>
+  </body>
+</html>

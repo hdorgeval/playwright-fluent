@@ -943,6 +943,19 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  private async typeTextInCurrentDialogAndSubmit(text: string): Promise<void> {
+    await action.acceptDialog(this.dialog, text, this.currentPage(), () => {
+      this.dialog = undefined;
+      this._isDialogClosed = true;
+      this._isDialogOpened = false;
+    });
+  }
+  public typeTextInDialogAndSubmit(text: string): PlaywrightFluent {
+    const action = (): Promise<void> => this.typeTextInCurrentDialogAndSubmit(text);
+    this.actions.push(action);
+    return this;
+  }
+
   private _mocksContext: unknown = {};
   /**
    * context shared between all mocks.
