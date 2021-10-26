@@ -88,6 +88,15 @@ export interface FluentMock {
   contextMatcher: (context: unknown) => boolean;
 
   /**
+   * Optional predicate acting on custom conditions from the request and/or the query string and/or the post data and/or the shared context.
+   * This predicate will be called only if the predicate urlMatcher returns true.
+   * If you do not set a customMatcher, a default one that always returns true is provided.
+   *
+   * @memberof FluentMock
+   */
+  customMatcher: (requestInfos: RequestInfos) => boolean;
+
+  /**
    * Add or modify the headers that will be sent with the mocked response.
    *
    * @memberof FluentMock
@@ -183,6 +192,7 @@ export const passthroughMock: FluentMock = {
   queryStringMatcher: () => true,
   postDataMatcher: () => true,
   contextMatcher: () => true,
+  customMatcher: () => true,
   enrichResponseHeaders: (headers: HttpHeaders) => headers,
   responseType: 'continue',
   status: 200,
@@ -338,6 +348,7 @@ export async function withMocks(
       const queryString = extractQueryStringObjectFromUrl(url) as QueryString;
       const postData = getPostDataOf(request);
       const sharedContext = context();
+      const requestInfos: RequestInfos = { request, queryString, postData, sharedContext };
 
       const mock = mocks()
         .map(inferMockResponseTypeIfNeeded)
@@ -347,10 +358,11 @@ export async function withMocks(
         .filter((mock) => mock.queryStringMatcher(queryString))
         .filter((mock) => mock.postDataMatcher(postData))
         .filter((mock) => mock.contextMatcher(sharedContext))
+        .filter((mock) => mock.customMatcher(requestInfos))
         .pop();
 
       if (!mock) {
-        mockOptions.onMockNotFound({ request, queryString, postData, sharedContext });
+        mockOptions.onMockNotFound(requestInfos);
         route.continue();
         return;
       }
@@ -366,15 +378,15 @@ export async function withMocks(
       }
 
       if (mock.responseType === 'json') {
-        const responseObject = mock.jsonResponse({ request, queryString, postData, sharedContext });
+        const responseObject = mock.jsonResponse(requestInfos);
         const headers = mock.enrichResponseHeaders({
           'Access-Control-Allow-Credentials': 'true',
           'Access-Control-Allow-Origin': '*',
         });
-        const status = getMockStatus(mock, { request, queryString, postData, sharedContext });
+        const status = getMockStatus(mock, requestInfos);
         const body = JSON.stringify(responseObject);
         const contentType: MimeType = 'application/json';
-        mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
+        mockOptions.onMockFound(mock, requestInfos);
         fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
         return;
       }
@@ -384,10 +396,10 @@ export async function withMocks(
           'Access-Control-Allow-Credentials': 'true',
           'Access-Control-Allow-Origin': '*',
         });
-        const status = getMockStatus(mock, { request, queryString, postData, sharedContext });
-        const body = mock.rawResponse({ request, queryString, postData, sharedContext });
+        const status = getMockStatus(mock, requestInfos);
+        const body = mock.rawResponse(requestInfos);
         const contentType: MimeType = 'text/plain';
-        mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
+        mockOptions.onMockFound(mock, requestInfos);
         fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
         return;
       }
@@ -397,10 +409,10 @@ export async function withMocks(
           'Access-Control-Allow-Credentials': 'true',
           'Access-Control-Allow-Origin': '*',
         });
-        const status = getMockStatus(mock, { request, queryString, postData, sharedContext });
+        const status = getMockStatus(mock, requestInfos);
         const body = '';
         const contentType: MimeType = 'text/plain';
-        mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
+        mockOptions.onMockFound(mock, requestInfos);
         fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
         return;
       }
@@ -411,10 +423,10 @@ export async function withMocks(
           'Access-Control-Allow-Credentials': 'true',
           'Access-Control-Allow-Origin': '*',
         });
-        const status = getMockStatus(mock, { request, queryString, postData, sharedContext });
-        const body = mock.rawResponse({ request, queryString, postData, sharedContext });
+        const status = getMockStatus(mock, requestInfos);
+        const body = mock.rawResponse(requestInfos);
         const contentType: MimeType = 'application/javascript';
-        mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
+        mockOptions.onMockFound(mock, requestInfos);
         fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
         return;
       }

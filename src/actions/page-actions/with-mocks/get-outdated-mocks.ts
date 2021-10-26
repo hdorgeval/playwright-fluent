@@ -5,6 +5,7 @@ import {
   getPostDataOf,
   inferMockResponseTypeIfNeeded,
   QueryString,
+  RequestInfos,
   spreadMissingProperties,
   WithMocksOptions,
 } from './with-mocks';
@@ -81,6 +82,7 @@ export async function getOutdatedMocks(
     const url = request.url();
     const queryString = extractQueryStringObjectFromUrl(url) as QueryString;
     const postData = getPostDataOf(request);
+    const requestInfos: RequestInfos = { request, queryString, postData, sharedContext };
 
     const requestResponse = await request.response();
 
@@ -101,6 +103,7 @@ export async function getOutdatedMocks(
       .filter((mock) => mock.queryStringMatcher(queryString))
       .filter((mock) => mock.postDataMatcher(postData))
       .filter((mock) => mock.contextMatcher(sharedContext))
+      .filter((mock) => mock.customMatcher(requestInfos))
       .pop();
 
     if (!mock) {

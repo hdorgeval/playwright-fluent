@@ -4,6 +4,7 @@ import {
   inferMockResponseTypeIfNeeded,
   PostData,
   QueryString,
+  RequestInfos,
   spreadMissingProperties,
 } from './with-mocks';
 import { validateMock } from './validate-mock';
@@ -39,6 +40,7 @@ export async function getMissingMocks(
     const queryString = extractQueryStringObjectFromUrl(url) as QueryString;
     const postData = getPostDataOf(request);
     const requestResponse = await request.response();
+    const requestInfos: RequestInfos = { request, queryString, postData, sharedContext };
 
     if (!requestResponse) {
       continue;
@@ -57,6 +59,7 @@ export async function getMissingMocks(
       .filter((mock) => mock.queryStringMatcher(queryString))
       .filter((mock) => mock.postDataMatcher(postData))
       .filter((mock) => mock.contextMatcher(sharedContext))
+      .filter((mock) => mock.customMatcher(requestInfos))
       .pop();
 
     if (mock) {
