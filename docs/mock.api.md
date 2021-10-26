@@ -194,6 +194,15 @@ export interface FluentMock {
   contextMatcher: (context: unknown) => boolean;
 
   /**
+   * Optional predicate acting on custom conditions from the request and/or the query string and/or the post data and/or the shared context.
+   * This predicate will be called only if the predicate urlMatcher returns true.
+   * If you do not set a customMatcher, a default one that always returns true is provided.
+   *
+   * @memberof FluentMock
+   */
+  customMatcher: (requestInfos: RequestInfos) => boolean;
+
+  /**
    * Add or modify the headers that will be sent with the mocked response.
    *
    * @memberof FluentMock
