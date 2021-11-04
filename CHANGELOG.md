@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.44.0] - 2021-11-04
+
+### Added
+
+- feat(mocks): add helper method `removeMocksWithDisplayName` to remove a registered mock
+
+- feat(mocks): add helper method `hasMockWithDisplayName` to check if a mock with a specific display name is registered
+
 ## [1.43.0] - 2021-10-26
 
 ### Added
