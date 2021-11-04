@@ -1014,6 +1014,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  public removeMocksWithDisplayName(displayName: string | undefined): PlaywrightFluent {
+    this._allMocks = this._allMocks.filter((mock) => mock.displayName !== displayName);
+    return this;
+  }
+
+  public hasMockWithDisplayName(displayName: string | undefined): boolean {
+    return this._allMocks.some((mock) => mock.displayName === displayName);
+  }
+
   private async gotoUrl(url: string, options: NavigationOptions): Promise<void> {
     await action.navigateTo(url, options, this.currentPageOrFrame());
   }

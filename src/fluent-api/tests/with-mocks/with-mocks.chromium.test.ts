@@ -107,6 +107,15 @@ describe('Playwright Fluent - withMocks()', (): void => {
     expect(sentRequest.response!.headers['foo-header']).toBe(responseHeaders['foo-header']);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(sentRequest.response!.payload).toMatchObject(mockedResponseBody);
+
+    // Given mock is registered
+    expect(p.hasMockWithDisplayName(mock1.displayName)).toBe(true);
+
+    // When I remove the mock
+    p.removeMocksWithDisplayName(mock1.displayName);
+
+    // Then mock is not registered any more
+    expect(p.hasMockWithDisplayName(mock1.displayName)).toBe(false);
   });
 
   test('should intercept GET requests to a rest API only for the second request', async (): Promise<void> => {
