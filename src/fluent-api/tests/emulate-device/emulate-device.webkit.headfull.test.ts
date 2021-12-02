@@ -18,7 +18,7 @@ describe.skip('Playwright Fluent - emulateDevice', (): void => {
       headless: false,
     };
     const device = getDevice('iPhone 6 landscape') || defaultDevice;
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io';
 
     // When
     await p
