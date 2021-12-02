@@ -17,7 +17,7 @@ describe('Playwright Fluent - click with custom default wait options', (): void 
     await p
       .withBrowser('chromium')
       .withOptions({ headless: false })
-      .withDefaultWaitOptions({ stabilityInMilliseconds: 0, timeoutInMilliseconds: 10000 })
+      .withDefaultWaitOptions({ stabilityInMilliseconds: 0, timeoutInMilliseconds: 15000 })
       .withCursor()
       .navigateTo(url)
       .click(selector);
@@ -173,8 +173,9 @@ describe('Playwright Fluent - click with custom default wait options', (): void 
 
   test('should click - chromium', async (): Promise<void> => {
     // Given
-    const url = 'https://reactstrap.github.io/components/form';
-    const checkMeOut = p.selector('label').withText('Check me out');
+    const url = 'https://reactstrap.github.io/?path=/docs/components-forms--input';
+    const checkMeOut = p.selector('label').withText('Check me out').parent().find('input');
+    const storyBookIframe = 'iframe#storybook-preview-iframe';
 
     // When
     await p
@@ -184,8 +185,9 @@ describe('Playwright Fluent - click with custom default wait options', (): void 
       .withCursor()
       .emulateDevice('iPhone 6 landscape')
       .navigateTo(url)
+      .switchToIframe(storyBookIframe)
       .click(checkMeOut)
-      .expectThatSelector(checkMeOut.find('input'))
+      .expectThatSelector(checkMeOut)
       .hasFocus();
   });
 });
