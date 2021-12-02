@@ -126,9 +126,9 @@ export interface BrowserContextOptions {
  */
 export type StorageState = {
   /**
-   * Optional cookies to set for context
+   * cookies to set for context
    */
-  cookies?: Array<{
+  cookies: Array<{
     /**
      * **required**
      */
@@ -145,40 +145,40 @@ export type StorageState = {
     url?: string;
 
     /**
-     * Optional either url or domain / path are required
+     * domain and path are required
      */
-    domain?: string;
+    domain: string;
 
     /**
-     * Optional either url or domain / path are required
+     * domain and path are required
      */
-    path?: string;
+    path: string;
 
     /**
      * Optional Unix time in seconds.
      */
-    expires?: number;
+    expires: number;
 
     /**
      * Optional httpOnly flag
      */
-    httpOnly?: boolean;
+    httpOnly: boolean;
 
     /**
      * Optional secure flag
      */
-    secure?: boolean;
+    secure: boolean;
 
     /**
      * Optional sameSite flag
      */
-    sameSite?: 'Lax' | 'None' | 'Strict';
+    sameSite: 'Lax' | 'None' | 'Strict';
   }>;
 
   /**
-   * Optional localStorage to set for context
+   * localStorage to set for context
    */
-  origins?: Array<{
+  origins: Array<{
     origin: string;
 
     localStorage: Array<{
