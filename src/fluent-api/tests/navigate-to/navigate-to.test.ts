@@ -28,7 +28,7 @@ describe('Playwright Fluent - navigateTo', (): void => {
 
   test('should navigate to url with chromium', async (): Promise<void> => {
     // Given
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io/?path=/docs/components-forms--input';
 
     // When
     // prettier-ignore
@@ -37,13 +37,13 @@ describe('Playwright Fluent - navigateTo', (): void => {
       .navigateTo(url);
 
     // Then
-    expect(await p.getCurrentUrl()).toBe(`${url}/`);
+    expect(await p.getCurrentUrl()).toBe(`${url}`);
     expect(p.lastError()).toBe(undefined);
   });
 
   test('should navigate to url with firefox', async (): Promise<void> => {
     // Given
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io/?path=/docs/components-forms--input';
 
     // When
     // prettier-ignore
@@ -52,13 +52,13 @@ describe('Playwright Fluent - navigateTo', (): void => {
       .navigateTo(url);
 
     // Then
-    expect(await p.getCurrentUrl()).toBe(`${url}/`);
+    expect(await p.getCurrentUrl()).toBe(`${url}`);
     expect(p.lastError()).toBe(undefined);
   });
 
   test('should navigate to url with webkit', async (): Promise<void> => {
     // Given
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io/?path=/docs/components-forms--input';
 
     // When
     // prettier-ignore
@@ -67,7 +67,7 @@ describe('Playwright Fluent - navigateTo', (): void => {
       .navigateTo(url);
 
     // Then
-    expect(await p.getCurrentUrl()).toBe(`${url}/`);
+    expect(await p.getCurrentUrl()).toBe(`${url}`);
     expect(p.lastError()).toBe(undefined);
   });
 });
