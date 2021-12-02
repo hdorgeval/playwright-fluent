@@ -5,7 +5,7 @@ describe('Playwright Fluent - withBrowser', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
-  test.skip('should target chrome', async (): Promise<void> => {
+  test('should target chrome', async (): Promise<void> => {
     // Given
     const browser = 'chrome';
     const p = new PlaywrightFluent();
