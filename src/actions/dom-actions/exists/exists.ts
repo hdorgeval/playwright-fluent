@@ -1,6 +1,11 @@
 import { Frame, Page } from 'playwright';
 
-export async function exists(selector: string, page: Page | Frame | undefined): Promise<boolean> {
+export async function exists(
+  selector: string,
+  pageProviderOrPageInstance: (() => Page | Frame | undefined) | Page | Frame | undefined,
+): Promise<boolean> {
+  const page = getPageFrom(pageProviderOrPageInstance);
+
   if (!page) {
     throw new Error(`Cannot check that '${selector}' exists because no browser has been launched`);
   }
@@ -20,4 +25,13 @@ export async function exists(selector: string, page: Page | Frame | undefined): 
     );
     return false;
   }
+}
+
+export function getPageFrom(
+  pageProviderOrPageInstance: (() => Page | Frame | undefined) | Page | Frame | undefined,
+): Page | Frame | undefined {
+  if (typeof pageProviderOrPageInstance === 'function') {
+    return pageProviderOrPageInstance();
+  }
+  return pageProviderOrPageInstance;
 }

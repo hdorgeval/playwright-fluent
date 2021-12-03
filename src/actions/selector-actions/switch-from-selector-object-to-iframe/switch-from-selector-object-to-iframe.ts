@@ -1,13 +1,16 @@
 import { waitUntil, report } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
 import { switchFromHandleToIframe, SwitchToIframeOptions } from '../../handle-actions';
+import { getPageFrom } from '../../dom-actions';
 import { Frame, Page } from 'playwright';
 
 export async function switchFromSelectorObjectToIframe(
   selector: SelectorFluent,
-  pageOrFrame: Page | Frame | null | undefined,
+  pageProviderOrPageInstance: (() => Page | Frame | undefined) | Page | Frame | undefined,
   options: SwitchToIframeOptions,
 ): Promise<Frame> {
+  const pageOrFrame = getPageFrom(pageProviderOrPageInstance);
+
   if (!pageOrFrame) {
     throw new Error(
       `Cannot switch to iframe from '${selector.toString()}' because no browser has been launched`,

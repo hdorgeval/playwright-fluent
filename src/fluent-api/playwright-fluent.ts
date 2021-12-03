@@ -1071,10 +1071,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
     selector: string,
     options: SwitchToIframeOptions,
   ): Promise<void> {
-    this.frame = await action.switchFromSelectorToIframe(selector, this.currentPageOrFrame(), {
-      ...options,
-      injectCursor: this.showMousePosition,
-    });
+    this.frame = await action.switchFromSelectorToIframe(
+      selector,
+      () => this.currentPageOrFrame(),
+      {
+        ...options,
+        injectCursor: this.showMousePosition,
+      },
+    );
   }
   private async switchFromSelectorObjectToIframe(
     selector: SelectorFluent,
@@ -1082,7 +1086,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     this.frame = await action.switchFromSelectorObjectToIframe(
       selector,
-      this.currentPageOrFrame(),
+      () => this.currentPageOrFrame(),
       {
         ...options,
         injectCursor: this.showMousePosition,

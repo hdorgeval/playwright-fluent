@@ -1,5 +1,5 @@
 import { defaultHoverOptions, hoverOnHandle, HoverOptions } from '../hover-on-handle';
-import { injectCursor } from '../../dom-actions';
+import { getPageFrom, injectCursor } from '../../dom-actions';
 import { ElementHandle, Frame, Page } from 'playwright';
 
 export interface SwitchToIframeOptions extends HoverOptions {
@@ -14,9 +14,11 @@ export const defaultSwitchToIframeOptions: SwitchToIframeOptions = {
 export async function switchFromHandleToIframe(
   selector: ElementHandle<Element> | undefined | null,
   name: string,
-  pageOrFrame: Page | Frame | null | undefined,
+  pageProviderOrPageInstance: (() => Page | Frame | undefined) | Page | Frame | undefined,
   options: SwitchToIframeOptions,
 ): Promise<Frame> {
+  const pageOrFrame = getPageFrom(pageProviderOrPageInstance);
+
   if (!pageOrFrame) {
     throw new Error(`Cannot switch to iframe from '${name}' because no browser has been launched`);
   }

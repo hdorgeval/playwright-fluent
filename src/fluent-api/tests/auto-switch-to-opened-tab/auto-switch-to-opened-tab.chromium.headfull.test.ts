@@ -11,7 +11,8 @@ describe('Playwright Fluent - click', (): void => {
   test('should continue test execution on new opened tab - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'auto-switch-to-opened-tab.test.html')}`;
-    const checkMeOut = p.selector('label').withText('Check me out');
+    const checkMeOut = p.selector('label').withText('Check me out').parent().find('input');
+    const storyBookIframe = 'iframe#storybook-preview-iframe';
 
     // When
     await p
@@ -21,12 +22,13 @@ describe('Playwright Fluent - click', (): void => {
       .emulateDevice('iPhone 6 landscape')
       .navigateTo(url)
       .click(p.selector('a[target="_blank"]').withText('open reactstrap form'))
+      .switchToIframe(storyBookIframe)
       .click(checkMeOut)
-      .expectThatSelector(checkMeOut.find('input'))
+      .expectThatSelector(checkMeOut)
       .hasFocus();
 
     // Then
-    expect(await p.getCurrentUrl()).toContain('https://reactstrap.github.io/components/form');
+    expect(await p.getCurrentUrl()).toContain('https://reactstrap.github.io');
   });
 
   test('should detect redirection to another tab - chromium', async (): Promise<void> => {
