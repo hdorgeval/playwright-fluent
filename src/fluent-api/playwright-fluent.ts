@@ -255,6 +255,43 @@ export interface ExpectDialogAssertion {
   isOfType: (dialogType: DialogType, options?: Partial<AssertOptions>) => PlaywrightFluent;
 }
 
+export interface TracingOptions {
+  /**
+   * If specified, the trace is going to be saved into the file with the given name inside the `tracesDir` folder
+   */
+  name?: string;
+
+  /**
+   * folder where the trace(s) will be saved
+   */
+  tracesDir?: string;
+
+  /**
+   * Whether to capture screenshots during tracing. Screenshots are used to build a timeline preview.
+   */
+  screenshots?: boolean;
+
+  /**
+   * Whether to capture DOM snapshot on every action.
+   */
+  snapshots?: boolean;
+
+  /**
+   * Whether to include source files for trace actions.
+   */
+  sources?: boolean;
+
+  /**
+   * Trace name to be shown in the Trace Viewer.
+   */
+  title?: string;
+}
+
+export const defaultTracingOptions: TracingOptions = {
+  screenshots: true,
+  snapshots: true,
+};
+
 export class PlaywrightFluent implements PromiseLike<void> {
   public async then<TResult1 = void, TResult2 = never>(
     onfulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null | undefined,
