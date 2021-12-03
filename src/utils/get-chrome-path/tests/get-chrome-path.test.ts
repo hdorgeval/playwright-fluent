@@ -21,7 +21,7 @@ describe('get-chrome-path', (): void => {
     }));
 
     // When
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('C:/Program Files/Google/Chrome/Application/chrome.exe');
@@ -44,7 +44,7 @@ describe('get-chrome-path', (): void => {
     }));
 
     // When
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('C:/Program Files (x86)/Google/Chrome/Application/chrome.exe');
@@ -58,7 +58,7 @@ describe('get-chrome-path', (): void => {
     }));
 
     // When
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome');
@@ -76,7 +76,7 @@ describe('get-chrome-path', (): void => {
     }));
 
     // WHen
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('google-chrome-stable');
@@ -94,7 +94,7 @@ describe('get-chrome-path', (): void => {
     }));
 
     // When
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('google-chrome');
@@ -112,6 +112,6 @@ describe('get-chrome-path', (): void => {
     const expectedError = new Error(
       'You should supply the path to the Chrome App in the launch options',
     );
-    expect((): string => require('./get-chrome-path').getChromePath()).toThrow(expectedError);
+    expect((): string => require('../get-chrome-path').getChromePath()).toThrow(expectedError);
   });
 });
