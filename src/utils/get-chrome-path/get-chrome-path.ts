@@ -19,7 +19,7 @@ export function getChromePath(): string {
 
     case 'Linux':
       if (which.sync('google-chrome-stable', { nothrow: true })) {
-        return 'google-chrome-stable';
+        return which.sync('google-chrome-stable');
       }
       return 'google-chrome';
 

@@ -72,7 +72,7 @@ describe('get-chrome-path', (): void => {
     }));
     jest.mock('which', (): unknown => ({
       ...jest.requireActual<object>('which'),
-      sync: (): boolean => true,
+      sync: (input: string): string => input,
     }));
 
     // WHen
@@ -90,7 +90,7 @@ describe('get-chrome-path', (): void => {
     }));
     jest.mock('which', (): unknown => ({
       ...jest.requireActual<object>('which'),
-      sync: (): boolean => false,
+      sync: (input: string): string => (input === 'google-chrome' ? 'google-chrome' : ''),
     }));
 
     // When
