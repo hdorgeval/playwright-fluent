@@ -31,7 +31,7 @@ describe('Playwright Fluent - withStorageState', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(currentStorageState!.cookies).toBeDefined();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(currentStorageState!.cookies?.length).toBeGreaterThan(1);
+    expect(currentStorageState!.cookies?.length).toBeGreaterThanOrEqual(1);
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const hasGeneratedExtraCookie = currentStorageState!.cookies!.some(
@@ -79,7 +79,7 @@ describe('Playwright Fluent - withStorageState', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(currentStorageState!.cookies).toBeDefined();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(currentStorageState!.cookies?.length).toBeGreaterThan(1);
+    expect(currentStorageState!.cookies?.length).toBeGreaterThanOrEqual(1);
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const hasGeneratedExtraCookie = currentStorageState!.cookies!.some(
@@ -132,7 +132,7 @@ describe('Playwright Fluent - withStorageState', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(finalStorageState!.cookies).toBeDefined();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(finalStorageState!.cookies?.length).toBeGreaterThan(1);
+    expect(finalStorageState!.cookies?.length).toBeGreaterThanOrEqual(1);
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const hasGeneratedExtraCookie = finalStorageState!.cookies!.some(

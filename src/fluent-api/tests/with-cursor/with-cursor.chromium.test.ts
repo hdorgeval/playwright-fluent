@@ -27,7 +27,7 @@ describe('Playwright Fluent - withCursor', (): void => {
 
   test('should show cursor with chromium', async (): Promise<void> => {
     // Given
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io';
 
     // When
     // prettier-ignore

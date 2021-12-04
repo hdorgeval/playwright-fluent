@@ -112,3 +112,4 @@ dist
 final-storage-state.json
 *.webm
 downloads/
+trace*.zip

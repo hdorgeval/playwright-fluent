@@ -34,7 +34,7 @@ describe('Playwright Fluent - withOptions', (): void => {
       headless: false,
       args: ['--window-size=999,700'],
     };
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io';
 
     // When
     // prettier-ignore

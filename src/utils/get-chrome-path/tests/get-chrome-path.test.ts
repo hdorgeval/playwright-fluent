@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/ban-types */
 describe('get-chrome-path', (): void => {
   afterEach((): void => {
     jest.resetModules();
@@ -21,7 +20,7 @@ describe('get-chrome-path', (): void => {
     }));
 
     // When
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('C:/Program Files/Google/Chrome/Application/chrome.exe');
@@ -44,7 +43,7 @@ describe('get-chrome-path', (): void => {
     }));
 
     // When
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('C:/Program Files (x86)/Google/Chrome/Application/chrome.exe');
@@ -58,7 +57,7 @@ describe('get-chrome-path', (): void => {
     }));
 
     // When
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome');
@@ -72,11 +71,11 @@ describe('get-chrome-path', (): void => {
     }));
     jest.mock('which', (): unknown => ({
       ...jest.requireActual<object>('which'),
-      sync: (): boolean => true,
+      sync: (input: string): string => input,
     }));
 
     // WHen
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('google-chrome-stable');
@@ -90,11 +89,11 @@ describe('get-chrome-path', (): void => {
     }));
     jest.mock('which', (): unknown => ({
       ...jest.requireActual<object>('which'),
-      sync: (): boolean => false,
+      sync: (input: string): string => (input === 'google-chrome' ? 'google-chrome' : ''),
     }));
 
     // When
-    const result = require('./get-chrome-path').getChromePath();
+    const result = require('../get-chrome-path').getChromePath();
 
     // Then
     expect(result).toBe('google-chrome');
@@ -112,6 +111,6 @@ describe('get-chrome-path', (): void => {
     const expectedError = new Error(
       'You should supply the path to the Chrome App in the launch options',
     );
-    expect((): string => require('./get-chrome-path').getChromePath()).toThrow(expectedError);
+    expect((): string => require('../get-chrome-path').getChromePath()).toThrow(expectedError);
   });
 });

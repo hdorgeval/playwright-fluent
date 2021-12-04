@@ -210,8 +210,9 @@ describe('Playwright Fluent - check', (): void => {
 
   test('should check - chromium', async (): Promise<void> => {
     // Given
-    const url = 'https://reactstrap.github.io/components/form';
-    const checkMeOut = p.selector('label').withText('Check me out').find('input');
+    const url = 'https://reactstrap.github.io/?path=/docs/components-forms--input';
+    const checkMeOut = p.selector('label').withText('Check me out').parent().find('input');
+    const storyBookIframe = 'iframe#storybook-preview-iframe';
 
     // When
     await p
@@ -220,8 +221,13 @@ describe('Playwright Fluent - check', (): void => {
       .withCursor()
       .emulateDevice('iPhone 6 landscape')
       .navigateTo(url)
+      .switchToIframe(storyBookIframe)
       .check(checkMeOut)
       .expectThatSelector(checkMeOut)
       .isChecked();
+
+    // Then
+    expect(await checkMeOut.isUnchecked()).toBe(false);
+    expect(await checkMeOut.isChecked()).toBe(true);
   });
 });

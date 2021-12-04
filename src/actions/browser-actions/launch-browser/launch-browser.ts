@@ -82,6 +82,10 @@ export interface LaunchOptions {
      */
     password?: string;
   };
+  /**
+   * If specified, traces are saved into this directory.
+   */
+  tracesDir?: string;
 }
 export const defaultLaunchOptions: LaunchOptions = {
   headless: true,

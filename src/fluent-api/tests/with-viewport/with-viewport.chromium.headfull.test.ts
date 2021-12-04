@@ -17,7 +17,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
     const options: LaunchOptions = {
       headless: false,
     };
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io';
     const viewport: ViewportSize = {
       ...sizeOf._800x600,
     };
@@ -42,7 +42,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
     const options: LaunchOptions = {
       headless: false,
     };
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io';
     const viewport: ViewportSize = {
       ...sizeOf._1280x720,
     };
@@ -72,7 +72,7 @@ describe('Playwright Fluent - withViewPort', (): void => {
     const options: LaunchOptions = {
       headless: false,
     };
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io';
     const viewport: ViewportSize = {
       ...sizeOf._1600x900,
     };

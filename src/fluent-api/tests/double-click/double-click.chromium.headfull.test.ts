@@ -183,8 +183,9 @@ describe('Playwright Fluent - double-click', (): void => {
 
   test('should double-click on a label - chromium', async (): Promise<void> => {
     // Given
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io/?path=/docs/components-forms--input';
     const label = p.selector('label').withText('Email');
+    const storyBookIframe = 'iframe#storybook-preview-iframe';
 
     // When
     await p
@@ -193,6 +194,7 @@ describe('Playwright Fluent - double-click', (): void => {
       .withCursor()
       .emulateDevice('iPhone 6 landscape')
       .navigateTo(url)
+      .switchToIframe(storyBookIframe)
       .doubleClick(label)
       .expectThatAsyncFunc(async () => await p.getSelectedText())
       .resolvesTo('Email');

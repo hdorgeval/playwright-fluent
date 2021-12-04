@@ -166,8 +166,9 @@ describe('Playwright Fluent - click', (): void => {
 
   test('should click - chromium', async (): Promise<void> => {
     // Given
-    const url = 'https://reactstrap.github.io/components/form';
-    const checkMeOut = p.selector('label').withText('Check me out');
+    const url = 'https://reactstrap.github.io/?path=/docs/components-forms--input';
+    const checkMeOut = p.selector('label').withText('Check me out').parent().find('input');
+    const storyBookIframe = 'iframe#storybook-preview-iframe';
 
     // When
     await p
@@ -176,8 +177,9 @@ describe('Playwright Fluent - click', (): void => {
       .withCursor()
       .emulateDevice('iPhone 6 landscape')
       .navigateTo(url)
+      .switchToIframe(storyBookIframe)
       .click(checkMeOut)
-      .expectThatSelector(checkMeOut.find('input'))
+      .expectThatSelector(checkMeOut)
       .hasFocus();
   });
 });

@@ -19,9 +19,13 @@ export function getChromePath(): string {
 
     case 'Linux':
       if (which.sync('google-chrome-stable', { nothrow: true })) {
-        return 'google-chrome-stable';
+        return which.sync('google-chrome-stable');
       }
-      return 'google-chrome';
+      if (which.sync('google-chrome', { nothrow: true })) {
+        return which.sync('google-chrome');
+      }
+
+      throw new Error('You should supply the path to the Chrome App in the launch options');
 
     default:
       throw new Error('You should supply the path to the Chrome App in the launch options');
@@ -37,7 +41,10 @@ export function getChromeCanaryPath(): string {
       return 'C:/Program Files (x86)/Google/Chrome SxS/Application/chrome.exe';
 
     case 'Linux':
-      return 'google-chrome-unstable';
+      if (which.sync('google-chrome-unstable', { nothrow: true })) {
+        return which.sync('google-chrome-unstable');
+      }
+      throw new Error('You should supply the path to the Chrome App in the launch options');
 
     default:
       throw new Error('You should supply the path to the Chrome Canary App in the launch options');

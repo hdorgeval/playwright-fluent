@@ -46,7 +46,8 @@ describe('Playwright Fluent - hover', (): void => {
 
   test('should hover - chromium', async (): Promise<void> => {
     // Given
-    const url = 'https://reactstrap.github.io/components/form';
+    const url = 'https://reactstrap.github.io/?path=/docs/components-forms--input';
+    const storyBookIframe = 'iframe#storybook-preview-iframe';
 
     // When
     await p
@@ -55,6 +56,7 @@ describe('Playwright Fluent - hover', (): void => {
       .withCursor()
       .emulateDevice('iPhone 6 landscape')
       .navigateTo(url)
+      .switchToIframe(storyBookIframe)
       .hover('#exampleEmail')
       .hover('#examplePassword')
       .hover('#exampleSelect')
