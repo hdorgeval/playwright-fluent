@@ -287,6 +287,22 @@ export interface TracingOptions {
   title?: string;
 }
 
+export interface StartTracingOptions {
+  /**
+   * Trace name to be shown in the Trace Viewer.
+   */
+  title?: string;
+}
+
+export interface StopTracingOptions {
+  /**
+   * Export trace collected since the last
+   * [tracing.startChunk([options])](https://playwright.dev/docs/api/class-tracing#tracing-start-chunk) call into the file
+   * with the given path.
+   */
+  path?: string;
+}
+
 export const defaultTracingOptions: TracingOptions = {
   screenshots: true,
   snapshots: true,
@@ -438,6 +454,16 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private customWindowSizeOptions: WindowSizeOptions = defaultWindowSizeOptions;
   private showMousePosition = false;
   private handleDialogs = false;
+  private handleTracing = false;
+  private tracingOptions: TracingOptions = defaultTracingOptions;
+
+  private async enableTracingOnBrowserContext(): Promise<void> {
+    if (!this.handleTracing) {
+      return;
+    }
+
+    await this.browserContext?.tracing?.start(this.tracingOptions);
+  }
 
   private async launchBrowser(name: BrowserName): Promise<void> {
     const contextOptions: BrowserContextOptions = { ...this.contextOptions };
@@ -465,8 +491,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
       );
     }
 
+    if (this.handleTracing && this.tracingOptions && this.tracingOptions.tracesDir) {
+      this.launchOptions.tracesDir = this.tracingOptions.tracesDir;
+    }
+
     this.browser = await action.launchBrowser(name, this.launchOptions);
     this.browserContext = await this.browser.newContext(contextOptions);
+    await this.enableTracingOnBrowserContext();
 
     this.browserContext.on('page', async (p) => {
       this._previousPage = this.page;
@@ -607,6 +638,110 @@ export class PlaywrightFluent implements PromiseLike<void> {
    */
   public WithDialogs(): PlaywrightFluent {
     this.handleDialogs = true;
+    return this;
+  }
+
+  /**
+   * Enable tracing API.
+   * Playwright should be installed with a version >= 1.12.0
+   *
+   * @param {Partial<TracingOptions>} [options]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   * @example
+   *  const p = new PlaywrightFluent();
+   *  const tracePath = path.join(__dirname, 'trace1.zip');
+   *  await p
+   *    .withBrowser('chromium')
+   *    .withOptions({ headless: true })
+   *    .withCursor()
+   *    .withTracing()
+   *    .startTracing({title: 'my first trace'})
+   *    .navigateTo(url)
+   *    ...
+   *    .stopTracingAndSaveTrace({path: tracePath})
+   *    .close();
+   *
+   */
+  public withTracing(options?: Partial<TracingOptions>): PlaywrightFluent {
+    this.handleTracing = true;
+    this.tracingOptions = {
+      ...this.tracingOptions,
+      ...options,
+    };
+    return this;
+  }
+
+  private async startTracingChunk(options: StartTracingOptions): Promise<void> {
+    await this.browserContext?.tracing?.startChunk(options);
+  }
+  private async stopTracingChunk(options: StopTracingOptions): Promise<void> {
+    await this.browserContext?.tracing?.stopChunk(options);
+  }
+
+  /**
+   * Start a new trace chunk.
+   * You must first enable tracing by calling the .withTrace() method.
+   *
+   * @param {Partial<StartTracingOptions>} [options]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   * @example
+   *  const p = new PlaywrightFluent();
+   *  const tracePath = path.join(__dirname, 'trace1.zip');
+   *  await p
+   *    .withBrowser('chromium')
+   *    .withOptions({ headless: true })
+   *    .withCursor()
+   *    .withTracing()
+   *    .startTracing({title: 'my first trace'})
+   *    .navigateTo(url)
+   *    ...
+   *    .stopTracingAndSaveTrace({path: tracePath})
+   *    .close();
+   *
+   */
+  public startTracing(options?: Partial<StartTracingOptions>): PlaywrightFluent {
+    const startOptions: StartTracingOptions = {
+      ...options,
+    };
+    if (!this.handleTracing) {
+      throw new Error('Tracing is not enabled. Maybe you forgot to call the withTrace(options)');
+    }
+    const action = (): Promise<void> => this.startTracingChunk(startOptions);
+    this.actions.push(action);
+    return this;
+  }
+
+  /**
+   * Stop the trace chunk and store the trace file to the specified path.
+   *
+   * @param {Partial<StopTracingOptions>} [options]
+   * @returns {PlaywrightFluent}
+   * @memberof PlaywrightFluent
+   * @example
+   *  const p = new PlaywrightFluent();
+   *  const tracePath = path.join(__dirname, 'trace1.zip');
+   *  await p
+   *    .withBrowser('chromium')
+   *    .withOptions({ headless: true })
+   *    .withCursor()
+   *    .withTracing()
+   *    .startTracing({title: 'my first trace'})
+   *    .navigateTo(url)
+   *    ...
+   *    .stopTracingAndSaveTrace({path: tracePath})
+   *    .close();
+   */
+  public stopTracingAndSaveTrace(options?: Partial<StopTracingOptions>): PlaywrightFluent {
+    const stopOptions: StopTracingOptions = {
+      ...options,
+    };
+    if (!this.handleTracing) {
+      throw new Error('Tracing is not enabled. Maybe you forgot to call the withTrace(options)');
+    }
+    const action = (): Promise<void> => this.stopTracingChunk(stopOptions);
+    this.actions.push(action);
     return this;
   }
 
