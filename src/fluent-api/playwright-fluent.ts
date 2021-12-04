@@ -706,7 +706,9 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
     if (!this.handleTracing) {
-      throw new Error('Tracing is not enabled. Maybe you forgot to call the withTrace(options)');
+      throw new Error(
+        'Cannot start Tracing because Tracing is not enabled. Maybe you forgot to call the withTrace(options)',
+      );
     }
     const action = (): Promise<void> => this.startTracingChunk(startOptions);
     this.actions.push(action);
@@ -738,7 +740,9 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
     if (!this.handleTracing) {
-      throw new Error('Tracing is not enabled. Maybe you forgot to call the withTrace(options)');
+      throw new Error(
+        'Cannot stop Tracing and save trace file because Tracing is not enabled. Maybe you forgot to call the withTrace(options)',
+      );
     }
     const action = (): Promise<void> => this.stopTracingChunk(stopOptions);
     this.actions.push(action);
