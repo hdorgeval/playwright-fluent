@@ -113,3 +113,6 @@ final-storage-state.json
 *.webm
 downloads/
 trace*.zip
+
+# ignore IDEA local configs.
+.idea
