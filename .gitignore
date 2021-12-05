@@ -114,6 +114,5 @@ final-storage-state.json
 downloads/
 trace*.zip
 
-# ignore local configs.
+# ignore IDEA local configs.
 .idea
-.vscode
