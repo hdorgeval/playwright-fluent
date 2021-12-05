@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.45.0] - 2021-12-05
+
+### Breaking changes
+
+- `playwright` dependency must be >= `v1.12.0`
+- Typescript type `StorageState` provided by `playwright-fluent` has been aligned with the one provided by `playwright` : optional properties are now mandatory.
+
+### Fixed
+
+- fix(iframe): be able to switch to an iframe on a newly opened tab
+- fix(browser): get correct path to chrome on Linux; fixed by [osolomin90](https://github.com/osolomin90); fixes [#19](https://github.com/hdorgeval/playwright-fluent/issues/19)
+
+### Added
+
+- feat(fluent-api): add tracing API
+
 ## [1.44.0] - 2021-11-04
 
 ### Added
