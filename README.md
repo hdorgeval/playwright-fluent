@@ -15,7 +15,7 @@ Fluent API around [Playwright](https://github.com/microsoft/playwright)
 npm i --save playwright-fluent
 ```
 
-If not already installed, the `playwright` package should also be installed with a version >= 1.9.0
+If not already installed, the `playwright` package should also be installed with a version >= 1.12.0
 
 ## Usage
 
@@ -105,6 +105,28 @@ await p
   .expectThatDialog()
   .hasValue('yes')
   .typeTextInDialogAndSubmit('foobar');
+```
+
+## Usage with the tracing API
+
+This fluent API enables to handle the `playwright` tracing API in the following way:
+
+```js
+const p = new PlaywrightFluent();
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: true })
+  .withTracing()
+  .withCursor()
+  .startTracing({ title: 'my first trace' })
+  .navigateTo(url)
+  // do some stuff on the opened page
+  .stopTracingAndSaveTrace({ path: path.join(__dirname, 'trace1.zip') })
+  // do other stuff
+  .startTracing({ title: 'my second trace' })
+  // do other stuff
+  .stopTracingAndSaveTrace({ path: path.join(__dirname, 'trace2.zip') });
 ```
 
 ## Usage with Stories
