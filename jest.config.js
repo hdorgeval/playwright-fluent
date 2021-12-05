@@ -53,7 +53,7 @@ module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', '/test.ts/', '/index.ts/'],
 
   // A list of reporter names that Jest uses when writing coverage reports
-  coverageReporters: ['lcov'],
+  coverageReporters: ['lcov', ['text', { skipFull: true }]],
 
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
