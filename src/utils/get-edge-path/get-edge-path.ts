@@ -9,13 +9,16 @@ export function getEdgePath(): string {
       return '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge';
 
     case 'Windows_NT':
-      return '%windir%/SystemApps/Microsoft.MicrosoftEdge_8wekyb3d8bbwe/MicrosoftEdge.exe';
+      return 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
 
     case 'Linux':
       if (which.sync('microsoft-edge', { nothrow: true })) {
         return which.sync('microsoft-edge');
       }
-      throw new Error('Can not find installed "microsoft-edge"');
+      throw new Error(
+        'Cannot find install path for Microsoft Edge. Either you can install it by running the command' +
+          " 'npx playwright install msedge', or you should provide the path to the Edge App in the launch options.",
+      );
 
     default:
       throw new Error('You should supply the path to the Edge App in the launch options');
