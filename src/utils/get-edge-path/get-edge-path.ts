@@ -1,3 +1,4 @@
+import * as which from 'which';
 import * as os from 'os';
 
 const currentPlatformType = os.type();
@@ -11,7 +12,9 @@ export function getEdgePath(): string {
       return '%windir%/SystemApps/Microsoft.MicrosoftEdge_8wekyb3d8bbwe/MicrosoftEdge.exe';
 
     case 'Linux':
-      // Need help to get default install path on Linux. PR is welcomed
+      if (which.sync('microsoft-edge', { nothrow: true })) {
+        return which.sync('microsoft-edge');
+      }
       throw new Error('You should supply the path to the Edge App in the launch options');
 
     default:

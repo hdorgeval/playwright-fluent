@@ -24,6 +24,7 @@ describe('Playwright Fluent - withBrowser', (): void => {
     expect(userAgent).toContain('HeadlessChrome');
     browserInstance && (await browserInstance.close());
   });
+
   test('should target chromium', async (): Promise<void> => {
     // Given
     const browser = 'chromium';
@@ -41,6 +42,26 @@ describe('Playwright Fluent - withBrowser', (): void => {
     const userAgent =
       pageInstance && (await pageInstance.evaluate(() => window.navigator.userAgent));
     expect(userAgent).toContain('HeadlessChrome');
+    browserInstance && (await browserInstance.close());
+  });
+
+  test('should target msedge', async (): Promise<void> => {
+    // Given
+    const browser = 'msedge';
+    const p = new PlaywrightFluent();
+
+    // When
+    await p.withBrowser(browser);
+
+    // Then
+    const browserInstance = p.currentBrowser();
+    const pageInstance = p.currentPage();
+    expect(browserInstance).toBeDefined();
+    expect(pageInstance).toBeDefined();
+
+    const userAgent =
+      pageInstance && (await pageInstance.evaluate(() => window.navigator.userAgent));
+    expect(userAgent).toContain('Edg');
     browserInstance && (await browserInstance.close());
   });
 
