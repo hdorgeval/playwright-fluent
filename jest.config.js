@@ -37,6 +37,7 @@ module.exports = {
     '!src/**/is-handle-not-visible.ts',
     '!src/**/is-handle-unchecked.ts',
     '!src/**/is-handle-visible.ts',
+    '!src/**/is-handle-visible-in-viewport.ts',
     '!src/**/paste-text.ts',
     '!src/**/playwright-fluent.ts',
     '!src/**/scroll-to-handle.ts',
