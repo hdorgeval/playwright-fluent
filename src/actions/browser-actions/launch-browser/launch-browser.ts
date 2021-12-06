@@ -1,5 +1,5 @@
-import {getChromePath, getChromeCanaryPath, getEdgePath} from '../../../utils';
-import {chromium, Browser, firefox, webkit} from 'playwright';
+import { getChromePath, getChromeCanaryPath, getEdgePath } from '../../../utils';
+import { chromium, Browser, firefox, webkit } from 'playwright';
 
 export type BrowserName = 'chromium' | 'chrome' | 'chrome-canary' | 'msedge' | 'firefox' | 'webkit';
 
