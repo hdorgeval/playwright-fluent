@@ -15,7 +15,7 @@ export function getEdgePath(): string {
       if (which.sync('microsoft-edge', { nothrow: true })) {
         return which.sync('microsoft-edge');
       }
-      throw new Error('You should supply the path to the Edge App in the launch options');
+      throw new Error('Can not find installed "microsoft-edge"');
 
     default:
       throw new Error('You should supply the path to the Edge App in the launch options');
