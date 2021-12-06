@@ -61,7 +61,7 @@ describe('Playwright Fluent - withBrowser', (): void => {
 
     const userAgent =
       pageInstance && (await pageInstance.evaluate(() => window.navigator.userAgent));
-    expect(userAgent).toContain('Edg');
+    expect(userAgent).toContain('Edg/');
     browserInstance && (await browserInstance.close());
   });
 
