@@ -5,7 +5,7 @@ WORKDIR PlaywrightFluent
 COPY package.json /PlaywrightFluent
 
 RUN npm install
-RUN npx playwright install chrome --with-deps
+RUN npx playwright install chrome msedge --with-deps
 
 COPY jest.config.js /PlaywrightFluent
 COPY tsconfig.json /PlaywrightFluent

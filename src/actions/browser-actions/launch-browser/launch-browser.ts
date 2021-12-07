@@ -1,7 +1,7 @@
-import { getChromePath, getChromeCanaryPath } from '../../../utils';
+import { getChromePath, getChromeCanaryPath, getEdgePath } from '../../../utils';
 import { chromium, Browser, firefox, webkit } from 'playwright';
 
-export type BrowserName = 'chromium' | 'chrome' | 'chrome-canary' | 'firefox' | 'webkit';
+export type BrowserName = 'chromium' | 'chrome' | 'chrome-canary' | 'msedge' | 'firefox' | 'webkit';
 
 export interface LaunchOptions {
   /**
@@ -87,9 +87,11 @@ export interface LaunchOptions {
    */
   tracesDir?: string;
 }
+
 export const defaultLaunchOptions: LaunchOptions = {
   headless: true,
 };
+
 export async function launchBrowser(name: BrowserName, options: LaunchOptions): Promise<Browser> {
   switch (name) {
     case 'chrome': {
@@ -116,6 +118,21 @@ export async function launchBrowser(name: BrowserName, options: LaunchOptions): 
         const chromeOptions: LaunchOptions = {
           ...options,
           executablePath: getChromeCanaryPath(),
+        };
+        const browser = await chromium.launch(chromeOptions);
+        return browser;
+      }
+    }
+
+    case 'msedge': {
+      if (options && options.executablePath !== undefined) {
+        const browser = await chromium.launch(options);
+        return browser;
+      }
+      {
+        const chromeOptions: LaunchOptions = {
+          ...options,
+          executablePath: getEdgePath(),
         };
         const browser = await chromium.launch(chromeOptions);
         return browser;
