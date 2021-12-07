@@ -17,6 +17,7 @@ export * from './is-selector-object-enabled';
 export * from './is-selector-object-not-visible';
 export * from './is-selector-object-read-only';
 export * from './is-selector-object-unchecked';
+export * from './is-selector-object-visible-in-viewport';
 export * from './is-selector-object-visible';
 export * from './select-options-by-value-in-selector-object';
 export * from './select-options-in-selector-object';
