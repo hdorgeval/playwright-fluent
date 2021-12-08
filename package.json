@@ -20,7 +20,7 @@
     "lint-fix": "npm run lint -- --fix",
     "lint": "eslint . --ext .js,.ts --format visualstudio --no-color --max-warnings 10 --report-unused-disable-directives",
     "package": "rimraf package && rm -f playwright-fluent*.tgz && npm pack",
-    "test": "jest --config=jest.config.js --runInBand",
+    "test": "jest --config=jest.config.js",
     "tsc-init": "tsc --init",
     "tsc": " tsc --listEmittedFiles"
   },
