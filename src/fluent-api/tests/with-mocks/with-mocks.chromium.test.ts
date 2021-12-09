@@ -8,9 +8,9 @@ describe('Playwright Fluent - withMocks()', (): void => {
   let p: SUT.PlaywrightFluent;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
-    fakeServer = new FakeServer(1234);
+    fakeServer = new FakeServer(1248);
     fakeServer.start();
-    //The FakeServer now listens on http://localhost:1234
+    //The FakeServer now listens on http://localhost:1248
   });
   afterAll(() => {
     if (fakeServer) {
@@ -86,7 +86,7 @@ describe('Playwright Fluent - withMocks()', (): void => {
       .withCursor()
       .recordRequestsTo('/foobar')
       .withMocks(mocks)
-      .navigateTo('http://localhost:1234/app');
+      .navigateTo('http://localhost:1248/app');
 
     // Then requests to /foobar should be intercepted
     // And response should be mocked
@@ -190,7 +190,7 @@ describe('Playwright Fluent - withMocks()', (): void => {
       .withCursor()
       .recordRequestsTo('/yo')
       .withMocks(mocks)
-      .navigateTo('http://localhost:1234/app');
+      .navigateTo('http://localhost:1248/app');
 
     // Then requests to /foobar should be intercepted
     // And response should be mocked
@@ -270,7 +270,7 @@ describe('Playwright Fluent - withMocks()', (): void => {
       .withCursor()
       .recordRequestsTo('/foobar')
       .withMocks(mocks)
-      .navigateTo('http://localhost:1234/app');
+      .navigateTo('http://localhost:1248/app');
 
     // Then requests to /foobar should be intercepted
     // And response should be mocked

@@ -11,7 +11,7 @@
 
     <script>
       window.setTimeout(() => {
-        fetch('http://localhost:1234/foobar?foo=bar', {
+        fetch('http://localhost:1246/foobar?foo=bar', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -23,15 +23,15 @@
         );
       }, 100);
       window.setTimeout(() => {
-        fetch('http://localhost:1234/foobar?foo=bar');
+        fetch('http://localhost:1246/foobar?foo=bar');
       }, 500);
 
       window.setTimeout(() => {
-        fetch('http://localhost:1234/yo?foo=baz1');
+        fetch('http://localhost:1246/yo?foo=baz1');
       }, 1000);
 
       window.setTimeout(() => {
-        fetch('http://localhost:1234/yo?foo=baz2');
+        fetch('http://localhost:1246/yo?foo=baz2');
       }, 2000);
     </script>
   </body>

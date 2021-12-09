@@ -7,9 +7,9 @@ describe('Playwright Fluent - recordNetworkActivity()', (): void => {
   let p: SUT.PlaywrightFluent;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
-    fakeServer = new FakeServer(1234);
+    fakeServer = new FakeServer(1245);
     fakeServer.start();
-    //The FakeServer now listens on http://localhost:1234
+    //The FakeServer now listens on http://localhost:1245
   });
   afterAll(() => {
     if (fakeServer) {
