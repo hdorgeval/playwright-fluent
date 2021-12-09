@@ -7,9 +7,9 @@ describe('Playwright Fluent - recordFailedRequests(url)', (): void => {
   let p: SUT.PlaywrightFluent;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
-    fakeServer = new FakeServer(1234);
+    fakeServer = new FakeServer(1244);
     fakeServer.start();
-    //The FakeServer now listens on http://localhost:1234
+    //The FakeServer now listens on http://localhost:1244
   });
   afterAll(() => {
     if (fakeServer) {

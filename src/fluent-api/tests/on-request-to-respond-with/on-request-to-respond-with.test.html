@@ -11,18 +11,18 @@
 
     <script>
       window.setTimeout(() => {
-        fetch('http://localhost:1234/foobar?foo=bar').then(
+        fetch('http://localhost:1243/foobar?foo=bar').then(
           (response) => console.log(response),
           (reason) => console.log(reason),
         );
       }, 500);
 
       window.setTimeout(() => {
-        fetch('http://localhost:1234/yo?foo=baz1');
+        fetch('http://localhost:1243/yo?foo=baz1');
       }, 1000);
 
       window.setTimeout(() => {
-        fetch('http://localhost:1234/yo?foo=baz2');
+        fetch('http://localhost:1243/yo?foo=baz2');
       }, 2000);
     </script>
   </body>

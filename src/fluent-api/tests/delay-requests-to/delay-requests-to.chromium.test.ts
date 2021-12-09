@@ -8,9 +8,9 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
   let p: SUT.PlaywrightFluent;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
-    fakeServer = new FakeServer(1234);
+    fakeServer = new FakeServer(1241);
     fakeServer.start();
-    //The FakeServer now listens on http://localhost:1234
+    //The FakeServer now listens on http://localhost:1241
   });
   afterAll(() => {
     if (fakeServer) {
@@ -70,7 +70,7 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
       .delayRequestsTo('/foobar', expectedDelayInSeconds)
       .recordRequestsTo('/foobar')
       .recordNetworkActivity({ path: harFilepath })
-      .navigateTo('http://localhost:1234/app');
+      .navigateTo('http://localhost:1241/app');
 
     // Then button should be disabled while resquest is pending
     await p.hover(checkbox).expectThat(checkbox).isDisabled();

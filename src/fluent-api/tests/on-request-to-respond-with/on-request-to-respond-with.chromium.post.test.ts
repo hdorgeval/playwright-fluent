@@ -15,9 +15,9 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
   let p: SUT.PlaywrightFluent;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
-    fakeServer = new FakeServer(1234);
+    fakeServer = new FakeServer(1242);
     fakeServer.start();
-    //The FakeServer now listens on http://localhost:1234
+    //The FakeServer now listens on http://localhost:1242
   });
   afterAll(() => {
     if (fakeServer) {
@@ -77,7 +77,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
         headers: responseHeaders,
         body: mockResponseBody,
       })
-      .navigateTo('http://localhost:1234/app');
+      .navigateTo('http://localhost:1242/app');
 
     // Then requests to /foobar should be intercepted
     // And response should be mocked
@@ -152,7 +152,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
           body: mockResponseBody,
         };
       })
-      .navigateTo('http://localhost:1234/app');
+      .navigateTo('http://localhost:1242/app');
 
     // Then requests to /foobar should be intercepted
     // And response should be mocked
@@ -233,7 +233,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
           body: response,
         };
       })
-      .navigateTo('http://localhost:1234/app');
+      .navigateTo('http://localhost:1242/app');
 
     // Then requests to /foobar should be intercepted
     // And response should be mocked

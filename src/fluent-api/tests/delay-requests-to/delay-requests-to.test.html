@@ -15,7 +15,7 @@
         h1.innerText = 'Yo! request started...';
         const button = document.querySelector('input[type="checkbox"]');
         button.setAttribute('disabled', 'disabled');
-        fetch('http://localhost:1234/foobar?foo=bar')
+        fetch('http://localhost:1241/foobar?foo=bar')
           .then(() => {
             h1.innerText = 'Yo! request finished...';
             button.removeAttribute('disabled');
@@ -26,7 +26,7 @@
       }, 0);
 
       window.setTimeout(() => {
-        fetch('http://localhost:1234/yo?foo=bar');
+        fetch('http://localhost:1241/yo?foo=bar');
       }, 500);
     </script>
   </body>

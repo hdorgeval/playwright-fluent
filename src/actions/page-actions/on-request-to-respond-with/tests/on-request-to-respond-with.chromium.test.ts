@@ -10,9 +10,9 @@ describe('on request to respond with', (): void => {
   let browser: Browser | undefined = undefined;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
-    fakeServer = new FakeServer(1234);
+    fakeServer = new FakeServer(1236);
     fakeServer.start();
-    //The FakeServer now listens on http://localhost:1234
+    //The FakeServer now listens on http://localhost:1236
   });
   afterAll(() => {
     if (fakeServer) {
@@ -77,7 +77,7 @@ describe('on request to respond with', (): void => {
       page,
     );
 
-    await page.goto('http://localhost:1234/app');
+    await page.goto('http://localhost:1236/app');
     await sleep(3000);
 
     // Then

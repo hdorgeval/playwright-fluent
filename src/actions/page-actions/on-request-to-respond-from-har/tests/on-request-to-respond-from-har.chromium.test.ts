@@ -11,9 +11,9 @@ describe('on request to respond from HAR files', (): void => {
   let browser: Browser | undefined = undefined;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
-    fakeServer = new FakeServer(1234);
+    fakeServer = new FakeServer(1235);
     fakeServer.start();
-    //The FakeServer now listens on http://localhost:1234
+    //The FakeServer now listens on http://localhost:1235
   });
   afterAll(() => {
     if (fakeServer) {
@@ -86,7 +86,7 @@ describe('on request to respond from HAR files', (): void => {
     // When
     await SUT.onRequestToRespondFromHar('/foobar', harFiles, page, options);
 
-    await page.goto('http://localhost:1234/app');
+    await page.goto('http://localhost:1235/app');
     await sleep(3000);
 
     // Then

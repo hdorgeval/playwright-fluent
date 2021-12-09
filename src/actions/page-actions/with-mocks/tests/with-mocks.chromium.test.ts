@@ -10,9 +10,9 @@ describe('with mocks', (): void => {
   let browser: Browser | undefined = undefined;
   let fakeServer: FakeServer | undefined = undefined;
   beforeAll(() => {
-    fakeServer = new FakeServer(1234);
+    fakeServer = new FakeServer(1240);
     fakeServer.start();
-    //The FakeServer now listens on http://localhost:1234
+    //The FakeServer now listens on http://localhost:1240
   });
   afterAll(() => {
     if (fakeServer) {
@@ -102,7 +102,7 @@ describe('with mocks', (): void => {
     // When
     await SUT.withMocks(mocks, () => sharedContext, mockOptions, page);
 
-    await page.goto('http://localhost:1234/app');
+    await page.goto('http://localhost:1240/app');
     await sleep(3000);
 
     // Then
