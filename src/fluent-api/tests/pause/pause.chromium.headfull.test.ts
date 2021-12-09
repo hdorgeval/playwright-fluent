@@ -23,8 +23,6 @@ describe('Playwright Fluent - pause', (): void => {
       .click(selector);
 
     // Then
-    const value = await p.getValueOf(selector);
-    expect(value).toBe('dynamically added input');
     const hasFocus = await p.hasFocus(selector);
     expect(hasFocus).toBe(true);
   });
