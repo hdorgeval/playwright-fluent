@@ -43,11 +43,10 @@ describe('Playwright Fluent - check', (): void => {
       .check(selector);
 
     // Then
+    await p.expectThatSelector(selector).isChecked();
+
     const isChecked = await selector.isChecked();
     expect(isChecked).toBe(true);
-
-    // And
-    await p.expectThatSelector(selector).isChecked();
   });
 
   test('should do nothing when selector is already checked - chromium', async (): Promise<void> => {
