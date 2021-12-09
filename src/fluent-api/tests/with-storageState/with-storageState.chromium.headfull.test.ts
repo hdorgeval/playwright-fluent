@@ -15,14 +15,19 @@ describe('Playwright Fluent - withStorageState', (): void => {
     const browser = 'chromium';
     const url = 'https://reactstrap.github.io';
     const storageStateFile = join(__dirname, 'storage-state.json');
+    const storyBookComponentsTree = p
+      .selector('div#storybook-explorer-tree')
+      .find('button')
+      .withText('COMPONENTS');
 
     // When
     await p
       .withBrowser(browser)
+      .withCursor()
       .withOptions({ headless: false })
       .withStorageState(storageStateFile)
       .navigateTo(url)
-      .wait(3000);
+      .hover(storyBookComponentsTree);
 
     // Then the foo=bar cookie should be re-hydrated
     const currentStorageState = await p.currentStorageState();
@@ -64,14 +69,19 @@ describe('Playwright Fluent - withStorageState', (): void => {
     const storageStateFile = join(__dirname, 'storage-state.json');
     const stringifiedStorageState = readFileSync(storageStateFile).toString();
     const storageState = JSON.parse(stringifiedStorageState) as StorageState;
+    const storyBookComponentsTree = p
+      .selector('div#storybook-explorer-tree')
+      .find('button')
+      .withText('COMPONENTS');
 
     // When
     await p
       .withBrowser(browser)
+      .withCursor()
       .withOptions({ headless: false })
       .withStorageState(storageState)
       .navigateTo(url)
-      .wait(3000);
+      .hover(storyBookComponentsTree);
 
     // Then the foo=bar cookie should be re-hydrated
     const currentStorageState = await p.currentStorageState();
@@ -112,14 +122,19 @@ describe('Playwright Fluent - withStorageState', (): void => {
     const storageStateFile = join(__dirname, 'storage-state.json');
     const stringifiedStorageState = readFileSync(storageStateFile).toString();
     const storageState = JSON.parse(stringifiedStorageState) as StorageState;
+    const storyBookComponentsTree = p
+      .selector('div#storybook-explorer-tree')
+      .find('button')
+      .withText('COMPONENTS');
 
     // When
     await p
       .withBrowser(browser)
+      .withCursor()
       .withOptions({ headless: false })
       .withStorageState(storageState)
       .navigateTo(url)
-      .wait(3000);
+      .hover(storyBookComponentsTree);
 
     const finalStorageStateFile = join(__dirname, 'final-storage-state.json');
     await p.saveStorageStateTo(finalStorageStateFile).wait(3000);
