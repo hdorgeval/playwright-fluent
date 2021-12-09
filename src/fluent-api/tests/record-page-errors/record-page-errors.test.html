@@ -12,6 +12,8 @@
     <script>
       window.setTimeout(() => {
         console.error('console error', 'foobar', { prop1: 'yo', prop2: 'yo' });
+      }, 100);
+      window.setTimeout(() => {
         throw new Error(`Error#1`);
       }, 500);
       window.setTimeout(() => {

@@ -19,13 +19,10 @@ describe('Playwright Fluent - expect has value', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .hover(selector)
-      .expectThatSelector(selector)
-      .hasValue('hovered');
+      .hover(selector);
 
     // Then
-    const currentValue = await p.getValueOf(selector);
-    expect(currentValue).toBe('I am hovered');
+    await p.expectThatSelector(selector).hasValue('hovered');
   });
 
   test('should wait until selector object has expected value - chromium', async (): Promise<void> => {

@@ -30,8 +30,8 @@ describe('Playwright Fluent - recordPageErrors', (): void => {
     const result = p.getPageErrors();
 
     expect(result.length).toBe(4);
-    expect(result[0].message).toContain('Error#1');
-    expect(result[1].message).toContain('console error');
+    expect(result[0].message).toContain('console error');
+    expect(result[1].message).toContain('Error#1');
     expect(result[2].message).toContain('Error#2');
     expect(result[3].message).toContain('Error#3');
 
