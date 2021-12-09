@@ -32,7 +32,7 @@ describe('Playwright Fluent - uncheck', (): void => {
   test('should wait until selector object is enabled - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'uncheck.test.html')}`;
-    const selector = p.selector('input').withValue('dynamically added');
+    const selector = p.selector('input#dynamically-added-input');
 
     // When
     await p
@@ -43,11 +43,10 @@ describe('Playwright Fluent - uncheck', (): void => {
       .uncheck(selector);
 
     // Then
+    await p.expectThat(selector).isUnchecked();
+
     const isUnchecked = await selector.isUnchecked();
     expect(isUnchecked).toBe(true);
-
-    // And
-    await p.expectThatSelector(selector).isUnchecked();
   });
 
   test('should do nothing when selector is already unchecked - chromium', async (): Promise<void> => {
