@@ -39,7 +39,7 @@ describe('Playwright Fluent - click with custom default wait options', (): void 
   test('should wait until selector object is enabled - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'click.test.html')}`;
-    const selector = p.selector('input').withValue('dynamically added');
+    const selector = p.selector('input#dynamically-added-input');
 
     // When
     await p

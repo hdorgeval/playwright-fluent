@@ -32,7 +32,7 @@ describe('Playwright Fluent - check', (): void => {
   test('should wait until selector object is enabled - chromium', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'check.test.html')}`;
-    const selector = p.selector('input').withValue('dynamically added');
+    const selector = p.selector('input#dynamically-added-input');
 
     // When
     await p
