@@ -14,6 +14,7 @@ describe('Playwright Fluent - click', (): void => {
     const selector = '#dynamically-added-input';
 
     // When
+    // prettier-ignore
     await p
       .withBrowser('msedge')
       .withCursor()
@@ -21,8 +22,15 @@ describe('Playwright Fluent - click', (): void => {
       .click(selector);
 
     // Then
-    const value = await p.getValueOf(selector);
-    expect(value).toBe('dynamically added input');
+    await p
+      .expectThat(selector)
+      //.isVisibleInViewport()
+      .isVisible()
+      .expectThat(selector)
+      .isEnabled()
+      .expectThat(selector)
+      .hasFocus();
+
     const hasFocus = await p.hasFocus(selector);
     expect(hasFocus).toBe(true);
   });
@@ -33,6 +41,7 @@ describe('Playwright Fluent - click', (): void => {
     const selector = p.selector('input').withValue('dynamically added');
 
     // When
+    // prettier-ignore
     await p
       .withBrowser('msedge')
       .withCursor()
@@ -40,8 +49,15 @@ describe('Playwright Fluent - click', (): void => {
       .click(selector);
 
     // Then
-    const finalValue = await p.getValueOf('#dynamically-added-input');
-    expect(finalValue).toBe('dynamically added input');
+    await p
+      .expectThat(selector)
+      //.isVisibleInViewport()
+      .isVisible()
+      .expectThat(selector)
+      .isEnabled()
+      .expectThat(selector)
+      .hasFocus();
+
     const hasFocus = await p.hasFocus(selector);
     expect(hasFocus).toBe(true);
   });
