@@ -96,12 +96,7 @@
         input.setAttribute('id', id);
         input.setAttribute('value', 'dynamically');
         input.setAttribute('disabled', 'true');
-        input.addEventListener('mouseover', (ev) => {
-          ev.target.value = 'dynamically hovered';
-        });
-        input.addEventListener('mouseleave', (ev) => {
-          ev.target.value = 'dynamically leaved';
-        });
+
         const body = document.querySelector('body');
         body.appendChild(input);
       }
