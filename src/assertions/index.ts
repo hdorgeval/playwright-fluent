@@ -19,4 +19,5 @@ export * from './is-enabled';
 export * from './is-not-visible';
 export * from './is-read-only';
 export * from './is-unchecked';
+export * from './is-visible-in-viewport';
 export * from './is-visible';
