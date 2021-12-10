@@ -1824,18 +1824,37 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return result;
   }
 
-  public runStory<T>(story: Story | StoryWithProps<T>, param?: T): PlaywrightFluent {
+  private registerStory<T>(story: Story | StoryWithProps<T>, param?: T): PlaywrightFluent {
     if (typeof story !== 'function') {
       throw new Error('Story should be a function');
     }
 
     if (param === undefined) {
       this.actions.push(async (): Promise<void> => await (story as Story)(this));
-      return this;
+    } else {
+      this.actions.push(async (): Promise<void> => await story(this, param));
     }
-
-    this.actions.push(async (): Promise<void> => await story(this, param));
     return this;
+  }
+
+  public runStory<T>(story: Story | StoryWithProps<T>, param?: T): PlaywrightFluent {
+    return this.registerStory(story, param);
+  }
+
+  public attemptsTo<T>(story: Story | StoryWithProps<T>, param?: T): PlaywrightFluent {
+    return this.registerStory(story, param);
+  }
+
+  public and<T>(story: Story | StoryWithProps<T>, param?: T): PlaywrightFluent {
+    return this.registerStory(story, param);
+  }
+
+  public do<T>(story: Story | StoryWithProps<T>, param?: T): PlaywrightFluent {
+    return this.registerStory(story, param);
+  }
+
+  public verifyIf<T>(story: Story | StoryWithProps<T>, param?: T): PlaywrightFluent {
+    return this.registerStory(story, param);
   }
 
   /**
