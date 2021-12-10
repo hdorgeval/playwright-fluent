@@ -1831,9 +1831,9 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
     if (param === undefined) {
       this.actions.push(async (): Promise<void> => await (story as Story)(this));
-    } else {
-      this.actions.push(async (): Promise<void> => await story(this, param));
+      return this;
     }
+    this.actions.push(async (): Promise<void> => await story(this, param));
     return this;
   }
 
