@@ -396,6 +396,28 @@ export class SelectorFluent {
   }
 
   /**
+   * Checks if the selector is visible in the current viewport.
+   * If the selector targets multiple DOM elements, this check is done only on the first one found.
+   * The result may differ from one execution to another
+   * especially if targeted element is rendered lately because its data is based on some backend response.
+   * So the visibilty status is the one known when executing this method.
+   * @param {Partial<VerboseOptions>} [options=defaultVerboseOptions]
+   * @returns {Promise<boolean>}
+   * @memberof SelectorFluent
+   */
+  public async isVisibleInViewport(
+    options: Partial<VerboseOptions> = defaultVerboseOptions,
+  ): Promise<boolean> {
+    const verboseOptions = {
+      ...defaultVerboseOptions,
+      options,
+    };
+    const handle = await this.getHandle();
+    const isElementVisible = await action.isHandleVisibleInViewport(handle, verboseOptions);
+    return isElementVisible;
+  }
+
+  /**
    * Checks that the selector is not visible.
    * If the selector targets multiple DOM elements, this check is done only on the first one found.
    * The result may differ from one execution to another
