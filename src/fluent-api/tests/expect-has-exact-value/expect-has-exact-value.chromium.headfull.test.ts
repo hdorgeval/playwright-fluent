@@ -19,10 +19,12 @@ describe('Playwright Fluent - expect has exact value', (): void => {
       .withOptions({ headless: false })
       .withCursor()
       .navigateTo(url)
-      .hover(selector);
+      .expectThatSelector(selector)
+      .hasExactValue('dynamically added input');
 
     // Then
-    await p.expectThatSelector(selector).hasExactValue('I am hovered');
+    const currentValue = await p.getValueOf(selector);
+    expect(currentValue).toBe('dynamically added input');
   });
 
   test('should wait until selector object has expected exact value - chromium', async (): Promise<void> => {
