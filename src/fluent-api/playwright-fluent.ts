@@ -244,6 +244,7 @@ export interface ExpectAssertion {
   isReadOnly: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isUnchecked: (options?: Partial<AssertOptions>) => PlaywrightFluent;
   isVisible: (options?: Partial<AssertOptions>) => PlaywrightFluent;
+  isVisibleInViewport: (options?: Partial<AssertOptions>) => PlaywrightFluent;
 }
 
 export type DialogType = 'alert' | 'confirm' | 'prompt' | 'beforeunload';
@@ -2244,6 +2245,18 @@ export class PlaywrightFluent implements PromiseLike<void> {
     await assertion.expectThatSelectorIsVisible(selector, this.currentPageOrFrame(), fullOptions);
   }
 
+  private async expectThatSelectorIsVisibleInViewport(
+    selector: string | SelectorFluent,
+    options?: Partial<AssertOptions>,
+  ): Promise<void> {
+    const fullOptions = this.buildAssertOptionsFrom(options);
+    await assertion.expectThatSelectorIsVisibleInViewport(
+      selector,
+      this.currentPageOrFrame(),
+      fullOptions,
+    );
+  }
+
   private async expectThatSelectorIsNotVisible(
     selector: string | SelectorFluent,
     options?: Partial<AssertOptions>,
@@ -2278,6 +2291,18 @@ export class PlaywrightFluent implements PromiseLike<void> {
       ...options,
     };
     return await assertion.isVisible(selector, this.currentPageOrFrame(), waitOptions);
+  }
+
+  public async isVisibleInViewport(
+    selector: string | SelectorFluent,
+    options?: Partial<WaitUntilOptions>,
+  ): Promise<boolean> {
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      ...this.defaultAssertOptions,
+      ...options,
+    };
+    return await assertion.isVisibleInViewport(selector, this.currentPageOrFrame(), waitOptions);
   }
 
   private async expectThatSelectorIsChecked(
@@ -2493,6 +2518,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
         this.actions.push(() => this.expectThatSelectorIsNotVisible(selector, options));
         return this;
       },
+      isVisibleInViewport: (options?: Partial<AssertOptions>): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorIsVisibleInViewport(selector, options));
+        return this;
+      },
     };
   }
 
@@ -2593,6 +2622,10 @@ export class PlaywrightFluent implements PromiseLike<void> {
       },
       isNotVisible: (options?: Partial<AssertOptions>): PlaywrightFluent => {
         this.actions.push(() => this.expectThatSelectorIsNotVisible(selector, options));
+        return this;
+      },
+      isVisibleInViewport: (options?: Partial<AssertOptions>): PlaywrightFluent => {
+        this.actions.push(() => this.expectThatSelectorIsVisibleInViewport(selector, options));
         return this;
       },
     };
