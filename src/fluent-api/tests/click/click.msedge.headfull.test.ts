@@ -43,7 +43,7 @@ describe('Playwright Fluent - click', (): void => {
     // When
     await p
       .withBrowser('msedge')
-      .withOptions({ headless: false })
+      .withOptions({ headless: false, timeout: 60000 })
       .withCursor()
       .navigateTo(url)
       .click(selector);
