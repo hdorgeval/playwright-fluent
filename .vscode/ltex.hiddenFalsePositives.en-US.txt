@@ -2,3 +2,17 @@
 {"rule":"DT_JJ_NO_NOUN","sentence":"^\\QBasically, a mock is a literal object of type \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"EN_A_VS_AN","sentence":"^\\QIf you provide an \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q callback in your mocks, then the \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q will call this method for all mocks that have been detected as outdated\\E$"}
 {"rule":"DT_JJ_NO_NOUN","sentence":"^\\QA mock is just a literal object whose \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q property will be called automatically when each provided matchers return true for any given request sent by the front.\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatAsyncFunc(func).resolvesTo(value,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatSelector(selector).hasExactValue(value,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatSelector(selector).hasValue(value,options)\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QexpectThatSelector(selector).doesNotHaveClass(className,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatSelector(selector).doesNotHaveClass(className,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatDialog().hasExactValue(value,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatSelector(selector).hasText(text,options)\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QexpectThatSelector(selector).hasClass(className,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatSelector(selector).hasClass(className,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatSelector(selector).hasPlaceholder(text,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatDialog().hasValue(value,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatDialog().hasMessage(message,options)\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QexpectThatDialog().isOfType(dialogType,options)\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\QexpectThatDialog().isOfType(dialogType,options)\\E$"}
