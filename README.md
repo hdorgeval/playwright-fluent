@@ -205,6 +205,19 @@ export const fillForm: Story = async (p) => {
     .in(customSelect)
     ...;
 };
+
+// threrd story: submit form
+export const submitForm: Story = async (p) => {
+  await p
+    .click(selector);
+};
+
+// fourth story: assert
+export const elementIsVisible: Story = async (p) => {
+  await p
+    .expectThatSelector(selector)
+    .isVisible();
+};
 ```
 
 `test.ts`
@@ -217,6 +230,15 @@ const p = new PlaywrightFluent();
 await p
   .runStory(startApp, { browser: 'chrome', isHeadless: false, url: 'http://example.com' })
   .runStory(fillForm)
+  .close();
+
+// Also methods synonyms are available to achieve better readability
+const user = new PlaywrightFluent();
+await user
+  .do(startApp, { browser: 'chrome', isHeadless: false, url: 'http://example.com' })
+  .and(fillForm)
+  .attemptsTo(submitForm)
+  .verifyIf(elementIsVisible)
   .close();
 ```
 

@@ -97,7 +97,7 @@ describe('Playwright Fluent - runStory', (): void => {
       // prettier-ignore
       await p
         .runStory(storyA1)
-        .runStory(storyA2);
+        .and(storyA2);
     };
 
     const storyB1: SUT.Story = async (p) => {
@@ -114,18 +114,18 @@ describe('Playwright Fluent - runStory', (): void => {
       results.push('storyB');
       // prettier-ignore
       await p
-        .runStory(storyB1)
-        .runStory(storyB2);
+        .do(storyB1)
+        .and(storyB2);
     };
 
     const mainStory: SUT.Story = async (p) => {
       // prettier-ignore
-      await p.runStory(storyA);
-      await p.runStory(storyB);
+      await p.attemptsTo(storyA);
+      await p.and(storyB);
     };
 
     // When
-    await p.runStory(mainStory);
+    await p.verifyIf(mainStory);
 
     // Then
     expect(results.join()).toBe('storyA,storyA1,storyA2,storyB,storyB1,storyB2');
