@@ -28,6 +28,7 @@ The selector can be either a CSS selector or a selector created with the [Select
   - [expectThatSelector(selector).isReadOnly([options])](#expectThatSelectorselectorisReadOnlyoptions)
   - [expectThatSelector(selector).isUnchecked([options])](#expectThatSelectorselectorisUncheckedoptions)
   - [expectThatSelector(selector).isVisible([options])](#expectThatSelectorselectorisVisibleoptions)
+  - [expectThatSelector(selector).isVisibleInViewport([options])](#expectThatSelectorselectorisVisibleInViewportoptions)
 
 ## Usage
 
@@ -339,6 +340,16 @@ await p
 - returns: `PlaywrightFluent`
 
 Will check if the selector is visible.
+
+---
+
+### expectThatSelector(selector).isVisibleInViewport([options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector is visible in the current viewport.
 
 ---
 
