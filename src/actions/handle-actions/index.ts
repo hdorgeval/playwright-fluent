@@ -32,6 +32,7 @@ export * from './is-handle-checked';
 export * from './is-handle-disabled';
 export * from './is-handle-enabled';
 export * from './is-handle-moving';
+export * from './is-handle-not-visible-in-viewport';
 export * from './is-handle-not-visible';
 export * from './is-handle-read-only';
 export * from './is-handle-unchecked';

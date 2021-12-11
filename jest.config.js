@@ -36,6 +36,7 @@ module.exports = {
     '!src/**/is-handle-read-only.ts',
     '!src/**/is-handle-enabled.ts',
     '!src/**/is-handle-not-visible.ts',
+    '!src/**/is-handle-not-visible-in-viewport.ts',
     '!src/**/is-handle-unchecked.ts',
     '!src/**/is-handle-visible.ts',
     '!src/**/is-handle-visible-in-viewport.ts',
