@@ -1833,6 +1833,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       this.actions.push(async (): Promise<void> => await (story as Story)(this));
       return this;
     }
+
     this.actions.push(async (): Promise<void> => await story(this, param));
     return this;
   }
