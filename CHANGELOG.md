@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.46.0] - 2021-12-11
+
+### Fixed
+
+- fix(mocks): be able to compare json responses that embed dictionaries
+
+### Added
+
+- feat(assertion): add `expectThat(selector).isVisibleInViewport()` to the Assertion API
+- added ability to start microsoft edge : provided by [osolomin90](https://github.com/osolomin90)
+- added aliases to the `runStory` method (provided by [osolomin90](https://github.com/osolomin90)) : `do`, `and`, `attemptsTo`, `verifyIf`.
+
+  ```js
+  const p = new PlaywrightFluent();
+  p.runStory(do_something)
+    .runStory(do_something_else)
+    .runStory(act_on_something)
+    .runStory(check_that_action_has_succeeded);
+
+  // you can rewrite the above code as:
+  p.do(do_something)
+    .and(do_something_else)
+    .attemptsTo(act_on_something)
+    .verifyIf(action_has_succeeded);
+  ```
+
 ## [1.45.0] - 2021-12-05
 
 ### Breaking changes
