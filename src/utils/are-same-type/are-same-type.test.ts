@@ -16,10 +16,6 @@ describe('are same type of objects', (): void => {
       obj1: [{ prop1: 1 }, { prop1: 1, prop2: true }],
       obj2: [{ prop1: 2, prop2: false }, { prop1: 2 }],
     },
-    {
-      obj1: [{ prop1: 1, prop2: true }, { prop1: 1 }],
-      obj2: [{ prop1: 2 }, { prop1: 2, prop2: false }],
-    },
   ].forEach(({ obj1, obj2 }) => {
     test(`should detect that array '${JSON.stringify(obj1)}' is equivalent to '${JSON.stringify(
       obj2,
@@ -99,6 +95,76 @@ describe('are same type of objects', (): void => {
 
       // Then
       expect(result).toBe(false);
+    });
+  });
+
+  // dictionaries
+  [
+    {
+      obj1: {
+        '1556:112EC:91CC0D:95482B:60918218': 'foo',
+        '1556:112EC:91CC0D:95482B:60918218:1': 'bar',
+      },
+      obj2: {
+        '1557:112EC:91CC0D:95482B:60918219:1': 'baz',
+      },
+    },
+    {
+      obj1: {
+        '3cba286c42c9cb92a4948556a82dcc3e': 'foo',
+        '3cba286c42c9cf92a4948556a82dcc3f': 'bar',
+      },
+      obj2: {
+        '3cba286c42c9df92b4948556a82dcc3f': 'baz',
+      },
+    },
+    {
+      obj1: {
+        'a67644d7-8e3d-43b7-a3b5-adf838189224': 'foo',
+        'b67644d7-8e3d-43b7-a3b5-adf838189224': 'bar',
+      },
+      obj2: {
+        'a67644d7-8e3d-43b7-a3b5-adf838189224': 'baz',
+      },
+    },
+    {
+      obj1: {
+        '62ABD963-18F0-493F-81B1-179D176A2282': 'foo',
+        '72ABD963-18F0-493F-81B1-179D176A2282': 'bar',
+      },
+      obj2: {
+        '82ABD963-18F0-493F-81B1-179D176A2282': 'baz',
+      },
+    },
+    {
+      obj1: {
+        '555F2A76E3ED45709DF98B04F0574FF9': 'foo',
+        '655F2A76E3ED45709DF98B04F0574FF9': 'bar',
+      },
+      obj2: {
+        '755F2A76E3ED45709DF98B04F0574FF9': 'baz',
+      },
+    },
+    {
+      obj1: {
+        'ARTp5OrcsEKF6kjkRu6NEg==': 'foo',
+        'BRTp5OrcsEKF6kjkRu6NEg==': 'bar',
+      },
+      obj2: {
+        'CRTp5OrcsEKF6kjkRu6NEg==': 'baz',
+      },
+    },
+  ].forEach(({ obj1, obj2 }) => {
+    test(`should detect that dictionary '${JSON.stringify(
+      obj1,
+    )}' is equivalent to '${JSON.stringify(obj2)}'`, async (): Promise<void> => {
+      // Given
+
+      // When
+      const result = SUT.areSameType(obj1, obj2);
+
+      // Then
+      expect(result).toBe(true);
     });
   });
 });

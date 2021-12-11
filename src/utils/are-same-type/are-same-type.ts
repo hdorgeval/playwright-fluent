@@ -15,6 +15,10 @@ export function areSameType(obj1: unknown, obj2: unknown): boolean {
     return areEquivalentArray(obj1, obj2);
   }
 
+  if (isDictionaryType(obj1)) {
+    return areEquivalentDictionary(obj1, obj2);
+  }
+
   if (areSameTypeOfObjects(obj1, obj2)) {
     return true;
   }
@@ -38,6 +42,22 @@ export function areEquivalentArray(obj1: unknown[], obj2: unknown[] | unknown): 
   return true;
 }
 
+export function areEquivalentDictionary(obj1: unknown, obj2: unknown): boolean {
+  if (!isDictionaryType(obj2)) {
+    return false;
+  }
+
+  const obj1AsArray = toArray(obj1);
+  const obj2AsArray = toArray(obj2);
+  return areEquivalentArray(obj1AsArray, obj2AsArray);
+}
+
+export function toArray(obj: unknown): unknown[] {
+  const keys = Object.getOwnPropertyNames(obj);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return keys.map((key) => (obj as any)[key]);
+}
+
 export function isValueType(obj: unknown): boolean {
   return (
     typeof obj === 'number' ||
@@ -50,6 +70,36 @@ export function isValueType(obj: unknown): boolean {
 
 export function isFunctionType(obj: unknown): boolean {
   return typeof obj === 'function';
+}
+
+export function isDictionaryType(obj: unknown): boolean {
+  const objProperties = Object.getOwnPropertyNames(obj);
+
+  if (objProperties.length === 0) {
+    return false;
+  }
+
+  for (let index = 0; index < objProperties.length; index++) {
+    const key = objProperties[index];
+    if (isId(`${key}`)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+const idsRegex = [
+  /[0-9]{4}[:][A-Z0-9]{5}/,
+  // etag
+  /[0-9a-zA-Z]{30}/,
+  // base64
+  /[0-9a-zA-Z]{20,}==$/,
+  // guid
+  /[a-zA-Z0-9]{8}[-][a-zA-Z0-9]{4}[-][a-zA-Z0-9]{4}/,
+];
+export function isId(key: string): boolean {
+  return idsRegex.some((regex) => regex.test(key));
 }
 
 export function areBothFunctions(obj1: unknown, obj2: unknown): boolean {
