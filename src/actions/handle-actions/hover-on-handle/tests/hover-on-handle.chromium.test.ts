@@ -1,8 +1,9 @@
 import * as SUT from '../index';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
-import { isHandleVisible, defaultVerboseOptions } from '../../is-handle-visible';
+import { defaultVerboseOptions } from '../../is-handle-visible';
 import { defaultHoverOptions, HoverOptions } from '../hover-on-handle';
 import { injectCursor } from '../../../dom-actions/inject-cursor';
+import { isHandleVisibleInViewport } from '../../is-handle-visible-in-viewport';
 import { Browser, chromium } from 'playwright';
 import * as path from 'path';
 
@@ -29,7 +30,10 @@ describe('hover on handle', (): void => {
 
     const selector = '#out-of-view-port';
     const handle = await page.$(selector);
-    const isSelectorVisibleBeforeScroll = await isHandleVisible(handle, defaultVerboseOptions);
+    const isSelectorVisibleBeforeScroll = await isHandleVisibleInViewport(
+      handle,
+      defaultVerboseOptions,
+    );
 
     const options: HoverOptions = {
       ...defaultHoverOptions,
@@ -37,7 +41,10 @@ describe('hover on handle', (): void => {
 
     // When
     await SUT.hoverOnHandle(handle, selector, page, options);
-    const isSelectorVisibleAfterScroll = await isHandleVisible(handle, defaultVerboseOptions);
+    const isSelectorVisibleAfterScroll = await isHandleVisibleInViewport(
+      handle,
+      defaultVerboseOptions,
+    );
 
     // Then
     expect(isSelectorVisibleBeforeScroll).toBe(false);
@@ -168,7 +175,10 @@ describe('hover on handle', (): void => {
     // When
     await SUT.hoverOnHandle(frameHandle, frameSelector, page, options);
     await SUT.hoverOnHandle(handle, selector, frame, options);
-    const isSelectorVisibleAfterScroll = await isHandleVisible(handle, defaultVerboseOptions);
+    const isSelectorVisibleAfterScroll = await isHandleVisibleInViewport(
+      handle,
+      defaultVerboseOptions,
+    );
 
     // Then
     // expect(isSelectorVisibleBeforeScroll).toBe(false);
