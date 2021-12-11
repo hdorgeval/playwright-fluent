@@ -103,4 +103,52 @@ describe('Selector API - forEach', (): void => {
       await p.hover(checkbox).expectThat(checkbox).isChecked();
     });
   });
+
+  test('should check each checkbox on ag-grid', async (): Promise<void> => {
+    // Given
+    const url = `https://www.ag-grid.com/javascript-data-grid/keyboard-navigation/`;
+    const cookiesConsentButton = p
+      .selector('#onetrust-button-group')
+      .find('button')
+      .withText('Accept All Cookies');
+
+    const gridContainer = 'div#myGrid';
+    const rowsContainer = 'div.ag-body-viewport div.ag-center-cols-container';
+    const rows = p.selector(gridContainer).find(rowsContainer).find('div[role="row"]');
+    const filter = p
+      .selector(gridContainer)
+      .find('input[aria-label="Athlete Filter Input"]')
+      .parent();
+
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: false })
+      .withCursor()
+      .withDefaultWaitOptions({ stabilityInMilliseconds: 0 });
+
+    await p
+      .navigateTo(url)
+      .click(cookiesConsentButton)
+      .switchToIframe('iframe[title="grid-keyboard-navigation"]')
+      .hover(gridContainer)
+      .click(filter)
+      .typeText('Julia')
+      .pressKey('Enter')
+      .expectThat(rows.nth(1))
+      .hasText('Julia');
+
+    // When
+    await rows.forEach(async (row) => {
+      const checkbox = row
+        .find('input[aria-label="Press Space to toggle row selection (unchecked)"]')
+        .parent();
+      await p.click(checkbox);
+    });
+
+    // Then
+    await rows.forEach(async (row) => {
+      const checkbox = row.find('input[type="checkbox"]');
+      await p.hover(checkbox.parent()).expectThat(checkbox).isChecked();
+    });
+  });
 });
