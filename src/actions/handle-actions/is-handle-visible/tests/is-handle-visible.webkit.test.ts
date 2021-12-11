@@ -92,7 +92,7 @@ describe.skip('handle is visible', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return true when selector is out of viewport', async (): Promise<void> => {
+  test('should return true when selector is visible but out of viewport', async (): Promise<void> => {
     // Given
     browser = await webkit.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
