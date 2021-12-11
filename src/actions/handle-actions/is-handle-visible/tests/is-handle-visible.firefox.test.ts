@@ -4,8 +4,7 @@ import { sleep } from '../../../../utils';
 import { Browser, firefox } from 'playwright';
 import * as path from 'path';
 
-// TODO: re-enable these tests on v1.0.0
-describe.skip('handle is visible', (): void => {
+describe('handle is visible', (): void => {
   let browser: Browser | undefined = undefined;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
@@ -91,7 +90,7 @@ describe.skip('handle is visible', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return false when selector is out of viewport', async (): Promise<void> => {
+  test('should return true when selector is out of viewport', async (): Promise<void> => {
     // Given
     browser = await firefox.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -107,6 +106,6 @@ describe.skip('handle is visible', (): void => {
 
     // Then
     expect(handle).toBeDefined();
-    expect(result).toBe(false);
+    expect(result).toBe(true);
   });
 });

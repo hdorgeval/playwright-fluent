@@ -1,7 +1,5 @@
 import { report } from '../../../utils';
-import { getIntersectionRatioOfHandle } from '../get-intersection-ratio-of-handle';
 import { ElementHandle } from 'playwright';
-
 declare const window: Window;
 
 export interface VerboseOptions {
@@ -20,30 +18,32 @@ export async function isHandleVisible(
     return false;
   }
 
-  const visibleRatio = await getIntersectionRatioOfHandle(selector);
+  const isOutOfScreenOrTransparent = await selector.evaluate((el): boolean => {
+    const style = window.getComputedStyle(el);
+    if (style && style.opacity && style.opacity === '0') {
+      return true;
+    }
 
-  report(`visible ratio is ${visibleRatio}`, options.verbose);
+    const rect = el.getBoundingClientRect();
+    if (rect.top + rect.height < 0 && style?.position === 'absolute') {
+      return true;
+    }
 
-  if (visibleRatio <= 0) {
-    report(`selector is not visible in the current viewport`, options.verbose);
+    if (rect.left + rect.width < 0 && style?.position === 'absolute') {
+      return true;
+    }
+
+    return false;
+  });
+
+  if (isOutOfScreenOrTransparent) {
+    report(
+      `Selector is not visible because it is either transparent or out of screen`,
+      options.verbose,
+    );
     return false;
   }
 
-  const result = await selector.evaluate((el): boolean => {
-    function hasVisibleBoundingBox(element: Element): boolean {
-      const rect = element.getBoundingClientRect();
-      return !!(rect.top || rect.bottom || rect.width || rect.height);
-    }
-
-    const style = window.getComputedStyle(el);
-
-    if (style && style.opacity && style.opacity === '0') {
-      return false;
-    }
-
-    const isVisible = style && style.visibility !== 'hidden' && hasVisibleBoundingBox(el);
-    return isVisible;
-  });
-
+  const result = await selector.isVisible();
   return result;
 }

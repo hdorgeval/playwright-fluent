@@ -33,7 +33,7 @@ describe('handle is visible', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return true when selector is visible', async (): Promise<void> => {
+  test('should return true when selector is visible in the current viewport', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -90,7 +90,7 @@ describe('handle is visible', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return false when selector is out of viewport', async (): Promise<void> => {
+  test('should return true when selector is out of viewport', async (): Promise<void> => {
     // Given
     browser = await chromium.launch({ headless: true });
     const browserContext = await browser.newContext({ viewport: null });
@@ -106,6 +106,6 @@ describe('handle is visible', (): void => {
 
     // Then
     expect(handle).toBeDefined();
-    expect(result).toBe(false);
+    expect(result).toBe(true);
   });
 });
