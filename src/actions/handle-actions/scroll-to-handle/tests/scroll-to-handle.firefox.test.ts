@@ -1,8 +1,9 @@
 import * as SUT from '../index';
 import { getViewportRectangleOf } from '../../../page-actions';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
-import { isHandleVisible, defaultVerboseOptions } from '../../is-handle-visible';
+import { defaultVerboseOptions } from '../../is-handle-visible';
 import { sleep } from '../../../../utils';
+import { isHandleVisibleInViewport } from '../../is-handle-visible-in-viewport';
 import { Browser, firefox } from 'playwright';
 import * as path from 'path';
 
@@ -34,7 +35,10 @@ describe.skip('scroll to handle', (): void => {
     const previousViewportRectangle = await getViewportRectangleOf(page);
 
     const handle = await page.$(selector);
-    const isSelectorVisibleBeforeScroll = await isHandleVisible(handle, defaultVerboseOptions);
+    const isSelectorVisibleBeforeScroll = await isHandleVisibleInViewport(
+      handle,
+      defaultVerboseOptions,
+    );
 
     // When
     await SUT.scrollToHandle(handle);
@@ -42,7 +46,10 @@ describe.skip('scroll to handle', (): void => {
 
     const currentClientRectangle = await getClientRectangleOf(selector, page);
     const currentViewportRectangle = await getViewportRectangleOf(page);
-    const isSelectorVisibleAfterScroll = await isHandleVisible(handle, defaultVerboseOptions);
+    const isSelectorVisibleAfterScroll = await isHandleVisibleInViewport(
+      handle,
+      defaultVerboseOptions,
+    );
 
     // Then
     expect(isSelectorVisibleBeforeScroll).toBe(false);
