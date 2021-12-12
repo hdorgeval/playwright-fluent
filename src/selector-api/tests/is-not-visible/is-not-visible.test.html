@@ -1,86 +1,92 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      #hidden {
+        width: 20px;
+        display: none;
+      }
 
-<head>
-  <meta charset="utf-8" />
-  <style type="text/css">
-    #hidden {
-      width: 20px;
-      display: none;
-    }
+      #transparent {
+        opacity: 0;
+        color: black;
+      }
 
-    #transparent {
-      opacity: 0;
-      color: black;
-    }
+      #out-of-screen {
+        position: absolute;
+        top: -100px;
+      }
 
-    #out-of-screen {
-      position: absolute;
-      top: -100px;
-    }
+      #hidden-then-visible {
+        opacity: 0;
+        color: black;
+      }
 
-    #hidden-then-visible {
-      opacity: 0;
-      color: black;
-    }
+      .big {
+        height: 2000px;
+        min-height: 2000px;
+        max-height: 2000px;
+        border-bottom-width: 5;
+        border-style: solid;
+      }
+    </style>
 
-  </style>
+    <title>check if selector is not visible</title>
+  </head>
 
-  <title>check if selector is not visible</title>
-</head>
+  <body>
+    <table>
+      <tr role="row">
+        <td>
+          <p id="hidden">I am hidden</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="visible">I am visible</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="transparent">I am transparent</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="out-of-screen">I am out of screen</p>
+        </td>
+      </tr>
+      <tr role="row">
+        <td>
+          <p id="hidden-then-visible">hidden, then visible</p>
+        </td>
+      </tr>
+    </table>
 
-<body>
-  <table>
-    <tr role="row">
-      <td>
-        <p id="hidden">I am hidden</p>
-      </td>
-    </tr>
-    <tr role="row">
-      <td>
-        <p id="visible">I am visible</p>
-      </td>
-    </tr>
-    <tr role="row">
-      <td>
-        <p id="transparent">I am transparent</p>
-      </td>
-    </tr>
-    <tr role="row">
-      <td>
-        <p id="out-of-screen">I am out of screen</p>
-      </td>
-    </tr>
-    <tr role="row">
-      <td>
-        <p id="hidden-then-visible">hidden, then visible</p>
-      </td>
-    </tr>
-  </table>
+    <p id="hidden-then-visible">hidden, then visible</p>
+    <div class="big">Yo!</div>
+    <p id="out-of-viewport">I am out of viewport</p>
 
-  <p id="hidden-then-visible">hidden, then visible</p>
+    <script>
+      window.setTimeout(() => {
+        const input = document.querySelector('#hidden-then-visible');
+        input.style.opacity = 1;
+      }, 3000);
 
-  <script>
-    window.setTimeout(() => {
-      const input = document.querySelector('#hidden-then-visible');
-      input.style.opacity = 1;
-    }, 3000);
+      function addParagraphInDom() {
+        const paragraph = document.createElement('p');
+        paragraph.setAttribute('data-e2e', 'dynamycally-added');
+        const newContent = document.createTextNode('I am dynamically added in DOM');
+        paragraph.appendChild(newContent);
 
-    function addParagraphInDom() {
-      const paragraph = document.createElement('p');
-      paragraph.setAttribute('data-e2e', 'dynamycally-added');
-      const newContent = document.createTextNode('I am dynamically added in DOM');
-      paragraph.appendChild(newContent);
+        const body = document.querySelector('#visible');
+        body.appendChild(paragraph);
+      }
 
-      const body = document.querySelector('body');
-      body.appendChild(paragraph);
-    }
-
-    window.setTimeout(() => {
-      addParagraphInDom();
-    }, 3000);
-
-  </script>
-</body>
-
+      window.setTimeout(() => {
+        addParagraphInDom();
+      }, 3000);
+    </script>
+  </body>
 </html>

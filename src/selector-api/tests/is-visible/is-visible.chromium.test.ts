@@ -28,7 +28,7 @@ describe('Selector API - isVisible', (): void => {
     expect(result).toBe(false);
   });
 
-  test('should return true when selector is visible', async (): Promise<void> => {
+  test('should return true when selector is visible in the current viewport', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
     // prettier-ignore
@@ -45,6 +45,24 @@ describe('Selector API - isVisible', (): void => {
       .find('p')
       .withText('I am visible');
 
+    const result = await selector.isVisible();
+
+    // Then
+    expect(result).toBe(true);
+  });
+
+  test('should return true when selector is visible but is outside the current viewport', async (): Promise<void> => {
+    // Given
+    const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
+    const selector = p.selector('p').withText('I am out of viewport');
+    // prettier-ignore
+    await p
+      .withBrowser('chromium')
+      .withOptions({ headless: true })
+      .withCursor()
+      .navigateTo(url);
+
+    // When
     const result = await selector.isVisible();
 
     // Then
@@ -118,7 +136,7 @@ describe('Selector API - isVisible', (): void => {
     // Then
     expect(result).toBe(false);
   });
-  test('should return true when selector is first hidden', async (): Promise<void> => {
+  test('should return false when selector is first hidden', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
     // prettier-ignore
@@ -144,7 +162,7 @@ describe('Selector API - isVisible', (): void => {
     expect(finalVisibleStatus).toBe(true);
   });
 
-  test('should wait for selector to be visible', async (): Promise<void> => {
+  test('should use some waiting mechanism to wait for selector to be visible', async (): Promise<void> => {
     // Given
     const url = `file:${path.join(__dirname, 'is-visible.test.html')}`;
     // prettier-ignore
@@ -166,7 +184,7 @@ describe('Selector API - isVisible', (): void => {
     expect(finalVisibleStatus).toBe(true);
   });
 
-  test('should return true, even when selector is created before page is instanciated', async (): Promise<void> => {
+  test('should return true when selector is visible but the selector-fluent is created before page is instanciated', async (): Promise<void> => {
     // Given
     // prettier-ignore
     const selector = p

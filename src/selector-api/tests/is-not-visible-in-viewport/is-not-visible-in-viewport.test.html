@@ -23,6 +23,11 @@
         color: black;
       }
 
+      #visible-then-hidden {
+        opacity: 1;
+        color: black;
+      }
+
       .big {
         height: 2000px;
         min-height: 2000px;
@@ -32,7 +37,7 @@
       }
     </style>
 
-    <title>check if selector is visible</title>
+    <title>check if selector is not visible</title>
   </head>
 
   <body>
@@ -62,6 +67,11 @@
           <p id="hidden-then-visible">hidden, then visible</p>
         </td>
       </tr>
+      <tr role="row">
+        <td>
+          <p id="visible-then-hidden">visible, then hidden</p>
+        </td>
+      </tr>
     </table>
 
     <p id="hidden-then-visible">hidden, then visible</p>
@@ -73,6 +83,11 @@
         const input = document.querySelector('#hidden-then-visible');
         input.style.opacity = 1;
       }, 3000);
+
+      window.setTimeout(() => {
+        const input = document.querySelector('#visible-then-hidden');
+        input.style.opacity = 0;
+      }, 3500);
 
       function addParagraphInDom() {
         const paragraph = document.createElement('p');
