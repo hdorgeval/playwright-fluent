@@ -25,4 +25,22 @@ describe('Playwright Fluent - expect is disabled', (): void => {
       "Cannot get disabled status of 'foobar' because no browser has been launched",
     );
   });
+
+  test('should give back an error on expectThat(selector-fluent).isDisabled when browser has not been launched', async (): Promise<void> => {
+    // Given
+    const selector = p.selector('foobar');
+
+    // When
+    let result: Error | undefined = undefined;
+    try {
+      await p.expectThat(selector).isDisabled();
+    } catch (error) {
+      result = error as Error;
+    }
+
+    // Then
+    expect(result && result.message).toContain(
+      "Cannot get disabled status of 'selector(foobar)' because no browser has been launched",
+    );
+  });
 });
