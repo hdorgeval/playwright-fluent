@@ -11,11 +11,12 @@ describe('Playwright Fluent - expect is not visible in viewport', (): void => {
 
   test('should give back an error on expectThat.isNotVisibleInViewport when browser has not been launched', async (): Promise<void> => {
     // Given
+    const selector = 'foobar';
 
     // When
     let result: Error | undefined = undefined;
     try {
-      await p.expectThatSelector('foobar').isNotVisibleInViewport();
+      await p.expectThatSelector(selector).isNotVisibleInViewport();
     } catch (error) {
       result = error as Error;
     }
@@ -23,6 +24,23 @@ describe('Playwright Fluent - expect is not visible in viewport', (): void => {
     // Then
     expect(result && result.message).toContain(
       "Cannot get visibility status of 'foobar' because no browser has been launched",
+    );
+  });
+
+  test('should give back an error on expectThat(selector object).isNotVisibleInViewport when browser has not been launched', async (): Promise<void> => {
+    // Given
+    const selector = p.selector('foobar');
+    // When
+    let result: Error | undefined = undefined;
+    try {
+      await p.expectThatSelector(selector).isNotVisibleInViewport();
+    } catch (error) {
+      result = error as Error;
+    }
+
+    // Then
+    expect(result && result.message).toContain(
+      "Cannot get visibility status of 'selector(foobar)' because no browser has been launched",
     );
   });
 });
