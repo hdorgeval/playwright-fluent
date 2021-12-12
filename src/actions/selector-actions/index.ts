@@ -14,6 +14,7 @@ export * from './invoke-method-on-selector-object';
 export * from './is-selector-object-checked';
 export * from './is-selector-object-disabled';
 export * from './is-selector-object-enabled';
+export * from './is-selector-object-not-visible-in-viewport';
 export * from './is-selector-object-not-visible';
 export * from './is-selector-object-read-only';
 export * from './is-selector-object-unchecked';
