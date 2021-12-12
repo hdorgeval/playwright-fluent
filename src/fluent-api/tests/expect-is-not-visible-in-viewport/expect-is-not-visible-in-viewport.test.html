@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <style type="text/css">
+    .big {
+      height: 2000px;
+      min-height: 2000px;
+      max-height: 2000px;
+      border-bottom-width: 5;
+      border-style: solid;
+    }
+
+    #hidden,
+    .hidden {
+      width: 20px;
+      display: none;
+    }
+
+    #transparent {
+      opacity: 0;
+      color: black;
+    }
+
+    #out-of-screen {
+      position: absolute;
+      top: -100px;
+    }
+
+  </style>
+
+  <title>check if selector is not visible</title>
+</head>
+
+<body>
+  <p id="hidden">I am hidden</p>
+  <p id="visible">I am visible</p>
+  <p id="visible-then-hidden">I am visible then hidden</p>
+  <p id="visible-then-removed">I am visible then removed from DOM</p>
+  <p id="transparent">I am transparent</p>
+  <p id="out-of-screen">I am out of screen</p>
+  <div class="big">Yo!</div>
+  <p id="out-of-viewport">I am out of viewport</p>
+
+  <script>
+    function hideParagraphInDom(id) {
+      const paragraph = document.querySelector(id);
+      paragraph.setAttribute('class', 'hidden');
+    }
+
+    function removeParagraphFromDom(id) {
+      const el = document.querySelector(id);
+      el.remove();
+    }
+
+    window.setTimeout(() => {
+      hideParagraphInDom('#visible-then-hidden');
+    }, 3000);
+
+    window.setTimeout(() => {
+      removeParagraphFromDom('#visible-then-removed');
+    }, 6000);
+
+  </script>
+</body>
+
+</html>
