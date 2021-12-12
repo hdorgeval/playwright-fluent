@@ -5,28 +5,9 @@ import { ElementHandle } from 'playwright';
 describe('select options in handle', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
-  test('should throw an error when selector is undefined', async (): Promise<void> => {
+  test('should throw an error when browser is not launched', async (): Promise<void> => {
     // Given
     const handle: ElementHandle<Element> | undefined = undefined;
-
-    // When
-    // Then
-    const expectedError = new Error(
-      "Cannot select options 'foo,bar' because no browser has been launched",
-    );
-
-    await SUT.selectOptionsInHandle(
-      handle,
-      'foobar',
-      ['foo', 'bar'],
-      undefined,
-      defaultSelectOptions,
-    ).catch((error): void => expect(error).toMatchObject(expectedError));
-  });
-
-  test('should throw an error when selector is null', async (): Promise<void> => {
-    // Given
-    const handle: ElementHandle<Element> | null = null;
 
     // When
     // Then

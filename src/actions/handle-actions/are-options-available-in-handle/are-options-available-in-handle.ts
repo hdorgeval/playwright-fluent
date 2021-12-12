@@ -7,7 +7,9 @@ export async function areOptionsAvailableInHandle(
   expectedOptionLabels: string[],
 ): Promise<boolean> {
   if (expectedOptionLabels.length === 0) {
-    throw new Error('No option to check: you must specify at least one option');
+    throw new Error(
+      `Cannot check that options are available in selector '${name}' because no options were provided.`,
+    );
   }
 
   for (let index = 0; index < expectedOptionLabels.length; index++) {

@@ -1,10 +1,10 @@
 import * as SUT from '../index';
 import { defaultSelectOptions } from '../index';
 import { getAllOptionsOfHandle } from '../../get-all-options-of-handle';
-import { Browser, chromium } from 'playwright';
+import { Browser, chromium, ElementHandle } from 'playwright';
 import * as path from 'path';
 
-describe('are options already selected in handle', (): void => {
+describe('select options in handle', (): void => {
   let browser: Browser | undefined = undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -14,6 +14,50 @@ describe('are options already selected in handle', (): void => {
     if (browser) {
       await browser.close();
     }
+  });
+
+  test('should throw when selector handle is undefined - chromium', async (): Promise<void> => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const browserContext = await browser.newContext({ viewport: null });
+    const page = await browserContext.newPage();
+    const url = `file:${path.join(__dirname, 'select-options-in-handle.common.test.html')}`;
+    await page.goto(url);
+
+    const selector = '#empty-input';
+    const handle: ElementHandle<Element> | undefined = undefined;
+
+    // When
+    // Then
+    const expectedError = new Error(
+      "Cannot select options 'foobar' in '#empty-input' because selector was not found in DOM",
+    );
+
+    await SUT.selectOptionsInHandle(handle, selector, ['foobar'], page, defaultSelectOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
+  });
+
+  test('should throw when selector handle is null - chromium', async (): Promise<void> => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const browserContext = await browser.newContext({ viewport: null });
+    const page = await browserContext.newPage();
+    const url = `file:${path.join(__dirname, 'select-options-in-handle.common.test.html')}`;
+    await page.goto(url);
+
+    const selector = '#empty-input';
+    const handle: ElementHandle<Element> | null = null;
+
+    // When
+    // Then
+    const expectedError = new Error(
+      "Cannot select options 'foobar' in '#empty-input' because selector was not found in DOM",
+    );
+
+    await SUT.selectOptionsInHandle(handle, selector, ['foobar'], page, defaultSelectOptions).catch(
+      (error): void => expect(error).toMatchObject(expectedError),
+    );
   });
 
   test('should throw when selector is not a select - chromium', async (): Promise<void> => {
@@ -77,6 +121,29 @@ describe('are options already selected in handle', (): void => {
     );
 
     await SUT.selectOptionsInHandle(handle, selector, ['foobar'], page, {
+      ...defaultSelectOptions,
+      timeoutInMilliseconds: 2000,
+    }).catch((error): void => expect(error).toMatchObject(expectedError));
+  });
+
+  test('should throw when no option is given - chromium', async (): Promise<void> => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const browserContext = await browser.newContext({ viewport: null });
+    const page = await browserContext.newPage();
+    const url = `file:${path.join(__dirname, 'select-options-in-handle.common.test.html')}`;
+    await page.goto(url);
+
+    const selector = '#enabled-select';
+    const handle = await page.$(selector);
+
+    // When
+    // Then
+    const expectedError = new Error(
+      "You must specify at least one option for selector '#enabled-select'",
+    );
+
+    await SUT.selectOptionsInHandle(handle, selector, [], page, {
       ...defaultSelectOptions,
       timeoutInMilliseconds: 2000,
     }).catch((error): void => expect(error).toMatchObject(expectedError));
