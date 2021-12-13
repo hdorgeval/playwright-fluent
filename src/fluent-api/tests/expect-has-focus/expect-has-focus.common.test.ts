@@ -25,4 +25,22 @@ describe('Playwright Fluent - expect has focus', (): void => {
       "Cannot get the focus state of 'foobar' because no browser has been launched",
     );
   });
+
+  test('should give back an error on expectThat(selector-fluent).hasFocus when browser has not been launched', async (): Promise<void> => {
+    // Given
+    const selector = p.selector('foobar');
+
+    // When
+    let result: Error | undefined = undefined;
+    try {
+      await p.expectThat(selector).hasFocus();
+    } catch (error) {
+      result = error as Error;
+    }
+
+    // Then
+    expect(result && result.message).toContain(
+      "Cannot get the focus state of 'selector(foobar)' because no browser has been launched",
+    );
+  });
 });

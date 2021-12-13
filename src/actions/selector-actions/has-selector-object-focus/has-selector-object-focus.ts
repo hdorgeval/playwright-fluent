@@ -10,14 +10,14 @@ export async function hasSelectorObjectFocus(
 ): Promise<boolean> {
   if (!page) {
     throw new Error(
-      `Cannot get focus status of '${selector.toString()}' because no browser has been launched`,
+      `Cannot get the focus state of '${selector.toString()}' because no browser has been launched`,
     );
   }
 
   report('waiting for the selector to appear in DOM ...', options.verbose);
   await waitUntil(
     () => selector.exists(),
-    `Cannot get focus status of '${selector.toString()}' because this selector was not found in DOM`,
+    `Cannot get the focus state of '${selector.toString()}' because this selector was not found in DOM`,
     options,
   );
 
