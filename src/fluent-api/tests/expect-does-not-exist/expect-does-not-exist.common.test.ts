@@ -25,4 +25,22 @@ describe('Playwright Fluent - expect does not exist', (): void => {
       "Cannot check that 'foobar' does not exist because no browser has been launched",
     );
   });
+
+  test('should give back an error on expectThat(selector-fluent).doesNotExist when browser has not been launched', async (): Promise<void> => {
+    // Given
+    const selector = p.selector('foobar');
+
+    // When
+    let result: Error | undefined = undefined;
+    try {
+      await p.expectThat(selector).doesNotExist();
+    } catch (error) {
+      result = error as Error;
+    }
+
+    // Then
+    expect(result && result.message).toContain(
+      "Cannot check that 'selector(foobar)' does not exist because no browser has been launched",
+    );
+  });
 });
