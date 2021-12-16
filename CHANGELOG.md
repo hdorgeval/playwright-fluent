@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.47.0] - 2021-12-16
+
+### Breaking changes
+
+- The `isNotVisible()` assertion will now fail for elements that are out of the current viewport but would be visible after scrolling and hovering over them : in this case you must replace the `isNotVisible()` assertion with `isNotVisibleInViewport()`.
+
+- The `isVisible()` assertion has been 'relaxed' and will succeed for elements that are visible in the current viewport but will also succeed for elements that are outside the current viewport but would be visible after scrolling and hovering over them.
+
+- If you need to check visibility only in the current viewport, you must replace the `isVisible()` assertion by `isVisibleInViewport()`.
+
+This change has been done to prevent you to always do a `hover(selector)` before the `isVisible()` assertion.
+
+### Added
+
+- feat(assertion): add `expectThat(selector).isNotVisibleInViewport()` to the Assertion API
+
 ## [1.46.0] - 2021-12-11
 
 ### Fixed
