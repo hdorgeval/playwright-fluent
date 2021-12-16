@@ -31,3 +31,4 @@ isOfType
 dialogType
 isDisabled
 hasClass
+isNotVisibleInViewport
