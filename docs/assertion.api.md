@@ -25,6 +25,7 @@ The selector can be either a CSS selector or a selector created with the [Select
   - [expectThatSelector(selector).isDisabled([options])](#expectThatSelectorselectorisDisabledoptions)
   - [expectThatSelector(selector).isEnabled([options])](#expectThatSelectorselectorisEnabledoptions)
   - [expectThatSelector(selector).isNotVisible([options])](#expectThatSelectorselectorisNotVisibleoptions)
+  - [expectThatSelector(selector).isNotVisibleInViewport([options])](#expectThatSelectorselectorisNotVisibleInViewportoptions)
   - [expectThatSelector(selector).isReadOnly([options])](#expectThatSelectorselectorisReadOnlyoptions)
   - [expectThatSelector(selector).isUnchecked([options])](#expectThatSelectorselectorisUncheckedoptions)
   - [expectThatSelector(selector).isVisible([options])](#expectThatSelectorselectorisVisibleoptions)
@@ -359,7 +360,17 @@ Will check if the selector is visible in the current viewport.
 - options: `Partial<AssertOptions>`
 - returns: `PlaywrightFluent`
 
-Will check if the selector is not visible.
+Will check if the selector is not visible. If the selector is visible but is outside the current viewport (meaning that the selector would become visible only by scrolling the current viewport), the assertion will fail.
+
+---
+
+### expectThatSelector(selector).isNotVisibleInViewport([options])
+
+- selector: `string | SelectorFluent`
+- options: `Partial<AssertOptions>`
+- returns: `PlaywrightFluent`
+
+Will check if the selector is not visible in the current viewport.
 
 ---
 
