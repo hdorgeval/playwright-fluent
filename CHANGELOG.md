@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.47.1] - 2021-12-21
+
+### Fixed
+
+- The `isVisible()` and `isNotVisible()` fluent assertions randomly failed when the `Playwright` `.isVisible()` method was internally called while the element was removed from the DOM by React. Those two assertions does not throw an error anymore while the element is being removed from the DOM.
+
 ## [1.47.0] - 2021-12-16
 
 ### Breaking changes
