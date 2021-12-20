@@ -38,7 +38,6 @@ async function expectThatCssSelectorIsNotVisible(
     ...defaultAssertOptions,
     ...options,
     throwOnTimeout: true,
-    wrapPredicateExecutionInsideTryCatch: true,
   };
 
   await waitUntil(
@@ -58,7 +57,6 @@ async function expectThatSelectorObjectIsNotVisible(
     ...defaultAssertOptions,
     ...options,
     throwOnTimeout: true,
-    wrapPredicateExecutionInsideTryCatch: true,
   };
 
   await waitUntil(
