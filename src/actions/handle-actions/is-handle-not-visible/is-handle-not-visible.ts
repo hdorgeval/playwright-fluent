@@ -1,5 +1,6 @@
 import { isHandleVisible, VerboseOptions } from '../is-handle-visible';
 import { ElementHandle } from 'playwright';
+
 export async function isHandleNotVisible(
   selector: ElementHandle<Element> | undefined | null,
   options: VerboseOptions,
