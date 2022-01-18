@@ -6,7 +6,7 @@ import {
   RecordVideoOptions,
   StorageState,
 } from './playwright-types';
-import { TimeZoneId } from './timezone-ids';
+import {TimeZoneId} from './timezone-ids';
 import * as assertion from '../assertions';
 import * as action from '../actions';
 import {
@@ -87,8 +87,8 @@ import {
   WaitUntilOptions,
   HttpHeaders,
 } from '../utils';
-import { SelectorFluent } from '../selector-api';
-import { Request, Browser, Page, BrowserContext, Frame, Dialog } from 'playwright';
+import {SelectorFluent} from '../selector-api';
+import {Request, Browser, Page, BrowserContext, Frame, Dialog} from 'playwright';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
@@ -177,7 +177,7 @@ export {
   StorageState,
 } from './playwright-types';
 
-export { TimeZoneId } from './timezone-ids';
+export {TimeZoneId} from './timezone-ids';
 
 export interface AssertOptions {
   /**
@@ -214,6 +214,7 @@ export type Story = (p: PlaywrightFluent) => Promise<void>;
 export type StoryWithProps<T> = (p: PlaywrightFluent, props: T) => Promise<void>;
 
 export type AsyncFunc = () => Promise<string | number | boolean | undefined | null>;
+
 export interface AsyncFuncExpectAssertion {
   resolvesTo: (
     value: string | number | boolean | undefined | null,
@@ -322,9 +323,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private _lastError?: Error;
+
   public lastError(): Error | undefined {
     return this._lastError;
   }
+
   private async executeActions(): Promise<void> {
     try {
       this._lastError = undefined;
@@ -355,17 +358,20 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   private browser: Browser | undefined;
   private browserContext: BrowserContext | undefined;
+
   public currentBrowser(): Browser | undefined {
     return this.browser;
   }
 
   private dialog: Dialog | undefined;
   private _isDialogOpened = false;
+
   public isDialogOpened(): boolean {
     return this._isDialogOpened;
   }
 
   private _isDialogClosed = true;
+
   public isDialogClosed(): boolean {
     return this._isDialogClosed;
   }
@@ -375,11 +381,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private page: Page | undefined;
+
   public currentPage(): Page | undefined {
     return this.page;
   }
 
   private frame: Frame | undefined;
+
   public currentFrame(): Frame | undefined {
     return this.frame;
   }
@@ -400,11 +408,13 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private _previousPage: Page | undefined;
+
   public previousPage(): Page | undefined {
     return this._previousPage;
   }
 
   private _hasBeenRedirectedToAnotherTab = false;
+
   public hasBeenRedirectedToAnotherTab(): boolean {
     return this._hasBeenRedirectedToAnotherTab;
   }
@@ -450,7 +460,8 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
     return fullOptions;
   }
-  private contextOptions: BrowserContextOptions = { viewport: null, acceptDownloads: true };
+
+  private contextOptions: BrowserContextOptions = {viewport: null, acceptDownloads: true};
   private emulatedDevice: Device | undefined = undefined;
   private customWindowSize: WindowSize | undefined = undefined;
   private customWindowSizeOptions: WindowSizeOptions = defaultWindowSizeOptions;
@@ -468,7 +479,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private async launchBrowser(name: BrowserName): Promise<void> {
-    const contextOptions: BrowserContextOptions = { ...this.contextOptions };
+    const contextOptions: BrowserContextOptions = {...this.contextOptions};
 
     if (this.emulatedDevice) {
       contextOptions.viewport = this.emulatedDevice.viewport;
@@ -508,7 +519,8 @@ export class PlaywrightFluent implements PromiseLike<void> {
       try {
         await p.waitForLoadState();
         // eslint-disable-next-line no-empty
-      } catch (error) {}
+      } catch (error) {
+      }
     });
 
     this.page = await this.browserContext.newPage();
@@ -611,6 +623,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  public ignoreHttpsErrors(): PlaywrightFluent {
+    this.contextOptions.ignoreHTTPSErrors = true;
+    return this;
+  }
+
   public withPermissions(...permissions: Permission[]): PlaywrightFluent {
     this.contextOptions.permissions = permissions;
     return this;
@@ -677,6 +694,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async startTracingChunk(options: StartTracingOptions): Promise<void> {
     await this.browserContext?.tracing?.startChunk(options);
   }
+
   private async stopTracingChunk(options: StopTracingOptions): Promise<void> {
     await this.browserContext?.tracing?.stopChunk(options);
   }
@@ -806,6 +824,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     this.contextOptions.recordVideo = options;
     return this;
   }
+
   public async getRecordedVideoPath(): Promise<string | undefined> {
     const videoPath = await this.page?.video()?.path();
     return videoPath;
@@ -869,9 +888,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private sentRequests: Request[] = [];
+
   public getRecordedRequestsTo(url: string): Request[] {
     return [...this.sentRequests.filter((req) => req.url().includes(url))];
   }
+
   public getLastRecordedRequestTo(url: string): Request | undefined {
     return this.sentRequests.filter((req) => req.url().includes(url)).pop();
   }
@@ -879,6 +900,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public clearRecordedRequestsTo(url: string): void {
     this.sentRequests = [...this.sentRequests.filter((req) => !req.url().includes(url))];
   }
+
   private async recordRequestsToUrl(
     partialUrl: string,
     ignorePredicate: (request: Request) => boolean,
@@ -919,6 +941,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async recordDownloadsToDirectory(directory: string): Promise<void> {
     await action.recordDownloadsTo(directory, this.currentPage());
   }
+
   /**
    * Save all downloads in directory.
    *
@@ -947,6 +970,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async delayRequestsToUrl(partialUrl: string, delayInSeconds: number): Promise<void> {
     await action.delayRequestsTo(partialUrl, delayInSeconds, this.currentPage());
   }
+
   public delayRequestsTo(partialUrl: string, delayInSeconds: number): PlaywrightFluent {
     const action = (): Promise<void> => this.delayRequestsToUrl(partialUrl, delayInSeconds);
     this.actions.push(action);
@@ -968,6 +992,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.onRequestToRespondFromHar(partialUrl, harFiles, this.currentPage(), options);
   }
+
   public onRequestTo(
     partialUrl: string,
     options: Partial<RequestInterceptionFilterOptions> = {},
@@ -1006,17 +1031,21 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private failedRequests: Request[] = [];
+
   public getFailedRequests(): Request[] {
     return [...this.failedRequests];
   }
+
   public clearFailedRequests(): void {
     this.failedRequests = [];
   }
+
   private async recordAllFailedRequests(): Promise<void> {
     await action.recordFailedRequests(this.currentPage(), (request) =>
       this.failedRequests.push(request),
     );
   }
+
   public recordFailedRequests(): PlaywrightFluent {
     const action = (): Promise<void> => this.recordAllFailedRequests();
     this.actions.push(action);
@@ -1024,12 +1053,15 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private pageErrors: Error[] = [];
+
   public getPageErrors(): Error[] {
     return [...this.pageErrors];
   }
+
   public clearPageErrors(): void {
     this.pageErrors = [];
   }
+
   private async recordUncaughtExceptions(): Promise<void> {
     await action.recordPageErrors(this.currentPage(), (err) => this.pageErrors.push(err));
   }
@@ -1039,8 +1071,9 @@ export class PlaywrightFluent implements PromiseLike<void> {
     this.actions.push(action);
     return this;
   }
+
   private async saveStorageStateToFile(targetFile: string): Promise<void> {
-    await this.browserContext?.storageState({ path: targetFile });
+    await this.browserContext?.storageState({path: targetFile});
   }
 
   /**
@@ -1069,6 +1102,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async pauseExecution(): Promise<void> {
     await action.pause(this.currentPage());
   }
+
   public pause(): PlaywrightFluent {
     const action = (): Promise<void> => this.pauseExecution();
     this.actions.push(action);
@@ -1078,6 +1112,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async waitForDialogToOpen(options: WaitUntilOptions): Promise<void> {
     await action.waitForDialog(() => this.dialog, this.currentPage(), options);
   }
+
   /**
    * Wait for a dialog to open.
    *
@@ -1103,6 +1138,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       this._isDialogOpened = false;
     });
   }
+
   public cancelDialog(): PlaywrightFluent {
     const action = (): Promise<void> => this.cancelCurrentDialog();
     this.actions.push(action);
@@ -1116,6 +1152,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       this._isDialogOpened = false;
     });
   }
+
   public acceptDialog(): PlaywrightFluent {
     const action = (): Promise<void> => this.acceptCurrentDialog();
     this.actions.push(action);
@@ -1129,6 +1166,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       this._isDialogOpened = false;
     });
   }
+
   public typeTextInDialogAndSubmit(text: string): PlaywrightFluent {
     const action = (): Promise<void> => this.typeTextInCurrentDialogAndSubmit(text);
     this.actions.push(action);
@@ -1159,6 +1197,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   }
 
   private _allMocks: Partial<FluentMock>[] = [];
+
   private async registerMocks(options: Partial<WithMocksOptions>): Promise<void> {
     await action.withMocks(
       () => this._allMocks,
@@ -1204,6 +1243,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async gotoUrl(url: string, options: NavigationOptions): Promise<void> {
     await action.navigateTo(url, options, this.currentPageOrFrame());
   }
+
   public navigateTo(url: string, options?: Partial<NavigationOptions>): PlaywrightFluent {
     const navigationOptions: NavigationOptions = {
       ...defaultNavigationOptions,
@@ -1217,12 +1257,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async hoverOnSelector(selector: string, options: HoverOptions): Promise<void> {
     await action.hoverOnSelector(selector, this.currentPageOrFrame(), options);
   }
+
   private async hoverOnSelectorObject(
     selector: SelectorFluent,
     options: HoverOptions,
   ): Promise<void> {
     await action.hoverOnSelectorObject(selector, this.currentPageOrFrame(), options);
   }
+
   public hover(
     selector: string | SelectorFluent,
     options?: Partial<HoverOptions>,
@@ -1258,6 +1300,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       },
     );
   }
+
   private async switchFromSelectorObjectToIframe(
     selector: SelectorFluent,
     options: SwitchToIframeOptions,
@@ -1271,6 +1314,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       },
     );
   }
+
   /**
    * Will switch inside the iframe targeted by the specified selector
    *
@@ -1340,12 +1384,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async clickOnSelector(selector: string, options: ClickOptions): Promise<void> {
     await action.clickOnSelector(selector, this.currentPageOrFrame(), options);
   }
+
   private async clickOnSelectorObject(
     selector: SelectorFluent,
     options: ClickOptions,
   ): Promise<void> {
     await action.clickOnSelectorObject(selector, this.currentPageOrFrame(), options);
   }
+
   public click(
     selector: string | SelectorFluent,
     options?: Partial<ClickOptions>,
@@ -1374,12 +1420,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.doubleClickOnSelector(selector, this.currentPageOrFrame(), options);
   }
+
   private async doubleClickOnSelectorObject(
     selector: SelectorFluent,
     options: DoubleClickOptions,
   ): Promise<void> {
     await action.doubleClickOnSelectorObject(selector, this.currentPageOrFrame(), options);
   }
+
   public doubleClick(
     selector: string | SelectorFluent,
     options?: Partial<DoubleClickOptions>,
@@ -1406,6 +1454,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async clickAtPositionOnPage(position: Point, options: ClickOptions): Promise<void> {
     await action.clickAtPosition(position, this.currentPage(), options);
   }
+
   public clickAtPosition(position: Point, options?: Partial<ClickOptions>): PlaywrightFluent {
     const clickOptions: ClickOptions = {
       ...defaultClickOptions,
@@ -1420,12 +1469,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async checkSelector(selector: string, options: CheckOptions): Promise<void> {
     await action.checkSelector(selector, this.currentPageOrFrame(), options);
   }
+
   private async checkSelectorObject(
     selector: SelectorFluent,
     options: CheckOptions,
   ): Promise<void> {
     await action.checkSelectorObject(selector, this.currentPageOrFrame(), options);
   }
+
   public check(
     selector: string | SelectorFluent,
     options?: Partial<CheckOptions>,
@@ -1451,12 +1502,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async uncheckSelector(selector: string, options: CheckOptions): Promise<void> {
     await action.uncheckSelector(selector, this.currentPageOrFrame(), options);
   }
+
   private async uncheckSelectorObject(
     selector: SelectorFluent,
     options: CheckOptions,
   ): Promise<void> {
     await action.uncheckSelectorObject(selector, this.currentPageOrFrame(), options);
   }
+
   public uncheck(
     selector: string | SelectorFluent,
     options?: Partial<CheckOptions>,
@@ -1493,6 +1546,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.selectOptionsInFocused(labels, this.currentPageOrFrame(), options);
   }
+
   private async selectOptionsInSelectorObject(
     selector: SelectorFluent,
     labels: string[],
@@ -1505,6 +1559,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       options,
     );
   }
+
   public select(...labels: string[]): {
     in: (selector: string | SelectorFluent, options?: Partial<SelectOptions>) => PlaywrightFluent;
     inFocused: (options?: Partial<SelectOptions>) => PlaywrightFluent;
@@ -1674,6 +1729,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async clearTextInFocusedElement(options: ClearTextOptions): Promise<void> {
     await action.clearText(this.currentPageOrFrame(), options);
   }
+
   /**
    * Clear text in the element that has current focus.
    *
@@ -1710,6 +1766,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.invokeMethodOnSelector(methodName, selector, this.currentPageOrFrame(), options);
   }
+
   private async invokeMethodOnSelectorObject(
     methodName: MethodName,
     selector: SelectorFluent,
@@ -1717,6 +1774,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   ): Promise<void> {
     await action.invokeMethodOnSelectorObject(methodName, selector, options);
   }
+
   /**
    * Be able to invoke a native method on a selector.
    * Use this action only in edge cases
@@ -1781,6 +1839,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   private async pressOnKey(key: KeyboardKey, options: KeyboardPressOptions): Promise<void> {
     await action.pressKey(key, this.currentPageOrFrame(), options);
   }
+
   public pressKey(key: KeyboardKey, options?: Partial<KeyboardPressOptions>): PlaywrightFluent {
     const pressKeyOptions: KeyboardPressOptions = {
       ...defaultKeyboardPressOptions,
@@ -1790,14 +1849,17 @@ export class PlaywrightFluent implements PromiseLike<void> {
     this.actions.push(action);
     return this;
   }
+
   private async holdKey(key: KeyboardHoldKey): Promise<void> {
     await action.holdDownKey(key, this.currentPageOrFrame());
   }
+
   public holdDownKey(key: KeyboardHoldKey): PlaywrightFluent {
     const action = (): Promise<void> => this.holdKey(key);
     this.actions.push(action);
     return this;
   }
+
   private async releaseHoldKey(key: KeyboardHoldKey): Promise<void> {
     await action.releaseKey(key, this.currentPageOrFrame());
   }
@@ -1812,6 +1874,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     this.actions.push(async (): Promise<void> => await sleep(durationInMilliseconds));
     return this;
   }
+
   public async takeFullPageScreenshotAsBase64(
     options?: Partial<ScreenshotOptions>,
   ): Promise<string> {
@@ -1922,6 +1985,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public async getCurrentWindowState(): Promise<WindowState> {
     return await action.getWindowState(this.currentPageOrFrame());
   }
+
   public async getInnerTextOf(
     selector: string,
     options?: Partial<WaitUntilOptions>,
@@ -2057,6 +2121,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
   public selector(selector: string): SelectorFluent {
     return new SelectorFluent(selector, this);
   }
+
   public async hasFocus(
     selector: string | SelectorFluent,
     options?: Partial<WaitUntilOptions>,
@@ -2076,6 +2141,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatSelectorHasFocus(selector, this.currentPageOrFrame(), fullOptions);
   }
+
   public async hasText(
     selector: string | SelectorFluent,
     text: string,
@@ -2214,6 +2280,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
       fullOptions,
     );
   }
+
   private async expectThatSelectorExists(
     selector: string | SelectorFluent,
     options?: Partial<AssertOptions>,
@@ -2357,6 +2424,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatSelectorIsChecked(selector, this.currentPageOrFrame(), fullOptions);
   }
+
   public async isChecked(
     selector: string | SelectorFluent,
     options?: Partial<WaitUntilOptions>,
@@ -2376,6 +2444,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatSelectorIsUnchecked(selector, this.currentPageOrFrame(), fullOptions);
   }
+
   public async isUnchecked(
     selector: string | SelectorFluent,
     options?: Partial<WaitUntilOptions>,
@@ -2427,6 +2496,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
     return await assertion.isDisabled(selector, this.currentPageOrFrame(), assertOptions);
   }
+
   private async expectThatSelectorIsReadOnly(
     selector: string | SelectorFluent,
     options?: Partial<AssertOptions>,
@@ -2434,6 +2504,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatSelectorIsReadOnly(selector, this.currentPageOrFrame(), fullOptions);
   }
+
   public async isReadOnly(
     selector: string | SelectorFluent,
     options?: Partial<WaitUntilOptions>,
@@ -2457,6 +2528,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     };
     await assertion.expectThatAsyncFuncHasResult(func, value, assertOptions);
   }
+
   public expectThatAsyncFunc(func: AsyncFunc): AsyncFuncExpectAssertion {
     return {
       resolvesTo: (
@@ -2691,6 +2763,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatDialogIsOfType(() => this.dialog, dialogType, fullOptions);
   }
+
   private async expectThatDialogHasMessage(
     message: string,
     options?: Partial<AssertOptions>,
@@ -2698,6 +2771,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatDialogHasMessage(() => this.dialog, message, fullOptions);
   }
+
   private async expectThatDialogHasValue(
     value: string,
     options?: Partial<AssertOptions>,
@@ -2705,6 +2779,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatDialogHasValue(() => this.dialog, value, fullOptions);
   }
+
   private async expectThatDialogHasExactValue(
     value: string,
     options?: Partial<AssertOptions>,
@@ -2712,6 +2787,7 @@ export class PlaywrightFluent implements PromiseLike<void> {
     const fullOptions = this.buildAssertOptionsFrom(options);
     await assertion.expectThatDialogHasExactValue(() => this.dialog, value, fullOptions);
   }
+
   public expectThatDialog(): ExpectDialogAssertion {
     return {
       hasMessage: (message: string, options?: Partial<AssertOptions>): PlaywrightFluent => {

@@ -14,6 +14,7 @@
   - [withGeolocation(location)](#withGeolocationlocation)
   - [withPermissions(permissions)](#withPermissionspermissions)
   - [withExtraHttpHeaders(headers)](#withExtraHttpHeadersheaders)
+  - [ignoreHttpsErrors()](#ignoreHttpsErrors)
   - [withTimezone(timezoneId)](#withTimezonetimezoneId)
   - [withStorageState(state)](#withStorageStatestate)
   - [withMocks(mocks[, options])](#withMocksmocks-options)
@@ -559,6 +560,25 @@ await p
   .withBrowser(browser)
   .withOptions({ headless: false })
   .withExtraHttpHeaders({ 'X-FOO': 'false', 'X-BAR': 'true' })
+  .navigateTo(url);
+```
+
+---
+
+### ignoreHttpsErrors()
+
+Will set context option ignoreHttpsErrors true.
+
+Example:
+
+```js
+const browser = 'chromium';
+const url = 'http://reactstrap.github.io';
+
+await p
+  .withBrowser(browser)
+  .withOptions({ headless: false })
+  .ignoreHttpsErrors()
   .navigateTo(url);
 ```
 
