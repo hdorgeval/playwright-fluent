@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.48.0] - 2022-01-20
+
+### Added
+
+- add `ignoreHttpsErrors()` to the fluent API : provided by [osolomin90](https://github.com/osolomin90)
+
 ## [1.47.1] - 2021-12-21
 
 ### Fixed
