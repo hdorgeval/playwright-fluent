@@ -611,6 +611,11 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  public ignoreHttpsErrors(): PlaywrightFluent {
+    this.contextOptions.ignoreHTTPSErrors = true;
+    return this;
+  }
+
   public withPermissions(...permissions: Permission[]): PlaywrightFluent {
     this.contextOptions.permissions = permissions;
     return this;
