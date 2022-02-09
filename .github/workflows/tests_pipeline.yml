@@ -39,8 +39,8 @@ jobs:
       - run: npm --version
       - name: Install playwrigh-fluent
         run: npm ci
-      - name: Install playwright v1.17.1
-        run: npm install --no-save playwright@1.17.1
+      - name: Install playwright v1.18.1
+        run: npm install --no-save playwright@1.18.1
       - name: Install microsoft-edge
         run: npx playwright install msedge --with-deps
       - name: Build
@@ -66,8 +66,8 @@ jobs:
       - run: npm --version
       - name: Install playwrigh-fluent
         run: npm ci
-      - name: Install playwright v1.17.1
-        run: npm install --no-save playwright@1.17.1
+      - name: Install playwright v1.18.1
+        run: npm install --no-save playwright@1.18.1
       - name: Install microsoft-edge
         run: npx playwright install msedge --with-deps
       - name: Build
