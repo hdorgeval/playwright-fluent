@@ -16,14 +16,34 @@ import {
   HttpRequestMethod,
   shouldUpdate,
 } from '../../../utils';
-import { Request } from 'playwright';
+import { Request, Response } from 'playwright';
 
-function isJson(content: string): boolean {
+function isJson(content: string | undefined): boolean {
   try {
+    if (content === undefined) {
+      return false;
+    }
+
     JSON.parse(content);
     return true;
   } catch (e) {
     return false;
+  }
+}
+
+async function tryGetContentAsJson(response: Response): Promise<unknown> {
+  try {
+    return await response.json();
+  } catch (e) {
+    return undefined;
+  }
+}
+
+async function tryGetContentAsText(response: Response): Promise<string | undefined> {
+  try {
+    return await response.text();
+  } catch (e) {
+    return undefined;
   }
 }
 
@@ -91,7 +111,7 @@ export async function getOutdatedMocks(
     }
 
     const requestStatus = requestResponse.status();
-    if (requestStatus >= 300) {
+    if (requestStatus >= 500) {
       continue;
     }
 
@@ -116,14 +136,14 @@ export async function getOutdatedMocks(
     }
 
     const mockedStatus = getMockStatus(mock, { request, queryString, postData, sharedContext });
-    if (mockedStatus >= 300) {
+    if (mockedStatus >= 500) {
       continue;
     }
 
     if (mock.responseType === 'json') {
       try {
         const mockedResponse = mock.jsonResponse({ request, queryString, postData, sharedContext });
-        const actualResponse = await requestResponse.json();
+        const actualResponse = await tryGetContentAsJson(requestResponse);
         mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
         const isOutdated = !areSameType(mockedResponse, actualResponse);
         if (isOutdated && shouldUpdateMock(mock)) {
@@ -150,7 +170,7 @@ export async function getOutdatedMocks(
     if (mock.responseType === 'string' || mock.responseType === 'empty') {
       try {
         const mockedBody = mock.rawResponse({ request, queryString, postData, sharedContext });
-        const actualBody = await requestResponse.text();
+        const actualBody = await tryGetContentAsText(requestResponse);
         mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
         if (isJson(actualBody) && shouldUpdateMock(mock)) {
           result.push({
@@ -176,7 +196,7 @@ export async function getOutdatedMocks(
     if (mock.responseType === 'javascript') {
       try {
         const mockedBody = mock.rawResponse({ request, queryString, postData, sharedContext });
-        const actualBody = await requestResponse.text();
+        const actualBody = await tryGetContentAsText(requestResponse);
         mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
         const isOutdated = mockedBody !== actualBody;
         if (isOutdated && shouldUpdateMock(mock)) {
