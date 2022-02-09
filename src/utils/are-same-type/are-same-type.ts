@@ -1,8 +1,4 @@
 export function areSameType(obj1: unknown, obj2: unknown): boolean {
-  if (obj1 === obj2) {
-    return true;
-  }
-
   if (isValueType(obj1)) {
     return areSameValueType(obj1, obj2);
   }
@@ -73,6 +69,10 @@ export function isFunctionType(obj: unknown): boolean {
 }
 
 export function isDictionaryType(obj: unknown): boolean {
+  if (obj === null || obj === undefined) {
+    return false;
+  }
+
   const objProperties = Object.getOwnPropertyNames(obj);
 
   if (objProperties.length === 0) {
@@ -135,6 +135,10 @@ export function areSameTypeOfObjects(obj1: unknown, obj2: unknown): boolean {
     return false;
   }
   if (typeof obj1 !== 'object' && typeof obj2 === 'object') {
+    return false;
+  }
+
+  if (obj2 === null || obj2 === undefined) {
     return false;
   }
 

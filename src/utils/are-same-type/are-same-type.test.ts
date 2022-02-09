@@ -3,6 +3,8 @@ import * as SUT from './index';
 describe('are same type of objects', (): void => {
   [
     { obj1: [], obj2: [] },
+    { obj1: [undefined], obj2: [undefined] },
+    { obj1: [null], obj2: [null] },
     { obj1: [], obj2: [true] },
     { obj1: [], obj2: [1, 2] },
     { obj1: [1, 2], obj2: [] },
@@ -31,10 +33,18 @@ describe('are same type of objects', (): void => {
   });
 
   [
+    { obj1: [1, 2, 3], obj2: undefined },
+    { obj1: [1, 2, 3], obj2: [undefined, undefined, undefined] },
+    { obj1: [null, null, null], obj2: [undefined, undefined, undefined] },
+    { obj1: [undefined, undefined, undefined], obj2: [1, 2, 3] },
+    { obj1: [1, 2, 3], obj2: [null] },
+    { obj1: [null], obj2: [1, 2, 3] },
+    { obj1: [1, 2, 3], obj2: null },
     { obj1: [1, 2, 3], obj2: ['1', '2', '3'] },
     { obj1: ['1', '2', '3'], obj2: [1, 2, 3] },
     { obj1: [true, false, true], obj2: [1, 0, 1] },
     { obj1: [{ prop1: 1 }], obj2: [{ prop2: 1 }] },
+    { obj1: [{ prop1: 1 }], obj2: [{ prop1: null }] },
   ].forEach(({ obj1, obj2 }) => {
     test(`should detect that array '${JSON.stringify(obj1)}' is not equivalent to '${JSON.stringify(
       obj2,
@@ -50,9 +60,12 @@ describe('are same type of objects', (): void => {
   });
 
   [
+    { obj1: null, obj2: null },
+    { obj1: undefined, obj2: undefined },
     { obj1: {}, obj2: {} },
     { obj1: { prop1: {} }, obj2: { prop1: {} } },
     { obj1: { prop1: null }, obj2: { prop1: null } },
+    { obj1: { prop1: undefined }, obj2: { prop1: undefined } },
     { obj1: { prop1: 1 }, obj2: { prop1: 2 } },
     { obj1: { prop1: true }, obj2: { prop1: false } },
     { obj1: { prop1: 'a' }, obj2: { prop1: 'b' } },
@@ -75,6 +88,11 @@ describe('are same type of objects', (): void => {
   });
 
   [
+    { obj1: { prop1: undefined }, obj2: null },
+    { obj1: { prop1: undefined }, obj2: undefined },
+    { obj1: { prop1: null }, obj2: null },
+    { obj1: { prop1: null }, obj2: undefined },
+    { obj1: { prop1: null }, obj2: {} },
     { obj1: { prop1: null }, obj2: { prop1: undefined } },
     { obj2: { prop1: null }, obj1: { prop1: undefined } },
     { obj1: { prop1: 1 }, obj2: { prop1: '2' } },
@@ -84,6 +102,8 @@ describe('are same type of objects', (): void => {
     { obj1: { prop1: [1, 2, 3] }, obj2: { prop1: [true, false, false] } },
     { obj1: { prop1: { child1: 1 } }, obj2: { prop1: { child2: 1 } } },
     { obj1: { prop1: { child1: 1 } }, obj2: { prop1: { child1: true } } },
+    { obj1: { prop1: { child1: 1 } }, obj2: { prop1: { child1: '1' } } },
+    { obj1: { prop1: { child1: 0 } }, obj2: { prop1: { child1: false } } },
   ].forEach(({ obj1, obj2 }) => {
     test(`should detect that object '${JSON.stringify(
       obj1,
@@ -165,6 +185,36 @@ describe('are same type of objects', (): void => {
 
       // Then
       expect(result).toBe(true);
+    });
+  });
+
+  // dictionaries
+  [
+    {
+      obj1: {
+        '3cba286c42c9cb92a4948556a82dcc3e': 'foo',
+        '3cba286c42c9cf92a4948556a82dcc3f': 'bar',
+      },
+      obj2: null,
+    },
+    {
+      obj1: {
+        '3cba286c42c9cb92a4948556a82dcc3e': 'foo',
+        '3cba286c42c9cf92a4948556a82dcc3f': 'bar',
+      },
+      obj2: undefined,
+    },
+  ].forEach(({ obj1, obj2 }) => {
+    test(`should detect that dictionary '${JSON.stringify(
+      obj1,
+    )}' is not equivalent to '${JSON.stringify(obj2)}'`, async (): Promise<void> => {
+      // Given
+
+      // When
+      const result = SUT.areSameType(obj1, obj2);
+
+      // Then
+      expect(result).toBe(false);
     });
   });
 });
