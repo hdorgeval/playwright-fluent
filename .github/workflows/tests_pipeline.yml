@@ -39,6 +39,8 @@ jobs:
       - run: npm --version
       - name: Install playwrigh-fluent
         run: npm ci
+      - name: Install system dependencies for Playwright
+        run: npx playwright install-deps
       - name: Install playwright v1.20.1
         run: npm install --no-save playwright@1.20.1
       - name: Install microsoft-edge
