@@ -74,6 +74,6 @@ export async function hoverOnHandle(
       await page.mouse.move(x, y, { steps: options.steps });
       continue;
     }
-    await selector.hover();
   }
+  await selector.hover();
 }
