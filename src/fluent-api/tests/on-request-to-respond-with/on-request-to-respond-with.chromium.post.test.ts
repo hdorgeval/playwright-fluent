@@ -82,7 +82,7 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     // Then requests to /foobar should be intercepted
     // And response should be mocked
     await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
-      stabilityInMilliseconds: 1000,
+      stabilityInMilliseconds: 5000,
     });
     const foobarRequests = p.getRecordedRequestsTo('/foobar');
     expect(Array.isArray(foobarRequests)).toBe(true);
