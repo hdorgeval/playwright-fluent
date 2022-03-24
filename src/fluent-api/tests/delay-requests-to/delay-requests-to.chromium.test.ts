@@ -77,7 +77,7 @@ describe('Playwright Fluent - delayRequestsTo(url)', (): void => {
 
     // And request should still be in pending state
     await p.waitForStabilityOf(async () => p.getRecordedRequestsTo('/foobar').length, {
-      stabilityInMilliseconds: 1000,
+      stabilityInMilliseconds: 5000,
     });
     const foobarRequests = p.getRecordedRequestsTo('/foobar');
     expect(Array.isArray(foobarRequests)).toBe(true);
