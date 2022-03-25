@@ -114,7 +114,7 @@ describe('wait for stability of', (): void => {
 
   test('should not throw on timeout', async (): Promise<void> => {
     // Given
-    const wait = 500;
+    const wait = 1000;
     const startTime = new Date().getTime();
     const valueFunction = async (): Promise<number> => {
       const endTime = new Date().getTime();
