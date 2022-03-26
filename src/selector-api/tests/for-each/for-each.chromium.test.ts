@@ -140,7 +140,8 @@ describe('Selector API - forEach', (): void => {
     // When
     await rows.forEach(async (row) => {
       const checkbox = row
-        .find('input[aria-label="Press Space to toggle row selection (unchecked)"]')
+        .find('input')
+        .withAriaLabel('Press Space to toggle row selection (unchecked)')
         .parent();
       await p.click(checkbox);
     });
