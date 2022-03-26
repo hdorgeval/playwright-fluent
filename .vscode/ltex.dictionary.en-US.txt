@@ -32,3 +32,5 @@ dialogType
 isDisabled
 hasClass
 isNotVisibleInViewport
+withAriaLabel
+withPlaceholder

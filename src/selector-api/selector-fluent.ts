@@ -22,7 +22,7 @@ interface ActionInfoWithSelector {
   selector: string;
 }
 interface ActionInfoWithText {
-  name: 'withText' | 'withExactText' | 'withValue' | 'withPlaceholder';
+  name: 'withText' | 'withExactText' | 'withValue' | 'withPlaceholder' | 'withAriaLabel';
   text: string;
 }
 interface ActionInfoWithIndex {
@@ -79,6 +79,9 @@ export class SelectorFluent {
 
       case 'withPlaceholder':
         return (handles) => action.getHandlesWithPlaceholder(actionInfo.text, [...handles]);
+
+      case 'withAriaLabel':
+        return (handles) => action.getHandlesWithAriaLabel(actionInfo.text, [...handles]);
 
       default:
         throw new Error(`Action '${actionInfo.name}' is not yet implemented`);
@@ -284,6 +287,23 @@ export class SelectorFluent {
 
     const chainingHistory = `${this.chainingHistory}
   .withPlaceholder(${text})`;
+
+    return this.createSelectorFrom(text, actions, chainingHistory);
+  }
+
+  /**
+   * Finds, from previous search, all elements whose aria-label matches exactly the specified text
+   *
+   * @param {string} text
+   * @returns {SelectorFluent}
+   * @memberof SelectorFluent
+   */
+  public withAriaLabel(text: string): SelectorFluent {
+    const actions = [...this.actionInfos];
+    actions.push({ name: 'withAriaLabel', text });
+
+    const chainingHistory = `${this.chainingHistory}
+  .withAriaLabel(${text})`;
 
     return this.createSelectorFrom(text, actions, chainingHistory);
   }

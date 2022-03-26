@@ -6,6 +6,7 @@ export * from './get-all-options-of-handle';
 export * from './get-attribute-of-handle';
 export * from './get-class-list-of-handle';
 export * from './get-client-rectangle-of-handle';
+export * from './get-handles-with-aria-label';
 export * from './get-handles-with-exact-text';
 export * from './get-handles-with-placeholder';
 export * from './get-handles-with-text';
