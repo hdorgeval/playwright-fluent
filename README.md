@@ -58,7 +58,7 @@ const selector = p
   .find('td') // from previous result(s), find all embedded <td> elements
   .nth(2); // take only the second cell
 
-await p.expectThatSelector(selector).hasText('foobar-2');
+await p.expectThat(selector).hasText('foobar-2');
 ```
 
 ## Usage with Iframes
@@ -167,7 +167,8 @@ await p
 
 await rows.forEach(async (row) => {
   const checkbox = row
-    .find('input[aria-label="Press Space to toggle row selection (unchecked)"]')
+    .find('input')
+    .withAriaLabel('Press Space to toggle row selection (unchecked)')
     .parent();
   await p.click(checkbox);
 });

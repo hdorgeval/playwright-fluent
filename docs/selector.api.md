@@ -9,6 +9,7 @@ The Selector API enables to find and target a DOM element or a collection of DOM
   - [nth(index)](#nthindex)
   - [parent()](#parent)
   - [previousSibling()](#previousSibling)
+  - [withAriaLabel(text)](#withAriaLabeltext)
   - [withPlaceholder(text)](#withPlaceholdertext)
   - [withExactText(text)](#withExactTexttext)
   - [withText(text)](#withTexttext)
@@ -92,6 +93,14 @@ Take, from previous search, only the elements whose innerText contains the speci
 - text: `string`
 
 Take, from previous search, only the elements whose innerText matches exactly the specified text.
+
+---
+
+### withAriaLabel(text)
+
+- text: `string`
+
+Take, from previous search, only the elements whose aria-label matches exactly the specified text.
 
 ---
 
