@@ -1,13 +1,4 @@
-import {
-  BrowserContextOptions,
-  Geolocation,
-  HarOptions,
-  Permission,
-  RecordVideoOptions,
-  StorageState,
-} from './playwright-types';
-import { TimeZoneId } from './timezone-ids';
-import * as assertion from '../assertions';
+import { Browser, BrowserContext, Dialog, Frame, Page, Request } from 'playwright';
 import * as action from '../actions';
 import {
   BrowserName,
@@ -58,26 +49,29 @@ import {
   WindowState,
   WithMocksOptions,
 } from '../actions';
+import * as assertion from '../assertions';
 import {
   allKnownDevices,
+  defaultViewportOptions,
   defaultWindowSizeOptions,
   Device,
   DeviceName,
   getBrowserArgsForDevice,
+  getBrowserArgsForWindowSize,
   getDevice,
+  ViewportOptions,
+  ViewportSize,
   WindowSize,
   WindowSizeOptions,
-  getBrowserArgsForWindowSize,
-  ViewportSize,
-  ViewportOptions,
-  defaultViewportOptions,
 } from '../devices';
+import { SelectorFluent } from '../selector-api';
 import {
   defaultWaitUntilOptions,
   deleteFile,
   getFilesOlderThanInDirectory,
-  HarData,
   getHarDataFrom,
+  HarData,
+  HttpHeaders,
   sleep,
   toFrame,
   toPage,
@@ -85,30 +79,19 @@ import {
   WaitOptions,
   waitUntil,
   WaitUntilOptions,
-  HttpHeaders,
 } from '../utils';
-import { SelectorFluent } from '../selector-api';
-import { Request, Browser, Page, BrowserContext, Frame, Dialog } from 'playwright';
+import {
+  BrowserContextOptions,
+  Geolocation,
+  HarOptions,
+  Permission,
+  RecordVideoOptions,
+  StorageState,
+} from './playwright-types';
+import { TimeZoneId } from './timezone-ids';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const isCI = require('is-ci') as boolean;
-
-export {
-  defaultWaitUntilOptions,
-  getHarDataFrom,
-  getHarResponseContentAs,
-  getHarResponseFor,
-  HarData,
-  HarEntryParserOptions,
-  harHeadersToHttpHeaders,
-  HttpHeaders,
-  noWaitNoThrowOptions,
-  uniqueFilename,
-  userDownloadsDirectory,
-  userHomeDirectory,
-  WaitOptions,
-  WaitUntilOptions,
-} from '../utils';
 
 export {
   BrowserName,
@@ -156,7 +139,6 @@ export {
   validateMock,
   WindowState,
 } from '../actions';
-
 export {
   allKnownDevices,
   Device,
@@ -169,6 +151,22 @@ export {
   WindowSizeOptions,
 } from '../devices';
 export {
+  defaultWaitUntilOptions,
+  getHarDataFrom,
+  getHarResponseContentAs,
+  getHarResponseFor,
+  HarData,
+  HarEntryParserOptions,
+  harHeadersToHttpHeaders,
+  HttpHeaders,
+  noWaitNoThrowOptions,
+  uniqueFilename,
+  userDownloadsDirectory,
+  userHomeDirectory,
+  WaitOptions,
+  WaitUntilOptions,
+} from '../utils';
+export {
   BrowserContextOptions,
   Geolocation,
   HarOptions,
@@ -176,7 +174,6 @@ export {
   RecordVideoOptions,
   StorageState,
 } from './playwright-types';
-
 export { TimeZoneId } from './timezone-ids';
 
 export interface AssertOptions {
@@ -1204,6 +1201,32 @@ export class PlaywrightFluent implements PromiseLike<void> {
 
   public hasMockWithDisplayName(displayName: string | undefined): boolean {
     return this._allMocks.some((mock) => mock.displayName === displayName);
+  }
+
+  /**
+   * Get all mocks with the given displayName
+   *
+   * @param {(string | undefined)} displayName
+   * @return {*}  {(Partial<FluentMock>[] | undefined)}
+   * @memberof PlaywrightFluent
+   */
+  public getAllMocksWithDisplayName(
+    displayName: string | undefined,
+  ): Partial<FluentMock>[] | undefined {
+    return this._allMocks.filter((mock) => mock.displayName === displayName);
+  }
+
+  /**
+   * Get the last mock with the given displayName
+   *
+   * @param {(string | undefined)} displayName
+   * @return {*}  {(Partial<FluentMock> | undefined)}
+   * @memberof PlaywrightFluent
+   */
+  public getLastMockWithDisplayName(
+    displayName: string | undefined,
+  ): Partial<FluentMock> | undefined {
+    return [...this._allMocks.filter((mock) => mock.displayName === displayName)].pop();
   }
 
   private async gotoUrl(url: string, options: NavigationOptions): Promise<void> {
