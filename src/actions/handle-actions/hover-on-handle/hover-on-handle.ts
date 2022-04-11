@@ -1,9 +1,9 @@
+import { ElementHandle, Frame, Page } from 'playwright';
 import { waitUntil, report, sleep } from '../../../utils';
 import { scrollToHandle } from '../scroll-to-handle';
 import { isHandleVisible } from '../is-handle-visible';
 import { isHandleMoving } from '../is-handle-moving';
 import { getClientRectangleOfHandle } from '../get-client-rectangle-of-handle';
-import { ElementHandle, Frame, Page } from 'playwright';
 
 export interface HoverOptions {
   timeoutInMilliseconds: number;
@@ -75,5 +75,4 @@ export async function hoverOnHandle(
       continue;
     }
   }
-  await selector.hover();
 }
