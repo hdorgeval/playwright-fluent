@@ -2,7 +2,7 @@
   "languageTool.enabled": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": true,
+    "source.organizeImports": false,
     "source.fixAll.markdownlint": true
   },
   "editor.formatOnPaste": true,
