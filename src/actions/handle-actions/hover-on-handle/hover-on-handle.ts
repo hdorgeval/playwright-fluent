@@ -74,5 +74,8 @@ export async function hoverOnHandle(
       await page.mouse.move(x, y, { steps: options.steps });
       continue;
     }
+
+    // at this step we are in an iframe
+    await selector.hover({ timeout: 0, force: true });
   }
 }
