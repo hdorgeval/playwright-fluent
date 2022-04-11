@@ -1,9 +1,9 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { defaultPasteTextOptions } from '../paste-text';
 import { sleep } from '../../../../utils';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('paste text', (): void => {
   let browser: Browser | undefined = undefined;

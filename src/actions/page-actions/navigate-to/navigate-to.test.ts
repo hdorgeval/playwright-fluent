@@ -1,5 +1,5 @@
-import * as SUT from '.';
 import { Page } from 'playwright';
+import * as SUT from '.';
 
 describe('navigate-to', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

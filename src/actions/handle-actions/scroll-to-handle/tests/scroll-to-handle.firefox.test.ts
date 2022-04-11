@@ -1,11 +1,11 @@
+import * as path from 'path';
+import { Browser, firefox } from 'playwright';
 import * as SUT from '../index';
 import { getViewportRectangleOf } from '../../../page-actions';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
 import { defaultVerboseOptions } from '../../is-handle-visible';
 import { sleep } from '../../../../utils';
 import { isHandleVisibleInViewport } from '../../is-handle-visible-in-viewport';
-import { Browser, firefox } from 'playwright';
-import * as path from 'path';
 
 // TODO: re-enable these tests on v1.0.0
 describe.skip('scroll to handle', (): void => {

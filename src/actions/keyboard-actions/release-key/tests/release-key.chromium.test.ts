@@ -1,10 +1,10 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { pressKey, defaultKeyboardPressOptions } from '../../press-key';
 import { holdDownKey } from '../../hold-down-key';
 import { sleep } from '../../../../utils';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('release key', (): void => {
   let browser: Browser | undefined = undefined;

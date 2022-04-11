@@ -1,5 +1,5 @@
-import * as SUT from './index';
 import { WaitUntilOptions, defaultWaitUntilOptions, noWaitNoThrowOptions } from './wait-until';
+import * as SUT from './index';
 
 describe('wait until', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

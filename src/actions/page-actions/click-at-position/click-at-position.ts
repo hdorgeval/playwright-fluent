@@ -1,5 +1,5 @@
-import { ClickOptions, Point } from '../../handle-actions';
 import { Page } from 'playwright';
+import { ClickOptions, Point } from '../../handle-actions';
 
 export async function clickAtPosition(
   position: Point,

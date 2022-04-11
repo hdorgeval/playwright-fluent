@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, firefox } from 'playwright';
 import * as SUT from '../index';
 import { sleep } from '../../../../utils';
 import { SerializableDOMRect } from '../../../dom-actions';
-import { Browser, firefox } from 'playwright';
-import * as path from 'path';
 
 // TODO: re-enable these tests on v1.0.0
 describe.skip('get client rectangle of an element handle', (): void => {

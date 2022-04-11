@@ -1,5 +1,5 @@
-import * as which from 'which';
 import * as os from 'os';
+import * as which from 'which';
 
 const currentPlatformType = os.type();
 

@@ -1,5 +1,5 @@
-import { getClassListOfHandle } from '../get-class-list-of-handle';
 import { ElementHandle } from 'playwright';
+import { getClassListOfHandle } from '../get-class-list-of-handle';
 
 export async function hasNotHandleClass(
   handle: ElementHandle<Element> | undefined | null,

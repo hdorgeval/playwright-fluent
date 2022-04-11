@@ -1,7 +1,7 @@
+import * as path from 'path';
+import { Browser, chromium, Dialog } from 'playwright';
 import * as SUT from '../index';
 import { sleep } from '../../../../utils';
-import { Browser, chromium, Dialog } from 'playwright';
-import * as path from 'path';
 
 describe('record page dialogs', (): void => {
   let browser: Browser | undefined = undefined;

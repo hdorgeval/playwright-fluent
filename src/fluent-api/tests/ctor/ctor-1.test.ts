@@ -1,6 +1,6 @@
-import { PlaywrightFluent } from '../../playwright-fluent';
-import { chromium, firefox, webkit } from 'playwright';
 import * as path from 'path';
+import { chromium, firefox, webkit } from 'playwright';
+import { PlaywrightFluent } from '../../playwright-fluent';
 
 describe('Playwright Fluent - ctor usage', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

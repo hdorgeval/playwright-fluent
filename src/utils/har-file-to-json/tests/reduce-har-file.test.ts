@@ -1,6 +1,6 @@
+import path from 'path';
 import * as SUT from '../index';
 import { HarEntry } from '../index';
-import path from 'path';
 
 describe('har-writer', (): void => {
   test('should reduce HAR file', async (): Promise<void> => {

@@ -1,6 +1,6 @@
+import { Page } from 'playwright';
 import * as SUT from '../index';
 import { defaultInvokeOptions } from '../index';
-import { Page } from 'playwright';
 
 describe('invoke-method-on-selector', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

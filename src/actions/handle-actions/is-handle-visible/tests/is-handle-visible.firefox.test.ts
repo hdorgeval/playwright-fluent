@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, firefox } from 'playwright';
 import * as SUT from '../index';
 import { defaultVerboseOptions } from '../is-handle-visible';
 import { sleep } from '../../../../utils';
-import { Browser, firefox } from 'playwright';
-import * as path from 'path';
 
 describe('handle is visible', (): void => {
   let browser: Browser | undefined = undefined;

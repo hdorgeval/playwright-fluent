@@ -1,9 +1,9 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { injectCursor } from '../../../dom-actions/inject-cursor';
 import { defaultClearTextOptions } from '../index';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('clear-text', (): void => {
   let browser: Browser | undefined = undefined;

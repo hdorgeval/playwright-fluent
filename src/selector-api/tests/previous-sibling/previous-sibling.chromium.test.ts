@@ -1,5 +1,5 @@
-import { PlaywrightFluent } from '../../../fluent-api';
 import * as path from 'path';
+import { PlaywrightFluent } from '../../../fluent-api';
 
 describe('Selector API - previous sibling', (): void => {
   let p: PlaywrightFluent;

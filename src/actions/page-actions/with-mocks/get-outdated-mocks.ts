@@ -1,3 +1,10 @@
+import { Request, Response } from 'playwright';
+import {
+  areSameType,
+  extractQueryStringObjectFromUrl,
+  HttpRequestMethod,
+  shouldUpdate,
+} from '../../../utils';
 import {
   defaultMocksOptions,
   FluentMock,
@@ -10,13 +17,6 @@ import {
   WithMocksOptions,
 } from './with-mocks';
 import { validateMock } from './validate-mock';
-import {
-  areSameType,
-  extractQueryStringObjectFromUrl,
-  HttpRequestMethod,
-  shouldUpdate,
-} from '../../../utils';
-import { Request, Response } from 'playwright';
 
 function isJson(content: string | undefined): boolean {
   try {

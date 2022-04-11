@@ -1,5 +1,5 @@
-import * as SUT from '../../../fluent-api';
 import * as path from 'path';
+import * as SUT from '../../../fluent-api';
 
 describe('Selector API - isEnabled', (): void => {
   let p: SUT.PlaywrightFluent;

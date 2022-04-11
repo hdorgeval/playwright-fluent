@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { sleep } from '../../../../utils';
 import { SerializableDOMRect } from '../../../dom-actions';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('get client rectangle of an element handle', (): void => {
   let browser: Browser | undefined = undefined;

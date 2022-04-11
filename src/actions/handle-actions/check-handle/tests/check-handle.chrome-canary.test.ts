@@ -1,11 +1,11 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { hasHandleFocus } from '../../has-handle-focus';
 import { showMousePosition } from '../../../dom-actions';
 import { defaultCheckOptions, CheckOptions } from '../check-handle';
 import { isHandleChecked } from '../../is-handle-checked';
 import { getChromeCanaryPath } from '../../../../utils';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe.skip('check handle', (): void => {
   let browser: Browser | undefined = undefined;

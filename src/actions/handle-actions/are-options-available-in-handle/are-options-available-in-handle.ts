@@ -1,5 +1,5 @@
-import { isOptionAvailableInHandle } from '../is-option-available-in-handle';
 import { ElementHandle } from 'playwright';
+import { isOptionAvailableInHandle } from '../is-option-available-in-handle';
 
 export async function areOptionsAvailableInHandle(
   selector: ElementHandle<Element> | null | undefined,

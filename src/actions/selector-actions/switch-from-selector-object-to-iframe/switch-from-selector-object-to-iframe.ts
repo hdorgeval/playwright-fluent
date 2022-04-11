@@ -1,8 +1,8 @@
+import { Frame, Page } from 'playwright';
 import { waitUntil, report } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
 import { switchFromHandleToIframe, SwitchToIframeOptions } from '../../handle-actions';
 import { getPageFrom } from '../../dom-actions';
-import { Frame, Page } from 'playwright';
 
 export async function switchFromSelectorObjectToIframe(
   selector: SelectorFluent,

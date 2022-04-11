@@ -1,6 +1,6 @@
+import { Frame, Page } from 'playwright';
 import { SelectorFluent } from '../../../selector-api';
 import { report, waitUntil, WaitUntilOptions } from '../../../utils';
-import { Frame, Page } from 'playwright';
 
 export async function selectorObjectDoesNotExist(
   selector: SelectorFluent,

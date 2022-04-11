@@ -1,5 +1,5 @@
-import { getInnerTextOfHandle } from '../get-inner-text-of-handle';
 import { ElementHandle } from 'playwright';
+import { getInnerTextOfHandle } from '../get-inner-text-of-handle';
 
 export async function hasHandleText(
   handle: ElementHandle<Element> | undefined | null,

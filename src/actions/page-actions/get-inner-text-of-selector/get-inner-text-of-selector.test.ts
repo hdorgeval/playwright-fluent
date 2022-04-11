@@ -1,6 +1,6 @@
-import * as SUT from './index';
-import { defaultWaitUntilOptions } from '../../../utils';
 import { Page } from 'playwright';
+import { defaultWaitUntilOptions } from '../../../utils';
+import * as SUT from './index';
 
 describe('get-inner-text-of-selector', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

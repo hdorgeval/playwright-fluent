@@ -1,7 +1,7 @@
+import * as path from 'path';
+import { FakeServer } from 'simple-fake-server';
 import * as SUT from '../../playwright-fluent';
 import { sizeOf } from '../../../devices';
-import { FakeServer } from 'simple-fake-server';
-import * as path from 'path';
 
 describe('Playwright Fluent - recordVideo()', (): void => {
   let p: SUT.PlaywrightFluent;

@@ -1,3 +1,5 @@
+import * as path from 'path';
+import { Browser, webkit } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
 import {
@@ -6,8 +8,6 @@ import {
   HoverOptions,
   isHandleVisible,
 } from '../../../handle-actions';
-import { Browser, webkit } from 'playwright';
-import * as path from 'path';
 
 describe('hover on selector', (): void => {
   let browser: Browser | undefined = undefined;

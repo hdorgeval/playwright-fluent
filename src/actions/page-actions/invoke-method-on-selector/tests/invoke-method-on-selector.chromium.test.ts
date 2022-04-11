@@ -1,10 +1,10 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { hasHandleFocus } from '../../../handle-actions/has-handle-focus';
 import { defaultInvokeOptions, InvokeOptions } from '../invoke-method-on-selector';
 import { defaultVerboseOptions, isHandleChecked } from '../../../handle-actions';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('invoke method on selector', (): void => {
   let browser: Browser | undefined = undefined;

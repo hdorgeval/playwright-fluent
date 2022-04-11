@@ -1,3 +1,4 @@
+import { ElementHandle, Frame, Page } from 'playwright';
 import { HoverOptions, defaultHoverOptions, hoverOnHandle } from '../hover-on-handle';
 import { report, waitUntil } from '../../../utils';
 import { isHandleEnabled } from '../is-handle-enabled';
@@ -5,7 +6,6 @@ import { getAllOptionsOfHandle } from '../get-all-options-of-handle';
 import { SelectOptions } from '../select-options-in-handle';
 import { areOptionsByValueAlreadySelectedInHandle } from '../are-options-by-value-already-selected-in-handle';
 import { areOptionsByValueAvailableInHandle } from '../are-options-by-value-available-in-handle';
-import { ElementHandle, Frame, Page } from 'playwright';
 
 export async function selectOptionsByValueInHandle(
   selector: ElementHandle<Element> | undefined | null,

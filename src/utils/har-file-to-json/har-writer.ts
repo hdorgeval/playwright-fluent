@@ -1,5 +1,5 @@
-import { getHarDataFrom, HarEntry } from '.';
 import { writeFileSync } from 'fs';
+import { getHarDataFrom, HarEntry } from '.';
 
 export interface shrinkHarFileOptions {
   inputFile: string;

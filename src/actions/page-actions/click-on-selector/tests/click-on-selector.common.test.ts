@@ -1,6 +1,6 @@
+import { Page } from 'playwright';
 import * as SUT from '../index';
 import { defaultClickOptions } from '../../../handle-actions';
-import { Page } from 'playwright';
 
 describe('click-on-selector', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

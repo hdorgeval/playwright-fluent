@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions, noWaitNoThrowOptions } from '../../../utils';
 import { isHandleNotVisibleInViewport } from '../../handle-actions';
-import { Frame, Page } from 'playwright';
 
 export async function isSelectorNotVisibleInViewport(
   selector: string,

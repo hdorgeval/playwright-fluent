@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, chromium, Dialog } from 'playwright';
 import * as SUT from '../index';
 import { sleep } from '../../../../utils';
 import { recordPageDialogs } from '../../record-page-dialogs';
-import { Browser, chromium, Dialog } from 'playwright';
-import * as path from 'path';
 
 describe('cancel page dialog', (): void => {
   let browser: Browser | undefined = undefined;

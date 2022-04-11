@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
 import { getClassListOfHandle } from '../../handle-actions/get-class-list-of-handle';
-import { Frame, Page } from 'playwright';
 
 export async function getClassListOfSelector(
   selector: string,

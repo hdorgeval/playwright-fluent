@@ -1,6 +1,6 @@
+import { Frame, Page } from 'playwright';
 import { ClickOptions } from '../../../fluent-api';
 import { defaultWaitUntilOptions, sleep, toPage } from '../../../utils';
-import { Frame, Page } from 'playwright';
 declare const window: Window;
 
 export interface TypeTextOptions {

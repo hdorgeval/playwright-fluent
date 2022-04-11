@@ -1,8 +1,8 @@
-import * as SUT from '../index';
-import { sleep } from '../../../../utils';
+import * as path from 'path';
 import { Browser, chromium } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
-import * as path from 'path';
+import * as SUT from '../index';
+import { sleep } from '../../../../utils';
 
 describe('record page errors', (): void => {
   let browser: Browser | undefined = undefined;

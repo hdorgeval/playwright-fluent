@@ -1,6 +1,6 @@
+import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 import { defaultDoubleClickOptions } from '../double-click-on-handle';
-import { ElementHandle } from 'playwright';
 
 describe('double-click on handle', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

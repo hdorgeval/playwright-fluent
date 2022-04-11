@@ -1,5 +1,5 @@
-import { Page } from 'playwright';
 import { EOL } from 'os';
+import { Page } from 'playwright';
 
 export async function recordPageErrors(
   page: Page | undefined,

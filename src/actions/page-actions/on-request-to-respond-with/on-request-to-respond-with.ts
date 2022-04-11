@@ -1,5 +1,5 @@
-import { HttpHeaders, HttpRequestMethod } from '../../../utils';
 import { Page, Request } from 'playwright';
+import { HttpHeaders, HttpRequestMethod } from '../../../utils';
 
 export interface MockedResponse<T> {
   status: number;

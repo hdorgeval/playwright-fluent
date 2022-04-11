@@ -1,6 +1,6 @@
+import { Page } from 'playwright';
 import * as SUT from '../index';
 import { defaultHoverOptions } from '../../../handle-actions';
-import { Page } from 'playwright';
 
 describe('hover-on-selector', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

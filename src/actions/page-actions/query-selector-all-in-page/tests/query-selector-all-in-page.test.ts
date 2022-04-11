@@ -1,6 +1,6 @@
-import * as SUT from '../index';
-import { Browser, Page, chromium } from 'playwright';
 import * as path from 'path';
+import { Browser, Page, chromium } from 'playwright';
+import * as SUT from '../index';
 
 describe('query selector all in page', (): void => {
   let browser: Browser | undefined = undefined;

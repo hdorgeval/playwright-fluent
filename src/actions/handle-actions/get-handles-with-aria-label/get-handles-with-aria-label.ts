@@ -1,5 +1,5 @@
-import { hasHandleAriaLabel } from '../has-handle-aria-label';
 import { ElementHandle } from 'playwright';
+import { hasHandleAriaLabel } from '../has-handle-aria-label';
 
 export async function getHandlesWithAriaLabel(
   text: string,

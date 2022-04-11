@@ -1,8 +1,8 @@
+import { ElementHandle, Frame, Page } from 'playwright';
 import { hoverOnHandle, HoverOptions, defaultHoverOptions } from '../hover-on-handle';
 import { waitUntil, report } from '../../../utils';
 import { isHandleEnabled } from '../is-handle-enabled';
 import { isHandleChecked } from '../is-handle-checked';
-import { ElementHandle, Frame, Page } from 'playwright';
 
 export interface CheckOptions {
   stabilityInMilliseconds: number;

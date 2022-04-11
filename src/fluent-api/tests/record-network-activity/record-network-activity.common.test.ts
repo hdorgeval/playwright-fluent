@@ -1,6 +1,6 @@
+import path from 'path';
 import { uniqueFilename } from '../../../utils';
 import * as SUT from '../../playwright-fluent';
-import path from 'path';
 
 describe('Playwright Fluent - recordNetworkActivity()', (): void => {
   let p: SUT.PlaywrightFluent;

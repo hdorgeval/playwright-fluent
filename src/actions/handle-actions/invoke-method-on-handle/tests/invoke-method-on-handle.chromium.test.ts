@@ -1,11 +1,11 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { isHandleChecked } from '../../is-handle-checked';
 import { defaultVerboseOptions } from '../../is-handle-visible';
 import { hasHandleFocus } from '../../has-handle-focus';
 import { MethodName } from '../index';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('invoke method on handle', (): void => {
   let browser: Browser | undefined = undefined;

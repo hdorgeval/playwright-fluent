@@ -1,5 +1,5 @@
-import { PlaywrightFluent } from '../../playwright-fluent';
 import path from 'path';
+import { PlaywrightFluent } from '../../playwright-fluent';
 describe('Playwright Fluent - waitForDialog()', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {

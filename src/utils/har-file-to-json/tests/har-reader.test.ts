@@ -1,8 +1,8 @@
-import { mockRequest } from './request.mock';
+import path from 'path';
+import { Request } from 'playwright';
 import * as SUT from '../index';
 import { getHarDataFrom } from '../index';
-import { Request } from 'playwright';
-import path from 'path';
+import { mockRequest } from './request.mock';
 
 describe('har-reader', (): void => {
   test('should find response for an http GET', async (): Promise<void> => {

@@ -1,6 +1,6 @@
+import { Page, ElementHandle, Frame } from 'playwright';
 import { waitUntil, report, WaitUntilOptions } from '../../../utils';
 import { exists, getPageFrom } from '../../dom-actions';
-import { Page, ElementHandle, Frame } from 'playwright';
 
 export async function getHandleOf(
   selector: string,

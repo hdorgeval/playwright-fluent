@@ -1,5 +1,5 @@
-import { Page } from 'playwright';
 import path from 'path';
+import { Page } from 'playwright';
 export async function recordDownloadsTo(
   downloadDirectory: string,
   page: Page | undefined,

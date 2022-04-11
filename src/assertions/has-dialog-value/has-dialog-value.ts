@@ -1,6 +1,6 @@
+import { Dialog } from 'playwright';
 import { WaitUntilOptions, defaultWaitUntilOptions, waitUntil } from '../../utils';
 import { AssertOptions, defaultAssertOptions } from '../../fluent-api';
-import { Dialog } from 'playwright';
 export async function expectThatDialogHasValue(
   dialog: () => Dialog | undefined,
   value: string,

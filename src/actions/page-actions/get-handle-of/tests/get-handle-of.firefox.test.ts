@@ -1,6 +1,6 @@
+import { Browser, firefox } from 'playwright';
 import * as SUT from '..';
 import { defaultWaitUntilOptions, WaitUntilOptions } from '../../../../utils';
-import { Browser, firefox } from 'playwright';
 
 describe('get-handle-of', (): void => {
   let browser: Browser | undefined = undefined;

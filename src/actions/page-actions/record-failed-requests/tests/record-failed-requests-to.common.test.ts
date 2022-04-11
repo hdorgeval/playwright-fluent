@@ -1,5 +1,5 @@
-import * as SUT from '../index';
 import { Page, Request } from 'playwright';
+import * as SUT from '../index';
 describe('record failed requests', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});

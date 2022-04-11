@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { waitUntil, report } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
 import { SelectOptions, selectOptionsByValueInHandle } from '../../handle-actions';
-import { Frame, Page } from 'playwright';
 
 export async function selectOptionsByValueInSelectorObject(
   selector: SelectorFluent,

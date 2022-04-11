@@ -1,6 +1,6 @@
-import { toDays, UpdatePolicy } from '../dates';
 import { existsSync, mkdirSync, PathLike, readdirSync, statSync, unlinkSync } from 'fs';
 import { join } from 'path';
+import { toDays, UpdatePolicy } from '../dates';
 
 export const userHomeDirectory = process.env.HOME || process.env.USERPROFILE || process.cwd();
 export const userDownloadsDirectory = join(userHomeDirectory, 'Downloads');

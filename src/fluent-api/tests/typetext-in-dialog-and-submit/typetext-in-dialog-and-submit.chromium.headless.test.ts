@@ -1,5 +1,5 @@
-import { PlaywrightFluent } from '../../playwright-fluent';
 import path from 'path';
+import { PlaywrightFluent } from '../../playwright-fluent';
 describe('Playwright Fluent - typeTextInDialogAndSubmit()', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {

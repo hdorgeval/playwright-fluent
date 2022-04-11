@@ -1,9 +1,9 @@
+import { Dialog, Frame, Page } from 'playwright';
 import {
   defaultWaitUntilOptions,
   waitUntil,
   WaitUntilOptions,
 } from '../../../utils/wait-until/wait-until';
-import { Dialog, Frame, Page } from 'playwright';
 
 export async function waitForDialog(
   dialog: () => Dialog | undefined,

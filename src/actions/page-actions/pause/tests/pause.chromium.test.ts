@@ -1,7 +1,7 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('pause', (): void => {
   let browser: Browser | undefined = undefined;

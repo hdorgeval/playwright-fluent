@@ -1,3 +1,4 @@
+import { Page, Request, Route } from 'playwright';
 import {
   areQueryStringSimilar,
   getHarDataFrom,
@@ -10,7 +11,6 @@ import {
   HttpRequestMethod,
   urlToPathWithoutQueryString,
 } from '../../../utils';
-import { Page, Request, Route } from 'playwright';
 
 function getAllHarEntries(harFiles: string[]): HarEntry[] {
   const entries: HarEntry[] = [];

@@ -1,5 +1,5 @@
-import { SerializableDOMRect } from '../../dom-actions/get-client-rectangle-of';
 import { ElementHandle } from 'playwright';
+import { SerializableDOMRect } from '../../dom-actions/get-client-rectangle-of';
 
 export async function getClientRectangleOfHandle(
   selector: ElementHandle<Element> | null | undefined,

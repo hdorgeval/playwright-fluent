@@ -1,6 +1,6 @@
+import { Frame, Page } from 'playwright';
 import { KeyboardHoldKey } from '../hold-down-key';
 import { toPage } from '../../../utils';
-import { Frame, Page } from 'playwright';
 export async function releaseKey(
   key: KeyboardHoldKey,
   page: Page | Frame | undefined,

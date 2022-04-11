@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, webkit } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { sleep } from '../../../../utils';
-import { Browser, webkit } from 'playwright';
-import * as path from 'path';
 
 describe.skip('handle is moving', (): void => {
   let browser: Browser | undefined = undefined;

@@ -1,7 +1,7 @@
+import path from 'path';
+import { Browser, chromium, Page } from 'playwright';
 import * as SUT from '../index';
 import { defaultHarRequestResponseOptions } from '../index';
-import { Browser, chromium, Page } from 'playwright';
-import path from 'path';
 
 describe('on request to respond from HAR', (): void => {
   let browser: Browser | undefined = undefined;

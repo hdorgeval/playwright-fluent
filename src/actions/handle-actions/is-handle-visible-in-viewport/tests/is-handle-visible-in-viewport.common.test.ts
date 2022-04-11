@@ -1,6 +1,6 @@
+import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 import { defaultVerboseOptions } from '../../is-handle-visible';
-import { ElementHandle } from 'playwright';
 
 describe('handle is visible in viewport', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

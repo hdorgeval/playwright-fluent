@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { FakeServer } from 'simple-fake-server';
 import * as SUT from '../../playwright-fluent';
 import { stringifyRequest, RequestInfo } from '../../../utils';
 import { mockGetWithJsonResponse } from '../../../actions';
-import { FakeServer } from 'simple-fake-server';
-import * as path from 'path';
 
 describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
   let p: SUT.PlaywrightFluent;

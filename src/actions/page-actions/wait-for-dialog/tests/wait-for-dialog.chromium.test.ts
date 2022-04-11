@@ -1,7 +1,7 @@
+import * as path from 'path';
+import { chromium, Dialog } from 'playwright';
 import * as SUT from '../index';
 import { recordPageDialogs } from '../../record-page-dialogs';
-import { chromium, Dialog } from 'playwright';
-import * as path from 'path';
 
 describe('wait for page dialog to open', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

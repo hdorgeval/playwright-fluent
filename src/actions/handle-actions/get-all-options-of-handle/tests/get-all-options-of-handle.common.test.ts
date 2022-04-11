@@ -1,5 +1,5 @@
-import * as SUT from '../index';
 import { ElementHandle } from 'playwright';
+import * as SUT from '../index';
 
 describe('get all options of handle', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

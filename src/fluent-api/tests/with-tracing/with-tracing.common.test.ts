@@ -1,5 +1,5 @@
-import * as SUT from '../../playwright-fluent';
 import path from 'path';
+import * as SUT from '../../playwright-fluent';
 
 describe('Playwright Fluent - withTracing()', (): void => {
   let p: SUT.PlaywrightFluent;

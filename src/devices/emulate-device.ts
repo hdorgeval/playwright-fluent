@@ -1,6 +1,6 @@
+import { BrowserName } from '../actions';
 import { DeviceName } from './device-names';
 import { allKnownDevices, Device } from './device-descriptors';
-import { BrowserName } from '../actions';
 
 export function getDevice(deviceName: DeviceName): Device | undefined {
   const device = allKnownDevices.filter((d) => d.name === deviceName).shift();

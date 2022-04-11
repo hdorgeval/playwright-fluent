@@ -1,11 +1,11 @@
+import * as path from 'path';
+import { Browser, webkit } from 'playwright';
 import * as SUT from '../index';
 import { getViewportRectangleOf } from '../../../page-actions';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
 import { defaultVerboseOptions } from '../../is-handle-visible';
 import { sleep } from '../../../../utils';
 import { isHandleVisibleInViewport } from '../../is-handle-visible-in-viewport';
-import { Browser, webkit } from 'playwright';
-import * as path from 'path';
 
 describe('scroll to handle', (): void => {
   let browser: Browser | undefined = undefined;

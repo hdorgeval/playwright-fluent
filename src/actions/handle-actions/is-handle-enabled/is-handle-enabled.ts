@@ -1,6 +1,6 @@
+import { ElementHandle } from 'playwright';
 import { report } from '../../../utils';
 import { VerboseOptions } from '../is-handle-visible';
-import { ElementHandle } from 'playwright';
 
 export async function isHandleEnabled(
   selector: ElementHandle<Element> | undefined | null,

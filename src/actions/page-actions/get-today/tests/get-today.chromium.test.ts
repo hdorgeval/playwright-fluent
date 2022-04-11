@@ -1,5 +1,5 @@
-import * as SUT from '../index';
 import { Browser, chromium } from 'playwright';
+import * as SUT from '../index';
 
 describe('get today date of page', (): void => {
   let browser: Browser | undefined = undefined;

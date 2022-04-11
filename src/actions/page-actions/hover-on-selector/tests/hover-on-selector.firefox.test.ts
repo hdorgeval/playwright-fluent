@@ -1,3 +1,5 @@
+import * as path from 'path';
+import { Browser, firefox } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
 import {
@@ -6,8 +8,6 @@ import {
   HoverOptions,
   isHandleVisible,
 } from '../../../handle-actions';
-import { Browser, firefox } from 'playwright';
-import * as path from 'path';
 
 // TODO: re-enable these tests on v1.0.0
 describe.skip('hover on selector', (): void => {

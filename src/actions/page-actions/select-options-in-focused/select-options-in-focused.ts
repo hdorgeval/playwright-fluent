@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { SelectOptions, selectOptionsInHandle } from '../../handle-actions';
 import { WaitUntilOptions, defaultWaitUntilOptions, report, waitUntil } from '../../../utils';
 import { getFocusedHandle } from '../get-focused-handle';
-import { Frame, Page } from 'playwright';
 
 export async function selectOptionsInFocused(
   labels: string[],

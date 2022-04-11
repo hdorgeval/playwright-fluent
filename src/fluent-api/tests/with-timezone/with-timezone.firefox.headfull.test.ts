@@ -1,5 +1,5 @@
-import { PlaywrightFluent } from '../../playwright-fluent';
 import path from 'path';
+import { PlaywrightFluent } from '../../playwright-fluent';
 describe.skip('Playwright Fluent - withTimezone', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {

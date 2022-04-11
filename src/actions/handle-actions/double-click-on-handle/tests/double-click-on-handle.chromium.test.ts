@@ -1,9 +1,9 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { defaultDoubleClickOptions, DoubleClickOptions } from '../double-click-on-handle';
 import { hasHandleFocus } from '../../has-handle-focus';
 import { showMousePosition } from '../../../dom-actions';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('double-click on handle', (): void => {
   let browser: Browser | undefined = undefined;

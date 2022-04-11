@@ -1,7 +1,7 @@
+import { ElementHandle, Frame, Page } from 'playwright';
 import { hoverOnHandle, HoverOptions, defaultHoverOptions } from '../hover-on-handle';
 import { waitUntil, report } from '../../../utils';
 import { isHandleEnabled } from '../is-handle-enabled';
-import { ElementHandle, Frame, Page } from 'playwright';
 
 export type Modifier = 'Alt' | 'Control' | 'Meta' | 'Shift';
 export type Button = 'left' | 'right' | 'middle';

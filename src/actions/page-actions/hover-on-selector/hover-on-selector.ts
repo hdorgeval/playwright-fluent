@@ -1,6 +1,6 @@
+import { Frame, Page } from 'playwright';
 import { HoverOptions, hoverOnHandle } from '../../handle-actions';
 import { getHandleOf } from '../get-handle-of';
-import { Frame, Page } from 'playwright';
 
 export async function hoverOnSelector(
   selector: string,

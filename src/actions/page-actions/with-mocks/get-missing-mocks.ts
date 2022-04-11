@@ -1,3 +1,5 @@
+import { Request } from 'playwright';
+import { extractQueryStringObjectFromUrl, HttpRequestMethod, MimeType } from '../../../utils';
 import {
   FluentMock,
   getPostDataOf,
@@ -8,8 +10,6 @@ import {
   spreadMissingProperties,
 } from './with-mocks';
 import { validateMock } from './validate-mock';
-import { extractQueryStringObjectFromUrl, HttpRequestMethod, MimeType } from '../../../utils';
-import { Request } from 'playwright';
 
 export interface MissingMock {
   url: string;

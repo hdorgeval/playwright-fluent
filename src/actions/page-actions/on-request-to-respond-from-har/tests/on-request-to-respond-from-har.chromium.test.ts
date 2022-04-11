@@ -1,11 +1,11 @@
+import * as path from 'path';
+import { readFileSync } from 'fs';
+import { Browser, chromium, Request } from 'playwright';
+import { FakeServer } from 'simple-fake-server';
 import * as SUT from '../index';
 import { recordRequestsTo } from '../../record-requests-to';
 import { stringifyRequest, RequestInfo, sleep } from '../../../../utils';
 import { defaultHarRequestResponseOptions, HarRequestResponseOptions } from '../index';
-import { Browser, chromium, Request } from 'playwright';
-import { FakeServer } from 'simple-fake-server';
-import * as path from 'path';
-import { readFileSync } from 'fs';
 
 describe('on request to respond from HAR files', (): void => {
   let browser: Browser | undefined = undefined;

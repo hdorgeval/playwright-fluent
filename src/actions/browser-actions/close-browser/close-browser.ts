@@ -1,5 +1,5 @@
-import { sleep } from '../../../utils';
 import { Browser } from 'playwright';
+import { sleep } from '../../../utils';
 
 export interface CloseOptions {
   /**

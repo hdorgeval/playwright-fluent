@@ -1,6 +1,6 @@
+import { ElementHandle } from 'playwright';
 import { getClientRectangleOfHandle } from '../get-client-rectangle-of-handle';
 import { sleep, getDistanceBetweenClientRectangles } from '../../../utils';
-import { ElementHandle } from 'playwright';
 
 export async function isHandleMoving(
   selector: ElementHandle<Element> | null | undefined,

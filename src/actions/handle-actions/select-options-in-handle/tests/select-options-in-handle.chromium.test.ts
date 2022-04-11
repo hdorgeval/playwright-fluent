@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, chromium, ElementHandle } from 'playwright';
 import * as SUT from '../index';
 import { defaultSelectOptions } from '../index';
 import { getAllOptionsOfHandle } from '../../get-all-options-of-handle';
-import { Browser, chromium, ElementHandle } from 'playwright';
-import * as path from 'path';
 
 describe('select options in handle', (): void => {
   let browser: Browser | undefined = undefined;

@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { ClickOptions, clickOnHandle } from '../../handle-actions';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions, defaultWaitUntilOptions } from '../../../utils';
-import { Frame, Page } from 'playwright';
 
 export async function clickOnSelector(
   selector: string,

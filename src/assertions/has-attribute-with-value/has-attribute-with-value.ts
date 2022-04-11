@@ -1,3 +1,4 @@
+import { Frame, Page } from 'playwright';
 import { SelectorFluent } from '../../selector-api';
 import {
   WaitUntilOptions,
@@ -7,7 +8,6 @@ import {
 } from '../../utils';
 import * as action from '../../actions';
 import { AssertOptions, defaultAssertOptions } from '../../fluent-api';
-import { Frame, Page } from 'playwright';
 
 export async function hasAttributeWithValue(
   selector: string | SelectorFluent,

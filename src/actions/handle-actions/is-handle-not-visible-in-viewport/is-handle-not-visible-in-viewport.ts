@@ -1,7 +1,7 @@
+import { ElementHandle } from 'playwright';
 import { report } from '../../../utils';
 import { VerboseOptions } from '../is-handle-visible';
 import { getIntersectionRatioOfHandle } from '../get-intersection-ratio-of-handle';
-import { ElementHandle } from 'playwright';
 
 declare const window: Window;
 

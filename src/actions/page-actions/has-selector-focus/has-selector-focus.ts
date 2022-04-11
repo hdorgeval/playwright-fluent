@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
 import { hasHandleFocus } from '../../handle-actions/has-handle-focus';
-import { Frame, Page } from 'playwright';
 
 export async function hasSelectorFocus(
   selector: string,

@@ -1,6 +1,6 @@
+import * as path from 'path';
 import * as SUT from '../../playwright-fluent';
 import { noWaitNoThrowOptions } from '../../../utils';
-import * as path from 'path';
 describe('Playwright Fluent - expectThat isNotVisibleInViewport()', (): void => {
   let p: SUT.PlaywrightFluent;
   beforeEach((): void => {

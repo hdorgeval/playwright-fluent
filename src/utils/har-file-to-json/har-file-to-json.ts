@@ -1,7 +1,7 @@
-import { HarData, HarHeader, HarResponse } from '.';
+import { readFileSync } from 'fs';
 import { fileDoesNotExist } from '../fs/fs';
 import { HttpHeaders } from '../stringify-request';
-import { readFileSync } from 'fs';
+import { HarData, HarHeader, HarResponse } from '.';
 export function getHarDataFrom(filepath: string | undefined): HarData {
   if (!filepath) {
     throw new Error(

@@ -1,6 +1,6 @@
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { ViewportRect } from '../index';
-import { Browser, chromium } from 'playwright';
 
 describe('get viewport rectangle of page', (): void => {
   let browser: Browser | undefined = undefined;

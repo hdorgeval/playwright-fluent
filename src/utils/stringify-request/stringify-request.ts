@@ -1,6 +1,6 @@
-import { Request, Response } from 'playwright';
 import { URL } from 'url';
 import * as querystring from 'querystring';
+import { Request, Response } from 'playwright';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const escapeHtml = require('escape-html');
 

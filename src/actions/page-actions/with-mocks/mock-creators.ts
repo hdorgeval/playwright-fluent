@@ -1,13 +1,13 @@
-import { FluentMock, QueryString, RequestInfos, ResponseData } from './with-mocks';
-import { MissingMock } from './get-missing-mocks';
+import path from 'path';
+import { writeFileSync } from 'fs';
 import {
   ensureDirectoryExists,
   hasNoQueryString,
   UpdatePolicy,
   urlToShortPath,
 } from '../../../utils';
-import path from 'path';
-import { writeFileSync } from 'fs';
+import { FluentMock, QueryString, RequestInfos, ResponseData } from './with-mocks';
+import { MissingMock } from './get-missing-mocks';
 
 export interface UpdatePolicyOptions {
   /**

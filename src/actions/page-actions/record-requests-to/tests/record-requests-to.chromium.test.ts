@@ -1,8 +1,8 @@
-import * as SUT from '../index';
-import { stringifyRequest, RequestInfo, sleep } from '../../../../utils';
+import * as path from 'path';
 import { Browser, chromium, Request } from 'playwright';
 import { FakeServer } from 'simple-fake-server';
-import * as path from 'path';
+import * as SUT from '../index';
+import { stringifyRequest, RequestInfo, sleep } from '../../../../utils';
 
 describe('record requests to', (): void => {
   let browser: Browser | undefined = undefined;

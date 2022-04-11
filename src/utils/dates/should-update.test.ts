@@ -1,5 +1,5 @@
-import * as SUT from './index';
 import { UpdatePolicy } from '..';
+import * as SUT from './index';
 function addDays(date: Date, days: number): Date {
   const result = new Date(date);
   result.setDate(result.getDate() + days);

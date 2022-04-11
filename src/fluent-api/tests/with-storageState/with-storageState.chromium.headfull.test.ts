@@ -1,7 +1,7 @@
-import { PlaywrightFluent } from '../../playwright-fluent';
-import { StorageState } from '../../playwright-types';
 import { join } from 'path';
 import { readFileSync } from 'fs';
+import { PlaywrightFluent } from '../../playwright-fluent';
+import { StorageState } from '../../playwright-types';
 describe('Playwright Fluent - withStorageState', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {

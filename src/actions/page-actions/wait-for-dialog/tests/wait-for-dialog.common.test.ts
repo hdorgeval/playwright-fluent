@@ -1,5 +1,5 @@
-import * as SUT from '../index';
 import { Dialog, Page } from 'playwright';
+import * as SUT from '../index';
 
 describe('wait for page dialog to open', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

@@ -1,5 +1,5 @@
-import * as SUT from '..';
 import { Browser, webkit } from 'playwright';
+import * as SUT from '..';
 
 describe.skip('get-focused-handle', (): void => {
   let browser: Browser | undefined = undefined;

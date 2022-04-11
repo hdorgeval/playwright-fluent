@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
 import { isHandleDisabled, isHandleReadOnly } from '../../handle-actions';
-import { Frame, Page } from 'playwright';
 
 export async function isSelectorDisabled(
   selector: string,

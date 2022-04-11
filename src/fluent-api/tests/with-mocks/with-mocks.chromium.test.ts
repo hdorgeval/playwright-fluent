@@ -1,8 +1,8 @@
-import * as SUT from '../../playwright-fluent';
-import { stringifyRequest, RequestInfo, toRequestInfo } from '../../../utils';
-import { FakeServer } from 'simple-fake-server';
 import * as path from 'path';
 import { readFileSync } from 'fs';
+import { FakeServer } from 'simple-fake-server';
+import * as SUT from '../../playwright-fluent';
+import { stringifyRequest, RequestInfo, toRequestInfo } from '../../../utils';
 
 describe('Playwright Fluent - withMocks()', (): void => {
   let p: SUT.PlaywrightFluent;

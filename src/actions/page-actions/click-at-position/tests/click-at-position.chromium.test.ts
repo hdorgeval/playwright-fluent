@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { getClientRectangleOf, showMousePosition } from '../../../dom-actions';
 import { ClickOptions, defaultClickOptions } from '../../../handle-actions';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('click at position', (): void => {
   let browser: Browser | undefined = undefined;

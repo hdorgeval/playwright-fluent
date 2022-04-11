@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions } from '../../../utils';
 import { hasNotHandleClass } from '../../handle-actions/has-not-handle-class';
-import { Frame, Page } from 'playwright';
 
 export async function hasNotSelectorClass(
   selector: string,

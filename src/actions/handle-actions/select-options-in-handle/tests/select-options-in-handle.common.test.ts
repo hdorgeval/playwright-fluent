@@ -1,6 +1,6 @@
+import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 import { defaultSelectOptions } from '../select-options-in-handle';
-import { ElementHandle } from 'playwright';
 
 describe('select options in handle', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

@@ -1,5 +1,5 @@
-import * as SUT from '../index';
 import { Page } from 'playwright';
+import * as SUT from '../index';
 
 describe('full page screenshot', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

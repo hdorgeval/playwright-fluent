@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { MethodName, invokeMethodOnHandle } from '../../handle-actions';
 import { getHandleOf } from '../get-handle-of';
 import { WaitUntilOptions, defaultWaitUntilOptions } from '../../../utils';
-import { Frame, Page } from 'playwright';
 
 export interface InvokeOptions {
   stabilityInMilliseconds: number;

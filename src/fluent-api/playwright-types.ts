@@ -1,6 +1,6 @@
-import { WindowSize } from '.';
-import { TimeZoneId } from './timezone-ids';
 import { ViewportSize } from '../devices';
+import { TimeZoneId } from './timezone-ids';
+import { WindowSize } from '.';
 
 export interface Geolocation {
   longitude: number;

@@ -1,5 +1,5 @@
-import { hasHandleValue } from '../has-handle-value';
 import { ElementHandle } from 'playwright';
+import { hasHandleValue } from '../has-handle-value';
 
 export async function getHandlesWithValue(
   text: string,

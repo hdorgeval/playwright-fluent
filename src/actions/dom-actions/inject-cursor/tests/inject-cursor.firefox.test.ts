@@ -1,6 +1,6 @@
+import { Browser, firefox } from 'playwright';
 import * as SUT from '../index';
 import { exists } from '../..';
-import { Browser, firefox } from 'playwright';
 
 describe('inject-cursor', (): void => {
   let browser: Browser | undefined = undefined;

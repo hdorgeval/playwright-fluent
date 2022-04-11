@@ -1,3 +1,5 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import {
   deleteFile,
@@ -6,8 +8,6 @@ import {
   userHomeDirectory,
   waitUntil,
 } from '../../../../utils';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('record downloads to', (): void => {
   let browser: Browser | undefined = undefined;

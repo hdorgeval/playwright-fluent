@@ -1,5 +1,5 @@
-import { DialogType, PlaywrightFluent } from '../../playwright-fluent';
 import path from 'path';
+import { DialogType, PlaywrightFluent } from '../../playwright-fluent';
 describe('Playwright Fluent - expectThatDialog().isOfType(type)', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {

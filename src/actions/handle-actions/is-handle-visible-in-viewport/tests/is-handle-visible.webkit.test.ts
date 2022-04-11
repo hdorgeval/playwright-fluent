@@ -1,10 +1,10 @@
+import * as path from 'path';
+import { Browser, webkit } from 'playwright';
 import * as SUT from '../index';
 import { getWindowState } from '../../../page-actions';
 import { getIntersectionRatioOfHandle } from '../../get-intersection-ratio-of-handle';
 import { sleep } from '../../../../utils';
 import { defaultVerboseOptions } from '../../is-handle-visible';
-import { Browser, webkit } from 'playwright';
-import * as path from 'path';
 
 describe.skip('handle is visible in viewport', (): void => {
   let browser: Browser | undefined = undefined;

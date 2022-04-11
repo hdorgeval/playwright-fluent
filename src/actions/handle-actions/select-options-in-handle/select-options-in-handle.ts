@@ -1,10 +1,10 @@
+import { ElementHandle, Frame, Page } from 'playwright';
 import { HoverOptions, defaultHoverOptions, hoverOnHandle } from '../hover-on-handle';
 import { areOptionsAlreadySelectedInHandle } from '../are-options-already-selected-in-handle';
 import { report, waitUntil } from '../../../utils';
 import { isHandleEnabled } from '../is-handle-enabled';
 import { areOptionsAvailableInHandle } from '../are-options-available-in-handle';
 import { getAllOptionsOfHandle } from '../get-all-options-of-handle';
-import { ElementHandle, Frame, Page } from 'playwright';
 
 export interface SelectOptions {
   stabilityInMilliseconds: number;

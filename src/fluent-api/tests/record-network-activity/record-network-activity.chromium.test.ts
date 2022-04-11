@@ -1,7 +1,7 @@
+import * as path from 'path';
+import { FakeServer } from 'simple-fake-server';
 import * as SUT from '../../playwright-fluent';
 import { uniqueFilename } from '../../../utils';
-import { FakeServer } from 'simple-fake-server';
-import * as path from 'path';
 
 describe('Playwright Fluent - recordNetworkActivity()', (): void => {
   let p: SUT.PlaywrightFluent;

@@ -1,5 +1,5 @@
-import * as SUT from './index';
 import { ElementHandle } from 'playwright';
+import * as SUT from './index';
 
 describe('get value of handle', (): void => {
   test('should return null when selector is null', async (): Promise<void> => {

@@ -1,6 +1,6 @@
-import * as which from 'which';
 import * as os from 'os';
 import { existsSync } from 'fs';
+import * as which from 'which';
 
 const currentPlatformType = os.type();
 const x86Path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe';

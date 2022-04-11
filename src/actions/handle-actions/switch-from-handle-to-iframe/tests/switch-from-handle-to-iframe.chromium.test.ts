@@ -1,10 +1,10 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
 import { isHandleVisible, defaultVerboseOptions } from '../../is-handle-visible';
 import { defaultSwitchToIframeOptions, SwitchToIframeOptions } from '../index';
 import { hoverOnHandle } from '../../hover-on-handle';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('switch from handle to iframe', (): void => {
   let browser: Browser | undefined = undefined;

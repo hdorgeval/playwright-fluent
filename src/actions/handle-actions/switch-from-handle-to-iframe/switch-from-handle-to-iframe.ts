@@ -1,6 +1,6 @@
+import { ElementHandle, Frame, Page } from 'playwright';
 import { defaultHoverOptions, hoverOnHandle, HoverOptions } from '../hover-on-handle';
 import { getPageFrom, injectCursor } from '../../dom-actions';
-import { ElementHandle, Frame, Page } from 'playwright';
 
 export interface SwitchToIframeOptions extends HoverOptions {
   injectCursor: boolean;

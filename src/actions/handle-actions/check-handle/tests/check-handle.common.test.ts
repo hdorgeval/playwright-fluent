@@ -1,6 +1,6 @@
+import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 import { defaultCheckOptions } from '../index';
-import { ElementHandle } from 'playwright';
 
 describe('check handle', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

@@ -1,6 +1,6 @@
+import path from 'path';
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { fileExists } from '../../../utils';
-import path from 'path';
 describe('Playwright Fluent - withTracing()', (): void => {
   let p: PlaywrightFluent;
   beforeEach((): void => {

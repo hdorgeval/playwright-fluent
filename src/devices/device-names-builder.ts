@@ -1,6 +1,6 @@
-import { allKnownDevices } from './device-descriptors';
 import { writeFileSync } from 'fs';
 import * as path from 'path';
+import { allKnownDevices } from './device-descriptors';
 
 const deviceNames =
   'export type DeviceName = ' +

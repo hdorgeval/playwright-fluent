@@ -1,6 +1,6 @@
+import * as path from 'path';
 import * as SUT from '../../playwright-fluent';
 import { deleteFile, ensureDirectoryExists, fileExists } from '../../../utils';
-import * as path from 'path';
 
 describe('Playwright Fluent - recordDownloadsTo(directory)', (): void => {
   let p: SUT.PlaywrightFluent;

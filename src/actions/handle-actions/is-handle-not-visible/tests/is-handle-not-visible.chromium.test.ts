@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { defaultVerboseOptions } from '../../is-handle-visible';
 import { sleep } from '../../../../utils';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('handle is not visible', (): void => {
   let browser: Browser | undefined = undefined;

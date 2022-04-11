@@ -1,7 +1,7 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { querySelectorAllInPage } from '../../../page-actions';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('get elements with exact text', (): void => {
   let browser: Browser | undefined = undefined;

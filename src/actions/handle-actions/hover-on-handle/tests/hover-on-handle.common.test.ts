@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, chromium, Page } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { defaultHoverOptions, HoverOptions } from '../hover-on-handle';
-import { Browser, chromium, Page } from 'playwright';
-import * as path from 'path';
 
 describe('scroll to handle', (): void => {
   let browser: Browser | undefined = undefined;

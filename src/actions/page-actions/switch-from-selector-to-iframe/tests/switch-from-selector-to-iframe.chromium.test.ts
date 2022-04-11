@@ -1,11 +1,11 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
 import { defaultSwitchToIframeOptions, SwitchToIframeOptions } from '../../../handle-actions';
 import { hoverOnSelector } from '../../hover-on-selector';
 import { isSelectorVisible } from '../../is-selector-visible';
 import { defaultWaitUntilOptions } from '../../../../utils';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('switch from selector to iframe', (): void => {
   let browser: Browser | undefined = undefined;

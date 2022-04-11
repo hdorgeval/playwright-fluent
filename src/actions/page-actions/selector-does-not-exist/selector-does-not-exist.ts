@@ -1,6 +1,6 @@
+import { Frame, Page } from 'playwright';
 import { report, waitUntil, WaitUntilOptions } from '../../../utils';
 import { doesNotExist } from '../../dom-actions';
-import { Frame, Page } from 'playwright';
 
 export async function selectorDoesNotExist(
   selector: string,

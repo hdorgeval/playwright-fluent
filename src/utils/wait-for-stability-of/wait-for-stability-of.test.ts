@@ -1,5 +1,5 @@
-import * as SUT from './index';
 import { WaitUntilOptions, defaultWaitUntilOptions, noWaitNoThrowOptions } from '../wait-until';
+import * as SUT from './index';
 
 describe('wait for stability of', (): void => {
   test('should wait until value function returns bar', async (): Promise<void> => {

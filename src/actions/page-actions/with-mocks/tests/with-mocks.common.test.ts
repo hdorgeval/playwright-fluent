@@ -1,6 +1,6 @@
+import { Page } from 'playwright';
 import * as SUT from '../index';
 import { FluentMock } from '../with-mocks';
-import { Page } from 'playwright';
 
 describe('with mocks', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

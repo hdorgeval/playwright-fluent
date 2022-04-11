@@ -1,3 +1,6 @@
+import * as path from 'path';
+import { readFileSync } from 'fs';
+import { FakeServer } from 'simple-fake-server';
 import * as SUT from '../../playwright-fluent';
 import {
   stringifyRequest,
@@ -7,9 +10,6 @@ import {
   getHarResponseContentAs,
   harHeadersToHttpHeaders,
 } from '../../../utils';
-import { FakeServer } from 'simple-fake-server';
-import * as path from 'path';
-import { readFileSync } from 'fs';
 
 describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
   let p: SUT.PlaywrightFluent;

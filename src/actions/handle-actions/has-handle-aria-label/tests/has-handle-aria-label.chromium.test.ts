@@ -1,6 +1,6 @@
-import * as SUT from '../index';
-import { chromium } from 'playwright';
 import * as path from 'path';
+import { chromium } from 'playwright';
+import * as SUT from '../index';
 
 describe('handle has aria-label', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

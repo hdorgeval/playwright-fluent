@@ -1,5 +1,5 @@
-import { getAllOptionsOfHandle } from '../get-all-options-of-handle';
 import { ElementHandle } from 'playwright';
+import { getAllOptionsOfHandle } from '../get-all-options-of-handle';
 
 export async function isOptionByValueAvailableInHandle(
   selector: ElementHandle<Element> | null | undefined,

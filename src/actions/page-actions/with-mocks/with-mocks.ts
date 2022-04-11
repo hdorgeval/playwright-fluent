@@ -1,3 +1,4 @@
+import { Page, Request, Route } from 'playwright';
 import {
   extractQueryStringObjectFromUrl,
   UpdatePolicy,
@@ -5,7 +6,6 @@ import {
   HttpRequestMethod,
   MimeType,
 } from '../../../utils';
-import { Page, Request, Route } from 'playwright';
 
 export type ResponseData =
   | Record<string, unknown>

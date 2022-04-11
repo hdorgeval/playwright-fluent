@@ -1,7 +1,7 @@
+import { Frame, Page } from 'playwright';
 import { waitUntil, report, WaitUntilOptions } from '../../../utils';
 import { SelectorFluent } from '../../../selector-api';
 import { isHandleChecked } from '../../handle-actions';
-import { Frame, Page } from 'playwright';
 
 export async function isSelectorObjectChecked(
   selector: SelectorFluent,

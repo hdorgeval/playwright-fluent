@@ -1,5 +1,5 @@
-import * as SUT from '../../playwright-fluent';
 import * as path from 'path';
+import * as SUT from '../../playwright-fluent';
 
 describe('Playwright Fluent - takeFullPageScreenshotAsBase64', (): void => {
   let p: SUT.PlaywrightFluent;

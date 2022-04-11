@@ -1,5 +1,5 @@
-import { urlToPath } from '../url';
 import { Request } from 'playwright';
+import { urlToPath } from '../url';
 
 export type HttpRequestMethod =
   | 'CONNECT'

@@ -1,3 +1,4 @@
+import { ElementHandle } from 'playwright';
 import * as action from '../actions';
 import { PlaywrightFluent } from '../fluent-api';
 import {
@@ -11,7 +12,6 @@ import {
   SerializableDOMRect,
   VerboseOptions,
 } from '../actions';
-import { ElementHandle } from 'playwright';
 type Action = (handles: ElementHandle<Element>[]) => Promise<ElementHandle<Element>[]>;
 
 interface ActionInfoWithoutParam {

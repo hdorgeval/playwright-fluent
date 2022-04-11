@@ -1,6 +1,6 @@
+import { Frame, Page } from 'playwright';
 import { defaultWaitUntilOptions, sleep, toPage } from '../../../utils';
 import { ClickOptions } from '../../handle-actions';
-import { Frame, Page } from 'playwright';
 declare const window: Window;
 
 export interface PasteTextOptions {

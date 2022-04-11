@@ -1,3 +1,5 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import {
@@ -7,8 +9,6 @@ import {
   isHandleVisible,
 } from '../../../handle-actions';
 import { hasHandleFocus } from '../../../handle-actions/has-handle-focus';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('click on selector', (): void => {
   let browser: Browser | undefined = undefined;

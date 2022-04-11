@@ -1,5 +1,5 @@
-import * as SUT from '../index';
 import { Browser, webkit } from 'playwright';
+import * as SUT from '../index';
 
 describe('get client rectangle', (): void => {
   let browser: Browser | undefined = undefined;

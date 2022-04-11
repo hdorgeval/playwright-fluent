@@ -1,5 +1,5 @@
-import * as SUT from '.';
 import { Page, Browser, chromium } from 'playwright';
+import * as SUT from '.';
 
 describe('doesNotExist', (): void => {
   let browser: Browser | undefined = undefined;

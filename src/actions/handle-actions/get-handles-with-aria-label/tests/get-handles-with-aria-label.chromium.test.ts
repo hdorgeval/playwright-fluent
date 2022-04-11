@@ -1,7 +1,7 @@
+import * as path from 'path';
+import { chromium } from 'playwright';
 import * as SUT from '../index';
 import { querySelectorAllInPage } from '../../../page-actions';
-import { chromium } from 'playwright';
-import * as path from 'path';
 
 describe('get elements with aria-label', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

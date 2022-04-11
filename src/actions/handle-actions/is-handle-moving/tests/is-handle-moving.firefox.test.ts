@@ -1,8 +1,8 @@
+import * as path from 'path';
+import { Browser, firefox } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition } from '../../../dom-actions';
 import { sleep } from '../../../../utils';
-import { Browser, firefox } from 'playwright';
-import * as path from 'path';
 
 // TODO: re-enable these tests on v1.0.0
 describe.skip('handle is moving', (): void => {

@@ -1,6 +1,6 @@
+import { Page } from 'playwright';
 import * as SUT from '../index';
 import { defaultTypeTextOptions } from '../../type-text';
-import { Page } from 'playwright';
 
 describe('clear text', (): void => {
   test('should return an error when browser has not been launched', async (): Promise<void> => {

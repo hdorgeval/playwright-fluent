@@ -1,6 +1,6 @@
-import * as SUT from '../index';
-import { Browser, chromium } from 'playwright';
 import * as path from 'path';
+import { Browser, chromium } from 'playwright';
+import * as SUT from '../index';
 
 describe('handle has class', (): void => {
   let browser: Browser | undefined = undefined;

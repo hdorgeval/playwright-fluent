@@ -1,11 +1,11 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import * as SUT from '../index';
 import { showMousePosition, getClientRectangleOf } from '../../../dom-actions';
 import { defaultVerboseOptions } from '../../is-handle-visible';
 import { defaultHoverOptions, HoverOptions } from '../hover-on-handle';
 import { injectCursor } from '../../../dom-actions/inject-cursor';
 import { isHandleVisibleInViewport } from '../../is-handle-visible-in-viewport';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('hover on handle', (): void => {
   let browser: Browser | undefined = undefined;

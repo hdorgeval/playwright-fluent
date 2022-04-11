@@ -1,5 +1,5 @@
-import { toPage } from '../../../utils';
 import { Frame, Page } from 'playwright';
+import { toPage } from '../../../utils';
 
 export interface KeyboardPressOptions {
   /**

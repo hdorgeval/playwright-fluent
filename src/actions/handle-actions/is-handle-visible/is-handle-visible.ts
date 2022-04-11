@@ -1,5 +1,5 @@
-import { report } from '../../../utils';
 import { ElementHandle } from 'playwright';
+import { report } from '../../../utils';
 declare const window: Window;
 
 export interface VerboseOptions {

@@ -1,6 +1,6 @@
-import { Device } from './device-descriptors';
 import { readFileSync, writeFileSync } from 'fs';
 import * as path from 'path';
+import { Device } from './device-descriptors';
 
 const deviceDescriptorsFileName = path.join(__dirname, 'deviceDescriptorsSource.json');
 

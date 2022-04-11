@@ -1,5 +1,5 @@
-import { getAttributeOfHandle } from '../get-attribute-of-handle';
 import { ElementHandle } from 'playwright';
+import { getAttributeOfHandle } from '../get-attribute-of-handle';
 
 export async function hasHandleAttribute(
   handle: ElementHandle<Element> | undefined | null,

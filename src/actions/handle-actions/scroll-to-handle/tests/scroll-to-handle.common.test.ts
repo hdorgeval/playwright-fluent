@@ -1,6 +1,6 @@
+import { Browser, chromium, ElementHandle } from 'playwright';
 import * as SUT from '../index';
 import { getViewportRectangleOf } from '../../../page-actions';
-import { Browser, chromium, ElementHandle } from 'playwright';
 
 describe('scroll to handle', (): void => {
   let browser: Browser | undefined = undefined;

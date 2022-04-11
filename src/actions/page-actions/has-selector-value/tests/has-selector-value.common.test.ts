@@ -1,6 +1,6 @@
+import { Page } from 'playwright';
 import * as SUT from '../index';
 import { defaultWaitUntilOptions } from '../../../../utils';
-import { Page } from 'playwright';
 
 describe('has-selector-value', (): void => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function

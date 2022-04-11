@@ -1,9 +1,9 @@
+import * as path from 'path';
+import { Browser, chromium } from 'playwright';
 import {
   takeFullPageScreenshotAsBase64,
   defaultFullPageScreenshotOptions,
 } from '../take-fullpage-screenshot-as-base64';
-import { Browser, chromium } from 'playwright';
-import * as path from 'path';
 
 describe('full page screenshot', (): void => {
   let browser: Browser | undefined = undefined;
