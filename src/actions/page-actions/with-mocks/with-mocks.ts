@@ -161,7 +161,7 @@ export interface FluentMock {
    * @type {Date}
    * @memberof FluentMock
    */
-  lastUpdated: () => Date;
+  lastUpdated: (requestInfos: RequestInfos) => Date;
 
   /**
    * Update policy for the data source of the mocked response.

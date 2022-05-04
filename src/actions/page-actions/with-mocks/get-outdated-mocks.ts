@@ -47,8 +47,8 @@ async function tryGetContentAsText(response: Response): Promise<string | undefin
   }
 }
 
-function shouldUpdateMock(mock: FluentMock): boolean {
-  const lastUpdated = mock.lastUpdated();
+function shouldUpdateMock(mock: FluentMock, requestInfos: RequestInfos): boolean {
+  const lastUpdated = mock.lastUpdated(requestInfos);
   const updatePolicy = mock.updatePolicy;
   return shouldUpdate(lastUpdated, updatePolicy);
 }
@@ -127,7 +127,7 @@ export async function getOutdatedMocks(
       .pop();
 
     if (!mock) {
-      mockOptions.onMockNotFound({ request, queryString, postData, sharedContext });
+      mockOptions.onMockNotFound(requestInfos);
       continue;
     }
 
@@ -135,25 +135,25 @@ export async function getOutdatedMocks(
       continue;
     }
 
-    const mockedStatus = getMockStatus(mock, { request, queryString, postData, sharedContext });
+    const mockedStatus = getMockStatus(mock, requestInfos);
     if (mockedStatus >= 500) {
       continue;
     }
 
     if (mock.responseType === 'json') {
       try {
-        const mockedResponse = mock.jsonResponse({ request, queryString, postData, sharedContext });
+        const mockedResponse = mock.jsonResponse(requestInfos);
         const actualResponse = await tryGetContentAsJson(requestResponse);
-        mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
+        mockOptions.onMockFound(mock, requestInfos);
         const isOutdated = !areSameType(mockedResponse, actualResponse);
-        if (isOutdated && shouldUpdateMock(mock)) {
+        if (isOutdated && shouldUpdateMock(mock, requestInfos)) {
           result.push({
             url,
             mock,
             actualResponse,
             mockedResponse,
           });
-          mock.updateData({ request, queryString, postData, sharedContext }, actualResponse);
+          mock.updateData(requestInfos, actualResponse);
         }
       } catch (error) {
         mockOptions.onInternalError(error as Error, mock, {
@@ -169,17 +169,17 @@ export async function getOutdatedMocks(
 
     if (mock.responseType === 'string' || mock.responseType === 'empty') {
       try {
-        const mockedBody = mock.rawResponse({ request, queryString, postData, sharedContext });
+        const mockedBody = mock.rawResponse(requestInfos);
         const actualBody = await tryGetContentAsText(requestResponse);
-        mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
-        if (isJson(actualBody) && shouldUpdateMock(mock)) {
+        mockOptions.onMockFound(mock, requestInfos);
+        if (isJson(actualBody) && shouldUpdateMock(mock, requestInfos)) {
           result.push({
             url,
             mock,
             actualResponse: actualBody,
             mockedResponse: mockedBody,
           });
-          mock.updateData({ request, queryString, postData, sharedContext }, actualBody);
+          mock.updateData(requestInfos, actualBody);
         }
       } catch (error) {
         mockOptions.onInternalError(error as Error, mock, {
@@ -195,18 +195,18 @@ export async function getOutdatedMocks(
 
     if (mock.responseType === 'javascript') {
       try {
-        const mockedBody = mock.rawResponse({ request, queryString, postData, sharedContext });
+        const mockedBody = mock.rawResponse(requestInfos);
         const actualBody = await tryGetContentAsText(requestResponse);
-        mockOptions.onMockFound(mock, { request, queryString, postData, sharedContext });
+        mockOptions.onMockFound(mock, requestInfos);
         const isOutdated = mockedBody !== actualBody;
-        if (isOutdated && shouldUpdateMock(mock)) {
+        if (isOutdated && shouldUpdateMock(mock, requestInfos)) {
           result.push({
             url,
             mock,
             actualResponse: actualBody,
             mockedResponse: mockedBody,
           });
-          mock.updateData({ request, queryString, postData, sharedContext }, actualBody);
+          mock.updateData(requestInfos, actualBody);
         }
       } catch (error) {
         mockOptions.onInternalError(error as Error, mock, {
