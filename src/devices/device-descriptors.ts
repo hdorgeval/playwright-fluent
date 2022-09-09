@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {WindowSize} from '.';
+import { WindowSize } from '.';
 
 /**
  * **DEPRECATED** Use `ViewportSize` instead.
