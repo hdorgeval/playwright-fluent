@@ -26,7 +26,7 @@ jobs:
               gstreamer1.0-plugins-bad\
               libopenjp2-7\
               libwebpdemux2\
-              libenchant1c2a\
+              libenchant-2-2\
               libhyphen0\
               libgles2\
               libevdev2\
