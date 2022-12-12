@@ -826,6 +826,176 @@ export const allKnownDevices: Device[] = [
   },
   {
     userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 375,
+      height: 812,
+    },
+    viewport: {
+      width: 375,
+      height: 629,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 12 Mini',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 375,
+      height: 812,
+    },
+    viewport: {
+      width: 712,
+      height: 325,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 12 Mini landscape',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 390,
+      height: 844,
+    },
+    viewport: {
+      width: 390,
+      height: 664,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 13',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 390,
+      height: 844,
+    },
+    viewport: {
+      width: 750,
+      height: 342,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 13 landscape',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 390,
+      height: 844,
+    },
+    viewport: {
+      width: 390,
+      height: 664,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 13 Pro',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 390,
+      height: 844,
+    },
+    viewport: {
+      width: 750,
+      height: 342,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 13 Pro landscape',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 428,
+      height: 926,
+    },
+    viewport: {
+      width: 428,
+      height: 746,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 13 Pro Max',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 428,
+      height: 926,
+    },
+    viewport: {
+      width: 832,
+      height: 380,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 13 Pro Max landscape',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 375,
+      height: 812,
+    },
+    viewport: {
+      width: 375,
+      height: 629,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 13 Mini',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    screen: {
+      width: 375,
+      height: 812,
+    },
+    viewport: {
+      width: 712,
+      height: 327,
+    },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    defaultBrowserType: 'webkit',
+    name: 'iPhone 13 Mini landscape',
+  },
+  {
+    userAgent:
       'Mozilla/5.0 (Mobile; LYF/F300B/LYF-F300B-001-01-15-130718-i;Android; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5',
     viewport: {
       width: 240,
@@ -1385,5 +1555,122 @@ export const allKnownDevices: Device[] = [
     hasTouch: true,
     defaultBrowserType: 'chromium',
     name: 'Moto G4 landscape',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.37 Safari/537.36',
+    screen: {
+      width: 1792,
+      height: 1120,
+    },
+    viewport: {
+      width: 1280,
+      height: 720,
+    },
+    deviceScaleFactor: 2,
+    isMobile: false,
+    hasTouch: false,
+    defaultBrowserType: 'chromium',
+    name: 'Desktop Chrome HiDPI',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.37 Safari/537.36 Edg/105.0.5195.37',
+    screen: {
+      width: 1792,
+      height: 1120,
+    },
+    viewport: {
+      width: 1280,
+      height: 720,
+    },
+    deviceScaleFactor: 2,
+    isMobile: false,
+    hasTouch: false,
+    defaultBrowserType: 'chromium',
+    name: 'Desktop Edge HiDPI',
+  },
+  {
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0',
+    screen: {
+      width: 1792,
+      height: 1120,
+    },
+    viewport: {
+      width: 1280,
+      height: 720,
+    },
+    deviceScaleFactor: 2,
+    isMobile: false,
+    hasTouch: false,
+    defaultBrowserType: 'firefox',
+    name: 'Desktop Firefox HiDPI',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15',
+    screen: {
+      width: 1792,
+      height: 1120,
+    },
+    viewport: {
+      width: 1280,
+      height: 720,
+    },
+    deviceScaleFactor: 2,
+    isMobile: false,
+    hasTouch: false,
+    defaultBrowserType: 'webkit',
+    name: 'Desktop Safari',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.37 Safari/537.36',
+    screen: {
+      width: 1920,
+      height: 1080,
+    },
+    viewport: {
+      width: 1280,
+      height: 720,
+    },
+    deviceScaleFactor: 1,
+    isMobile: false,
+    hasTouch: false,
+    defaultBrowserType: 'chromium',
+    name: 'Desktop Chrome',
+  },
+  {
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.37 Safari/537.36 Edg/105.0.5195.37',
+    screen: {
+      width: 1920,
+      height: 1080,
+    },
+    viewport: {
+      width: 1280,
+      height: 720,
+    },
+    deviceScaleFactor: 1,
+    isMobile: false,
+    hasTouch: false,
+    defaultBrowserType: 'chromium',
+    name: 'Desktop Edge',
+  },
+  {
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0',
+    screen: {
+      width: 1920,
+      height: 1080,
+    },
+    viewport: {
+      width: 1280,
+      height: 720,
+    },
+    deviceScaleFactor: 1,
+    isMobile: false,
+    hasTouch: false,
+    defaultBrowserType: 'firefox',
+    name: 'Desktop Firefox',
   },
 ];
