@@ -213,10 +213,10 @@ export interface FluentMock {
    * Define the response type of the mocked request.
    * If you do not set a responseType, a default one will be infered from the provided jsonResponse or rawResponse.
    *
-   * @type {('json' | 'string' | 'javascript' | 'empty' | 'continue')}
+   * @type {('json' | 'string' | 'css' | 'javascript' | 'empty' | 'continue')}
    * @memberof FluentMock
    */
-  responseType: 'json' | 'string' | 'javascript' | 'empty' | 'continue';
+  responseType: 'json' | 'string' | 'css' | 'javascript' | 'empty' | 'continue';
 
   /**
    * Http response status. Can be a function that returns a number.
