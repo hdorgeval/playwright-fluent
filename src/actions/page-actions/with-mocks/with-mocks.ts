@@ -107,10 +107,10 @@ export interface FluentMock {
    * Define the response type of the mocked request.
    * If you do not set a responseType, a default one will be infered from the provided jsonResponse or rawResponse.
    *
-   * @type {('json' | 'string' | 'javascript' | 'empty' | 'continue')}
+   * @type {('json' | 'string' | 'javascript' | 'css' | 'empty' | 'continue')}
    * @memberof FluentMock
    */
-  responseType: 'json' | 'string' | 'javascript' | 'empty' | 'continue';
+  responseType: 'json' | 'string' | 'css' | 'javascript' | 'empty' | 'continue';
 
   /**
    * Http response status. Can be a function that returns a number.
@@ -244,7 +244,11 @@ export function inferMockResponseTypeIfNeeded(mock: Partial<FluentMock>): Partia
     };
   }
 
-  if (typeof mock.rawResponse === 'function' && typeof mock.jsonResponse !== 'function') {
+  if (
+    typeof mock.rawResponse === 'function' &&
+    !mock.responseType &&
+    typeof mock.jsonResponse !== 'function'
+  ) {
     return {
       ...mock,
       responseType: 'string',
@@ -399,6 +403,19 @@ export async function withMocks(
         const status = getMockStatus(mock, requestInfos);
         const body = mock.rawResponse(requestInfos);
         const contentType: MimeType = 'text/plain';
+        mockOptions.onMockFound(mock, requestInfos);
+        fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
+        return;
+      }
+
+      if (mock.responseType === 'css') {
+        const headers = mock.enrichResponseHeaders({
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Origin': '*',
+        });
+        const status = getMockStatus(mock, requestInfos);
+        const body = mock.rawResponse(requestInfos);
+        const contentType: MimeType = 'text/css';
         mockOptions.onMockFound(mock, requestInfos);
         fullfillRouteWithMock(mock, route, { status, headers, contentType, body });
         return;

@@ -137,6 +137,24 @@ describe('with mocks', (): void => {
     expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
   });
 
+  test('should return an error when mock provides a json response but response type is set to css', async (): Promise<void> => {
+    // Given
+    const mock: Partial<FluentMock> = {
+      displayName: 'mock foobar',
+      urlMatcher: (url) => url.includes('/foobar'),
+      responseType: 'css',
+      jsonResponse: () => {
+        return { foo: 'bar' };
+      },
+    };
+
+    // Then
+    const expectedError = new Error(
+      "mock named 'mock foobar' should implement a raw response instead of a json response, because you explicitely set the response type to be css.",
+    );
+
+    expect(() => SUT.validateMock(mock)).toThrowError(expectedError);
+  });
   test('should return an error when mock provides a json response but response type is set to empty', async (): Promise<void> => {
     // Given
     const mock: Partial<FluentMock> = {

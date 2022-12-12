@@ -34,6 +34,16 @@ export function validateMock(mock: Partial<FluentMock>): void {
   if (
     typeof mock.jsonResponse === 'function' &&
     typeof mock.responseType === 'string' &&
+    mock.responseType === 'css'
+  ) {
+    throw new Error(
+      `mock named '${mock.displayName}' should implement a raw response instead of a json response, because you explicitely set the response type to be css.`,
+    );
+  }
+
+  if (
+    typeof mock.jsonResponse === 'function' &&
+    typeof mock.responseType === 'string' &&
     mock.responseType === 'empty'
   ) {
     throw new Error(
