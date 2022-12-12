@@ -18,4 +18,5 @@ export const mockRequest: Request = {
   headersArray: jest.fn(),
   headerValue: jest.fn(),
   sizes: jest.fn(),
+  serviceWorker: jest.fn(),
 };
