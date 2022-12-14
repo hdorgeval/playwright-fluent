@@ -193,7 +193,7 @@ export async function getOutdatedMocks(
       continue;
     }
 
-    if (mock.responseType === 'javascript') {
+    if (mock.responseType === 'javascript' || mock.responseType === 'css') {
       try {
         const mockedBody = mock.rawResponse(requestInfos);
         const actualBody = await tryGetContentAsText(requestResponse);
