@@ -2,6 +2,8 @@ import * as SUT from './index';
 
 describe('are same raw content', (): void => {
   [
+    { content1: null, content2: null },
+    { content1: undefined, content2: undefined },
     { content1: '', content2: '' },
     { content1: ' ', content2: '' },
     { content1: '', content2: ' ' },
@@ -31,6 +33,12 @@ describe('are same raw content', (): void => {
   });
   [
     { content1: 'foo', content2: 'bar' },
+    { content1: undefined, content2: 'bar' },
+    { content1: null, content2: 'bar' },
+    { content1: 'foo', content2: undefined },
+    { content1: 'foo', content2: null },
+    { content1: undefined, content2: null },
+    { content1: null, content2: undefined },
     { content1: 'foo', content2: 'foobar' },
     { content1: '\tfoo', content2: '\tbar' },
     { content1: 'foo\n', content2: 'bar\r\n' },
@@ -43,6 +51,32 @@ describe('are same raw content', (): void => {
 
       // Then
       expect(result).toBe(false);
+    });
+  });
+
+  [{ content1: () => 'foo', content2: 'bar' }].forEach(({ content1, content2 }) => {
+    test(`should detect that first parameter is not a string`, async (): Promise<void> => {
+      // Given
+
+      // Then
+      const expectedError = new Error('First parameter should be a string, but it is a function');
+
+      expect(() => SUT.areSameRawContent(content1 as unknown as string, content2)).toThrowError(
+        expectedError,
+      );
+    });
+  });
+
+  [{ content1: 'foo', content2: () => 'bar' }].forEach(({ content1, content2 }) => {
+    test(`should detect that second parameter is not a string`, async (): Promise<void> => {
+      // Given
+
+      // Then
+      const expectedError = new Error('Second parameter should be a string, but it is a function');
+
+      expect(() => SUT.areSameRawContent(content1, content2 as unknown as string)).toThrowError(
+        expectedError,
+      );
     });
   });
 });

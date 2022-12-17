@@ -1,3 +1,4 @@
+export * from './are-same-raw-content';
 export * from './are-same-type';
 export * from './dates';
 export * from './filename-generator';

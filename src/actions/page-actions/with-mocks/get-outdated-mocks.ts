@@ -1,5 +1,6 @@
 import { Request, Response } from 'playwright';
 import {
+  areSameRawContent,
   areSameType,
   extractQueryStringObjectFromUrl,
   HttpRequestMethod,
@@ -198,7 +199,7 @@ export async function getOutdatedMocks(
         const mockedBody = mock.rawResponse(requestInfos);
         const actualBody = await tryGetContentAsText(requestResponse);
         mockOptions.onMockFound(mock, requestInfos);
-        const isOutdated = mockedBody !== actualBody;
+        const isOutdated = !areSameRawContent(mockedBody, actualBody);
         if (isOutdated && shouldUpdateMock(mock, requestInfos)) {
           result.push({
             url,
