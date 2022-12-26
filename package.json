@@ -70,10 +70,9 @@
     "is-ci": "3.0.1",
     "tslib": "2.4.1",
     "uuid": "9.0.0",
-    "which": "2.0.2"
+    "which": "3.0.0"
   },
   "peerDependencies": {
     "playwright": ">= 1.12.0"
   }
 }
-
