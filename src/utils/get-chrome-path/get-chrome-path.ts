@@ -25,10 +25,12 @@ export function getChromePath(): string {
         return which.sync('google-chrome');
       }
 
-      throw new Error('You should supply the path to the Chrome App in the launch options');
+      throw new Error('You should supply the path to the Chrome App in the launch options.');
 
     default:
-      throw new Error('You should supply the path to the Chrome App in the launch options');
+      throw new Error(
+        `Platform '${currentPlatformType}' is not yet supported in playwright-fluent. You should supply the path to the Chrome App in the launch options.`,
+      );
   }
 }
 
@@ -44,9 +46,11 @@ export function getChromeCanaryPath(): string {
       if (which.sync('google-chrome-unstable', { nothrow: true })) {
         return which.sync('google-chrome-unstable');
       }
-      throw new Error('You should supply the path to the Chrome App in the launch options');
+      throw new Error('You should supply the path to the Chrome App in the launch options.');
 
     default:
-      throw new Error('You should supply the path to the Chrome Canary App in the launch options');
+      throw new Error(
+        `Platform '${currentPlatformType}' is not yet supported in playwright-fluent. You should supply the path to the Chrome Canary App in the launch options.`,
+      );
   }
 }

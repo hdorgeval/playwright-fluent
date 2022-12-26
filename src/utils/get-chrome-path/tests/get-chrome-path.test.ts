@@ -109,7 +109,7 @@ describe('get-chrome-path', (): void => {
     // When
     // Then
     const expectedError = new Error(
-      'You should supply the path to the Chrome App in the launch options',
+      `Platform 'foo' is not yet supported in playwright-fluent. You should supply the path to the Chrome App in the launch options.`,
     );
     expect((): string => require('../get-chrome-path').getChromePath()).toThrow(expectedError);
   });

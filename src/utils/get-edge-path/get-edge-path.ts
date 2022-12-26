@@ -21,6 +21,8 @@ export function getEdgePath(): string {
       );
 
     default:
-      throw new Error('You should supply the path to the Edge App in the launch options');
+      throw new Error(
+        `Platform '${currentPlatformType}' is not yet supported in playwright-fluent. You should supply the path to the Edge App in the launch options.`,
+      );
   }
 }
