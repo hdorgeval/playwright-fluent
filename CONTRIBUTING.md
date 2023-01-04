@@ -20,6 +20,8 @@ cd playwright-fluent
 
 2. Install dependencies
 
+Ensure your node version is >= 18.
+
 ```bash
 npm install
 ```
@@ -99,4 +101,4 @@ For all dependencies (both installation and development):
 
 A barrier for introducing new installation dependencies is especially high:
 
-- **Do not add** installation dependency unless it's critical to project success.
+- **Do not add** a production dependency unless it's critical to project success.
