@@ -24,6 +24,9 @@ export function getChromePath(): string {
       if (which.sync('google-chrome', { nothrow: true })) {
         return which.sync('google-chrome');
       }
+      if (which.sync('chromium-browser', { nothrow: true })) {
+        return which.sync('chromium-browser');
+      }
 
       throw new Error('You should supply the path to the Chrome App in the launch options.');
 
