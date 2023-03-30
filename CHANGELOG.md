@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.58.0] - 2023-03-31
+
+### Possible breaking changes
+
+- chore(deps): update tslib prod dependency from v2.4.1 to v2.5.0
+
+### Changed
+
+- feat(get-current-url): give back an error message instead of throwing when the browser tab or browser context has been closed
+
+### Fixed
+
+- The `isVisible()` and `isNotVisible()` methods exposed on a `FluentSelector` selector could throw while the element is removed from the DOM by React. Those two methods does not throw an error anymore while the selector is being removed from the DOM.
+
 ## [1.57.0] - 2023-03-30
 
 ### Added
