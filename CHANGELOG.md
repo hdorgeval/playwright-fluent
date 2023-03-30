@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.57.0] - 2023-03-30
+
+### Added
+
+- feat(browser): take chromium on Unix machine when chrome is not found (provided by [val1984](https://github.com/val1984))
+
 ## [1.56.0] - 2022-12-27
 
 ### Possible breaking changes
