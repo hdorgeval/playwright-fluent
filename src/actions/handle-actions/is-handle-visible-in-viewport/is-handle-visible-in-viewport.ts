@@ -21,21 +21,26 @@ export async function isHandleVisibleInViewport(
     return false;
   }
 
-  const result = await selector.evaluate((el): boolean => {
-    function hasVisibleBoundingBox(element: Element): boolean {
-      const rect = element.getBoundingClientRect();
-      return !!(rect.top || rect.bottom || rect.width || rect.height);
-    }
+  try {
+    const result = await selector.evaluate((el): boolean => {
+      function hasVisibleBoundingBox(element: Element): boolean {
+        const rect = element.getBoundingClientRect();
+        return !!(rect.top || rect.bottom || rect.width || rect.height);
+      }
 
-    const style = window.getComputedStyle(el);
+      const style = window.getComputedStyle(el);
 
-    if (style && style.opacity && style.opacity === '0') {
-      return false;
-    }
+      if (style && style.opacity && style.opacity === '0') {
+        return false;
+      }
 
-    const isVisible = style && style.visibility !== 'hidden' && hasVisibleBoundingBox(el);
-    return isVisible;
-  });
+      const isVisible = style && style.visibility !== 'hidden' && hasVisibleBoundingBox(el);
+      return isVisible;
+    });
 
-  return result;
+    return result;
+  } catch (error) {
+    // Element has been removed from DOM while or just before selector.evaluate execution
+    return false;
+  }
 }

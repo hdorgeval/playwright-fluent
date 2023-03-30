@@ -22,19 +22,24 @@ export async function isHandleNotVisibleInViewport(
     return true;
   }
 
-  const isTransparentOrHidden = await selector.evaluate((el): boolean => {
-    const style = window.getComputedStyle(el);
+  try {
+    const isTransparentOrHidden = await selector.evaluate((el): boolean => {
+      const style = window.getComputedStyle(el);
 
-    if (style && style.opacity && style.opacity === '0') {
-      return true;
-    }
+      if (style && style.opacity && style.opacity === '0') {
+        return true;
+      }
 
-    if (style && style.visibility === 'hidden') {
-      return true;
-    }
+      if (style && style.visibility === 'hidden') {
+        return true;
+      }
 
-    return false;
-  });
+      return false;
+    });
 
-  return isTransparentOrHidden;
+    return isTransparentOrHidden;
+  } catch (error) {
+    // Element has been removed from DOM while or just before selector.evaluate execution
+    return true;
+  }
 }

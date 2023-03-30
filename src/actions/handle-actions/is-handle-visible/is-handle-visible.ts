@@ -18,33 +18,38 @@ export async function isHandleVisible(
     return false;
   }
 
-  const isOutOfScreenOrTransparent = await selector.evaluate((el): boolean => {
-    try {
-      const style = window.getComputedStyle(el);
-      if (style && style.opacity && style.opacity === '0') {
-        return true;
-      }
+  try {
+    const isOutOfScreenOrTransparent = await selector.evaluate((el): boolean => {
+      try {
+        const style = window.getComputedStyle(el);
+        if (style && style.opacity && style.opacity === '0') {
+          return true;
+        }
 
-      const rect = el.getBoundingClientRect();
-      if (rect.top + rect.height < 0 && style?.position === 'absolute') {
-        return true;
-      }
+        const rect = el.getBoundingClientRect();
+        if (rect.top + rect.height < 0 && style?.position === 'absolute') {
+          return true;
+        }
 
-      if (rect.left + rect.width < 0 && style?.position === 'absolute') {
-        return true;
-      }
+        if (rect.left + rect.width < 0 && style?.position === 'absolute') {
+          return true;
+        }
 
-      return false;
-    } catch (error) {
+        return false;
+      } catch (error) {
+        return false;
+      }
+    });
+
+    if (isOutOfScreenOrTransparent) {
+      report(
+        `Selector is not visible because it is either transparent or out of screen`,
+        options.verbose,
+      );
       return false;
     }
-  });
-
-  if (isOutOfScreenOrTransparent) {
-    report(
-      `Selector is not visible because it is either transparent or out of screen`,
-      options.verbose,
-    );
+  } catch (error) {
+    // Element has been removed from DOM while or just before selector.evaluate execution
     return false;
   }
 
