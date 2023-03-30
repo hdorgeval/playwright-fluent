@@ -1943,6 +1943,12 @@ export class PlaywrightFluent implements PromiseLike<void> {
     return this;
   }
 
+  /**
+   * Get current url.
+   *
+   * If the underlying browser tab has been closed, or the browser context has been closed, or the browser has been closed, it will return the error message provided by Playwright.
+   * @returns {Promise<string>}
+   */
   public async getCurrentUrl(): Promise<string> {
     return await action.getCurrentUrl(this.currentPageOrFrame());
   }
