@@ -8,6 +8,15 @@ export async function querySelectorAllInPage(
     throw new Error(`Cannot query selector '${selector}' because no browser has been launched`);
   }
 
-  const elements = await page.$$(selector);
-  return elements;
+  try {
+    const elements = await page.$$(selector);
+    return elements;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `An internal error has occured in Playwright API when executing page.$$ : `,
+      error,
+    );
+    return [];
+  }
 }

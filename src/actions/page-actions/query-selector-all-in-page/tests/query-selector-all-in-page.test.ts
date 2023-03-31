@@ -58,4 +58,27 @@ describe('query selector all in page', (): void => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect((await result[2]!.getProperty('innerText'))!.toString()).toContain('row3');
   });
+
+  test('should return an empty array on page error', async (): Promise<void> => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({ viewport: null });
+    const page = await context.newPage();
+    await page.goto(`file:${path.join(__dirname, 'query-selector-all-in-page.test.html')}`);
+
+    // When
+    const result = await SUT.querySelectorAllInPage('[role="row"]', page);
+
+    // Then
+    expect(result.length).toBe(3);
+
+    // When Page is closed
+    await page.close();
+
+    // And I query again the selectors
+    const result2 = await SUT.querySelectorAllInPage('[role="row"]', page);
+
+    // Then an empty array should be returned
+    expect(result2.length).toBe(0);
+  });
 });
