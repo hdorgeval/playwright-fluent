@@ -61,7 +61,7 @@
     "simple-fake-server": "3.4.0",
     "ts-jest": "29.0.5",
     "ts-node": "10.9.1",
-    "typescript": "5.0.2"
+    "typescript": "5.0.3"
   },
   "dependencies": {
     "@types/uuid": "9.0.1",
@@ -76,4 +76,3 @@
     "playwright": ">= 1.12.0"
   }
 }
-
