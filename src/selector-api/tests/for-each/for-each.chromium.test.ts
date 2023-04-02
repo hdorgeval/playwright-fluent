@@ -122,7 +122,7 @@ describe('Selector API - forEach', (): void => {
 
     await p
       .withBrowser('chromium')
-      .withOptions({ headless: false })
+      .withOptions({ headless: true })
       .withCursor()
       .withDefaultWaitOptions({ stabilityInMilliseconds: 0 });
 
