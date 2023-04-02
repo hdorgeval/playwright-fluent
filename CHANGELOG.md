@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.58.1] - 2023-04-02
+
+### Fixed
+
+- Working on a `FluentSelector` selector, while the current page or browser context or browser is closing, was throwing an exception causing the e2e test to fail though it could continue its execution.
+Now, evaluating a `FluentSelector` selector while page is closing or has been closed will safely return an empty array.
+
 ## [1.58.0] - 2023-03-31
 
 ### Possible breaking changes
