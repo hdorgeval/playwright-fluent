@@ -31,8 +31,9 @@ export interface RequestInfos {
  *  this enables you to override existing mocks on specific conditions.
  * @export
  * @interface FluentMock
+ * @template T
  */
-export interface FluentMock {
+export interface FluentMock<T = unknown> {
   /**
    * Mock friendly name. Useful when you are debugging your mocks.
    * By default it will be set to 'not set' if you forgot to give your mock a name.
@@ -171,6 +172,14 @@ export interface FluentMock {
    * @memberof FluentMock
    */
   updatePolicy: UpdatePolicy;
+
+  /**
+   * Use this property as a container to hold any custom data and methods that you would need to extend the standard behavior of a mock.
+   *
+   * @type {T}
+   * @memberof FluentMock
+   */
+  infos?: T;
 }
 
 export function noopVoidFunc(): void {

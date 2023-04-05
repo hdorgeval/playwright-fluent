@@ -63,9 +63,14 @@ describe('Playwright Fluent - withMocks()', (): void => {
         .to('/yo')
         .willReturn(responseBodyBaz, 200, responseHeaders);
 
+    interface CustomData {
+      prop1: string;
+      func1: () => void;
+    }
+
     // When
     const mockedResponseBody: CustomResponseBody = { prop1: 'mocked-prop1', prop2: 'mocked-prop2' };
-    const mock1: Partial<SUT.FluentMock> = {
+    const mock1: Partial<SUT.FluentMock<CustomData>> = {
       displayName: 'mock GET /foobar requests',
       urlMatcher: (url) => url.includes('/foobar'),
       methodMatcher: (method) => method === 'GET',
@@ -76,6 +81,12 @@ describe('Playwright Fluent - withMocks()', (): void => {
           ...headers,
           ...responseHeaders,
         };
+      },
+      infos: {
+        prop1: 'foobar',
+        func1: () => {
+          // do something special
+        },
       },
     };
     const mocks = [mock1];

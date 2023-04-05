@@ -1175,13 +1175,14 @@ export class PlaywrightFluent implements PromiseLike<void> {
    * This method can be called multiple times with different set of mocks:
    * in this case all mocks are concatenated in a single internal array.
    *
-   * @param {() => Partial<FluentMock>[]} mocks
+   * * @template T
+   * @param {() => Partial<FluentMock<T>[]} mocks
    * @param {Partial<WithMocksOptions>} [options=defaultMocksOptions]
    * @returns {PlaywrightFluent}
    * @memberof PlaywrightFluent
    */
-  public withMocks(
-    mocks: Partial<FluentMock>[],
+  public withMocks<T = unknown>(
+    mocks: Partial<FluentMock<T>>[],
     options: Partial<WithMocksOptions> = defaultMocksOptions,
   ): PlaywrightFluent {
     mocks.forEach(validateMock);
