@@ -26,9 +26,14 @@ export async function recordPageErrors(
         stackTrace.push(`at '${location.url}'`);
         stackTrace.push(`line: ${location.lineNumber}`);
         for (let index = 1; index < args.length; index++) {
-          const arg = args[index];
-          const argValue = JSON.stringify(await arg.jsonValue(), null, 2);
-          stackTrace.push(argValue);
+          try {
+            const arg = args[index];
+            const argValue = JSON.stringify(await arg.jsonValue(), null, 2);
+            stackTrace.push(argValue);
+          } catch (error) {
+            // eslint-disable-next-line no-console
+            console.warn('Cannot evaluate the object passed to the console : ', error);
+          }
         }
 
         const err = new Error(text);
