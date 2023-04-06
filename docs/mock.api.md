@@ -4,14 +4,14 @@ The Mock API provides a generic and simple infrastructure for massive request in
 
 This Mock API leverages the `Playwright` request interception infrastructure and will enable you to mock all HTTP requests in order to test the front in complete isolation from the backend.
 
-- [Usage](#Usage)
-- [How to keep mocks up-to-date](#How-to-keep-mocks-up-to-date)
-- [How to apply an update policy to a mock](#How-to-apply-an-update-policy-to-a-mock)
-- [How to initialize and update the shared context](#How-to-initialize-and-update-the-shared-context)
+- [Usage](#usage)
+- [How to keep mocks up-to-date](#how-to-keep-mocks-up-to-date)
+- [How to apply an update policy to a mock](#how-to-apply-an-update-policy-to-a-mock)
+- [How to initialize and update the shared context](#how-to-initialize-and-update-the-shared-context)
 
 - Chainable Methods
 
-  - [withMocks(mocks[, options])](#withMocksmocks-options)
+  - [withMocks(mocks[, options])](#withmocksmocks-options)
 
 - Helper Methods
 
@@ -110,6 +110,43 @@ const mock: Partial<FluentMock> = {
   },
   responseType: 'json',
   jsonResponse: () => response,
+};
+```
+
+Example of a mock that holds extra infos that could be used to apply a custom process on the mock:
+
+```ts
+import { FluentMock } from 'playwright-fluent';
+
+const response = {
+  prop1: 'value1',
+  prop2: 'value2',
+};
+
+export interface CustomData {
+  foo : string;
+  bar: () => void;
+}
+
+const mock: Partial<FluentMock<CustomData>> = {
+  displayName: `GET /api/foo/bar - third request only`,
+  urlMatcher: (url) => url.includes('/api/foo/bar'),
+  methodMatcher: (m) => m === 'GET',
+  contextMatcher: (context) => {
+    if (typeof context.fooBarCallIndex !== 'number') {
+      context.fooBarCallIndex = 0;
+    }
+    context.fooBarCallIndex += 1;
+    return context.foobarCallIndex === 3;
+  },
+  responseType: 'json',
+  jsonResponse: () => response,
+  infos: {
+    foo : 'some value',
+    bar : () => {
+      // do something special
+    }
+  }
 };
 ```
 
