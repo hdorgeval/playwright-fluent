@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.59.0] - 2023-04-06
+
+### Added
+
+- feat(mocks): be able to add extra infos on a mock for custom processing.
+- feat(record-page-errors): do not record page/console errors when JSHandle or Page object has been closed.
+
 ## [1.58.1] - 2023-04-02
 
 ### Fixed
