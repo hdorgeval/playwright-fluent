@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Query Selector All with role</title>
+  </head>
+
+  <body>
+    <table border="1">
+      <tr role="row">
+        <td>
+          <input id="with-role-but-no-value" role="foo bar" />
+        </td>
+        <td>
+          <input id="with-no-role" value="foo bar" />
+        </td>
+        <td></td>
+      </tr>
+      <tr role="row">
+        <td>
+          <input id="with-role-and-value" role="foo bar" value="foobar" />
+          <input id="with-role-2" role="foo" value="foo bar" />
+          <input id="with-role-3" role="foo baz" value="foo baz" />
+          <input id="with-role-4" role="foo bar baz" value="foo bar baz" />
+        </td>
+        <td>row2-cell2</td>
+        <td>cell3</td>
+      </tr>
+
+      <tr role="row">
+        <td>
+          <input role="" />
+        </td>
+        <td>
+          <input role />
+        </td>
+        <td>cell3</td>
+      </tr>
+    </table>
+  </body>
+</html>
+

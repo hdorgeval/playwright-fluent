@@ -22,7 +22,13 @@ interface ActionInfoWithSelector {
   selector: string;
 }
 interface ActionInfoWithText {
-  name: 'withText' | 'withExactText' | 'withValue' | 'withPlaceholder' | 'withAriaLabel';
+  name:
+    | 'withText'
+    | 'withExactText'
+    | 'withValue'
+    | 'withPlaceholder'
+    | 'withAriaLabel'
+    | 'withRole';
   text: string;
 }
 interface ActionInfoWithIndex {
@@ -82,6 +88,9 @@ export class SelectorFluent {
 
       case 'withAriaLabel':
         return (handles) => action.getHandlesWithAriaLabel(actionInfo.text, [...handles]);
+
+      case 'withRole':
+        return (handles) => action.getHandlesWithRole(actionInfo.text, [...handles]);
 
       default:
         throw new Error(`Action '${actionInfo.name}' is not yet implemented`);
@@ -304,6 +313,23 @@ export class SelectorFluent {
 
     const chainingHistory = `${this.chainingHistory}
   .withAriaLabel(${text})`;
+
+    return this.createSelectorFrom(text, actions, chainingHistory);
+  }
+
+  /**
+   * Finds, from previous search, all elements whose role attribute matches exactly the specified text
+   *
+   * @param {string} text
+   * @returns {SelectorFluent}
+   * @memberof SelectorFluent
+   */
+  public withRole(text: string): SelectorFluent {
+    const actions = [...this.actionInfos];
+    actions.push({ name: 'withRole', text });
+
+    const chainingHistory = `${this.chainingHistory}
+  .withRole(${text})`;
 
     return this.createSelectorFrom(text, actions, chainingHistory);
   }
