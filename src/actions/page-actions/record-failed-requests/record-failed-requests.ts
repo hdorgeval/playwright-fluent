@@ -1,4 +1,4 @@
-import { Page, Request } from 'playwright';
+import { Page, Request, Response } from 'playwright';
 
 const failedStatus = [500, 503, 400, 401, 403, 307];
 
@@ -11,7 +11,18 @@ export async function recordFailedRequests(
   }
 
   page.on('requestfinished', async (request) => {
-    const response = await request.response();
+    let response: Response | null = null;
+    try {
+      response = await request.response();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'Cannot evaluate the response from request due to the following error : ',
+        error,
+      );
+      return;
+    }
+
     if (response === null) {
       const typedRequest = request as unknown as Request;
       callback(typedRequest);
