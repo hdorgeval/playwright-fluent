@@ -5,38 +5,39 @@ The Selector API enables to find and target a DOM element or a collection of DOM
 - Chainable Methods
 
   - [find(selector)](#findselector)
-  - [nextSibling()](#nextSibling)
+  - [nextSibling()](#nextsibling)
   - [nth(index)](#nthindex)
   - [parent()](#parent)
-  - [previousSibling()](#previousSibling)
-  - [withAriaLabel(text)](#withAriaLabeltext)
-  - [withPlaceholder(text)](#withPlaceholdertext)
-  - [withExactText(text)](#withExactTexttext)
-  - [withText(text)](#withTexttext)
-  - [withValue(text)](#withValuetext)
+  - [previousSibling()](#previoussibling)
+  - [withAriaLabel(text)](#witharialabeltext)
+  - [withRole(text)](#withroletext)
+  - [withPlaceholder(text)](#withplaceholdertext)
+  - [withExactText(text)](#withexacttexttext)
+  - [withText(text)](#withtexttext)
+  - [withValue(text)](#withvaluetext)
 
 - Helper Methods
 
   - [count()](#count)
-  - [doesNotExist()](#doesNotExist)
-  - [doesNotHaveClass(className)](#doesNotHaveClassclassName)
+  - [doesNotExist()](#doesnotexist)
+  - [doesNotHaveClass(className)](#doesnothaveclassclassname)
   - [exists()](#exists)
-  - [forEach(callback)](#forEachcallback)
-  - [getAllHandles()](#getAllHandles)
-  - [getHandle()](#getHandle)
-  - [hasClass(className)](#hasClassclassName)
-  - [innerText()](#innerText)
-  - [isChecked()](#isChecked)
-  - [isNotReadOnly()](#isNotReadOnly)
-  - [isNotVisible()](#isNotVisible)
-  - [isReadOnly()](#isReadOnly)
-  - [isUnchecked()](#isUnchecked)
-  - [isVisible()](#isVisible)
+  - [forEach(callback)](#foreachcallback)
+  - [getAllHandles()](#getallhandles)
+  - [getHandle()](#gethandle)
+  - [hasClass(className)](#hasclassclassname)
+  - [innerText()](#innertext)
+  - [isChecked()](#ischecked)
+  - [isNotReadOnly()](#isnotreadonly)
+  - [isNotVisible()](#isnotvisible)
+  - [isReadOnly()](#isreadonly)
+  - [isUnchecked()](#isunchecked)
+  - [isVisible()](#isvisible)
   - [options()](#options)
-  - [allSelectedOptions()](#allSelectedOptions)
-  - [selectedOption()](#selectedOption)
+  - [allSelectedOptions()](#allselectedoptions)
+  - [selectedOption()](#selectedoption)
   - [placeholder()](#placeholder)
-  - [toString()](#toString)
+  - [toString()](#tostring)
   - [value()](#value)
 
 ## Usage
@@ -101,6 +102,14 @@ Take, from previous search, only the elements whose innerText matches exactly th
 - text: `string`
 
 Take, from previous search, only the elements whose aria-label matches exactly the specified text.
+
+---
+
+### withRole(text)
+
+- text: `string`
+
+Take, from previous search, only the elements whose role attribute matches exactly the specified text.
 
 ---
 
