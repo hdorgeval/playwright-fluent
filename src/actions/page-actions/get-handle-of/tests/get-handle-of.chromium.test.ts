@@ -57,4 +57,23 @@ describe('get-handle-of', (): void => {
     // Then
     expect(result && result.message).toContain("Selector 'foobar' was not found in DOM");
   });
+
+  test('should return an error when page has been closed - chromium', async (): Promise<void> => {
+    // Given
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({ viewport: null });
+    const page = await context.newPage();
+    const waitOptions: WaitUntilOptions = {
+      ...defaultWaitUntilOptions,
+      timeoutInMilliseconds: 5000,
+    };
+
+    // When
+    await browser.close();
+    // Then
+    const expectedError = new Error("Selector 'body' was not found in DOM");
+    await SUT.getHandleOf('body', page, waitOptions).catch((error): void =>
+      expect(error).toMatchObject(expectedError),
+    );
+  });
 });

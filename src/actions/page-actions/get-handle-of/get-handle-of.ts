@@ -22,6 +22,15 @@ export async function getHandleOf(
   if (!page) {
     return null;
   }
-  const handle = await page.$(selector);
-  return handle;
+  try {
+    const handle = await page.$(selector);
+    return handle;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `An internal error has occured in Playwright API while getting an handle for selector '${selector}'.`,
+      error,
+    );
+    return null;
+  }
 }
