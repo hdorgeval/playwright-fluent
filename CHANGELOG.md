@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
+## [1.61.0] - 2023-05-03
+
+### Added
+
+- feat(get-handle): do not throw when page has been closed
+- feat(selector-fluent): add `withRole(text)` to the Selector API
+
 ## [1.60.0] - 2023-04-16
 
 ### Added
