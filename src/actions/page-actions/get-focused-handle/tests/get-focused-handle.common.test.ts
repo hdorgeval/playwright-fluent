@@ -2,7 +2,6 @@ import { Page } from 'playwright';
 import * as SUT from '../index';
 
 describe('get-focused-handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return an error when browser has not been launched', async (): Promise<void> => {

@@ -79,9 +79,9 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
 
     expect(sentRequest.url).toContain('?foo=bar');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.status).toBe(200);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.payload).toMatchObject(responseBody);
 
     // Then requests to /yo can be analyzed
@@ -91,15 +91,13 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
     const yoRequests = p.getRecordedRequestsTo('/yo');
     expect(Array.isArray(yoRequests)).toBe(true);
     expect(yoRequests.length).toBe(2);
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stringifiedYoRequest = await stringifyRequest(p.getLastRecordedRequestTo('/yo')!);
     const yoRequest = JSON.parse(stringifiedYoRequest) as RequestInfo;
 
     expect(yoRequest.url).toContain('?foo=baz2');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(yoRequest.response!.status).toBe(200);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(yoRequest.response!.payload).toMatchObject(responseBodyBaz);
   });
 
@@ -210,10 +208,8 @@ describe('Playwright Fluent - recordRequestsTo(url)', (): void => {
 
     const stringifiedSentRequest = await stringifyRequest(requests[0]);
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(sentRequest.response!.status).toBe(500);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.statusText).toBe('Internal Server Error');
   });
 

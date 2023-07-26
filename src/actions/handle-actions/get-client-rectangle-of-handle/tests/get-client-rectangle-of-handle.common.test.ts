@@ -2,7 +2,6 @@ import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 
 describe('get client rectangle of an element handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return null when selector is null', async (): Promise<void> => {

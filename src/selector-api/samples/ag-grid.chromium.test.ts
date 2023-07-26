@@ -29,9 +29,9 @@ describe('Selector API - AG Grid samples', (): void => {
       .find('span.ag-selection-checkbox'); // take the checkbox in that cell
 
     const handle = await checkbox.getFirstHandleOrNull(); // get the Playwright's element handle
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await handle!.hover();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await handle!.click();
 
     // Then

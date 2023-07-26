@@ -6,8 +6,6 @@ import { recordPageDialogs } from '../../record-page-dialogs';
 
 describe('cancel page dialog', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
@@ -45,7 +43,7 @@ describe('cancel page dialog', (): void => {
 
     // Then
     expect(dialogIsOpened).toBe(false);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(openedDialog!.type()).toBe('confirm');
   });
 
@@ -79,7 +77,7 @@ describe('cancel page dialog', (): void => {
 
     // Then
     expect(dialogIsOpened).toBe(false);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(openedDialog!.type()).toBe('alert');
   });
 
@@ -113,7 +111,7 @@ describe('cancel page dialog', (): void => {
 
     // Then
     expect(dialogIsOpened).toBe(false);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(openedDialog!.type()).toBe('prompt');
   });
 });

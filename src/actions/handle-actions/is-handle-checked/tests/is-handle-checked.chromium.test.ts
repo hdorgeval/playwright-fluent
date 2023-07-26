@@ -6,7 +6,7 @@ import { sleep } from '../../../../utils';
 
 describe('handle is checked', (): void => {
   let browser: Browser | undefined = undefined;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
@@ -43,7 +43,7 @@ describe('handle is checked', (): void => {
 
     // When
     const label = await page.$('label[for="switch1"]');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await label!.click();
 
     const handle = await page.$('#switch1');
@@ -83,7 +83,7 @@ describe('handle is checked', (): void => {
 
     // When
     const label = await page.$('label[for="radio2"]');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await label!.click();
 
     const handle = await page.$('#radio2');
@@ -104,7 +104,7 @@ describe('handle is checked', (): void => {
 
     // When
     const label = await page.$('label[for="radio2"]');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await label!.click();
 
     const handle = await page.$('#radio1');

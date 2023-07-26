@@ -17,7 +17,7 @@ describe('record page errors', (): void => {
       fakeServer.stop();
     }
   });
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {

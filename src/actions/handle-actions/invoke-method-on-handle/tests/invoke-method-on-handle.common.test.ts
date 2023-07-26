@@ -2,7 +2,6 @@ import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 
 describe('invoke method on handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should throw an error when the selector is undefined', async (): Promise<void> => {

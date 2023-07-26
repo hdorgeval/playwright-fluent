@@ -33,22 +33,20 @@ describe('Playwright Fluent - withStorageState', (): void => {
     const currentStorageState = await p.currentStorageState();
     // await p.saveStorageStateTo(storageStateFile);
     expect(currentStorageState).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(currentStorageState!.cookies).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(currentStorageState!.cookies?.length).toBeGreaterThanOrEqual(1);
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const hasGeneratedExtraCookie = currentStorageState!.cookies!.some(
       (cookie) => cookie.name === 'foo' && cookie.value === 'bar',
     );
     expect(hasGeneratedExtraCookie).toBe(true);
 
     // And the localStorage foobar should be re-hydrated
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(currentStorageState!.origins).toBeDefined();
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const localStorageValues = currentStorageState!
       .origins!.filter((origin) => origin.origin === 'https://reactstrap.github.io')!
       .flatMap((origin) => origin.localStorage);
@@ -86,22 +84,19 @@ describe('Playwright Fluent - withStorageState', (): void => {
     // Then the foo=bar cookie should be re-hydrated
     const currentStorageState = await p.currentStorageState();
     expect(currentStorageState).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(currentStorageState!.cookies).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(currentStorageState!.cookies?.length).toBeGreaterThanOrEqual(1);
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(currentStorageState!.cookies).toBeDefined();
+
+    expect(currentStorageState!.cookies?.length).toBeGreaterThanOrEqual(1);
     const hasGeneratedExtraCookie = currentStorageState!.cookies!.some(
       (cookie) => cookie.name === 'foo' && cookie.value === 'bar',
     );
     expect(hasGeneratedExtraCookie).toBe(true);
 
     // And the localStorage foobar should be re-hydrated
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(currentStorageState!.origins).toBeDefined();
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const localStorageValues = currentStorageState!
       .origins!.filter((origin) => origin.origin === 'https://reactstrap.github.io')!
       .flatMap((origin) => origin.localStorage);
@@ -144,22 +139,20 @@ describe('Playwright Fluent - withStorageState', (): void => {
 
     // Then the foo=bar cookie should be saved again
     expect(finalStorageState).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(finalStorageState!.cookies).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(finalStorageState!.cookies?.length).toBeGreaterThanOrEqual(1);
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const hasGeneratedExtraCookie = finalStorageState!.cookies!.some(
       (cookie) => cookie.name === 'foo' && cookie.value === 'bar',
     );
     expect(hasGeneratedExtraCookie).toBe(true);
 
     // And the localStorage foobar should be re-hydrated
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(finalStorageState!.origins).toBeDefined();
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const localStorageValues = finalStorageState!
       .origins!.filter((origin) => origin.origin === 'https://reactstrap.github.io')!
       .flatMap((origin) => origin.localStorage);

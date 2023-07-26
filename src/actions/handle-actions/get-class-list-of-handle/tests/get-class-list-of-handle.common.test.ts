@@ -2,7 +2,6 @@ import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 
 describe('get class list of handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return an empty array when handle is undefined', async (): Promise<void> => {

@@ -3,7 +3,6 @@ import * as SUT from '../index';
 import { defaultInvokeOptions } from '../index';
 
 describe('invoke-method-on-selector', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return an error when page has not been initalized', async (): Promise<void> => {

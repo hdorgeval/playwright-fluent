@@ -4,8 +4,6 @@ import * as SUT from '../index';
 
 describe('are options already selected in handle', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {

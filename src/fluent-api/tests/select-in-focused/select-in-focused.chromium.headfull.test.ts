@@ -57,9 +57,9 @@ describe('Playwright Fluent - select(label).inFocused()', (): void => {
     const allOptions = await p.getAllOptionsOf(selector);
     expect(Array.isArray(allOptions)).toBe(true);
     const selectedOption = allOptions.find((option) => option.selected);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.selected).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.label).toBe('label 2');
   });
 

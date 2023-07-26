@@ -7,7 +7,7 @@ import { sleep } from '../../../../utils';
 // TODO: re-enable these tests on v1.0.0
 describe.skip('handle is moving', (): void => {
   let browser: Browser | undefined = undefined;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {

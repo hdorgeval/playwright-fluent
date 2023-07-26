@@ -3,7 +3,6 @@ import * as SUT from '../index';
 import { defaultCheckOptions } from '../../check-handle';
 
 describe('uncheck handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should throw an error when the browser has not been launched', async (): Promise<void> => {

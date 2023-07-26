@@ -4,9 +4,8 @@ import * as SUT from '../index';
 import { querySelectorAllInPage } from '../../../page-actions';
 
 describe('get elements with role', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   afterEach(async (): Promise<void> => {});
 
   test('should return an empty array when root elements is empty', async (): Promise<void> => {

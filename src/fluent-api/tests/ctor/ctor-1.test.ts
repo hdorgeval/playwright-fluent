@@ -3,7 +3,6 @@ import { chromium, firefox, webkit } from 'playwright';
 import { PlaywrightFluent } from '../../playwright-fluent';
 
 describe('Playwright Fluent - ctor usage', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
   test('should take existing browser and page instance of chromium', async (): Promise<void> => {
     // Given

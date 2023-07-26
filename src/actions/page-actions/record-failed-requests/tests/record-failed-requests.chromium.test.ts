@@ -17,7 +17,7 @@ describe('record failed requests', (): void => {
       fakeServer.stop();
     }
   });
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
@@ -51,10 +51,8 @@ describe('record failed requests', (): void => {
 
     const stringifiedRequest = await stringifyRequest(requests[0]);
     const request = JSON.parse(stringifiedRequest) as RequestInfo;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(request.response!.status).toBe(500);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.statusText).toBe('Internal Server Error');
   });
 });

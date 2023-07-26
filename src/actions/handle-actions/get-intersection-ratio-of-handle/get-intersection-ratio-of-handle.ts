@@ -26,7 +26,7 @@ export async function getIntersectionRatioOfHandle(
         observer.observe(el);
         // Firefox doesn't call IntersectionObserver callback unless
         // there are rafs.
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
+
         requestAnimationFrame(() => {});
       });
       return visibleRatio;

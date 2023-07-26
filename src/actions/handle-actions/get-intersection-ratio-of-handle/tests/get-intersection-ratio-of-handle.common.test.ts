@@ -2,7 +2,6 @@ import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 
 describe('get intersection ratio of handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return -1 when selector is undefined - chromium', async (): Promise<void> => {

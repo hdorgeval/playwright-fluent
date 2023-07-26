@@ -53,7 +53,7 @@ describe('Selector API - withPlaceholder', (): void => {
     expect(Array.isArray(handles)).toBe(true);
     expect(handles.length).toBe(2);
     expect(await handles[0].evaluate((node) => (node as HTMLSelectElement).value)).toBe('');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await firstHandle!.evaluate((node) => (node as HTMLSelectElement).value)).toBe('');
     expect(await handles[1].evaluate((node) => (node as HTMLSelectElement).value)).toBe('foobar');
 
@@ -88,7 +88,7 @@ describe('Selector API - withPlaceholder', (): void => {
     expect(Array.isArray(handles)).toBe(true);
     expect(handles.length).toBe(2);
     expect(await handles[0].evaluate((node) => (node as HTMLSelectElement).value)).toBe('yo');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await firstHandle!.evaluate((node) => (node as HTMLSelectElement).value)).toBe('yo');
     expect(await handles[1].evaluate((node) => (node as HTMLSelectElement).value)).toBe('foobar');
 

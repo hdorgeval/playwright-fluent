@@ -112,11 +112,11 @@ describe('Playwright Fluent - withMocks()', (): void => {
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
 
     expect(sentRequest.url).toContain('?foo=bar');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.status).toBe(200);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.headers['foo-header']).toBe(responseHeaders['foo-header']);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.payload).toMatchObject(mockedResponseBody);
 
     // Given mock is registered
@@ -215,11 +215,11 @@ describe('Playwright Fluent - withMocks()', (): void => {
     const firstRequest = await toRequestInfo(yoRequests[0]);
     const secondRequest = await toRequestInfo(yoRequests[1]);
     const thirdRequest = await toRequestInfo(yoRequests[2]);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(firstRequest.response!.status).toBe(200);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(secondRequest.response!.status).toBe(429);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(thirdRequest.response!.status).toBe(200);
   });
 
@@ -301,15 +301,15 @@ describe('Playwright Fluent - withMocks()', (): void => {
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
 
     expect(sentRequest.url).toContain('?foo=bar');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.status).toBe(401);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.headers['content-type']).toBe('text/plain');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.headers['access-control-allow-origin']).toBe('*');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.headers['access-control-allow-credentials']).toBe('true');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.payload).toBe('sorry, you have no access');
   });
 });

@@ -12,8 +12,6 @@ import { hasHandleFocus } from '../../../handle-actions/has-handle-focus';
 
 describe('double click on selector', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {

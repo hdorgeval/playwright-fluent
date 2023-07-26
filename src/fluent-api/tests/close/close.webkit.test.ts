@@ -1,7 +1,6 @@
 import { PlaywrightFluent } from '../../playwright-fluent';
 import { sleep } from '../../../utils/sleep';
 describe('Playwright Fluent - close', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should close webkit', async (): Promise<void> => {

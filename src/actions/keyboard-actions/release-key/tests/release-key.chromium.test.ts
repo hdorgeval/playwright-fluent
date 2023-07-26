@@ -8,8 +8,6 @@ import { sleep } from '../../../../utils';
 
 describe('release key', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {
@@ -40,7 +38,7 @@ describe('release key', (): void => {
     await pressKey('KeyA', page, defaultKeyboardPressOptions);
 
     // Then
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle!.evaluate((node) => (node as HTMLInputElement).value)).toBe('ABa');
   });
 });

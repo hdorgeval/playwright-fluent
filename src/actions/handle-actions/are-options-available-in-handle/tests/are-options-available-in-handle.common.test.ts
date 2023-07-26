@@ -2,7 +2,6 @@ import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 
 describe('are options available in handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
   test('should throw an error when no options are passed', async (): Promise<void> => {
     // Given

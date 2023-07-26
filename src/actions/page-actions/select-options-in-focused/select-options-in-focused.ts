@@ -46,7 +46,7 @@ export async function selectOptionsInFocused(
   );
 
   const handle = await getFocusedHandle(page);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
   const outerHtml = await handle!.evaluate((el) => el.outerHTML);
   await selectOptionsInHandle(handle, outerHtml, labels, page, options);
 }

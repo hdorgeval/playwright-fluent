@@ -3,7 +3,6 @@ import * as SUT from '../index';
 import { defaultVerboseOptions } from '../../is-handle-visible';
 
 describe('handle is not visible in viewport', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return true when handle is undefined', async (): Promise<void> => {

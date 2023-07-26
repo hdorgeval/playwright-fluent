@@ -3,7 +3,6 @@ import { defaultWaitUntilOptions } from '../../../utils';
 import * as SUT from './index';
 
 describe('get-inner-text-of-selector', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return an error when page has not been initalized', async (): Promise<void> => {

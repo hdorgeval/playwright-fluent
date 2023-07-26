@@ -2,7 +2,6 @@ import { PlaywrightFluent } from '../../playwright-fluent';
 import { BrowserName } from '../../../actions';
 declare const window: Window;
 describe('Playwright Fluent - withBrowser', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should target chrome', async (): Promise<void> => {

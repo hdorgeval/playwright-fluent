@@ -1,7 +1,6 @@
 import * as SUT from '../index';
 
 describe('mock creators', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return a mock for GET json depending on query string', async (): Promise<void> => {
@@ -21,22 +20,14 @@ describe('mock creators', (): void => {
 
     // Then
     expect(mock.displayName).toBe('GET /api/yo?foo=bar');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(mock.urlMatcher!(`https://yo.com/api/yo?foo=baz`)).toBe(true);
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mock.urlMatcher!(`https://yo.com/api/go?foo=baz`)).toBe(false);
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mock.queryStringMatcher!({ foo: 'bar' })).toBe(true);
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mock.queryStringMatcher!({ foo: 'bar', bar: 'baz' })).toBe(true);
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mock.queryStringMatcher!({ bar: 'baz' })).toBe(false);
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mock.queryStringMatcher!({})).toBe(false);
   });
 
@@ -52,8 +43,6 @@ describe('mock creators', (): void => {
 
     // Then
     expect(mock.displayName).toBe('GET /api/yo');
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mock.urlMatcher!(`https://yo.com/api/yo?foo=baz`)).toBe(true);
   });
 
@@ -67,7 +56,6 @@ describe('mock creators', (): void => {
     // Then
     expect(mock.displayName).toBe('GET /api/foo.js');
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mock.urlMatcher!(`https://yo.com/api/foo.js`)).toBe(true);
     expect(mock.responseType).toBe('javascript');
     expect(typeof mock.rawResponse).toBe('function');
@@ -81,11 +69,11 @@ describe('mock creators', (): void => {
 
     // Then
     expect(mock.displayName).toBe('GET /api/foo.js');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(mock.urlMatcher!(`https://yo.com/api/foo.js`)).toBe(true);
     expect(mock.responseType).toBe('empty');
     expect(typeof mock.methodMatcher).toBe('function');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(mock.methodMatcher!(`GET`)).toBe(true);
     expect(mock.status).toBe(401);
   });
@@ -98,11 +86,11 @@ describe('mock creators', (): void => {
 
     // Then
     expect(mock.displayName).toBe('GET /api/foo.js');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(mock.urlMatcher!(`https://yo.com/api/foo.js`)).toBe(true);
     expect(mock.responseType).toBe('empty');
     expect(typeof mock.methodMatcher).toBe('function');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(mock.methodMatcher!(`GET`)).toBe(true);
     expect(mock.status).toBe(403);
   });

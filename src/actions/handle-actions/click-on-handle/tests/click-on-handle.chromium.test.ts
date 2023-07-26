@@ -7,8 +7,6 @@ import { showMousePosition } from '../../../dom-actions';
 
 describe('click on handle', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {

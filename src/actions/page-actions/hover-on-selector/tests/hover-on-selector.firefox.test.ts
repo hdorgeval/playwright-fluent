@@ -12,8 +12,6 @@ import {
 // TODO: re-enable these tests on v1.0.0
 describe.skip('hover on selector', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {

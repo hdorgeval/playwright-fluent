@@ -3,7 +3,6 @@ import * as SUT from '../index';
 import { defaultVerboseOptions } from '../../is-handle-visible';
 
 describe('handle is unchecked', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return false when handle is undefined', async (): Promise<void> => {

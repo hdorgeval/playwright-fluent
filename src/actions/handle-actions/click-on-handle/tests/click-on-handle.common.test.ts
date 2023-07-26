@@ -3,7 +3,6 @@ import * as SUT from '../index';
 import { defaultClickOptions } from '../click-on-handle';
 
 describe('click on handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should throw an error when the browser has not been launched', async (): Promise<void> => {

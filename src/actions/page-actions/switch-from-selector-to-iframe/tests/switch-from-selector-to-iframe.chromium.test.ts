@@ -9,8 +9,6 @@ import { defaultWaitUntilOptions } from '../../../../utils';
 
 describe('switch from selector to iframe', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {

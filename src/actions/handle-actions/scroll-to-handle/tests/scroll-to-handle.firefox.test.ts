@@ -10,8 +10,6 @@ import { isHandleVisibleInViewport } from '../../is-handle-visible-in-viewport';
 // TODO: re-enable these tests on v1.0.0
 describe.skip('scroll to handle', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {
@@ -55,9 +53,9 @@ describe.skip('scroll to handle', (): void => {
     expect(isSelectorVisibleBeforeScroll).toBe(false);
     expect(isSelectorVisibleAfterScroll).toBe(true);
     expect(previousClientRectangle.top).toBeGreaterThan(currentClientRectangle.top);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(previousViewportRectangle!.pageTop).toBe(0);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(currentViewportRectangle!.pageTop).toBeGreaterThan(1000);
   });
 
@@ -86,7 +84,7 @@ describe.skip('scroll to handle', (): void => {
 
     // Then
     expect(previousClientRectangle).toMatchObject(currentClientRectangle);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(previousViewportRectangle!.pageTop).toBe(0);
     expect(currentViewportRectangle).toMatchObject(previousViewportRectangle || {});
   });
@@ -116,9 +114,9 @@ describe.skip('scroll to handle', (): void => {
 
     // Then
     expect(previousClientRectangle.top).toBeGreaterThan(currentClientRectangle.top);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(previousViewportRectangle!.pageTop).toBe(0);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(currentViewportRectangle!.pageTop).toBeGreaterThan(1000);
   });
 });

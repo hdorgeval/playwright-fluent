@@ -20,7 +20,7 @@ describe('on request to respond from HAR files', (): void => {
       fakeServer.stop();
     }
   });
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
@@ -95,15 +95,15 @@ describe('on request to respond from HAR files', (): void => {
     const request = JSON.parse(stringifiedRequest) as RequestInfo;
 
     expect(request.url).toContain('?foo=bar');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.status).toBe(200);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.payload).not.toMatchObject(responseBody);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.payload).not.toMatchObject(mockResponseBody);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.payload).toMatchObject(harResponseBody);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.headers['foo-header']).toBe('har-bar');
   });
 });

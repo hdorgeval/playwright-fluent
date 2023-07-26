@@ -6,8 +6,6 @@ import { getAllOptionsOfHandle } from '../../get-all-options-of-handle';
 
 describe('select options in handle', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {
@@ -184,7 +182,7 @@ describe('select options in handle', (): void => {
     // Then
     const options = await getAllOptionsOfHandle(handle, selector);
     const selectedOption = options.find((o) => o.selected);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.label).toBe('label 1');
   });
 

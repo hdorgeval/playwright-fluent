@@ -4,7 +4,7 @@ import * as SUT from '../index';
 
 describe('handle does not have class', (): void => {
   let browser: Browser | undefined = undefined;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {

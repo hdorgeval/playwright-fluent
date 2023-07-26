@@ -3,9 +3,8 @@ import { chromium } from 'playwright';
 import * as SUT from '../index';
 
 describe('handle has aria-label', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   afterEach(async (): Promise<void> => {});
 
   test('should return true when selector has expected aria-label', async (): Promise<void> => {

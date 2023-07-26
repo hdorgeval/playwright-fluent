@@ -3,7 +3,6 @@ import * as SUT from '../index';
 import { defaultSelectOptions } from '../select-options-in-handle';
 
 describe('select options in handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
   test('should throw an error when browser is not launched', async (): Promise<void> => {
     // Given

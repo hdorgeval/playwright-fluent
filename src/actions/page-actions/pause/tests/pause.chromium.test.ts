@@ -5,8 +5,6 @@ import { showMousePosition } from '../../../dom-actions';
 
 describe('pause', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {

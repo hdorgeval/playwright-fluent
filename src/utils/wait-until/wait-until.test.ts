@@ -2,7 +2,6 @@ import { WaitUntilOptions, defaultWaitUntilOptions, noWaitNoThrowOptions } from 
 import * as SUT from './index';
 
 describe('wait until', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
   test('should wait', async (): Promise<void> => {
     // Given

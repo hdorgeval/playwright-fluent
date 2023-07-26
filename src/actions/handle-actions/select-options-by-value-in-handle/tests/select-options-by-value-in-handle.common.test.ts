@@ -3,7 +3,6 @@ import * as SUT from '../index';
 import { defaultSelectOptions } from '../../select-options-in-handle';
 
 describe('select options by value in handle', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
   test('should throw an error when selector is undefined', async (): Promise<void> => {
     // Given

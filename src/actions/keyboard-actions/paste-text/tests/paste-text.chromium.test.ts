@@ -7,8 +7,6 @@ import { sleep } from '../../../../utils';
 
 describe('paste text', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {
@@ -38,7 +36,7 @@ describe('paste text', (): void => {
     });
 
     // Then
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle!.evaluate((node) => node.innerHTML)).toBe('foobar');
   });
 
@@ -63,7 +61,7 @@ describe('paste text', (): void => {
     });
 
     // Then
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle!.evaluate((node) => (node as HTMLInputElement).value)).toBe('foobar');
   });
 
@@ -85,7 +83,7 @@ describe('paste text', (): void => {
 
     // Then
     const handle = await page.$(selector);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle!.evaluate((node) => (node as HTMLInputElement).value)).toBe('FOOBAR');
   });
 
@@ -111,7 +109,7 @@ describe('paste text', (): void => {
     });
 
     // Then
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle!.evaluate((node) => (node as HTMLInputElement).value)).toBe(
       'paste your text here',
     );
@@ -139,7 +137,7 @@ describe('paste text', (): void => {
     });
 
     // Then
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle!.evaluate((node) => node.innerHTML)).toBe('paste your text here');
   });
 });

@@ -135,8 +135,6 @@ describe('Selector API - next sibling', (): void => {
 
     // Then
     const selectedOption = await p.getSelectedOptionOf(select);
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(selectedOption!.label).toBe('Select 1 - label 2');
   });
 });

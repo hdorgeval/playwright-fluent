@@ -7,8 +7,6 @@ import { defaultClearTextOptions } from '../index';
 
 describe('clear-text', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {
@@ -32,17 +30,17 @@ describe('clear-text', (): void => {
     frameHandle?.hover();
 
     const selector = '#input-inside-iframe';
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     const handle = await frame!.$(selector);
     await handle?.hover();
     await handle?.click();
 
     // When
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await SUT.clearText(frame!, defaultClearTextOptions);
 
     // Then
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle!.evaluate((node) => (node as HTMLInputElement).value)).toBe('');
   });
 });

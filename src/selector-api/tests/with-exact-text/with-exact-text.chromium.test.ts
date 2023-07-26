@@ -52,7 +52,7 @@ describe('Selector API - withExactText', (): void => {
     expect(Array.isArray(handles)).toBe(true);
     expect(handles.length).toBe(2);
     expect(await handles[0].evaluate((node) => (node as HTMLSelectElement).innerText)).toBe('cell');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await firstHandle!.evaluate((node) => (node as HTMLSelectElement).innerText)).toBe(
       'cell',
     );
@@ -87,7 +87,7 @@ describe('Selector API - withExactText', (): void => {
     expect(Array.isArray(handles)).toBe(true);
     expect(handles.length).toBe(2);
     expect(await handles[0].evaluate((node) => (node as HTMLSelectElement).innerText)).toBe('cell');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await firstHandle!.evaluate((node) => (node as HTMLSelectElement).innerText)).toBe(
       'cell',
     );

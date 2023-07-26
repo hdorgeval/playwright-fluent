@@ -36,12 +36,10 @@ describe('Selector API - immutability', (): void => {
     expect(handle1).not.toBeNull();
     expect(handle2).not.toBeNull();
     expect(handle3).not.toBeNull();
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(await handle1!.evaluate((el) => el.innerHTML)).toBe('row1-cell2');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle2!.evaluate((el) => el.innerHTML)).toBe('row2-cell2');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle3!.evaluate((el) => el.innerHTML)).toBe('row3-cell2');
 
     const expectedChainingHistory1 = `selector([role="row"])

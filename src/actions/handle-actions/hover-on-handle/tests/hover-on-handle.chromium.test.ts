@@ -9,8 +9,6 @@ import { isHandleVisibleInViewport } from '../../is-handle-visible-in-viewport';
 
 describe('hover on handle', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {
@@ -165,7 +163,7 @@ describe('hover on handle', (): void => {
     const frame = await frameHandle?.contentFrame();
     await injectCursor(frame);
     const selector = '#inside-iframe';
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     const handle = await frame!.$(selector);
 
     const options: HoverOptions = {

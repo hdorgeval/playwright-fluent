@@ -3,7 +3,6 @@ import * as SUT from '../index';
 import { defaultClickOptions, Point } from '../../../handle-actions';
 
 describe('click-at-position', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return an error when page has not been initalized', async (): Promise<void> => {

@@ -17,7 +17,7 @@ describe('Selector API - forEach', (): void => {
     let result: Error | undefined = undefined;
     try {
       const selectors = p.selector('foobar');
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
+
       await selectors.forEach(async () => {});
     } catch (error) {
       result = error as Error;

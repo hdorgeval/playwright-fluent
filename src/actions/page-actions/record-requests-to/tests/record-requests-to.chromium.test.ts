@@ -17,7 +17,7 @@ describe('record requests to', (): void => {
       fakeServer.stop();
     }
   });
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
@@ -60,9 +60,9 @@ describe('record requests to', (): void => {
     const request = JSON.parse(stringifiedRequest) as RequestInfo;
 
     expect(request.url).toContain('?foo=bar');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.status).toBe(200);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await request.response!.payload).toMatchObject(responseBody);
   });
 
@@ -93,10 +93,8 @@ describe('record requests to', (): void => {
 
     const stringifiedRequest = await stringifyRequest(requests[0]);
     const request = JSON.parse(stringifiedRequest) as RequestInfo;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(request.response!.status).toBe(500);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.statusText).toBe('Internal Server Error');
   });
 
@@ -119,10 +117,8 @@ describe('record requests to', (): void => {
     const htmlPageRequest = requests[0];
     const stringifiedRequest = await stringifyRequest(htmlPageRequest);
     const request = JSON.parse(stringifiedRequest) as RequestInfo;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(request.response!.payload).not.toContain('<script>');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.payload).toContain('&lt;script&gt;');
   });
 
@@ -153,11 +149,9 @@ describe('record requests to', (): void => {
 
     const stringifiedRequest = await stringifyRequest(requests[0]);
     const request = JSON.parse(stringifiedRequest) as RequestInfo;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(request.response!.status).toBe(502);
     expect(request.postData).toMatchObject({ foo: 'bar' });
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(request.response!.statusText).toBe('Bad Gateway');
   });
 });

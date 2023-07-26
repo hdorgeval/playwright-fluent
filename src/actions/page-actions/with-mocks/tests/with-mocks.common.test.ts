@@ -3,7 +3,6 @@ import * as SUT from '../index';
 import { FluentMock } from '../with-mocks';
 
 describe('with mocks', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return an error when browser has not been launched', async (): Promise<void> => {

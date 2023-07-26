@@ -7,8 +7,6 @@ import { sleep } from '../../../../utils';
 
 describe('hold down key', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   afterEach(async (): Promise<void> => {
@@ -39,7 +37,7 @@ describe('hold down key', (): void => {
     await pressKey('KeyA', page, defaultKeyboardPressOptions);
 
     // Then
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await handle!.evaluate((node) => (node as HTMLInputElement).value)).toBe('ABa');
   });
 });

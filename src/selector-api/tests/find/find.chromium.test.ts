@@ -52,7 +52,7 @@ describe('Selector API - find', (): void => {
     expect(Array.isArray(handles)).toBe(true);
     expect(handles.length).toBe(3);
     expect(await handles[0].evaluate((node) => (node as HTMLSelectElement).value)).toBe('1');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await firstHandle!.evaluate((node) => (node as HTMLSelectElement).value)).toBe('1');
     expect(await handles[1].evaluate((node) => (node as HTMLSelectElement).value)).toBe('2');
     expect(await handles[2].evaluate((node) => (node as HTMLSelectElement).value)).toBe('3');
@@ -84,7 +84,7 @@ describe('Selector API - find', (): void => {
     expect(Array.isArray(handles)).toBe(true);
     expect(handles.length).toBe(3);
     expect(await handles[0].evaluate((node) => (node as HTMLSelectElement).value)).toBe('1');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(await firstHandle!.evaluate((node) => (node as HTMLSelectElement).value)).toBe('1');
     expect(await handles[1].evaluate((node) => (node as HTMLSelectElement).value)).toBe('2');
     expect(await handles[2].evaluate((node) => (node as HTMLSelectElement).value)).toBe('3');

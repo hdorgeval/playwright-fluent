@@ -52,10 +52,8 @@ describe('Playwright Fluent - recordFailedRequests(url)', (): void => {
 
     const stringifiedSentRequest = await stringifyRequest(requests[0]);
     const failedRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(failedRequest.response!.status).toBe(500);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(failedRequest.response!.statusText).toBe('Internal Server Error');
   });
 
@@ -91,10 +89,8 @@ describe('Playwright Fluent - recordFailedRequests(url)', (): void => {
 
     const stringifiedSentRequest = await stringifyRequest(requests[0]);
     const failedRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(failedRequest.response!.status).toBe(500);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(failedRequest.response!.statusText).toBe('Internal Server Error');
 
     // When I clear all failed request

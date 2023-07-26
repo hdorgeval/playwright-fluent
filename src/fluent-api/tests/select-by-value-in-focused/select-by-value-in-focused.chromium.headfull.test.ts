@@ -55,7 +55,7 @@ describe('Playwright Fluent - selectByValue(value).inFocused()', (): void => {
     expect(hasFocus).toBe(true);
 
     const selectedOption = await p.getSelectedOptionOf(selector);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.label).toBe('label 2');
   });
 
@@ -79,7 +79,7 @@ describe('Playwright Fluent - selectByValue(value).inFocused()', (): void => {
     expect(value).toBe('value bar');
 
     const selectedOption = await p.getSelectedOptionOf(selector);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.label).toBe('label bar');
   });
 

@@ -4,7 +4,7 @@ import * as SUT from '../index';
 
 describe('query selector all in page', (): void => {
   let browser: Browser | undefined = undefined;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
@@ -51,11 +51,11 @@ describe('query selector all in page', (): void => {
 
     // Then
     expect(result.length).toBe(3);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect((await result[0]!.getProperty('innerText'))!.toString()).toContain('row1');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect((await result[1]!.getProperty('innerText'))!.toString()).toContain('row2');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect((await result[2]!.getProperty('innerText'))!.toString()).toContain('row3');
   });
 

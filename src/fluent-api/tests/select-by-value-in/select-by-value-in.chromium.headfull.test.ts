@@ -29,9 +29,9 @@ describe('Playwright Fluent - selectByValue(values).in(selector)', (): void => {
     expect(hasFocus).toBe(false);
 
     const selectedOption = await p.getSelectedOptionOf(selector);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.selected).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.label).toBe('label 2');
   });
   test('should select an existing option of a selector object - chromium', async (): Promise<void> => {
@@ -55,9 +55,9 @@ describe('Playwright Fluent - selectByValue(values).in(selector)', (): void => {
     expect(hasFocus).toBe(false);
 
     const selectedOption = await selector.selectedOption();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.selected).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.label).toBe('label 2');
   });
 
@@ -96,7 +96,7 @@ describe('Playwright Fluent - selectByValue(values).in(selector)', (): void => {
 
     // Then
     const selectedOption = await selector.selectedOption();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.value).toBe('value bar');
   });
 });

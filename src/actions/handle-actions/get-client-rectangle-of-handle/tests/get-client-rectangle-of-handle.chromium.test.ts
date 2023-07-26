@@ -6,7 +6,7 @@ import { SerializableDOMRect } from '../../../dom-actions';
 
 describe('get client rectangle of an element handle', (): void => {
   let browser: Browser | undefined = undefined;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {

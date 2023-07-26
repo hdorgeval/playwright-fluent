@@ -4,7 +4,7 @@ import { WaitUntilOptions, defaultWaitUntilOptions } from '../../../../utils';
 
 describe('get-handle-of', (): void => {
   let browser: Browser | undefined = undefined;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {

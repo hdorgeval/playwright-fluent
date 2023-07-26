@@ -222,11 +222,10 @@ export interface WithMocksOptions {
 }
 
 export const defaultMocksOptions: WithMocksOptions = {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onMockNotFound: () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   onMockFound: () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   onInternalError: () => {},
 };
 

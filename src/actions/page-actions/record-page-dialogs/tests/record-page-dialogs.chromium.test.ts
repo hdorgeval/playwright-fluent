@@ -5,8 +5,6 @@ import { sleep } from '../../../../utils';
 
 describe('record page dialogs', (): void => {
   let browser: Browser | undefined = undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
@@ -34,7 +32,7 @@ describe('record page dialogs', (): void => {
 
     // Then
     expect(dialogIsOpened).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(openedDialog!.type()).toBe('confirm');
   });
 
@@ -58,7 +56,7 @@ describe('record page dialogs', (): void => {
 
     // Then
     expect(dialogIsOpened).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(openedDialog!.type()).toBe('alert');
   });
 
@@ -82,7 +80,7 @@ describe('record page dialogs', (): void => {
 
     // Then
     expect(dialogIsOpened).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(openedDialog!.type()).toBe('prompt');
   });
 });

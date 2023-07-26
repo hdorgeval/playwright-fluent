@@ -1,7 +1,6 @@
 import { ElementHandle } from 'playwright';
 import * as SUT from '../index';
 describe('handle has aria-label', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
 
   test('should return false when handle is undefined', async (): Promise<void> => {

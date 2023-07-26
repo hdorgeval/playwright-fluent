@@ -4,7 +4,7 @@ import { ViewportRect } from '../index';
 
 describe('get viewport rectangle of page', (): void => {
   let browser: Browser | undefined = undefined;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
@@ -40,12 +40,10 @@ describe('get viewport rectangle of page', (): void => {
       width: 1024,
     };
     expect(result).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(result!.height).toBe(defaultViewportRectangle.height);
     expect(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       result!.width === defaultViewportRectangle.width ||
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         result!.width === defaultViewportRectangleOnCI.width,
     ).toBe(true);
   });

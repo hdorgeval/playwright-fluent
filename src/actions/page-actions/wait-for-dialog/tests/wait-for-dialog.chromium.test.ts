@@ -4,9 +4,8 @@ import * as SUT from '../index';
 import { recordPageDialogs } from '../../record-page-dialogs';
 
 describe('wait for page dialog to open', (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach((): void => {});
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   afterEach(async (): Promise<void> => {});
 
   test('should wait for confirm dialog to open', async (): Promise<void> => {
@@ -29,7 +28,7 @@ describe('wait for page dialog to open', (): void => {
 
     // Then
     expect(dialogIsOpened).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(openedDialog!.type()).toBe('confirm');
     await browser.close();
   });
@@ -54,7 +53,7 @@ describe('wait for page dialog to open', (): void => {
 
     // Then
     expect(dialogIsOpened).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(openedDialog!.type()).toBe('alert');
     await browser.close();
   });
@@ -79,7 +78,7 @@ describe('wait for page dialog to open', (): void => {
 
     // Then
     expect(dialogIsOpened).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(openedDialog!.type()).toBe('prompt');
     await browser.close();
   });

@@ -4,7 +4,7 @@ import * as SUT from '../index';
 
 describe('handle has focus', (): void => {
   let browser: Browser | undefined = undefined;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   beforeEach((): void => {});
   afterEach(async (): Promise<void> => {
     if (browser) {
@@ -23,7 +23,7 @@ describe('handle has focus', (): void => {
     const input2 = await page.$('#input2');
 
     // When
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await input1!.click();
     const input1HasFocus = await SUT.hasHandleFocus(input1);
     const input2HasFocus = await SUT.hasHandleFocus(input2);
@@ -47,7 +47,7 @@ describe('handle has focus', (): void => {
     const p2 = await page.$('#p2');
 
     // When
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await p1!.click();
     let p1HasFocus = await SUT.hasHandleFocus(p1);
     let p2HasFocus = await SUT.hasHandleFocus(p2);
@@ -59,7 +59,7 @@ describe('handle has focus', (): void => {
     expect(p2HasFocus).toBe(false);
 
     // When
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await p2!.click();
     p1HasFocus = await SUT.hasHandleFocus(p1);
     p2HasFocus = await SUT.hasHandleFocus(p2);
@@ -81,7 +81,7 @@ describe('handle has focus', (): void => {
 
     // When
     const initialFocus = await SUT.hasHandleFocus(input1);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await input1!.click();
     const finalFocus = await SUT.hasHandleFocus(input1);
 

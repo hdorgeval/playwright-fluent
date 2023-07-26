@@ -95,11 +95,11 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
 
     expect(sentRequest.url).toContain('?foo=bar');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.status).toBe(200);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.headers['foo-header']).toBe(responseHeaders['foo-header']);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.payload).toMatchObject(mockResponseBody);
   });
 
@@ -180,11 +180,11 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
 
     expect(sentRequest.url).toContain('?foo=bar');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.status).toBe(200);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.headers['foo-header']).toBe(responseHeaders['foo-header']);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.payload).toMatchObject(mockResponseBody);
   });
 
@@ -255,15 +255,15 @@ describe('Playwright Fluent - onRequestTo(url).respondWith()', (): void => {
     const sentRequest = JSON.parse(stringifiedSentRequest) as RequestInfo;
 
     expect(sentRequest.url).toContain('?foo=bar');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.status).toBe(401);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.headers['content-type']).toBe('text/plain');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.headers['access-control-allow-origin']).toBe('*');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.headers['access-control-allow-credentials']).toBe('true');
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(sentRequest.response!.payload).toBe('sorry, you have no access');
   });
 });

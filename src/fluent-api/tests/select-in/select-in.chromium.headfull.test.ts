@@ -31,9 +31,9 @@ describe('Playwright Fluent - select(label).in(selector)', (): void => {
     const allOptions = await p.getAllOptionsOf(selector);
     expect(Array.isArray(allOptions)).toBe(true);
     const selectedOption = allOptions.find((option) => option.selected);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.selected).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.label).toBe('label 2');
   });
   test('should select an existing option of a selector object - chromium', async (): Promise<void> => {
@@ -59,9 +59,9 @@ describe('Playwright Fluent - select(label).in(selector)', (): void => {
     const allOptions = await selector.options();
     expect(Array.isArray(allOptions)).toBe(true);
     const selectedOption = allOptions.find((option) => option.selected);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.selected).toBe(true);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     expect(selectedOption!.label).toBe('label 2');
   });
 

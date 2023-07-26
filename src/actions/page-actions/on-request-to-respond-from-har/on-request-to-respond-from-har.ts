@@ -137,11 +137,11 @@ export const defaultHarRequestResponseOptions: HarRequestResponseOptions = {
   filterHarEntryByUrl: (requestUrl, harRequestUrl) =>
     urlToPathWithoutQueryString(requestUrl) === urlToPathWithoutQueryString(harRequestUrl),
   filterHarEntryByResponseStatus: (status) => status >= 200 && status < 300,
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
   selectEntryFromFoundHarEntries: (entries) => entries.pop()!,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   onHarEntryNotFound: () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+
   onHarEntryFound: () => {},
   enrichResponseHeaders: (headers) => headers,
   filterHarEntryByPostData: (requestPostData, harPostData) => requestPostData === harPostData.text,
