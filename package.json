@@ -14,7 +14,7 @@
     "build-device-descriptors": "ts-node ./src/devices/device-descriptors-builder.ts",
     "build": "rimraf lib && npm run format && npm run lint && tsc",
     "check-format": "prettier --list-different \"src/**/*.ts\" ",
-    "format": "prettier --loglevel warn --list-different --write \"src/**/*.ts\" ",
+    "format": "prettier --log-level warn --list-different --write \"src/**/*.ts\" ",
     "install-peers": "npm install --no-save playwright@latest",
     "jest-init": "jest --init",
     "lint-fix": "npm run lint -- --fix",
@@ -48,15 +48,15 @@
   "devDependencies": {
     "@types/debug": "4.1.8",
     "@types/jest": "29.5.2",
-    "@types/node": "20.3.0",
-    "@typescript-eslint/eslint-plugin": "5.59.9",
-    "@typescript-eslint/parser": "5.59.9",
-    "eslint": "8.42.0",
+    "@types/node": "20.4.5",
+    "@typescript-eslint/eslint-plugin": "6.2.0",
+    "@typescript-eslint/parser": "6.2.0",
+    "eslint": "8.45.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-prettier": "5.0.0",
     "jest": "29.5.0",
-    "prettier": "2.8.8",
+    "prettier": "3.0.0",
     "rimraf": "5.0.1",
     "simple-fake-server": "3.4.0",
     "ts-jest": "29.1.0",
@@ -76,3 +76,4 @@
     "playwright": ">= 1.12.0"
   }
 }
+
