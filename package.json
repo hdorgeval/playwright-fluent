@@ -68,7 +68,7 @@
     "@types/which": "3.0.0",
     "escape-html": "1.0.3",
     "is-ci": "3.0.1",
-    "tslib": "2.5.3",
+    "tslib": "2.6.1",
     "uuid": "9.0.0",
     "which": "3.0.1"
   },
