@@ -12,7 +12,7 @@ install:
       }
   - set PATH=%APPDATA%\npm;%PATH%
   - npm install
-  - npm install --no-save playwright@1.36.2
+  - npm install --no-save playwright@1.37.0
 
 matrix:
   fast_finish: false
